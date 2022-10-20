@@ -23,7 +23,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "zip": "cd build; zip -r ../build.zip *; cd ../",
+    "all": "yarn build; yarn export -o build; yarn zip; yarn scp",
+    "scp": "scp build.zip root@161.35.109.81:/var/www/html/studio-jabour-site",
+    "unzip": "ssh root@161.35.109.81 \"cd /var/www/html/studio-jabour-site && find . \\! -name 'build.zip' -delete && unzip build.zip\""
   },
   "eslintConfig": {
     "extends": [
