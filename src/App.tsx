@@ -22,46 +22,37 @@ import Ranking from './pages/Ranking'
 
 
 function App() {
-  
+    useEffect(() => {
+        $(".menu-trigger").on("click", function () {
+            $(".offcanvas-wrapper,.offcanvas-overly").addClass("active");
+            return false;
+        });
+        $(".menu-close,.offcanvas-overly").on("click", function () {
+            $(".offcanvas-wrapper,.offcanvas-overly").removeClass("active");
+        });
+    }, [])
 
-  useEffect(()=>{
-    $(".menu-trigger").on("click", function () {
-      $(".offcanvas-wrapper,.offcanvas-overly").addClass("active");
-      return false;
-  });
-  $(".menu-close,.offcanvas-overly").on("click", function () {
-      $(".offcanvas-wrapper,.offcanvas-overly").removeClass("active");
-  });
+    return (
+        <div className="App">
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/nft-marketplace" element={<Explore />} />
+                <Route path="/collections" element={<Collections />} />
+                <Route path="/blog" element={<Blog />} />
 
-  
-  
-  },[])
-
-  return (
-    <div className="App">
-       <Routes>
-        
-     
-            <Route  path="/" element={<Home/>}/>
-            <Route path="/nft-marketplace" element={<Explore/>}/>
-            <Route path="/collections" element={<Collections/>}/>
-            <Route path="/blog" element={<Blog/>}/>
-           
-            <Route path="/blog-details"  element={<BlogDetails/>}/>
-            <Route path="/activity"  element={<Activity/>}/>
-            <Route path="/ranking"  element={<Ranking/>}/>
-            <Route path="/login-register"  element={<LoginRegister/>}/>
-            <Route path="/author-profile"  element={<AuthorProfile/>}/>
-            <Route path="/create-item"  element={<CreateItem/>}/>
-            <Route path="/category"  element={<Category/>}/>
-            <Route path="/creators"  element={<Creators/>}/>
-            <Route path="/market-single"  element={<MarketSingle/>}/>
-            <Route path="/nft-live-bidding"  element={<NftLiveBidding/>}/>
-      
-    </Routes>
-
-    </div>
-  );
+                <Route path="/blog-details" element={<BlogDetails />} />
+                <Route path="/activity" element={<Activity />} />
+                <Route path="/ranking" element={<Ranking />} />
+                <Route path="/login-register" element={<LoginRegister />} />
+                <Route path="/author-profile" element={<AuthorProfile />} />
+                <Route path="/create-item" element={<CreateItem />} />
+                <Route path="/category" element={<Category />} />
+                <Route path="/creators" element={<Creators />} />
+                <Route path="/market-single" element={<MarketSingle />} />
+                <Route path="/nft-live-bidding" element={<NftLiveBidding />} />
+            </Routes>
+        </div>
+    );
 }
 
 export default App;

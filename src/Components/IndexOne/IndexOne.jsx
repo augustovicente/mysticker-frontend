@@ -9,17 +9,17 @@ import TopCollection from './TopCollection'
 
 
 const IndexOne = () => {
-  return (
-    <main>
-        <Banner/>
-        <TopCollection/>
-        <AreaBg/>
-        <ExploreProduct/>
-        <LatestNews/>
-        <DesignNews/>
-        <Testimonial/>
-    </main>
-  )
+    return (
+        <main>
+            <Banner />
+            {/* <TopCollection />
+            <AreaBg />
+            <ExploreProduct />
+            <LatestNews />
+            <DesignNews />
+            <Testimonial /> */}
+        </main>
+    )
 }
 
 export default IndexOne

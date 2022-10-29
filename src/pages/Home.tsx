@@ -6,18 +6,17 @@ import IndexOne from '../Components/IndexOne/IndexOne'
 import SideBar from '../Components/IndexOne/SideBar'
 
 const Home = () => {
-  return (
-  <>
-    <SideBar/>
-  
-    <div className="main-content">
-    <Header/>
-        <IndexOne/>
+    return (
+        <>
+            <SideBar />
 
-    </div>
-    <Footer/>
-  </>
-  )
+            <div className="main-content">
+                <Header />
+                <IndexOne />
+            </div>
+            <Footer />
+        </>
+    )
 }
 
 export default Home
