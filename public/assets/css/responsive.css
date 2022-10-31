@@ -822,10 +822,15 @@
         margin: 7px 15px;
     }
 
+    section#copa_pru .title {
+        font-size: var(--heading-3) !important;
+    }
+
 }
 
 
 @media (max-width: 460px) {
+
     .header-form {
         display: none;
     }
@@ -860,6 +865,16 @@
         margin-bottom: 25px;
     }
 
+    section#buster h3.title {
+        top: 74px !important;
+    }
+
+
+    section#buster img.boot {
+        width: 244px !important;
+        bottom: -112px;
+    }
+
 }
 
 
@@ -869,10 +884,6 @@
     .custom-container,
     .container {
         max-width: 540px;
-    }
-
-    .banner-content .title {
-        font-size: 56px;
     }
 
     .banner-bg {

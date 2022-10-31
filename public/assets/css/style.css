@@ -86,6 +86,10 @@
     --dark-blue-color: #6345ED;
 }
 
+html, body {
+    overflow-x: hidden !important;
+}
+
 body {
     font-family: var(--font-family-body);
     font-weight: normal;
@@ -4851,6 +4855,10 @@ label {
 
 
 /* 22. Section 2 - COPA PRUUU! */
+section#copa_pru {
+    background: #12132F;
+}
+
 section#copa_pru img {
     max-width: 100%;
     width: 100%;
@@ -4876,6 +4884,84 @@ section#copa_pru p {
     color: var(--white);
     margin-bottom: 30px;
 }
+
+section#buster {
+    background: #12132F;
+    padding: 124px 0 84px;
+    position: relative;
+    /* overflow-x: hidden; */
+}
+
+section#buster h3.title {
+    color: var(--white);
+    text-align: center;
+    white-space: pre-line;
+    font-size: var(--heading-3);
+    position: absolute;
+    top: 94px;
+}
+
+section#buster button.pick-sticker {
+    margin-top: 18px;
+    border: 0;
+    padding: 15px 44px;
+    background-color: var(--color-middle);
+    border-radius: 8px;
+}
+
+section#buster button.pick-sticker:hover {
+    filter: brightness(0.8);
+}
+
+section#buster button.pick-sticker a {
+    color: var(--white);
+    font-weight: bold;
+}
+
+section#buster img.boot {
+    position: absolute;
+    bottom: -144px;
+    right: -64px;
+    max-width: 364px;
+    width: 100%;
+    z-index: 2;
+}
+
+section#partners {
+    padding: 124px 0 84px;
+    /* height: 900px; */
+    background: url('../img/others/world.png') center center / cover no-repeat;
+}
+
+
+
+section#partners div.grid {
+    /* display: grid; */
+    /* grid-template-columns: repeat(5, 1fr); */
+    flex-flow: column;
+}
+
+section#partners .title {
+    display: block;
+    color: var(--white);
+    text-align: center;
+    font-size: var(--heading-3);
+}
+
+section#partners .title::before {
+    content: '';
+    width: 44px;
+    height: 4px;
+    background: var(--green);
+}
+
+section#partners .grid img {
+    width: 44px;
+    height: 44px;
+    display: block;
+    clip-path: ellipse(50% 50% at 50% 50%);
+}
+
 
 @-webkit-keyframes object_one {
     75% {
