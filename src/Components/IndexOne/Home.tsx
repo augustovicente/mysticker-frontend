@@ -1,5 +1,7 @@
 import React from 'react'
 import StickersImg from '../../assets/imgs/home-stickers.svg'
+import StickersImg2 from '../../assets/imgs/tres.png'
+import StickersImg3 from '../../assets/imgs/tres2.png'
 import StickerCupImg from '../../assets/imgs/sticker-cup.svg'
 import BusterImg from '../../assets/imgs/buster.svg'
 import BootImg from '../../assets/imgs/boot.svg'
@@ -27,7 +29,7 @@ const developers = [
     }
 ]
 
-export const Home = () => {
+const Home = () => {
     return (
         <>
             <section className="banner-bg">
@@ -134,3 +136,5 @@ export const Home = () => {
         </>
     )
 }
+
+export default Home;

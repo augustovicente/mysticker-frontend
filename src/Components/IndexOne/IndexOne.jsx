@@ -1,6 +1,6 @@
 import React from 'react'
 import AreaBg from './AreaBg'
-import Banner, { Home } from './Home'
+import Home from './Home'
 import DesignNews from './DesignNews'
 import ExploreProduct from './ExploreProduct'
 import LatestNews from './LatestNews'

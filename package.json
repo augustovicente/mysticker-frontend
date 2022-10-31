@@ -8,12 +8,12 @@
         "react": "^18.1.0",
         "react-dom": "^18.1.0",
         "react-router-dom": "^6.4.2",
-        "react-scripts": "5.0.1",
         "react-slick": "^0.29.0"
     },
     "scripts": {
-        "start": "react-scripts start --host",
-        "build": "react-scripts build",
+        "start": "vite --host --open",
+        "build": "vite build",
+        "preview": "vite preview",
         "zip": "cd build; zip -r ../build.zip *; cd ../",
         "all": "yarn build; yarn export -o build; yarn zip; yarn scp",
         "scp": "scp build.zip root@161.35.109.81:/var/www/html/mysticker",
@@ -42,6 +42,10 @@
         "@types/node": "^18.8.3",
         "@types/react": "^18.0.21",
         "@types/react-dom": "^18.0.6",
-        "typescript": "^4.8.4"
+        "@vitejs/plugin-react": "^2.2.0",
+        "typescript": "^4.8.4",
+        "vite": "^3.2.2",
+        "vite-plugin-svgr": "^2.2.2",
+        "vite-tsconfig-paths": "^3.5.2"
     }
 }

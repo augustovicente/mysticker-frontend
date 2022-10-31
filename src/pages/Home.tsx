@@ -1,9 +1,9 @@
+import Footer from 'Components/Footer/Footer'
 import React from 'react'
-import Footer from '../Components/Footer/Footer'
-import Header from '../Components/Header/Header'
-import IndexOne from '../Components/IndexOne/IndexOne'
+import Header from 'Components/Header/Header'
+import IndexOne from 'Components/IndexOne/IndexOne'
 
-import SideBar from '../Components/IndexOne/SideBar'
+import SideBar from 'Components/IndexOne/SideBar'
 
 const Home = () => {
     return (
