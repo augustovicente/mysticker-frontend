@@ -10,6 +10,15 @@ export default defineConfig({
         port: 3000
     },
     build: {
-        outDir: 'build'
+        outDir: 'build',
+        minify: 'esbuild',
+        cssCodeSplit: true,
+    },
+    optimizeDeps: {
+        esbuildOptions: {
+            minify: true,
+            minifySyntax: true,
+            minifyWhitespace: true,
+        }
     }
 });

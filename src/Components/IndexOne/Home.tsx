@@ -95,7 +95,7 @@ const Home = () => {
                             </div>
 
                             <div className="col-lg-7 col-md-8">
-                                <img className='banner-stickers' src={StickersImg} alt="3 figurinhas da copa pru" />
+                                <img className='banner-stickers' loading="lazy" src={StickersImg} alt="3 figurinhas da copa pru" />
                             </div>
                         </div>
                     </div>
@@ -106,7 +106,7 @@ const Home = () => {
                 <div className="container">
                     <div className="row flex-column flex-lg-row justify-content-center flex-column">
                         <div className="col-lg-6 col-md-8 d-flex align-items-center">
-                            <img src={StickerCupImg} alt="Pacote de figurinha" />
+                            <img src={StickerCupImg} loading="lazy" alt="Pacote de figurinha" />
                         </div>
 
                         <div className="col-lg-6 col-md-8 align-self-center">
@@ -137,13 +137,13 @@ const Home = () => {
                                 O 1º Buster é {'\n'}
                                 por nossa conta
                             </h3>
-                            <img src={BusterImg} alt="Pacote de figurinha" />
+                            <img src={BusterImg} loading="lazy" alt="Pacote de figurinha" />
 
                             <button className='pick-sticker'>
                                 <a href="/login-register">Resgate seu Pacotinho</a>
                             </button>
 
-                            <img src={BootImg} className="boot" alt="Pacote de figurinha" />
+                            <img src={BootImg} loading="lazy" className="boot" alt="Pacote de figurinha" />
                         </div>
                     </div>
                 </div>
@@ -158,7 +158,7 @@ const Home = () => {
                         <div className='grid'>
                             {developers.map((developer, index) => (
                                 <div className='dev' key={index}>
-                                    <img src={developer.avatar} alt="Avatar" />
+                                    <img src={developer.avatar} loading="lazy" alt="Avatar" />
                                     <p>{developer.name}</p>
                                 </div>
                             ))}
@@ -172,7 +172,7 @@ const Home = () => {
                         <div className='grid'>
                             {developers.map((developer, index) => (
                                 <div key={index} className="partner">
-                                    <img src={developer.avatar} alt="Avatar" />
+                                    <img src={developer.avatar} loading="lazy" alt="Avatar" />
                                     <p>{developer.name}</p>
                                 </div>
                             ))}
@@ -182,7 +182,7 @@ const Home = () => {
             </section>
 
             <section id="roadmap">
-                <img className='trophy' src={Trophy} alt="Troféu" />
+                <img className='trophy' src={Trophy} loading="lazy" alt="Troféu" />
 
                 <div className="container">
                     <h3 className='title'>
