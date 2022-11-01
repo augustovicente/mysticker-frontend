@@ -540,6 +540,19 @@
         margin-bottom: 0;
     }
 
+    section#roadmap img.trophy {
+        top: unset;
+        bottom: -280px;
+        right: unset;
+        left: unset;
+        right: -144px;
+        z-index: 1;
+    }
+
+    section#roadmap .roadmap-item {
+        margin-top: 44px;
+    }
+
 }
 
 

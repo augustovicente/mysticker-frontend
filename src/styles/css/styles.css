@@ -86,7 +86,8 @@
     --dark-blue-color: #6345ED;
 }
 
-html, body {
+html,
+body {
     overflow-x: hidden !important;
 }
 
@@ -1563,7 +1564,6 @@ label {
 
 .banner-area img.banner-stickers {
     margin-top: -164px;
-    width: 100%;
 }
 
 .banner-content .title {
@@ -4856,13 +4856,11 @@ label {
 
 /* 22. Section 2 - COPA PRUUU! */
 section#copa_pru {
+    padding: 64px 0;
     background: #12132F;
 }
 
-section#copa_pru img {
-    max-width: 100%;
-    width: 100%;
-}
+section#copa_pru img {}
 
 section#copa_pru h2.title {
     font-size: var(--heading-2);
@@ -4928,17 +4926,54 @@ section#buster img.boot {
 }
 
 section#partners {
-    padding: 124px 0 84px;
-    /* height: 900px; */
-    background: url('../../../public/assets/img/others/world.png') center center / cover no-repeat;
+    padding: 44px 0 112px;
+    background: url('../../assets/imgs/world.png') no-repeat center center/cover;
 }
 
-
+section#partners .container>div {
+    margin-top: 94px;
+}
 
 section#partners div.grid {
-    /* display: grid; */
-    /* grid-template-columns: repeat(5, 1fr); */
-    /* flex-flow: column; */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    place-items: center;
+    margin-top: 64px;
+    gap: 44px;
+}
+
+section#partners .dev {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 12px;
+    color: var(--white);
+    padding: 12px 0;
+}
+
+section#partners p {
+    margin: 0;
+}
+
+section#partners .partner {
+    width: 100%;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 12px;
+    color: var(--white);
+}
+
+section#partners .grid img {
+    min-width: 94px;
+    min-height: 94px;
+    width: 94px;
+    height: 94px;
+    display: block;
+    clip-path: ellipse(50% 50% at 50% 50%);
 }
 
 section#partners .title {
@@ -4946,20 +4981,93 @@ section#partners .title {
     color: var(--white);
     text-align: center;
     font-size: var(--heading-3);
+    position: relative;
 }
 
-section#partners .title::before {
+section#partners .title::after {
     content: '';
-    width: 44px;
-    height: 4px;
-    background: var(--green);
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 8px;
+    border-radius: 25px;
+    max-width: 204px;
+    width: 100%;
+    display: grid;
+    background: #97FF57;
 }
 
-section#partners .grid img {
-    width: 44px;
-    height: 44px;
-    display: block;
-    clip-path: ellipse(50% 50% at 50% 50%);
+section#partners .title.partners::after {
+    background: #B150E7;
+}
+
+
+section#roadmap {
+    padding: 112px 0 112px;
+    background: #12132F;
+    position: relative;
+    white-space: pre-line;
+}
+
+section#roadmap img.trophy {
+    position: absolute;
+    top: 0;
+    left: -194px;
+    width: 320px;
+}
+
+section#roadmap h3.title {
+    font-size: var(--heading-2);
+    color: var(--white);
+    margin-bottom: 18px;
+    line-height: 140%;
+}
+
+section#roadmap h3.title span {
+    background: #97FF57;
+    border-radius: 15px;
+    padding: 0 2px;
+    color: #1E1E1E;
+    font-size: inherit;
+    font-family: var(--paragraph-md);
+}
+
+section#roadmap .roadmap-item {
+    display: grid;
+    gap: 12px;
+    color: var(--white);
+    padding: 18px;
+    background: var(--middle);
+    border-radius: 5px;
+    position: relative;
+}
+
+section#roadmap .roadmap-item .icon {
+    position: absolute;
+    top: -26px;
+    right: 12%;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background: #665C5C;
+}
+
+section#roadmap .roadmap-item span.phase {
+    font-weight: bold;
+}
+
+section#roadmap .roadmap-item h5 {
+    font-size: var(--heading-4);
+    font-weight: bold;
+}
+
+section#roadmap .roadmap-item p {
+    color: var(--white);
+    font-size: var(--paragraph-md)
 }
 
 

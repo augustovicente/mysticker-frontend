@@ -1,10 +1,9 @@
 import React from 'react'
-import StickersImg from '../../assets/imgs/home-stickers.svg'
-import StickersImg2 from '../../assets/imgs/tres.png'
-import StickersImg3 from '../../assets/imgs/tres2.png'
-import StickerCupImg from '../../assets/imgs/sticker-cup.svg'
-import BusterImg from '../../assets/imgs/buster.svg'
-import BootImg from '../../assets/imgs/boot.svg'
+import StickersImg from 'assets/imgs/home-stickers.png'
+import StickerCupImg from 'assets/imgs/sticker-cup.png'
+import BusterImg from 'assets/imgs/buster.png'
+import BootImg from 'assets/imgs/boot.svg'
+import Trophy from 'assets/imgs/trophy.png'
 
 const developers = [
     {
@@ -26,8 +25,52 @@ const developers = [
     {
         name: 'Buster',
         avatar: 'https://www.blexar.com/avatar.png',
-    }
+    },
 ]
+
+const settings = {
+    dots: true,
+    infinite: true,
+    speed: 1000,
+    autoplay: false,
+    arrows: false,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    responsive: [
+        {
+            breakpoint: 1200,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                infinite: true,
+            }
+        },
+        {
+            breakpoint: 992,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1
+            }
+        },
+        {
+            breakpoint: 767,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false,
+            }
+        },
+        {
+            breakpoint: 575,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false,
+            }
+        },
+    ]
+}
+
 
 const Home = () => {
     return (
@@ -108,30 +151,77 @@ const Home = () => {
 
             <section id="partners">
                 <div className="container">
+                    {/* Desenvolvedores */}
                     <div>
-                        <h3 className="title">Desenvolvedores</h3>
+                        <h3 className="title devs">Desenvolvedores</h3>
 
-                        {developers.map((developer, index) => (
-                            <div className='grid'>
-                                <img src={developer.avatar} alt="Pacote de figurinha" />
-                                <p>{developer.name}</p>
-                            </div>
-                        ))}
+                        <div className='grid'>
+                            {developers.map((developer, index) => (
+                                <div className='dev' key={index}>
+                                    <img src={developer.avatar} alt="Avatar" />
+                                    <p>{developer.name}</p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
 
-
+                    {/* Parceiros */}
                     <div>
-                        <h3 className="title">Parceiros</h3>
+                        <h3 className="title partners">Parceiros</h3>
 
-                        {developers.map((developer, index) => (
-                            <div className='grid'>
-                                <img src={developer.avatar} alt="Pacote de figurinha" />
-                                <p>{developer.name}</p>
-                            </div>
-                        ))}
+                        <div className='grid'>
+                            {developers.map((developer, index) => (
+                                <div key={index} className="partner">
+                                    <img src={developer.avatar} alt="Avatar" />
+                                    <p>{developer.name}</p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-
                 </div>
+            </section>
+
+            <section id="roadmap">
+                <img className='trophy' src={Trophy} alt="Troféu" />
+
+                <div className="container">
+                    <h3 className='title'>
+                        Roadmaps {"\n"} Copa <span>PRUUU!</span>
+                    </h3>
+
+                    <div className="row mt-5 d-flex justify-content-between">
+                        <div className="col-lg-4  mt-4">
+                            <div className="roadmap-item">
+                                <span className='phase'>Fase 1</span>
+                                <div className="icon"></div>
+                                <h5>Desafios</h5>
+
+                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate vero eaque odit consectetur corporis, obcaecati vel ea possimus quibusdam sint fuga dolor nobis dolore assumenda quis nam temporibus veritatis harum?</p>
+                            </div>
+                        </div>
+
+                        <div className="col-lg-4  mt-4">
+                            <div className="roadmap-item">
+                                <span className='phase'>Fase 1</span>
+                                <div className="icon"></div>
+                                <h5>Desafios</h5>
+
+                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate vero eaque odit consectetur corporis, obcaecati vel ea possimus quibusdam sint fuga dolor nobis dolore assumenda quis nam temporibus veritatis harum?</p>
+                            </div>
+                        </div>
+
+                        <div className="col-lg-4  mt-4">
+                            <div className="roadmap-item">
+                                <span className='phase'>Fase 1</span>
+                                <div className="icon"></div>
+                                <h5>Desafios</h5>
+
+                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate vero eaque odit consectetur corporis, obcaecati vel ea possimus quibusdam sint fuga dolor nobis dolore assumenda quis nam temporibus veritatis harum?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </section>
         </>
     )
