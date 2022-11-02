@@ -4626,6 +4626,7 @@ label {
 }
 
 /* 20. Footer */
+
 .footer-top-wrap {
     background: linear-gradient(179.69deg, rgba(29, 25, 51, 0.46) 14.17%, rgba(29, 25, 51, 0.27) 99.73%);
     padding: 80px 0 40px;
@@ -4856,8 +4857,9 @@ label {
 
 /* 22. Section 2 - COPA PRUUU! */
 section#copa_pru {
-    padding: 64px 0;
+    padding: 64px 0 144px;
     background: #12132F;
+    position: relative;
 }
 
 section#copa_pru div.container-img {
@@ -4896,6 +4898,14 @@ section#copa_pru p {
     font-size: var(--paragraph-md);
     color: var(--white);
     margin-bottom: 30px;
+}
+
+section#copa_pru img.ball {
+    max-width: 220px !important;
+    width: 100% !important;
+    position: absolute;
+    bottom: 24px !important;
+    right: -112px;
 }
 
 section#buster {
@@ -4952,7 +4962,7 @@ section#partners .container>div {
 
 section#partners div.grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
     place-items: center;
     margin-top: 64px;
     gap: 44px;

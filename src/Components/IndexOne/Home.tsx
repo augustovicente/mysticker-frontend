@@ -3,7 +3,8 @@ import StickersImg from 'assets/imgs/home-stickers.png'
 import StickerCupImg from 'assets/imgs/sticker-cup.png'
 import BusterImg from 'assets/imgs/buster.png'
 import BootImg from 'assets/imgs/boot.png'
-import Trophy from 'assets/imgs/trophy.png'
+import TrophyImg from 'assets/imgs/trophy.png'
+import BallImg from 'assets/imgs/ball.png'
 import { useWindowSize } from 'hooks/useWindowSize'
 
 const developers = [
@@ -69,7 +70,7 @@ const Home = () => {
                     <div className="row flex-column flex-lg-row justify-content-center flex-column">
                         <div className="d-sm-none d-none d-lg-flex col-lg-6 col-md-8 align-items-center">
                             <div className="container-img">
-                                <img src={StickerCupImg} loading="lazy" alt="Pacote de figurinha" />
+                                <img className='stickers' src={StickerCupImg} loading="lazy" alt="Pacote de figurinha" />
                             </div>
                         </div>
 
@@ -83,7 +84,7 @@ const Home = () => {
 
                             <div className="d-lg-none d-sm-flex d-flex col-lg-6 col-md-8 align-items-center">
                                 <div className="container-img">
-                                    <img src={StickerCupImg} loading="lazy" alt="Pacote de figurinha" />
+                                    <img className='stickers' src={StickerCupImg} loading="lazy" alt="Pacote de figurinha" />
                                 </div>
                             </div>
 
@@ -95,7 +96,7 @@ const Home = () => {
                             </div>
                         </div>
 
-
+                        <img src={BallImg} className="ball" loading="lazy" alt="Pacote de figurinha" />
                     </div>
                 </div>
             </section>
@@ -159,7 +160,7 @@ const Home = () => {
             </section>
 
             <section id="roadmap">
-                <img className='trophy' src={Trophy} loading="lazy" alt="Troféu" />
+                <img className='trophy' src={TrophyImg} loading="lazy" alt="Troféu" />
 
                 <div className="container">
                     <h3 className='title'>

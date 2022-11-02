@@ -540,13 +540,19 @@
         margin-bottom: 0;
     }
 
+    section#roadmap {
+        padding: 112px 0 420px;
+    }
+
     section#roadmap img.trophy {
         top: unset;
-        bottom: -280px;
+        bottom: 32px;
         right: unset;
         left: unset;
-        right: -144px;
+        right: -112px;
+        width: 340px;
         z-index: 1;
+        pointer-events: none;
     }
 
     section#roadmap .roadmap-item {
@@ -855,7 +861,7 @@
         position: relative;
     }
 
-    section#copa_pru img {
+    section#copa_pru img.stickers {
         position: absolute !important;
         /* bottom: 0; */
         top: -124px;
@@ -907,19 +913,26 @@
         margin-bottom: 25px;
     }
 
+    section#buster {
+        padding: 124px 0 144px;
+    }
+
     section#buster h3.title {
         top: 74px !important;
     }
 
-
     section#buster img.boot {
-        width: 244px !important;
+        width: 294px !important;
         bottom: -112px;
     }
 
-
+    section#copa_pru img.ball {
+        /* bottom: unset; */
+        /* top: unset; */
+        /* width: 194px !important; */
+        bottom: -62px !important;
+    }
 }
-
 
 /* Small devices (landscape phones, 576px and up) */
 @media only screen and (min-width: 576px) and (max-width: 767px) {

@@ -96,10 +96,10 @@ const Header = () => {
                         <div className="col-12">
                             <div className="mobile-nav-toggler"><i className="fas fa-bars" /></div>
                             <div className="menu-wrap main-menu">
-                                <nav className="menu-nav">
+                                <nav className="menu-nav py-lg-4 py-md-2">
                                     <div className="logo"><a href="/#"><img src="assets/img/logo/logo-header.svg" alt="" /></a></div>
                                     <div className="navbar-wrap push-menu main-menu d-none d-lg-flex">
-                                        <ul className="navigation">
+                                        {/* <ul className="navigation">
                                             <li><Link to="/">Home</Link></li>
                                             <li><Link to="/nft-marketplace">Explore</Link></li>
                                             <li><Link to="/collections">Collection</Link></li>
@@ -122,13 +122,13 @@ const Header = () => {
                                                     <li><Link to="/blog-details">Blog Details</Link></li>
                                                 </ul>
                                             </li>
-                                        </ul>
+                                        </ul> */}
                                     </div>
-                                    <div className="header-action d-none d-md-block">
+                                    {/* <div className="header-action d-none d-md-block">
                                         <ul>
                                             <li className="header-btn"><a href="/connect-wallets" className="btn">Wallet Connect</a></li>
                                         </ul>
-                                    </div>
+                                    </div> */}
 
                                 </nav>
                             </div>
