@@ -77,7 +77,7 @@ const Home = () => {
                         <div className="flex-column col-lg-6 align-self-center">
                             <div className="description col-lg-12 align-self-center">
                                 <h2 className='title mb-4'>
-                                    Copa <span>PRUUU!</span>
+                                    Copa <span>PRUU!</span>
                                     <h6 className='d-block d-lg-none d-md-none w-100'>A copa dos Pombos</h6>
                                 </h2>
                             </div>
@@ -164,7 +164,7 @@ const Home = () => {
 
                 <div className="container">
                     <h3 className='title'>
-                        Roadmaps {"\n"} Copa <span>PRUUU!</span>
+                        Roadmaps {"\n"} Copa <span>PRUU!</span>
                     </h3>
 
                     <div className="row mt-5 d-flex justify-content-between">
