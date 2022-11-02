@@ -839,16 +839,45 @@
         font-size: var(--heading-3) !important;
     }
 
+    section#copa_pru div.description {
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 574px) {
+
+    .scroll-top.open {
+        bottom: 84px;
+    }
+
+    section#copa_pru div.container-img {
+        border-radius: unset;
+        position: relative;
+    }
+
+    section#copa_pru img {
+        position: absolute !important;
+        /* bottom: 0; */
+        top: -124px;
+        right: -84px;
+        max-width: 412px !important;
+    }
+
+    section#copa_pru h2.title {
+        margin-right: 270px;
+        margin-bottom: -32px !important;
+    }
+
+    section#copa_pru h6 {
+        position: absolute;
+        margin-top: 12px;
+    }
 }
 
 
 @media (max-width: 460px) {
 
     .header-form {
-        display: none;
-    }
-
-    .scroll-top {
         display: none;
     }
 
@@ -887,6 +916,7 @@
         width: 244px !important;
         bottom: -112px;
     }
+
 
 }
 
@@ -962,5 +992,6 @@
     .bid-history-wrap .nav .nav-item {
         margin-right: 35px;
     }
+
 
 }

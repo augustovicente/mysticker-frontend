@@ -2,8 +2,9 @@ import React from 'react'
 import StickersImg from 'assets/imgs/home-stickers.png'
 import StickerCupImg from 'assets/imgs/sticker-cup.png'
 import BusterImg from 'assets/imgs/buster.png'
-import BootImg from 'assets/imgs/boot.svg'
+import BootImg from 'assets/imgs/boot.png'
 import Trophy from 'assets/imgs/trophy.png'
+import { useWindowSize } from 'hooks/useWindowSize'
 
 const developers = [
     {
@@ -28,51 +29,12 @@ const developers = [
     },
 ]
 
-const settings = {
-    dots: true,
-    infinite: true,
-    speed: 1000,
-    autoplay: false,
-    arrows: false,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    responsive: [
-        {
-            breakpoint: 1200,
-            settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                infinite: true,
-            }
-        },
-        {
-            breakpoint: 992,
-            settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1
-            }
-        },
-        {
-            breakpoint: 767,
-            settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                arrows: false,
-            }
-        },
-        {
-            breakpoint: 575,
-            settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                arrows: false,
-            }
-        },
-    ]
-}
-
 
 const Home = () => {
+    const { width } = useWindowSize();
+
+    const classNameSectionCup = width! < 576 ? '' : 'container'
+
     return (
         <>
             <section className="banner-bg">
@@ -103,22 +65,37 @@ const Home = () => {
             </section>
 
             <section id="copa_pru">
-                <div className="container">
+                <div className={classNameSectionCup}>
                     <div className="row flex-column flex-lg-row justify-content-center flex-column">
-                        <div className="col-lg-6 col-md-8 d-flex align-items-center">
-                            <img src={StickerCupImg} loading="lazy" alt="Pacote de figurinha" />
+                        <div className="d-sm-none d-none d-lg-flex col-lg-6 col-md-8 align-items-center">
+                            <div className="container-img">
+                                <img src={StickerCupImg} loading="lazy" alt="Pacote de figurinha" />
+                            </div>
                         </div>
 
-                        <div className="col-lg-6 col-md-8 align-self-center">
-                            <h2 className='title'>
-                                Copa <span>PRUUU!</span>
-                            </h2>
+                        <div className="flex-column col-lg-6 align-self-center">
+                            <div className="description col-lg-12 align-self-center">
+                                <h2 className='title mb-4'>
+                                    Copa <span>PRUUU!</span>
+                                    <h6 className='d-block d-lg-none d-md-none w-100'>A copa dos Pombos</h6>
+                                </h2>
+                            </div>
 
-                            <p>A expressão Lorem ipsum em design gráfico e editoração é um texto padrão em latim utilizado na produção gráfica para preencher os espaços de texto em publicações para testar e ajustar aspectos visuais antes de utilizar conteúdo real. Wikipédia
-                            </p>
+                            <div className="d-lg-none d-sm-flex d-flex col-lg-6 col-md-8 align-items-center">
+                                <div className="container-img">
+                                    <img src={StickerCupImg} loading="lazy" alt="Pacote de figurinha" />
+                                </div>
+                            </div>
 
-                            <a href="/login-register" className="banner-btn">Abrir o Albúm de Figurinhas</a>
+                            <div className="description col-lg-12 col-md-8 align-self-center">
+                                <p className='mb-4 mb-md-3 mb-lg-4 me-3'>A expressão Lorem ipsum em design gráfico e editoração é um texto padrão em latim utilizado na produção gráfica para preencher os espaços de texto em publicações para testar e ajustar aspectos visuais antes de utilizar conteúdo real. Wikipédia
+                                </p>
+
+                                <a href="#" className="banner-btn">Abrir o Albúm de Figurinhas</a>
+                            </div>
                         </div>
+
+
                     </div>
                 </div>
             </section>

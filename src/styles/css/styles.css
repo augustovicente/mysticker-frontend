@@ -4860,18 +4860,33 @@ section#copa_pru {
     background: #12132F;
 }
 
-section#copa_pru img {}
+section#copa_pru div.container-img {
+    margin: 144px 0;
+    width: 100%;
+    height: 188px;
+    background: #97FF57;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section#copa_pru div.container-img img {
+    max-width: 440px;
+    width: 100%;
+}
 
 section#copa_pru h2.title {
     font-size: var(--heading-2);
     color: var(--white);
     margin-bottom: 18px;
+    line-height: 55px;
 }
 
 section#copa_pru h2.title span {
     background: #97FF57;
     border-radius: 15px;
-    padding: 0 2px;
+    padding: 0 6px;
     color: #1E1E1E;
     font-size: inherit;
     font-family: var(--paragraph-md);
@@ -4923,6 +4938,7 @@ section#buster img.boot {
     max-width: 364px;
     width: 100%;
     z-index: 2;
+    transform: scaleX(-1);
 }
 
 section#partners {
