@@ -139,6 +139,10 @@
         font-size: 33px;
     }
 
+    section#gol img {
+        height: 360px;
+    }
+
 }
 
 
@@ -371,6 +375,11 @@
 
     .highest-bid-wrap .highest-bid-avatar {
         margin-bottom: 15px;
+    }
+
+    section#gol img {
+        height: 312px;
+        margin-left: -204px;
     }
 
 }
@@ -847,6 +856,19 @@
 
     section#copa_pru div.description {
         padding: 0 15px;
+    }
+
+    section#gol {
+        padding: 240px 0;
+    }
+
+    section#gol button.pick-sticker {
+        margin: auto !important;
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: 94px;
+        translate: -50%;
     }
 }
 

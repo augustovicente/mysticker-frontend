@@ -1,10 +1,10 @@
 import React from 'react'
-import AreaBg from './AreaBg'
+// import AreaBg from './AreaBg'
 import Home from './Home'
-import DesignNews from './DesignNews'
-import ExploreProduct from './ExploreProduct'
-import LatestNews from './LatestNews'
-import Testimonial from './Testimonial'
+// import DesignNews from './DesignNews'
+// import ExploreProduct from './ExploreProduct'
+// import LatestNews from './LatestNews'
+// import Testimonial from './Testimonial'
 import TopCollection from './TopCollection'
 
 
@@ -12,12 +12,7 @@ const IndexOne = () => {
     return (
         <main>
             <Home />
-            {/* <TopCollection />
-            <AreaBg />
-            <ExploreProduct />
-            <LatestNews />
-            <DesignNews />
-            <Testimonial /> */}
+            {/* <TopCollection /> */}
         </main>
     )
 }

@@ -1,11 +1,19 @@
-import React from 'react'
-import StickersImg from 'assets/imgs/home-stickers.png'
-import StickerCupImg from 'assets/imgs/sticker-cup.png'
-import BusterImg from 'assets/imgs/buster.png'
-import BootImg from 'assets/imgs/boot.png'
-import TrophyImg from 'assets/imgs/trophy.png'
-import BallImg from 'assets/imgs/ball.png'
-import { useWindowSize } from 'hooks/useWindowSize'
+import React, { DetailedHTMLProps, HTMLAttributes } from 'react';
+import { useWindowSize } from 'hooks/useWindowSize';
+import StickersImg from 'assets/imgs/home-stickers.png';
+import StickerCupImg from 'assets/imgs/sticker-cup.png';
+import BusterImg from 'assets/imgs/buster.png';
+import BootImg from 'assets/imgs/boot.png';
+import TrophyImg from 'assets/imgs/trophy.png';
+import BallImg from 'assets/imgs/ball.png';
+import GolImg from 'assets/imgs/gol.png';
+import Benefit_1Img from 'assets/imgs/1-benefits.png';
+import Benefit_2Img from 'assets/imgs/2-benefits.png';
+import Benefit_3Img from 'assets/imgs/3-benefits.png';
+import Benefit_4Img from 'assets/imgs/4-benefits.png';
+import Benefit_5Img from 'assets/imgs/5-benefits.png';
+import Slider from 'react-slick';
+import { CardBenefit, CardBenefitProps } from 'Components/CardBenefit';
 
 const developers = [
     {
@@ -28,13 +36,57 @@ const developers = [
         name: 'Buster',
         avatar: 'https://www.blexar.com/avatar.png',
     },
+];
+
+const benefits: CardBenefitProps[] = [
+    {
+        title: 'Desafios',
+        description: 'A expressão Lorem ipsum em design gráfico e editoração é um texto padrão em latim utilizado na produção gráfica par',
+        image: Benefit_1Img,
+        order: 1,
+    },
+    {
+        title: 'Lançamento PRUU',
+        description: 'A expressão Lorem ipsum em design gráfico e editoração é um texto padrão em latim utilizado na produção gráfica par',
+        image: Benefit_2Img,
+        order: 2,
+    },
+    {
+        title: 'Aceita PIXs?',
+        description: 'A expressão Lorem ipsum em design gráfico e editoração é um texto padrão em latim utilizado na produção gráfica par',
+        image: Benefit_3Img,
+        order: 3,
+    },
+    {
+        title: 'Mercadão',
+        description: 'A expressão Lorem ipsum em design gráfico e editoração é um texto padrão em latim utilizado na produção gráfica par',
+        image: Benefit_4Img,
+        order: 4,
+    },
+    {
+        title: 'Boteco Verso',
+        description: 'A expressão Lorem ipsum em design gráfico e editoração é um texto padrão em latim utilizado na produção gráfica par',
+        image: Benefit_5Img,
+        order: 5,
+    },
 ]
+
+const settings = {
+    dots: false,
+    infinite: true,
+    speed: 700,
+    autoplay: true,
+    arrows: false,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    swipeToSlide: true,
+}
 
 
 const Home = () => {
     const { width } = useWindowSize();
 
-    const classNameSectionCup = width! < 576 ? '' : 'container'
+    const classNameSectionCup = width! < 576 ? '' : 'container';
 
     return (
         <>
@@ -53,7 +105,7 @@ const Home = () => {
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae ultrices ipsum luctus nulla volutpat, integer lacus. Aliquet orci, velit
                                     </p>
 
-                                    <a href="/login-register" className="banner-btn">Abrir o Albúm de Figurinhas</a>
+                                    <a href="/" className="banner-btn">Abrir o Albúm de Figurinhas</a>
                                 </div>
                             </div>
 
@@ -101,9 +153,34 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className='py-5' id="benefits">
+            <section id="benefits">
                 <div className="container">
-                    <h2 className="title">Benefícios</h2>
+                    <h2 className="title text-sm-start text-md-start text-lg-center">Benefícios</h2>
+
+                    <div className="d-none d-md-grid d-lg-grid grid">
+                        {benefits.map((benefit) => (
+                            <CardBenefit
+                                title={benefit.title}
+                                image={benefit.image}
+                                order={benefit.order}
+                                description={benefit.description}
+                            />
+                        ))}
+                    </div>
+
+                    {/* Carrousel Slider(Mobile) */}
+                    <Slider className="d-grid d-md-none d-lg-none row top-collection-active" {...settings}>
+                        {benefits.map((benefit) => (
+                            <div className="col-xl-3 grid">
+                                <CardBenefit
+                                    title={benefit.title}
+                                    image={benefit.image}
+                                    order={benefit.order}
+                                    description={benefit.description}
+                                />
+                            </div>
+                        ))}
+                    </Slider>
                 </div>
             </section>
 
@@ -118,7 +195,7 @@ const Home = () => {
                             <img src={BusterImg} loading="lazy" alt="Pacote de figurinha" />
 
                             <button className='pick-sticker'>
-                                <a href="/login-register">Resgate seu Pacotinho</a>
+                                <a href="/">Resgate seu Pacotinho</a>
                             </button>
 
                             <img src={BootImg} loading="lazy" className="boot" alt="Pacote de figurinha" />
@@ -199,7 +276,16 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
+            </section>
 
+            <section id="gol">
+                <div className='col-12 d-block d-md-flex d-lg-flex justify-content-center align-items-center container'>
+                    <img className='me-5' src={GolImg} alt="Imagem de um gol de futebol" />
+
+                    <button className='pick-sticker'>
+                        <a href="/">Resgate seu Pacotinho</a>
+                    </button>
+                </div>
             </section>
         </>
     )

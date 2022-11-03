@@ -4857,7 +4857,7 @@ label {
 
 /* 22. Section 2 - COPA PRUU! */
 section#copa_pru {
-    padding: 64px 0 144px;
+    padding: 64px 0 112px;
     background: #12132F;
     position: relative;
 }
@@ -4908,11 +4908,129 @@ section#copa_pru img.ball {
     right: -112px;
 }
 
+section#benefits {
+    padding: 64px 0;
+    background: url('../../assets/imgs/background-benefits.png') no-repeat center center/contain;
+}
+
+section#benefits div.grid {
+    display: grid;
+    gap: 64px;
+    margin-top: 194px;
+    grid-template-columns: repeat(6, 1fr);
+}
+
+section#benefits div.benefit {
+    display: grid;
+    gap: 20px;
+}
+
+section#benefits div.benefit:nth-child(1) {
+    transform: translateY(-112px);
+    grid-column: span 2;
+}
+
+section#benefits div.benefit:nth-child(2) {
+    transform: translateY(-56px);
+    grid-column: span 2;
+}
+
+section#benefits div.benefit:nth-child(3) {
+    transform: translateY(0px);
+    grid-column: span 2;
+}
+
+section#benefits div.benefit:nth-child(4) {
+    transform: translateY(-56px);
+    grid-column: span 3;
+    max-width: 387.33px;
+    width: 100%;
+    margin-left: auto;
+    margin-top: 64px;
+}
+
+section#benefits div.benefit:nth-child(5) {
+    transform: translateY(0px);
+    grid-column: span 3;
+    max-width: 387.33px;
+    width: 100%;
+    margin-right: auto;
+    margin-top: 64px;
+}
+
+section#benefits div.grid div.container-img {
+    background: var(--middle);
+    height: 124px;
+    border-radius: 20px;
+    position: relative;
+    display: flex;
+    width: 100%;
+    padding: 12px 24px;
+}
+
+section#benefits div.grid div.container-img img {
+    object-fit: contain;
+    position: absolute;
+    z-index: 1;
+    bottom: 12px;
+    height: 230px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+section#benefits div.grid div.container-img span {
+    /* background: var(--middle); */
+    color: var(--white);
+    display: block;
+    align-self: flex-end;
+    margin-left: auto;
+    font-size: 30px;
+    font-family: 'Alfa Slab One', cursive;
+}
+
+section#benefits div.grid h6.title {
+    color: var(--white);
+    font-size: var(--paragraph-lg);
+    font-weight: bold;
+    display: block;
+    text-align: center;
+    background: var(--middle);
+    padding: 17px;
+    border-radius: 20px;
+}
+
+section#benefits div.grid p {
+    color: var(--white);
+    font-size: var(--paragraph-md);
+    text-align: center;
+}
+
+@media (max-width: 767px) {
+    section#benefits {
+        background-size: cover;
+        margin-top: 44px;
+    }
+
+    section#benefits h2.title {
+        margin-bottom: 64px !important;
+    }
+
+    section#benefits div.grid p {
+        width: 90%;
+        margin: 0 auto;
+    }
+}
+
+section#benefits h2.title {
+    font-size: var(--heading-2);
+    color: var(--white);
+    margin-bottom: 18px;
+}
+
 section#buster {
     background: #12132F;
     padding: 124px 0 84px;
     position: relative;
-    /* overflow-x: hidden; */
 }
 
 section#buster h3.title {
@@ -4924,7 +5042,7 @@ section#buster h3.title {
     top: 94px;
 }
 
-section#buster button.pick-sticker {
+button.pick-sticker {
     margin-top: 18px;
     border: 0;
     padding: 15px 44px;
@@ -4932,11 +5050,11 @@ section#buster button.pick-sticker {
     border-radius: 8px;
 }
 
-section#buster button.pick-sticker:hover {
+button.pick-sticker:hover {
     filter: brightness(0.8);
 }
 
-section#buster button.pick-sticker a {
+button.pick-sticker a {
     color: var(--white);
     font-weight: bold;
 }
@@ -5094,6 +5212,20 @@ section#roadmap .roadmap-item h5 {
 section#roadmap .roadmap-item p {
     color: var(--white);
     font-size: var(--paragraph-md)
+}
+
+section#gol {
+    padding: 284px 0;
+    position: relative;
+}
+
+section#gol img {
+    max-width: 100%;
+    height: 440px;
+    margin-left: -48px;
+    position: absolute;
+    object-fit: contain;
+    left: 0;
 }
 
 

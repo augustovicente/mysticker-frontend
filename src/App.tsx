@@ -1,6 +1,7 @@
 
 
 
+import Home from "pages/Home";
 import React, { useEffect } from "react"
 // import $ from "jquery"
 
@@ -14,7 +15,6 @@ import { Routes, Route } from 'react-router-dom'
 // import CreateItem from './pages/CreateItem'
 // import Creators from './pages/Creators'
 // import Explore from './pages/Explore'
-import Home from './pages/Home'
 // import LoginRegister from './pages/LoginRegister'
 // import MarketSingle from './pages/MarketSingle'
 // import NftLiveBidding from './pages/NftLiveBidding'
