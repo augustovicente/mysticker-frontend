@@ -3,7 +3,8 @@
 
 import Home from "pages/Home";
 import React, { useEffect } from "react"
-// import $ from "jquery"
+import { I18nextProvider } from "react-i18next";
+import i18n from "./i18n";
 
 import { Routes, Route } from 'react-router-dom'
 // import Activity from './pages/Activity'
@@ -34,23 +35,25 @@ function App() {
 
     return (
         <div className="App">
-            <Routes>
-                <Route path="/" element={<Home />} />
-                {/* <Route path="/nft-marketplace" element={<Explore />} />
-                <Route path="/collections" element={<Collections />} />
-                <Route path="/blog" element={<Blog />} />
+            <I18nextProvider i18n={i18n}>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    {/* <Route path="/nft-marketplace" element={<Explore />} />
+                    <Route path="/collections" element={<Collections />} />
+                    <Route path="/blog" element={<Blog />} />
 
-                <Route path="/blog-details" element={<BlogDetails />} />
-                <Route path="/activity" element={<Activity />} />
-                <Route path="/ranking" element={<Ranking />} />
-                <Route path="/login-register" element={<LoginRegister />} />
-                <Route path="/author-profile" element={<AuthorProfile />} />
-                <Route path="/create-item" element={<CreateItem />} />
-                <Route path="/category" element={<Category />} />
-                <Route path="/creators" element={<Creators />} />
-                <Route path="/market-single" element={<MarketSingle />} />
-                <Route path="/nft-live-bidding" element={<NftLiveBidding />} /> */}
-            </Routes>
+                    <Route path="/blog-details" element={<BlogDetails />} />
+                    <Route path="/activity" element={<Activity />} />
+                    <Route path="/ranking" element={<Ranking />} />
+                    <Route path="/login-register" element={<LoginRegister />} />
+                    <Route path="/author-profile" element={<AuthorProfile />} />
+                    <Route path="/create-item" element={<CreateItem />} />
+                    <Route path="/category" element={<Category />} />
+                    <Route path="/creators" element={<Creators />} />
+                    <Route path="/market-single" element={<MarketSingle />} />
+                    <Route path="/nft-live-bidding" element={<NftLiveBidding />} /> */}
+                </Routes>
+            </I18nextProvider>
         </div>
     );
 }
