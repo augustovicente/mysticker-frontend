@@ -4,6 +4,7 @@ import Header from 'Components/Header/Header'
 import IndexOne from 'Components/IndexOne/IndexOne'
 
 import SideBar from 'Components/IndexOne/SideBar'
+import { Routes } from 'routes'
 
 const Home = () => {
     return (
@@ -12,6 +13,7 @@ const Home = () => {
 
             <div className="main-content">
                 <Header />
+
                 <IndexOne />
             </div>
             <Footer />

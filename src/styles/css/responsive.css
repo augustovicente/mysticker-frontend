@@ -1,17 +1,5 @@
 /* Extra large devices (large desktops, 1800px and up) */
-@media (max-width: 5600px) {
-    .sticky-menu {
-        margin-left: 54px;
-    }
-}
-
-/* Extra large devices (large desktops, 1800px and up) */
 @media (max-width: 1500px) {
-
-    .sticky-menu {
-        margin-left: 48px;
-    }
-
     .custom-container,
     .container {
         max-width: 1170px;
@@ -869,6 +857,7 @@
         left: 50%;
         top: 94px;
         translate: -50%;
+        padding: 15px 30px;
     }
 }
 

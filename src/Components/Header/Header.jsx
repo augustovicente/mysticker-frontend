@@ -4,9 +4,8 @@ import { Link } from "react-router-dom"
 
 import "./Header.css";
 
-
-const Header = () => {
-
+const Header = (props) => {
+    const { hasContainer = true } = props;
 
     // // console.log(history);
     // const getColor=(curr) =>{
@@ -91,12 +90,12 @@ const Header = () => {
     return (
         <header>
             <div id='sticky-header' className="menu-area ">
-                <div className="container">
+                <div className={hasContainer ? 'container' : ''}>
                     <div className="row">
                         <div className="col-12">
                             <div className="mobile-nav-toggler"><i className="fas fa-bars" /></div>
                             <div className="menu-wrap main-menu">
-                                <nav className="menu-nav py-lg-4 py-md-2">
+                                <nav className="menu-nav py-lg-3 py-md-2">
                                     <div className="logo"><a href="/#"><img src="assets/img/logo/logo-header.svg" alt="" /></a></div>
                                     <div className="navbar-wrap push-menu main-menu d-none d-lg-flex">
                                         {/* <ul className="navigation">
@@ -124,11 +123,16 @@ const Header = () => {
                                             </li>
                                         </ul> */}
                                     </div>
-                                    {/* <div className="header-action d-none d-md-block">
+                                    <div className="header-action d-none d-sm-none d-lg-block">
                                         <ul>
-                                            <li className="header-btn"><a href="/connect-wallets" className="btn">Wallet Connect</a></li>
+                                            <li className="header-btn">
+                                                <Link to="hall" className="btn">
+                                                    Conectar
+                                                    <i className='fi-sr-link'></i>
+                                                </Link>
+                                            </li>
                                         </ul>
-                                    </div> */}
+                                    </div>
 
                                 </nav>
                             </div>

@@ -1,4 +1,6 @@
 import React from 'react'
+import { Route } from 'react-router-dom'
+import { Hall } from '../../pages/Auth/Hall/Hall'
 // import AreaBg from './AreaBg'
 import Home from './Home'
 // import DesignNews from './DesignNews'
@@ -12,6 +14,7 @@ const IndexOne = () => {
     return (
         <main>
             <Home />
+
             {/* <TopCollection /> */}
         </main>
     )
