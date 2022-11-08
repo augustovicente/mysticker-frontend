@@ -37,6 +37,9 @@ export const Container = styled.section`
         background: ${({ theme }) => theme.colors.middleL};
         border-radius: 50%;
         overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         img {
             border-radius: 50%;
@@ -46,47 +49,110 @@ export const Container = styled.section`
     }
 
     div.user-info {
-        div:first-child {
+        hr {
+            border-bottom-color: ${({ theme }) => theme.colors.colorLight};
+            border-bottom-width: 2px;
+        }
+
+        header {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 12px;
 
-            span {
+            text {
                 font-size: ${({ theme }) => theme.fontSizes.md};
             }
 
             strong.username {
                 font-size: ${({ theme }) => theme.fontSizes.lg};
             }
-        }
 
-        div:last-child {
-            display: flex;
-            flex-direction: column;
-            /* gap: 12px; */
-            margin-top: 44px;
+            button {
+                border: 2px solid ${({ theme }) => theme.colors.colorDark};
+                background: transparent;
+                color: ${({ theme }) => theme.colors.white};
+                padding: 12px 24px;
+                border-radius: 25px;
+                margin: 12px 0;
 
-            span.ranking, span.closed-teams {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                font-weight: 400;
-                line-height: 120%;
-                strong {
-                    background-color: red;
-                    padding: 6px;
-                    border-radius: 25px;
-                    /* width: 100%; */
+                &:hover {
+                    background: ${({ theme }) => theme.colors.colorDark};
                 }
             }
         }
+
+        div.ranking {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            strong {
+                padding: 8px 14px;
+                background: ${({ theme }) => theme.colors.middleL};
+                border-radius: 25px;
+            }
+        }
+
+        div.closed-teams {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            div {
+                background-color: ${({ theme }) => theme.colors.colorMiddle};
+                border-radius: 25px;
+                /* padding: 4px; */
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 6px;
+                padding: 4px 4px 4px 12px;
+
+                strong {
+                    font-size: 1.6rem;
+                    margin-right: 3px;
+                }
+
+                b {
+                    padding: 6px;
+                    background: ${({ theme }) => theme.colors.middleL};
+                    font-size: ${({ theme }) => theme.fontSizes.md};
+                    border-radius: 50%;
+                    position: relative;
+                }
+            }
+        }
+
+        span.closed-continents {
+            margin-bottom: 12px;
+        }
+
+        div.continents {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 14px;
+            row-gap: 22px;
+            margin-top: 24px;
+
+            span.continent {
+                font-size: ${({ theme }) => theme.fontSizes.md};
+                padding: 6px 14px;
+                border-radius: 12px;
+                background: ${({ theme }) => theme.colors.middleL};
+                font-weight: 900;
+
+                &.active {
+                    background: ${({ theme }) => theme.gradients.yellow};
+                    color: ${({ theme }) => theme.colors.middle}
+                }
+            }
+        }
+
+
     }
-
-
-
-
-
 
 `;
 

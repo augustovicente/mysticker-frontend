@@ -1,4 +1,5 @@
 import React from 'react';
+import AvatarImg from '../../assets/imgs/avatar.png'
 
 import * as S from './styles';
 
@@ -14,10 +15,10 @@ const Profile = () => {
 
     return (
         <S.Container>
-            <div className="">
+            <section>
                 <div className="avatar">
                     <img
-                        src='https://media-exp1.licdn.com/dms/image/C560BAQE6dhRu8vd0gw/company-logo_200_200/0/1646226557889?e=2147483647&v=beta&t=Divc--AFbswqf5Orp6r0V7zh2dZleL0Th0XAQi-gyPg'
+                        src={AvatarImg}
                         alt="imagem de perfil"
                         onError={(e) => {
                             e.currentTarget.src = 'https://media-exp1.licdn.com/dms/image/C560BAQE6dhRu8vd0gw/company-logo_200_200/0/1646226557889?e=2147483647&v=beta&t=Divc--AFbswqf5Orp6r0V7zh2dZleL0Th0XAQi-gyPg'
@@ -26,37 +27,46 @@ const Profile = () => {
                 </div>
 
                 <div className="user-info">
-                    <div>
-                        <span>Bem-Vindo Colecionador</span>
+                    <header>
+                        <text>Bem-Vindo Colecionador</text>
                         <strong className='username'>{user.name}</strong>
 
                         <button>
                             Conecte sua Carteia
                         </button>
+                    </header>
+
+                    <div className="ranking">
+                        <span>
+                            Ranking do Jogador
+                        </span>
+                        <strong>#{user.ranking}</strong>
                     </div>
 
-                    <div>
-                        <span className="ranking">
-                            Ranking do Jogador <strong>#{user.ranking}</strong>
-                        </span>
-                        <hr />
+                    <hr />
 
-                        <span className='closed-teams'>
-                            Times Fechados <strong>{user.closedTeams}/{user.totalTeams}</strong>
+                    <div className='closed-teams'>
+                        <span>
+                            Times Fechados
                         </span>
-                        <hr />
+                        <div>
+                            <strong>{user.closedTeams}</strong> / <b>{user.totalTeams}</b>
+                        </div>
+                    </div>
 
-                        <span className='closed-continents'>
-                            Continentes Fechados
-                            <div className="continents">
-                                {user.closedContinents.map(continent => (
-                                    <span key={continent}>{continent}</span>
-                                ))}
-                            </div>
-                        </span>
+                    <hr />
+
+                    <span className='closed-continents'>
+                        Continentes Fechados
+                    </span>
+
+                    <div className="continents">
+                        {user.continents.map(continent => (
+                            <span className={user.closedContinents.includes(continent) ? 'continent active' : 'continent'} key={continent}>{continent}</span>
+                        ))}
                     </div>
                 </div>
-            </div>
+            </section>
         </S.Container>
     )
 }
