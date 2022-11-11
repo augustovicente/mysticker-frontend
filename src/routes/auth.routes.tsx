@@ -1,19 +1,16 @@
 import Header from 'Components/Header/Header';
 import SideBar from 'Components/IndexOne/SideBar';
+import { useAuth } from 'contexts/auth.context';
 import { IndexAuth } from 'pages/Auth';
 import { Hall } from 'pages/Auth/Hall/Hall';
 import React from 'react';
-import { createBrowserRouter, createRoutesFromElements, Outlet, Route } from 'react-router-dom';
+import { createBrowserRouter, createRoutesFromElements, Outlet, Route, Routes } from 'react-router-dom';
 
 
-export const RouterAuth = createBrowserRouter(
-    createRoutesFromElements(
-        <>
-            <Route path="/" element={(
-                <>
-                    <IndexAuth />
-                </>
-            )}>
+export const AuthRoutes = () =>
+    (
+        <Routes>
+            <Route path="/" element={<IndexAuth />}>
                 <Route index element={<Hall />} />
                 <Route path="test" element={<h1>TESTE</h1>} />
             </Route>
@@ -34,6 +31,5 @@ export const RouterAuth = createBrowserRouter(
             <Route path="/creators" element={<Creators />} />
             <Route path="/market-single" element={<MarketSingle />} />
             <Route path="/nft-live-bidding" element={<NftLiveBidding />} /> */}
-        </>
+        </Routes>
     )
-);

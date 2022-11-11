@@ -1,15 +1,12 @@
-import Home from "pages/Home";
 import React, { useEffect } from "react"
 import { ThemeProvider } from 'styled-components'
 import $ from "jquery"
 
-import { Routes, Route, RouterProvider } from 'react-router-dom'
 import { theme } from "styles/themes/theme";
 import GlobalTheme from "styles/themes/global";
-import { Hall } from "pages/Auth/Hall/Hall";
-import Header from "Components/Header/Header";
-import { RouterAuth } from "routes/auth.routes";
-import { Router } from "routes/routes";
+import { AuthRoutes } from "routes/auth.routes";
+import { AuthProvider, useAuth } from "contexts/auth.context";
+import { MainRoutes } from "routes/main.routes";
 // import Activity from './pages/Activity'
 // import AuthorProfile from './pages/AuthorProfile'
 // import Blog from './pages/Blog'
@@ -24,11 +21,6 @@ import { Router } from "routes/routes";
 // import NftLiveBidding from './pages/NftLiveBidding'
 // import Ranking from './pages/Ranking'
 
-
-type User = {
-    token: string
-}
-
 function App() {
     useEffect(() => {
         $(".menu-trigger").on("click", function () {
@@ -40,15 +32,14 @@ function App() {
         });
     }, []);
 
-    const user: User = {
-        token: "123"
-    }
+    const { user } = useAuth();
 
     return (
         <ThemeProvider theme={theme}>
-            <GlobalTheme />
-
-            <RouterProvider router={user?.token ? RouterAuth : Router} />
+            <AuthProvider>
+                <GlobalTheme />
+                {user ? <AuthRoutes /> : <MainRoutes />}
+            </AuthProvider >
         </ThemeProvider>
     );
 }

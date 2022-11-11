@@ -7,6 +7,10 @@ export default createGlobalStyle`
         box-sizing: border-box;
     }
 
+    input, button {
+        border: 0;
+    }
+
     *,
     *::after,
     *::before {

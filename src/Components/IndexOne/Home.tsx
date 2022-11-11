@@ -163,8 +163,9 @@ const Home = () => {
                     <h2 className="title text-sm-start text-md-start text-lg-center">Benefícios</h2>
 
                     <div className="d-none d-md-grid d-lg-grid grid">
-                        {benefits.map((benefit) => (
+                        {benefits.map((benefit, index) => (
                             <CardBenefit
+                                key={index}
                                 title={benefit.title}
                                 image={benefit.image}
                                 order={benefit.order}
