@@ -1,5 +1,17 @@
 import styled, { keyframes } from 'styled-components';
 
+const appearFromRight = keyframes`
+    from {
+        opacity: 0;
+        transform: translateX(100vw);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+`;
+
+
 export const Container = styled.div`
     display: grid;
     place-items: center;
@@ -8,6 +20,7 @@ export const Container = styled.div`
     background: url('assets/img/others/world.png') no-repeat center/contain;
 
     form {
+        animation: ${appearFromRight} 0.4s ease-in-out;
         max-width: 540px;
         width: 100%;
         background: ${({ theme }) => theme.colors.middle};
@@ -35,7 +48,7 @@ export const Container = styled.div`
         }
 
         header {
-            margin-bottom: 48px;
+            margin-bottom: 28px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -47,42 +60,41 @@ export const Container = styled.div`
                 &::after {
                     content: '';
                     display: block;
-                    width: 100%;
+                    width: 28%;
                     height: 5px;
                     background: ${({ theme }) => theme.colors.colorMiddle};
                     border-radius: 25px;
                     margin-top: 12px;
                 }
             }
+        }
 
-            span {
-                display: inline-block;
-                color: #CCCCCC;
+        div.message-email {
+            strong {
+                color: ${({ theme }) => theme.colors.lightGrey};
+                font-weight: 700;
+                line-height: 180%;
             }
 
-            a {
-                color: ${({ theme }) => theme.colors.colorMiddle};
-                margin-left: 4px;
+            b {
+                color: ${({ theme }) => theme.colors.greenNeon};
+            }
+
+            p {
+                color: ${({ theme }) => theme.colors.lightGrey};
             }
 
             img {
                 display: block;
+                margin: 18px auto 0;
+                max-width: 100%;
                 height: 124px;
-                object-fit: contain;
-                opacity: 0.10;
-                pointer-events: none;
-                user-select: none;
             }
-        }
-
-        div.container-inputs {
-            display: grid;
-            gap: 42px;
         }
 
         button[type='submit'] {
             border-radius: 8px;
-            padding: 8px 64px;
+            padding: 8px 12px;
             font-size: ${({ theme }) => theme.fontSizes.lg};
             background: ${({ theme }) => theme.colors.greenNeon};
             color: ${({ theme }) => theme.colors.dark};
@@ -90,19 +102,12 @@ export const Container = styled.div`
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 64px auto 0;
+            margin: 48px 0;
+            max-width: 50%;
 
             &:not([disabled]):hover {
                 filter: brightness(0.8);
             }
-        }
-
-        a.forgot-password {
-            color: ${({ theme }) => theme.colors.white};
-            margin-top: 16px;
-            text-decoration: underline;
-            color: #CCCCCC;
-            margin: 10px auto;
         }
     }
 `;

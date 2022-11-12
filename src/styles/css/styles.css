@@ -115,25 +115,10 @@ button {
     text-decoration: none;
 }
 
-a:focus,
-.btn:focus,
-button:focus {
-    text-decoration: none;
-    outline: none;
-    box-shadow: none;
-}
-
 a:hover,
 .portfolio-cat a:hover,
 .footer -menu li a:hover {
     color: #2B96CC;
-    text-decoration: none;
-}
-
-a,
-button {
-    color: #1696e7;
-    outline: medium none;
     text-decoration: none;
 }
 

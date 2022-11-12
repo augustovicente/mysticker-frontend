@@ -21,7 +21,7 @@ export const ContainerTextInput = styled.div`
         font-size: ${({ theme }) => theme.fontSizes.md};
 
         &:focus {
-            outline: 2px solid ${({ theme }) => theme.colors.colorMiddle};
+            outline: 2px solid ${({ theme }) => theme.colors.colorMiddle} !important;
         }
 
         &::placeholder {

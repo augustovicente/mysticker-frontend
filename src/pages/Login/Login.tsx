@@ -3,6 +3,12 @@ import React from 'react';
 import { z } from 'zod';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import * as S from './styles';
+import { useToggle } from 'hooks/useToggle';
+import { GradientOverlay } from 'Components/GradientOverlay';
+import { useTheme } from 'styled-components';
+import LogoPru from '../../assets/imgs/logo.svg'
+import { Link } from 'react-router-dom';
 
 const emailSchema = z.object({
     email: z.string().email('E-mail inválido'),
@@ -11,19 +17,19 @@ const emailSchema = z.object({
 
 type emailSchemaType = z.infer<typeof emailSchema>;
 
-import * as S from './styles';
-import { useToggle } from 'hooks/useToggle';
 
 export const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<emailSchemaType>({
         resolver: zodResolver(emailSchema),
         mode: 'all',
+        shouldFocusError: false,
     });
 
     const [isLoading, setIsLoading] = useToggle(false);
+    const theme = useTheme();
 
     const onSubmit: SubmitHandler<emailSchemaType> = (data) => {
-        console.log(data);
+        console.log('data', data)
 
         setIsLoading(true);
     };
@@ -31,7 +37,18 @@ export const Login = () => {
     return (
         <S.Container>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <h1>Login</h1>
+                <header>
+                    <div>
+                        <h1>Login</h1>
+
+                        <div>
+                            <span>Não tem uma conta?</span> <a href='#'>Crie uma aqui</a>
+                        </div>
+                    </div>
+
+                    <img src={LogoPru} alt="Logo copa pruu" />
+                </header>
+
 
                 <div className="container-inputs">
                     <Input
@@ -41,6 +58,10 @@ export const Login = () => {
                         autoCapitalize='off'
                         autoCorrect='off'
                         errors={errors.email}
+                        name="email"
+                        style={{
+                            outline: errors.email ? `2px solid ${theme.colors.red}` : 'none',
+                        }}
                     />
 
                     <Input
@@ -49,18 +70,26 @@ export const Login = () => {
                         autoComplete='password'
                         autoCapitalize='off'
                         autoCorrect='off'
+                        name='password'
                         errors={errors.password}
+                        style={{
+                            outline: errors.password ? `2px solid ${theme.colors.red}` : 'none',
+                        }}
                     />
                 </div>
 
-                <button type="submit">
-                    {/* if is loading create a spinner loading in text of button */}
+                <button disabled={isLoading} type="submit">
                     {isLoading ? (
-                        <div className="spinner-border" role="status">
+                        <div className="spinner-border spinner-border-md" role="status">
                         </div>
-                    ) : 'Login'}
+                    ) : 'Logar'}
                 </button>
+
+                <Link className='forgot-password' to="/forgot-password">
+                    Esqueci a senha
+                </Link>
             </form>
+            <GradientOverlay />
         </S.Container>
     )
 }

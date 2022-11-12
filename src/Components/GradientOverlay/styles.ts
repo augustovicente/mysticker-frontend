@@ -9,4 +9,6 @@ export const Container = styled.div`
     height: 30vh;
     transform: rotate(-180deg);
     width: 100%;
+    pointer-events: none;
+    user-select: none;
 `;

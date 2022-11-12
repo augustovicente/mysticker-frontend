@@ -1,5 +1,5 @@
 import React from 'react';
-import AvatarImg from '../../assets/imgs/avatar.png'
+import AvatarImg from '../../assets/imgs/logo.png'
 
 import * as S from './styles';
 

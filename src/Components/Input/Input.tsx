@@ -9,6 +9,7 @@ import { ContainerTextInput } from "./styles";
 
 export type TextInputProps = HTMLProps<HTMLInputElement> & {
     label: string;
+    name: string;
     errors?: any;
 };
 
@@ -19,13 +20,14 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, TextInputProps> = (
         onBlur,
         errors,
         value,
+        name,
         ...rest
     },
     ref
 ) => {
     return (
         <ContainerTextInput>
-            <label className="the-label">
+            <label htmlFor={name} className="the-label">
                 {label}
             </label>
 
@@ -35,6 +37,7 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, TextInputProps> = (
                 value={value}
                 className="the-input"
                 onBlur={onBlur}
+                name={name}
             />
 
             {errors && (
