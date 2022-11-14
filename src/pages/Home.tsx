@@ -1,22 +1,12 @@
-import Footer from 'Components/Footer/Footer'
 import React from 'react'
-import Header from 'Components/Header/Header'
 import IndexOne from 'Components/IndexOne/IndexOne'
-
-import SideBar from 'Components/IndexOne/SideBar'
-import { Routes } from 'routes'
 
 const Home = () => {
     return (
         <>
-            <SideBar />
-
             <div className="main-content">
-                <Header />
-
                 <IndexOne />
             </div>
-            <Footer />
         </>
     )
 }

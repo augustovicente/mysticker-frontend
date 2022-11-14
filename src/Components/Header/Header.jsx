@@ -126,7 +126,7 @@ const Header = (props) => {
                                     <div className="header-action d-none d-sm-none d-lg-block">
                                         <ul>
                                             <li className="header-btn">
-                                                <Link to="hall" className="btn">
+                                                <Link to="login" className="btn">
                                                     Conectar
                                                     <i className='fi-sr-link'></i>
                                                 </Link>
