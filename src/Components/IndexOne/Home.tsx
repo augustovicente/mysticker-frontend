@@ -14,9 +14,6 @@ import Benefit_4Img from 'assets/imgs/4-benefits.png';
 import Benefit_5Img from 'assets/imgs/5-benefits.png';
 import Slider from 'react-slick';
 import { CardBenefit, CardBenefitProps } from 'Components/CardBenefit';
-import Header from 'Components/Header/Header';
-import Footer from 'Components/Footer/Footer';
-import SideBar from 'Components/IndexOne/SideBar';
 
 const developers = [
     {
@@ -92,9 +89,6 @@ const Home = () => {
 
     return (
         <>
-            <SideBar />
-            <Header />
-
             <section className="banner-bg">
                 <div className="banner-area">
                     <div className="container">
@@ -293,8 +287,6 @@ const Home = () => {
                     </button>
                 </div>
             </section>
-
-            <Footer />
         </>
     )
 }

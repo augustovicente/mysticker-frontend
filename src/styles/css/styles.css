@@ -309,16 +309,18 @@ label {
     cursor: pointer;
     /* display: inline-block; */
     display: flex;
+    min-width: 126px;
+    min-height: 42px;
     align-items: center;
     justify-content: center;
     line-height: 1;
     margin-bottom: 0;
     color: red var(--white);
-    padding: 12px 24px !important;
     text-align: center;
     border: 2px solid var(--color-dark);
     font-size: 1rem !important;
     gap: 12px;
+    padding: 0;
 }
 
 .btn i {
@@ -405,26 +407,7 @@ label {
     height: auto;
 }
 
-.menu-area {
-    margin-top: 30px;
-    margin-bottom: -130px;
-}
 
-.menu-wrap {
-    background: var(--middle);
-    padding: 0 25px;
-    border-radius: 5px;
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-    position: relative;
-    margin: 7px 0px;
-}
-
-.menu-nav {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-}
 
 .logo img {
     /* display: block; */
@@ -531,7 +514,7 @@ label {
 
 .header-action>ul li {
     position: relative;
-    margin-left: 30px;
+    margin-left: 12px;
 }
 
 .header-action ul li:first-child {
@@ -541,12 +524,6 @@ label {
 .header-action ul li a {
     color: #222;
     font-size: 14px;
-}
-
-.header-action .header-btn .btn {
-    color: var(--white);
-    font-size: 14px;
-    padding: 18px 28px;
 }
 
 .navbar-wrap ul li .submenu {
@@ -891,18 +868,7 @@ label {
     color: var(--white);
 }
 
-.menu-area .mobile-nav-toggler {
-    position: relative;
-    float: right;
-    font-size: 30px;
-    cursor: pointer;
-    line-height: 1;
-    color: var(--white);
-    display: none;
-    margin-top: 28px;
-    z-index: 99;
-    margin: 30px 35px 0 0;
-}
+
 
 /* Offcanvas */
 .offcanvas-wrapper {
@@ -1312,11 +1278,6 @@ label {
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-}
-
-.menu-area.market-single-header {
-    margin-top: 30px;
-    margin-bottom: 0;
 }
 
 .home-back-btn {

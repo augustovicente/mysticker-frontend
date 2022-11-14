@@ -8,19 +8,19 @@ type BaseTemplateProps = {
 }
 
 const BaseTemplate = ({ children }: BaseTemplateProps) => {
-  return (
-    <>
-    <SideBar/>
-    <div className="main-content">
-         <Header/>
+    return (
+        <>
+            <SideBar />
+            <div className="main-content">
+                <Header />
 
-         <main>
-            {children}
-         </main>
-         <Footer/>
-     </div>
-    </>
-  )
+                <main>
+                    {children}
+                </main>
+                <Footer />
+            </div>
+        </>
+    )
 }
 
 export default BaseTemplate
