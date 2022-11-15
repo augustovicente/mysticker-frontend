@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ContainerTextInput = styled.div`
+export const ContainerTextInput = styled.div<{isMobile: boolean}>`
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -11,6 +11,18 @@ export const ContainerTextInput = styled.div`
         color: #CCCCCCCC;
         font-weight: bold;
     }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type=number]{
+        -moz-appearance: textfield;
+    }
+
+
 
     input.the-input {
         width: 100%;
@@ -26,7 +38,11 @@ export const ContainerTextInput = styled.div`
 
         &::placeholder {
             font-size: inherit;
-            color: #CCCCCCCC;
+            color: #CCCCCC;
+
+            ${({ isMobile, theme }) => isMobile && `
+                color: ${theme.colors.light};
+            `};
         }
 
         &:disabled {
@@ -39,6 +55,17 @@ export const ContainerTextInput = styled.div`
                 color: inherit;
             }
         }
+    }
+
+    i {
+        color: ${({ theme }) => theme.colors.light};
+        font-size: 1.5rem;
+        /* position: absolute; */
+        bottom: 50%;
+        /* top: 50%; */
+        /* top: 0; */
+        left: 8px;
+        /* top: 0; */
     }
 
     span.error-msg {

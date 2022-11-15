@@ -1,11 +1,12 @@
 import axios from 'axios';
+import { PREFIX_AUTH } from 'utils/constants';
 
 export const api = axios.create({
     baseURL: import.meta.env.VITE_APP_API_URL
 });
 
 export const configApi = () => {
-    const token = JSON.parse(localStorage.getItem('#Auth:token') || '')
+    const token = JSON.parse(localStorage.getItem(`${PREFIX_AUTH}:token`) || '')
 
     return {
         headers: {
@@ -20,7 +21,7 @@ const responseHandler = (response: any) => {
 
 // Intercerpetor de requisições
 api.interceptors.request.use((config) => {
-    let token = localStorage.getItem('#Auth:token');
+    let token = localStorage.getItem(`${PREFIX_AUTH}:token`);
 
     if (token !== null) {
         config.headers = {

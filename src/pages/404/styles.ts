@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-    margin-top: 134px;
+    margin-top: 124px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,11 +9,13 @@ export const Container = styled.div`
     width: 100%;
     height: calc(100vh - 194px);
     background: url('assets/img/others/world.png') no-repeat center center/contain;
+    padding: 0 32px;
 
     h1 {
         color: ${({ theme }) => theme.colors.white};
         font-size: ${({ theme }) => theme.fontSizes.heading3};
         margin-bottom: 44px;
+        text-align: center;
     }
 
     i {
@@ -23,15 +25,15 @@ export const Container = styled.div`
 
     a.btn-home {
         display: inline-flex;
+        gap: 32px;
         align-items: center;
-        font-size: 16px;
         position: relative;
         z-index: 1;
         background: ${({ theme }) => theme.colors.middleL};
+        color: ${({ theme }) => theme.colors.white};
         border-radius: 25px;
         padding: 18px 21px;
-        transition: .3s ease-in-out;
-        color: var(--white);
+        transition: all .3s ease-in-out;
         line-height: 1;
 
         &:hover {
@@ -43,8 +45,8 @@ export const Container = styled.div`
             position: absolute;
             left: 0;
             top: 0;
-            width: 51px;
-            height: 51px;
+            width: 58px;
+            height: 58px;
             background: ${({ theme }) => theme.colors.greenNeon};
             z-index: -1;
             border-radius: 30px;
@@ -56,14 +58,17 @@ export const Container = styled.div`
             width: 100%;
         }
 
-        span {
-            margin-left: 48px;
+        svg {
+            margin-left: -2px;
         }
 
-        .banner-btn i {
-            line-height: 0;
-            margin-left: 12px;
+    }
+
+    @media (max-width: 600px) {
+        h1 {
+            font-size: ${({ theme }) => theme.fontSizes.xl};
         }
 
+        background-size: cover !important;
     }
 `;

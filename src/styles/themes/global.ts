@@ -21,6 +21,7 @@ export default createGlobalStyle`
 
     html {
         width: 100%;
+        height: 100%;
         overflow-x: hidden;
     }
 
@@ -31,5 +32,17 @@ export default createGlobalStyle`
         -webkit-font-smoothing: antialiased !important;
         font-weight: 400;
         background: ${({ theme }) => theme.colors.dark};
+    }
+
+    @media (max-width: 767px) {
+        html {
+            font-size: 0.875rem;
+        }
+    }
+
+    @media (max-width: 380px) {
+        html {
+            font-size: 0.75rem;
+        }
     }
 `;

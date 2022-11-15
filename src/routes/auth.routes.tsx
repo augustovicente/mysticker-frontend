@@ -1,9 +1,10 @@
 import Header from 'Components/Header/Header';
 import SideBar from 'Components/IndexOne/SideBar';
 import { useAuth } from 'contexts/auth.context';
+import { NotFoundPage } from 'pages/404/404';
 import { IndexAuth } from 'pages/Auth';
 import { Hall } from 'pages/Auth/Hall/Hall';
-import { NotFoundPage } from 'pages/Login/Pages/404/404';
+import { Profile } from 'pages/Profile/Profile';
 import React from 'react';
 import { createBrowserRouter, createRoutesFromElements, Outlet, Route, Routes } from 'react-router-dom';
 
@@ -13,7 +14,7 @@ export const AuthRoutes = () =>
     <Routes>
         <Route path="/" element={<IndexAuth />}>
             <Route index element={<Hall />} />
-            <Route path="test" element={<h1>TESTE</h1>} />
+            <Route path="profile" element={<Profile />} />
         </Route>
 
         <Route path="*" element={<NotFoundPage />} />

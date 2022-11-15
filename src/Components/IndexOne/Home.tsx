@@ -171,7 +171,7 @@ const Home = () =>
                     {/* Carrousel Slider(Mobile) */}
                     <Slider className="d-grid d-md-none d-lg-none row top-collection-active" {...settings}>
                         {benefits.map((benefit) => (
-                            <div className="col-xl-3 grid">
+                            <div className="col-xl-3 grid" key={benefit.title}>
                                 <CardBenefit
                                     title={benefit.title}
                                     image={benefit.image}

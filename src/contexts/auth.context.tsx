@@ -2,6 +2,7 @@ import { useToggle } from "hooks/useToggle";
 import React, { useState, useEffect, useContext, createContext, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "services/api";
+import { PREFIX_AUTH } from "utils/constants";
 
 type PropsProvider = {
     children?: React.ReactNode;
@@ -49,16 +50,16 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider = ({ children }: PropsProvider) => {
     const [data, setData] = useState<User>({
-        user: JSON.parse(localStorage.getItem('#Auth:user') || 'null'),
-        token: JSON.parse(localStorage.getItem('#Auth:token') || 'null'),
+        user: JSON.parse(localStorage.getItem(`${PREFIX_AUTH}:user`) || 'null'),
+        token: JSON.parse(localStorage.getItem(`${PREFIX_AUTH}:token`) || 'null'),
     });
 
     const [loading, setLoading] = useToggle(false);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = localStorage.getItem('#Auth:token')
-        const user = localStorage.getItem('#Auth:user')
+        const token = localStorage.getItem(`${PREFIX_AUTH}:token`)
+        const user = localStorage.getItem(`${PREFIX_AUTH}:user`)
 
         if (token && user) {
             setData({
@@ -82,8 +83,8 @@ export const AuthProvider = ({ children }: PropsProvider) => {
                 const { token, user } = response.data;
 
                 if (token && user) {
-                    localStorage.setItem('#Auth:token', JSON.stringify(token))
-                    localStorage.setItem('#Auth:user', JSON.stringify(user))
+                    localStorage.setItem(`${PREFIX_AUTH}:token`, JSON.stringify(token))
+                    localStorage.setItem(`${PREFIX_AUTH}:user`, JSON.stringify(user))
 
                     setData({ token, user });
                     setLoading(false);
