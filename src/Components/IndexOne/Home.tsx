@@ -14,6 +14,7 @@ import Benefit_4Img from 'assets/imgs/4-benefits.png';
 import Benefit_5Img from 'assets/imgs/5-benefits.png';
 import Slider from 'react-slick';
 import { CardBenefit, CardBenefitProps } from 'Components/CardBenefit';
+import { useTranslation } from 'react-i18next';
 
 const developers = [
     {
@@ -82,10 +83,11 @@ const settings = {
     swipeToSlide: true,
 }
 
-const Home = () => {
+const Home = () =>
+{
     const { width } = useWindowSize();
-
     const classNameSectionCup = width! < 576 ? '' : 'container';
+    const { t } = useTranslation();
 
     return (
         <>
@@ -96,9 +98,7 @@ const Home = () => {
                             <div className="col-lg-5 col-md-8">
                                 <div className="banner-content">
                                     <h1 className="title">
-                                        MySticker {'\n'}
-                                        Álbum de {'\n'}
-                                        Figurinha
+                                        {t('home.section_1.title')}
                                     </h1>
 
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae ultrices ipsum luctus nulla volutpat, integer lacus. Aliquet orci, velit
