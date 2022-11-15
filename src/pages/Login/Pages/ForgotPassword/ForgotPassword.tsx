@@ -19,6 +19,7 @@ import * as S from './styles';
 import { useToggle } from 'hooks/useToggle';
 import { GradientOverlay } from 'Components/GradientOverlay';
 import { useTheme } from 'styled-components';
+import { FormBase } from 'pages/Login/components/FormBase.styles';
 
 export const ForgotPassword = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<formType>({
@@ -49,7 +50,7 @@ export const ForgotPassword = () => {
     return (
         <S.Container>
             {!isEmailSended ? (
-                <motion.form
+                <FormBase
                     initial={{ x: '100vw', opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ duration: 0.3, easings: 'easeInOut' }}
@@ -84,9 +85,9 @@ export const ForgotPassword = () => {
                         <img src={LogoPru} alt="Logo copa pru" />
                     </footer>
 
-                </motion.form>
+                </FormBase>
             ) : (
-                <form noValidate>
+                <FormBase noValidate>
                     <header>
                         <h1>Enviado com sucesso</h1>
                     </header>
@@ -101,7 +102,7 @@ export const ForgotPassword = () => {
 
                         <img src={SendImg} alt="Logo copa pru" />
                     </div>
-                </form>
+                </FormBase>
             )}
 
             <GradientOverlay />

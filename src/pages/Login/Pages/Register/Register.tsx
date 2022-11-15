@@ -11,6 +11,7 @@ import { useTheme } from 'styled-components';
 import { Link } from 'react-router-dom';
 import LogoPru from '../../../../assets/imgs/logo.svg';
 import Header from 'Components/Header/Header';
+import { FormBase } from 'pages/Login/components/FormBase.styles';
 
 type formType = {
     name: string;
@@ -52,114 +53,111 @@ export const Register = () => {
     };
 
     return (
-        <>
-            <Header />
-            <S.Container>
-                <motion.form
-                    onSubmit={handleSubmit(onSubmit)}
-                    initial={{ x: '100vw', opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.3, easings: 'easeInOut' }}
-                    exit={{ x: '100vw', opacity: 0 }}
-                >
-                    <header>
-                        <div>
-                            <h1>Cadastrar</h1>
-                        </div>
-
-                        <img src={LogoPru} alt="Logo copa pruu" />
-                    </header>
-
-                    <div className="container-inputs">
-                        <Input
-                            {...register('name')}
-                            label='Nome completo *'
-                            autoComplete='name'
-                            autoCorrect='off'
-                            errors={errors.name}
-                            style={{
-                                outline: errors.name ? `2px solid ${theme.colors.red}` : 'none',
-                            }}
-                        />
-
-                        <Input
-                            {...register('email')}
-                            label='E-mail'
-                            autoComplete='email'
-                            inputMode='email'
-                            autoCapitalize='off'
-                            autoCorrect='off'
-                            errors={errors.email}
-                            style={{
-                                outline: errors.email ? `2px solid ${theme.colors.red}` : 'none',
-                            }}
-                        />
-
-                        <Input
-                            {...register('confirmEmail')}
-                            label='Confirmação de e-mail *'
-                            autoComplete='email'
-                            inputMode='email'
-                            autoCapitalize='off'
-                            autoCorrect='off'
-                            errors={errors.confirmEmail}
-                            style={{
-                                outline: errors.confirmEmail ? `2px solid ${theme.colors.red}` : 'none',
-                            }}
-                        />
-
-                        <Input
-                            {...register('password')}
-                            label='Crie uma senha *'
-                            autoComplete='password'
-                            type='password'
-                            autoCapitalize='off'
-                            autoCorrect='off'
-                            errors={errors.password}
-                            style={{
-                                outline: errors.password ? `2px solid ${theme.colors.red}` : 'none',
-                            }}
-                        />
-
-                        <Input
-                            {...register('confirmPassword')}
-                            label='Confirmar senha *'
-                            autoComplete='password'
-                            type='password'
-                            autoCapitalize='off'
-                            autoCorrect='off'
-                            errors={errors.confirmPassword}
-                            style={{
-                                outline: errors.confirmPassword ? `2px solid ${theme.colors.red}` : 'none',
-                            }}
-                        />
-
-                        <div className="container-checkbox">
-                            <input {...register('therms')} id='therms' type="checkbox" />
-                            <label htmlFor='therms'>Eu aceito os termos de uso</label>
-                        </div>
+        <S.Container>
+            <FormBase
+                onSubmit={handleSubmit(onSubmit)}
+                initial={{ x: '100vw', opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.3, easings: 'easeInOut' }}
+                exit={{ x: '100vw', opacity: 0 }}
+            >
+                <header>
+                    <div>
+                        <h1>Cadastrar</h1>
                     </div>
 
-                    <div className="container-buttons">
-                        <button
-                            disabled={isLoading}
-                            type="submit"
-                        >
-                            {isLoading ? (
-                                <div className="spinner-border spinner-border-md" role="status">
-                                </div>
-                            ) : 'Cadastrar'}
-                        </button>
+                    <img src={LogoPru} alt="Logo copa pruu" />
+                </header>
 
-                        <button disabled={isLoading}>
-                            <Link className='to-login' to="/login">
-                                Já tenho conta
-                            </Link>
-                        </button>
+                <div className="container-inputs">
+                    <Input
+                        {...register('name')}
+                        label='Nome completo *'
+                        autoComplete='name'
+                        autoCorrect='off'
+                        errors={errors.name}
+                        style={{
+                            outline: errors.name ? `2px solid ${theme.colors.red}` : 'none',
+                        }}
+                    />
+
+                    <Input
+                        {...register('email')}
+                        label='E-mail'
+                        autoComplete='email'
+                        inputMode='email'
+                        autoCapitalize='off'
+                        autoCorrect='off'
+                        errors={errors.email}
+                        style={{
+                            outline: errors.email ? `2px solid ${theme.colors.red}` : 'none',
+                        }}
+                    />
+
+                    <Input
+                        {...register('confirmEmail')}
+                        label='Confirmação de e-mail *'
+                        autoComplete='email'
+                        inputMode='email'
+                        autoCapitalize='off'
+                        autoCorrect='off'
+                        errors={errors.confirmEmail}
+                        style={{
+                            outline: errors.confirmEmail ? `2px solid ${theme.colors.red}` : 'none',
+                        }}
+                    />
+
+                    <Input
+                        {...register('password')}
+                        label='Crie uma senha *'
+                        autoComplete='password'
+                        type='password'
+                        autoCapitalize='off'
+                        autoCorrect='off'
+                        errors={errors.password}
+                        style={{
+                            outline: errors.password ? `2px solid ${theme.colors.red}` : 'none',
+                        }}
+                    />
+
+                    <Input
+                        {...register('confirmPassword')}
+                        label='Confirmar senha *'
+                        autoComplete='password'
+                        type='password'
+                        autoCapitalize='off'
+                        autoCorrect='off'
+                        errors={errors.confirmPassword}
+                        style={{
+                            outline: errors.confirmPassword ? `2px solid ${theme.colors.red}` : 'none',
+                        }}
+                    />
+
+                    <div className="container-checkbox">
+                        <input {...register('therms')} id='therms' type="checkbox" />
+                        <label htmlFor='therms'>Eu aceito os termos de uso</label>
                     </div>
-                </motion.form>
-                <GradientOverlay />
-            </S.Container>
-        </>
+                </div>
+
+                <div className="container-buttons">
+                    <button
+                        disabled={isLoading}
+                        type="submit"
+                    >
+                        {isLoading ? (
+                            <div className="spinner-border spinner-border-md" role="status">
+                            </div>
+                        ) : 'Cadastrar'}
+                    </button>
+
+                    <button disabled={isLoading}>
+                        <Link className='to-login' to="/login">
+                            Já tenho conta
+                        </Link>
+                    </button>
+                </div>
+            </FormBase>
+            <GradientOverlay />
+        </S.Container>
     )
 }

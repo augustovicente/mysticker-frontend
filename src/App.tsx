@@ -41,7 +41,7 @@ function App() {
             <I18nextProvider i18n={i18n}>
                 <AuthProvider>
                     <GlobalTheme />
-                    {user ? <AuthRoutes /> : <MainRoutes />}
+                    {!user ? <AuthRoutes /> : <MainRoutes />}
                 </AuthProvider >
             </I18nextProvider>
         </ThemeProvider>

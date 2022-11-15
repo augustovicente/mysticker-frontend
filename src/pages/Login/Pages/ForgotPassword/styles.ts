@@ -9,45 +9,9 @@ export const Container = styled.div`
     background: url('assets/img/others/world.png') no-repeat center/contain;
 
     form {
-        max-width: 540px;
-        width: 100%;
-        background: ${({ theme }) => theme.colors.middle};
-        padding: 32px 48px;
-        display: flex;
-        flex-direction: column;
-        border-radius: 12px;
-        position: relative;
-
-
-
-        &::before {
-            content: '';
-            position: absolute;
-            top: -32px;
-            margin: 0 auto;
-            left: 0;
-            right: 0;
-            width: 85%;
-            height: 100%;
-            background: red;
-            z-index: -1;
-            border-radius: 12px;
-            background: linear-gradient(180deg, #1D1933 0%, rgba(29, 25, 51, 0) 17.14%);
-            border-radius: 12px;
-            transform: matrix(-1, 0, 0, 1, 0, 0);
-        }
-
         header {
             margin-bottom: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
             h1 {
-                display: inline-block;
-                color: ${({ theme }) => theme.colors.white};
-                margin-bottom: 16px;
-                font-size: ${({ theme }) => theme.fontSizes.heading3};
-
                 &::after {
                     content: '';
                     display: block;
@@ -91,6 +55,9 @@ export const Container = styled.div`
             button[type='submit'] {
                 border-radius: 8px;
                 padding: 8px 18px;
+                min-width: 200px;
+                min-height: 46px;
+                max-height: 46px;
                 font-size: ${({ theme }) => theme.fontSizes.lg};
                 background: ${({ theme }) => theme.colors.greenNeon};
                 color: ${({ theme }) => theme.colors.dark};

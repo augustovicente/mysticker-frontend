@@ -1,6 +1,6 @@
+import { NotFoundPage } from 'pages/404/404';
 import Home from 'pages/Home';
 import { Login } from 'pages/Login/Login';
-import { NotFoundPage } from 'pages/Login/Pages/404/404';
 import { ForgotPassword } from 'pages/Login/Pages/ForgotPassword/ForgotPassword';
 import { Register } from 'pages/Login/Pages/Register/Register';
 import React from 'react';

@@ -10,6 +10,7 @@ import { useTheme } from 'styled-components';
 import LogoPru from '../../assets/imgs/logo.svg'
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { FormBase } from './components/FormBase.styles';
 
 type loginType = {
     email: string;
@@ -42,7 +43,7 @@ export const Login = () => {
 
     return (
         <S.Container>
-            <motion.form
+            <FormBase
                 onSubmit={handleSubmit(onSubmit)}
                 initial={{ x: '100vw', opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
@@ -102,7 +103,7 @@ export const Login = () => {
                 <Link className='forgot-password' to="/forgot-password">
                     Esqueci a senha
                 </Link>
-            </motion.form>
+            </FormBase>
             <GradientOverlay />
         </S.Container>
     )
