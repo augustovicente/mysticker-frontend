@@ -1,1 +1,88 @@
 
+.menu-area {
+    margin-top: 30px;
+    margin-bottom: -130px;
+}
+
+.menu-area .mobile-nav-toggler {
+    position: relative;
+    float: right;
+    font-size: 30px;
+    cursor: pointer;
+    line-height: 1;
+    color: var(--white);
+    display: none;
+    margin-top: 28px;
+    z-index: 99;
+    margin: 30px 35px 0 0;
+}
+
+.menu-area.market-single-header {
+    margin-top: 30px;
+    margin-bottom: 0;
+}
+
+.menu-nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.menu-wrap {
+    border-radius: 5px;
+    position: relative;
+    margin: 7px 0px;
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (max-width: 991.98px) {
+    .menu-area {
+        padding: 25px 0;
+    }
+
+    .menu-area .mobile-nav-toggler {
+        display: block;
+    }
+
+    .menu-area {
+        margin-top: 0;
+        margin-bottom: -145px;
+    }
+
+    .menu-area.market-single-header {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .menu-nav {
+        justify-content: space-between;
+    }
+
+    .menu-wrap {
+        padding: 15px 25px;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (max-width: 767.98px) {
+    .menu-area .mobile-nav-toggler {
+        /* margin: 35px 35px 0 0; */
+        margin: 24px 35px 0 0;
+    }
+
+    .menu-area {
+        padding: 15px 0;
+    }
+
+    .menu-wrap {
+        padding: 20px 25px;
+    }
+
+}
+
+@media (max-width: 460px) {
+    .menu-area .mobile-nav-toggler {
+        margin: 24px 35px 0 0;
+    }
+}

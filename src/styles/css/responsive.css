@@ -381,14 +381,6 @@
         max-width: 720px;
     }
 
-    .menu-area {
-        padding: 25px 0;
-    }
-
-    .menu-nav {
-        justify-content: space-between;
-    }
-
     .header-action {
         margin-right: 30px;
     }
@@ -397,22 +389,9 @@
         display: block !important;
     }
 
-    .menu-area .mobile-nav-toggler {
-        display: block;
-    }
-
     .menu-trigger,
     .menu-close {
         top: 140px;
-    }
-
-    .menu-wrap {
-        padding: 15px 25px;
-    }
-
-    .menu-area {
-        margin-top: 0;
-        margin-bottom: -145px;
     }
 
     .collection-item-thumb img {
@@ -532,10 +511,7 @@
         margin-top: 60px;
     }
 
-    .menu-area.market-single-header {
-        margin-top: 0;
-        margin-bottom: 0;
-    }
+
 
     section#roadmap {
         padding: 112px 0 420px;
@@ -584,10 +560,6 @@
 
     .header-form {
         display: block;
-    }
-
-    .menu-wrap {
-        padding: 20px 25px;
     }
 
     .banner-content .title {
@@ -673,10 +645,7 @@
         display: block;
     }
 
-    .menu-area .mobile-nav-toggler {
-        /* margin: 35px 35px 0 0; */
-        margin: 24px 35px 0 0;
-    }
+
 
     .banner-content p {
         width: 100%;
@@ -692,10 +661,6 @@
 
     .breadcrumb-bg {
         padding: 190px 0 90px;
-    }
-
-    .menu-area {
-        padding: 15px 0;
     }
 
     .standard-blog-content {
@@ -896,10 +861,6 @@
 
     .header-form {
         display: none;
-    }
-
-    .menu-area .mobile-nav-toggler {
-        margin: 24px 35px 0 0;
     }
 
     .market-single-top {

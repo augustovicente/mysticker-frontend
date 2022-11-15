@@ -1,29 +1,18 @@
 import React from 'react'
-import Footer from '../Components/Footer/Footer'
-import Header from '../Components/Header/Header'
-import SideBar from '../Components/IndexOne/SideBar'
+import BaseTemplate from 'Components/BaseTemplate'
 import WeekFeatures from '../Components/IndexOne/WeekFeatures'
 import Breadcrumb from '../Components/InnerPages/marketsingle/Breadcrumb'
 import SingleMarket from '../Components/InnerPages/marketsingle/SingleMarket'
 
 
 const MarketSingle = () => {
-  return (
-    <>
-    <SideBar/>
-    <div className="main-content">
-         <Header/>
-         
-         <main>
-           <Breadcrumb/>
-           <SingleMarket/>
-           <WeekFeatures/>
-            
-         </main>
-         <Footer/>
-     </div>
-    </>
-  )
+    return (
+        <BaseTemplate>
+            <Breadcrumb />
+            <SingleMarket />
+            <WeekFeatures />
+        </BaseTemplate>
+    )
 }
 
 export default MarketSingle

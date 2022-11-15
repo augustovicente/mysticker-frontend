@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react'
 import $ from 'jquery';
-import { Link } from "react-router-dom"
 
 import "./Header.css";
+import { LoginButton } from './components/LoginButton';
+import { DefaultButton } from './components/DefaultButton';
 
 const Header = (props) => {
+    const user = true // user is athenticated
     const { hasContainer = true } = props;
 
     // // console.log(history);
@@ -93,7 +95,7 @@ const Header = (props) => {
                 <div className={hasContainer ? 'container' : ''}>
                     <div className="row">
                         <div className="col-12">
-                            <div className="mobile-nav-toggler"><i className="fas fa-bars" /></div>
+                            {/* <div className="mobile-nav-toggler"><i className="fas fa-bars" /></div> */}
                             <div className="menu-wrap main-menu">
                                 <nav className="menu-nav py-lg-3 py-md-2">
                                     <div className="logo"><a href="/#"><img src="assets/img/logo/logo-header.svg" alt="" /></a></div>
@@ -125,11 +127,29 @@ const Header = (props) => {
                                     </div>
                                     <div className="header-action d-none d-sm-none d-lg-block">
                                         <ul>
-                                            <li className="header-btn">
-                                                <Link to="login" className="btn">
-                                                    Conectar
-                                                    <i className='fi-sr-link'></i>
-                                                </Link>
+                                            {
+                                                user && (
+                                                    <>
+                                                        <li>
+                                                            <DefaultButton to="#" src="/assets/img/gift-icon.svg" />
+                                                        </li>
+                                                        <li>
+                                                            <DefaultButton to="#" src="/assets/img/notification-icon.svg" />
+                                                        </li>
+                                                        <li>
+                                                            <DefaultButton to="#" src="/assets/img/wallet-icon.svg" />
+                                                        </li>
+                                                    </>
+                                                )
+                                            }
+                                            <li>
+                                                <DefaultButton to="#" src="/assets/img/open-link-icon.svg" />
+                                            </li>
+                                            <li>
+                                                <DefaultButton to="#" src="/assets/img/browser-icon.svg" />
+                                            </li>
+                                            <li>
+                                                <LoginButton />
                                             </li>
                                         </ul>
                                     </div>
