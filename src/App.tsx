@@ -1,6 +1,8 @@
 import React, { useEffect } from "react"
 import { ThemeProvider } from 'styled-components'
 import $ from "jquery"
+import { I18nextProvider } from "react-i18next";
+import i18n from "./i18n";
 
 import { theme } from "styles/themes/theme";
 import GlobalTheme from "styles/themes/global";
@@ -36,10 +38,12 @@ function App() {
 
     return (
         <ThemeProvider theme={theme}>
-            <AuthProvider>
-                <GlobalTheme />
-                {user ? <AuthRoutes /> : <MainRoutes />}
-            </AuthProvider >
+            <I18nextProvider i18n={i18n}>
+                <AuthProvider>
+                    <GlobalTheme />
+                    {user ? <AuthRoutes /> : <MainRoutes />}
+                </AuthProvider >
+            </I18nextProvider>
         </ThemeProvider>
     );
 }
