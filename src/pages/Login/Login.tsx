@@ -73,9 +73,6 @@ export const Login = () => {
                         autoCorrect='off'
                         errors={errors.email}
                         name="email"
-                        style={{
-                            outline: errors.email ? `2px solid ${theme.colors.red}` : 'none',
-                        }}
                     />
 
                     <Input
@@ -87,9 +84,6 @@ export const Login = () => {
                         name='password'
                         errors={errors.password}
                         type="password"
-                        style={{
-                            outline: errors.password ? `2px solid ${theme.colors.red}` : 'none',
-                        }}
                     />
                 </div>
 

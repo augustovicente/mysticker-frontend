@@ -69,9 +69,6 @@ export const ForgotPassword = () => {
                         autoCorrect='off'
                         errors={errors.email}
                         name="email"
-                        style={{
-                            outline: errors.email ? `2px solid ${theme.colors.red}` : 'none',
-                        }}
                     />
 
                     <footer>

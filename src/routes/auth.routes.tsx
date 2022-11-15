@@ -4,6 +4,7 @@ import { useAuth } from 'contexts/auth.context';
 import { NotFoundPage } from 'pages/404/404';
 import { IndexAuth } from 'pages/Auth';
 import { Hall } from 'pages/Auth/Hall/Hall';
+import { Profile } from 'pages/Profile/Profile';
 import React from 'react';
 import { createBrowserRouter, createRoutesFromElements, Outlet, Route, Routes } from 'react-router-dom';
 
@@ -13,6 +14,7 @@ export const AuthRoutes = () =>
     <Routes>
         <Route path="/" element={<IndexAuth />}>
             <Route index element={<Hall />} />
+            <Route path="profile" element={<Profile />} />
         </Route>
 
         <Route path="*" element={<NotFoundPage />} />

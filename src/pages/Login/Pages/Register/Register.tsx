@@ -76,9 +76,6 @@ export const Register = () => {
                         autoComplete='name'
                         autoCorrect='off'
                         errors={errors.name}
-                        style={{
-                            outline: errors.name ? `2px solid ${theme.colors.red}` : 'none',
-                        }}
                     />
 
                     <Input
@@ -89,9 +86,6 @@ export const Register = () => {
                         autoCapitalize='off'
                         autoCorrect='off'
                         errors={errors.email}
-                        style={{
-                            outline: errors.email ? `2px solid ${theme.colors.red}` : 'none',
-                        }}
                     />
 
                     <Input
@@ -102,9 +96,6 @@ export const Register = () => {
                         autoCapitalize='off'
                         autoCorrect='off'
                         errors={errors.confirmEmail}
-                        style={{
-                            outline: errors.confirmEmail ? `2px solid ${theme.colors.red}` : 'none',
-                        }}
                     />
 
                     <Input
@@ -115,9 +106,6 @@ export const Register = () => {
                         autoCapitalize='off'
                         autoCorrect='off'
                         errors={errors.password}
-                        style={{
-                            outline: errors.password ? `2px solid ${theme.colors.red}` : 'none',
-                        }}
                     />
 
                     <Input
@@ -128,9 +116,6 @@ export const Register = () => {
                         autoCapitalize='off'
                         autoCorrect='off'
                         errors={errors.confirmPassword}
-                        style={{
-                            outline: errors.confirmPassword ? `2px solid ${theme.colors.red}` : 'none',
-                        }}
                     />
 
                     <div className="container-checkbox">

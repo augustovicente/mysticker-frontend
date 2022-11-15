@@ -4,6 +4,7 @@ import $ from 'jquery';
 import "./Header.css";
 import { LoginButton } from './components/LoginButton';
 import { DefaultButton } from './components/DefaultButton';
+import { Link } from 'react-router-dom';
 
 const Header = (props) => {
     const user = true // user is athenticated
@@ -98,7 +99,7 @@ const Header = (props) => {
                             {/* <div className="mobile-nav-toggler"><i className="fas fa-bars" /></div> */}
                             <div className="menu-wrap main-menu">
                                 <nav className="menu-nav py-lg-3 py-md-2">
-                                    <div className="logo"><a href="/#"><img src="assets/img/logo/logo-header.svg" alt="" /></a></div>
+                                    <div className="logo"><Link to="/"><img src="assets/img/logo/logo-header.svg" alt="" /></Link></div>
                                     <div className="navbar-wrap push-menu main-menu d-none d-lg-flex">
                                         {/* <ul className="navigation">
                                             <li><Link to="/">Home</Link></li>
