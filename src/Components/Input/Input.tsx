@@ -37,6 +37,8 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, TextInputProps> = (
                 value={value}
                 className="the-input"
                 onBlur={onBlur}
+                onChange={onChange}
+                id={name}
                 name={name}
             />
 

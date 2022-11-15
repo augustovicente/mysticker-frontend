@@ -32,4 +32,16 @@ export default createGlobalStyle`
         font-weight: 400;
         background: ${({ theme }) => theme.colors.dark};
     }
+
+    @media (max-width: 767px) {
+        html {
+            font-size: 0.875rem;
+        }
+    }
+
+    @media (max-width: 380px) {
+        html {
+            font-size: 0.75rem;
+        }
+    }
 `;

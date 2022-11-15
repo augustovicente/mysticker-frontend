@@ -1,26 +1,14 @@
 import styled, { keyframes } from 'styled-components';
 
-const appearFromRight = keyframes`
-    from {
-        opacity: 0;
-        transform: translateX(100vw);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-`;
-
-
 export const Container = styled.div`
     display: grid;
     place-items: center;
     height: 100vh;
     width: 100%;
+    padding: 0 24px;
     background: url('assets/img/others/world.png') no-repeat center/contain;
 
     form {
-        animation: ${appearFromRight} 0.4s ease-in-out;
         max-width: 540px;
         width: 100%;
         background: ${({ theme }) => theme.colors.middle};
@@ -29,6 +17,8 @@ export const Container = styled.div`
         flex-direction: column;
         border-radius: 12px;
         position: relative;
+
+
 
         &::before {
             content: '';
@@ -56,6 +46,7 @@ export const Container = styled.div`
                 display: inline-block;
                 color: ${({ theme }) => theme.colors.white};
                 margin-bottom: 16px;
+                font-size: ${({ theme }) => theme.fontSizes.heading3};
 
                 &::after {
                     content: '';
@@ -92,21 +83,42 @@ export const Container = styled.div`
             }
         }
 
-        button[type='submit'] {
-            border-radius: 8px;
-            padding: 8px 12px;
-            font-size: ${({ theme }) => theme.fontSizes.lg};
-            background: ${({ theme }) => theme.colors.greenNeon};
-            color: ${({ theme }) => theme.colors.dark};
-            font-weight: bold;
+        footer {
             display: flex;
-            justify-content: center;
             align-items: center;
-            margin: 48px 0;
-            max-width: 50%;
+            justify-content: space-between;
+            margin-top: 32px;
+            button[type='submit'] {
+                border-radius: 8px;
+                padding: 8px 18px;
+                font-size: ${({ theme }) => theme.fontSizes.lg};
+                background: ${({ theme }) => theme.colors.greenNeon};
+                color: ${({ theme }) => theme.colors.dark};
+                font-weight: bold;
+                display: flex;
+                justify-content: center;
+                align-items: center;
 
-            &:not([disabled]):hover {
-                filter: brightness(0.8);
+                &:not([disabled]):hover {
+                    filter: brightness(0.8);
+                }
+            }
+
+            img {
+                display: block;
+                height: 124px;
+                object-fit: contain;
+                opacity: 0.10;
+                pointer-events: none;
+                user-select: none;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            padding: 24px 18px;
+
+            footer img {
+                height: 94px;
             }
         }
     }

@@ -1,15 +1,19 @@
 import Input from 'Components/Input/Input';
 import React, { useState } from 'react';
-import { z } from 'zod';
+import * as Yup from 'yup';
+import { motion } from 'framer-motion';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { yupResolver } from '@hookform/resolvers/yup';
 import SendImg from '../../../../assets/imgs/logo-send.svg'
+import LogoPru from '../../../../assets/imgs/logo.svg';
 
-const emailSchema = z.object({
-    email: z.string().email('E-mail inválido'),
+type formType = {
+    email: string;
+}
+
+const emailSchema = Yup.object().shape({
+    email: Yup.string().required('E-mail obrigatório').email('E-mail inválido'),
 });
-
-type emailSchemaType = z.infer<typeof emailSchema>;
 
 import * as S from './styles';
 import { useToggle } from 'hooks/useToggle';
@@ -17,16 +21,18 @@ import { GradientOverlay } from 'Components/GradientOverlay';
 import { useTheme } from 'styled-components';
 
 export const ForgotPassword = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<emailSchemaType>({
-        resolver: zodResolver(emailSchema),
-        mode: 'all',
+    const { register, handleSubmit, formState: { errors } } = useForm<formType>({
+        resolver: yupResolver(emailSchema),
+        mode: 'onChange',
+        reValidateMode: 'onChange',
+        shouldFocusError: true,
     });
 
     const [isLoading, setIsLoading] = useToggle(false);
     const theme = useTheme();
     const [isEmailSended, setIsEmailSended] = useState(false);
 
-    const onSubmit: SubmitHandler<emailSchemaType> = (data) => {
+    const onSubmit: SubmitHandler<formType> = (data) => {
         console.log('data', data)
 
         new Promise(resolve => {
@@ -43,7 +49,12 @@ export const ForgotPassword = () => {
     return (
         <S.Container>
             {!isEmailSended ? (
-                <form noValidate onSubmit={handleSubmit(onSubmit)}>
+                <motion.form
+                    initial={{ x: '100vw', opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 0.3, easings: 'easeInOut' }}
+                    exit={{ x: '100vw', opacity: 0 }}
+                    noValidate onSubmit={handleSubmit(onSubmit)}>
                     <header>
                         <h1>Esqueci minha senha</h1>
                     </header>
@@ -52,6 +63,7 @@ export const ForgotPassword = () => {
                         {...register('email')}
                         label='Insira o e-mail da conta que deseja recuperar:'
                         autoComplete='email'
+                        inputMode='email'
                         autoCapitalize='off'
                         autoCorrect='off'
                         errors={errors.email}
@@ -61,13 +73,18 @@ export const ForgotPassword = () => {
                         }}
                     />
 
-                    <button type="submit">
-                        {isLoading ? (
-                            <div className="spinner-border spinner-border-md">
-                            </div>
-                        ) : 'Recuperar senha'}
-                    </button>
-                </form>
+                    <footer>
+                        <button type="submit">
+                            {isLoading ? (
+                                <div className="spinner-border spinner-border-md">
+                                </div>
+                            ) : 'Recuperar senha'}
+                        </button>
+
+                        <img src={LogoPru} alt="Logo copa pru" />
+                    </footer>
+
+                </motion.form>
             ) : (
                 <form noValidate>
                     <header>
@@ -86,8 +103,6 @@ export const ForgotPassword = () => {
                     </div>
                 </form>
             )}
-
-
 
             <GradientOverlay />
         </S.Container>

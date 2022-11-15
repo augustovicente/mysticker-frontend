@@ -1,10 +1,11 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 export const Container = styled.div`
     display: grid;
     place-items: center;
     height: 100vh;
     width: 100%;
+    padding: 0 24px;
     background: url('assets/img/others/world.png') no-repeat center/contain;
 
     form {
@@ -39,10 +40,12 @@ export const Container = styled.div`
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 24px;
             h1 {
                 display: inline-block;
                 color: ${({ theme }) => theme.colors.white};
                 margin-bottom: 16px;
+                font-size: ${({ theme }) => theme.fontSizes.heading3};
 
                 &::after {
                     content: '';
@@ -103,6 +106,11 @@ export const Container = styled.div`
             text-decoration: underline;
             color: #CCCCCC;
             margin: 10px auto;
+        }
+
+
+        @media screen and (max-width: 768px) {
+            padding: 24px;
         }
     }
 `;

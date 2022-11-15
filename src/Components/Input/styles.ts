@@ -26,7 +26,7 @@ export const ContainerTextInput = styled.div`
 
         &::placeholder {
             font-size: inherit;
-            color: #CCCCCCCC;
+            color: #CCCCCC;
         }
 
         &:disabled {
