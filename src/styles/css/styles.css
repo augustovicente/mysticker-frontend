@@ -387,13 +387,6 @@ label {
     background: var(--gradient-btn-hover);
 }
 
-
-/* 2. Header */
-.main-content {
-    padding-left: 84px;
-    position: relative;
-}
-
 .custom-container {
     max-width: 1330px;
 }
@@ -584,11 +577,11 @@ label {
 }
 
 .sticky-menu {
+    display: flex;
+    justify-content: center;
+    width: 84vw;
     position: fixed;
-    left: 0;
-    margin: auto;
     top: 0;
-    width: 100%;
     z-index: 99;
     -webkit-animation: 1000ms ease-in-out 0s normal none 1 running fadeInDown;
     animation: 1000ms ease-in-out 0s normal none 1 running fadeInDown;
@@ -597,6 +590,18 @@ label {
     border-radius: 0;
 }
 
+.sticky-menu .container {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.sticky-menu .container .row {
+    display: flex;
+    width: 100%;
+}
 
 /* 3. Mobile-menu */
 .nav-outer .mobile-nav-toggler {
@@ -1121,24 +1126,6 @@ label {
 .offcanvas-overly.active {
     opacity: .7;
     visibility: visible;
-}
-
-/* 4. Sidebar */
-.sidebar {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    background-color: var(--middle);
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 101;
-    width: 84px;
-    padding: 55px 14px;
-    text-align: center;
-    overflow-y: auto;
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .sidebar::-webkit-scrollbar-track,
@@ -4532,6 +4519,9 @@ label {
 }
 
 /* 20. Footer */
+.main-footer {
+    background: var(--dark);
+}
 
 .footer-top-wrap {
     background: linear-gradient(179.69deg, rgba(29, 25, 51, 0.46) 14.17%, rgba(29, 25, 51, 0.27) 99.73%);

@@ -1,4 +1,4 @@
-import Header from 'Components/Header/Header';
+import Header from 'Components/BaseTemplate/components/Header/Header';
 import React, { StrictMode } from 'react';
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, createBrowserRouter, Link, RouterProvider } from 'react-router-dom';

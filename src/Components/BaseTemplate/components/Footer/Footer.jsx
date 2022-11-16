@@ -1,8 +1,8 @@
-import React from 'react'
+import React from "react"
 
 const Footer = () => {
     return (
-        <footer>
+        <footer className="main-footer">
             <div className="footer-top-wrap">
                 <div className="container">
                     <div className="row justify-content-between">

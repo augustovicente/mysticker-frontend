@@ -1,16 +1,10 @@
-import Header from 'Components/Header/Header';
-import SideBar from 'Components/IndexOne/SideBar';
-import React from 'react';
+import BaseTemplate from 'Components/BaseTemplate';
 import { Outlet } from 'react-router-dom';
-
-import * as S from './styles';
 
 export const IndexAuth = () => {
     return (
-        <S.Container>
-            <SideBar />
-            <Header hasContainer={false} />
+        <BaseTemplate footer={false} >
             <Outlet />
-        </S.Container>
+        </BaseTemplate>
     )
 }
