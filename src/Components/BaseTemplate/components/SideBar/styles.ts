@@ -19,7 +19,7 @@ export const SideBarContainer = styled.div<SideBarContainerProps>`
         display: flex;
         width: 100%;
         height: 20%;
-        padding: 58px 38px 0px 38px;
+        ${props => props.collapsed ? "padding: 58px 0; justify-content: center;" : "padding: 58px 38px 0px 38px;"}
 
         .sidebar-home-icon {
             height: 34px;
