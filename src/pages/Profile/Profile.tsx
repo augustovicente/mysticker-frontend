@@ -9,11 +9,12 @@ import { GradientOverlay } from 'Components/GradientOverlay';
 import { useTheme } from 'styled-components';
 import { useToggle } from 'hooks/useToggle';
 import axios from 'axios';
-import { api } from 'services/api';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import Skeleton from 'react-loading-skeleton'
+import { maskCEP, maskCPF, maskPhone } from 'utils/helpers';
+import { Link } from 'react-router-dom';
 
-type FormType = {
+type ProfileDataProps = {
     avatar: string | ArrayBuffer | null;
     name: string;
     email: string;
@@ -98,32 +99,8 @@ const registerSchema = Yup.object().shape(
     ]
 );
 
-const maskCPF = (value: string) => {
-    const cpf = value.replace(/\D/g, '');
-
-    if (cpf.length > 11) return;
-
-    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-}
-
-const maskPhone = (value: string) => {
-    const phone = value.replace(/\D/g, '');
-
-    if (phone.length > 11) return;
-
-    return phone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
-}
-
-const maskCEP = (value: string) => {
-    const cep = value.replace(/\D/g, '');
-
-    if (cep.length > 8) return;
-
-    return cep.replace(/(\d{5})(\d{3})/, '$1-$2');
-}
-
 export const Profile = () => {
-    const { register, setValue, watch, getValues, setError, handleSubmit, formState: { errors } } = useForm<FormType>({
+    const { register, setValue, setError, handleSubmit, formState: { errors } } = useForm<ProfileDataProps>({
         resolver: yupResolver(registerSchema),
         mode: 'onChange',
         reValidateMode: 'onChange',
@@ -134,7 +111,7 @@ export const Profile = () => {
     const [isLoading, setIsLoading] = useToggle();
     const [avatar, setAvatar] = useState<any>(null);
 
-    const onSubmit: SubmitHandler<FormType> = (data) => {
+    const onSubmit: SubmitHandler<ProfileDataProps> = (data) => {
         console.log('data', data)
     };
 
@@ -253,11 +230,7 @@ export const Profile = () => {
                                         inputMode='numeric'
                                         name='cpf'
                                         maxLength={11}
-                                        // isMobile
-                                        onChange={({ currentTarget }) => {
-                                            const { value } = currentTarget;
-                                            currentTarget.value = maskCPF(value);
-                                        }}
+                                        onChange={event => maskCPF(event)}
                                     />
 
                                     <Input
@@ -267,10 +240,7 @@ export const Profile = () => {
                                         inputMode="numeric"
                                         maxLength={11}
                                         name='phone'
-                                        onChange={({ currentTarget }) => {
-                                            const { value } = currentTarget;
-                                            currentTarget.value = maskPhone(value);
-                                        }}
+                                        onChange={event => maskPhone(event)}
                                     />
 
                                     <Input
@@ -303,15 +273,15 @@ export const Profile = () => {
                                         errors={errors.cep}
                                         name='cep'
                                         maxLength={8}
-                                        onChange={({ currentTarget }) => {
-                                            const { value } = currentTarget;
+                                        onChange={event => {
+                                            const { value } = event.currentTarget;
 
                                             const cep = value.replace(/\D/g, '');
                                             if (cep.length === 8) {
                                                 searchCEP(value);
                                             }
 
-                                            currentTarget.value = maskCEP(value);
+                                            maskCEP(event);
                                         }}
                                     />
 
@@ -336,7 +306,9 @@ export const Profile = () => {
                                     </button>
 
                                     <button className='reset-password'>
-                                        Redefinir Senha
+                                        <Link to="reset-password">
+                                            Redefinir Senha
+                                        </Link>
                                     </button>
 
                                 </footer>
@@ -347,8 +319,6 @@ export const Profile = () => {
                     </>
                 )
             }
-
-
         </S.Container>
     )
 }
