@@ -10,7 +10,7 @@ import { GradientOverlay } from 'Components/GradientOverlay';
 import { useTheme } from 'styled-components';
 import { Link } from 'react-router-dom';
 import LogoPru from '../../../../assets/imgs/logo.svg';
-import Header from 'Components/Header/Header';
+import Header from 'Components/BaseTemplate/components/Header/Header';
 import { FormBase } from 'pages/Login/components/FormBase.styles';
 
 type formType = {

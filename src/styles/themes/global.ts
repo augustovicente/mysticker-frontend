@@ -26,6 +26,7 @@ export default createGlobalStyle`
     }
 
     body {
+        position: relative;
         font-family: ${({ theme }) => theme.fontFamily.inter} !important;
         font-size: 1rem; // 16px
         text-rendering: optimizeLegibility;

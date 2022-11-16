@@ -1,5 +1,5 @@
-import Header from 'Components/Header/Header';
-import SideBar from 'Components/IndexOne/SideBar';
+import Header from 'Components/BaseTemplate/components/Header/Header';
+import IndexOne from 'Components/IndexOne/IndexOne';
 import { useAuth } from 'contexts/auth.context';
 import { NotFoundPage } from 'pages/404/404';
 import { IndexAuth } from 'pages/Auth';

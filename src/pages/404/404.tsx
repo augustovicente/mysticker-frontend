@@ -3,7 +3,7 @@ import NotFoundImg from '../../assets/imgs/404-not-found.svg';
 import { ReactComponent as HomeIcon } from '../../assets/imgs/home.svg';
 
 import * as S from './styles';
-import Header from 'Components/Header/Header'
+import Header from 'Components/BaseTemplate/components/Header/Header'
 import { Link } from 'react-router-dom';
 import { GradientOverlay } from 'Components/GradientOverlay';
 

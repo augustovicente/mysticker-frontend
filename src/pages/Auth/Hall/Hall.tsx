@@ -1,5 +1,5 @@
 import { GradientOverlay } from 'Components/GradientOverlay';
-import Header from 'Components/Header/Header';
+import Header from 'Components/BaseTemplate/components/Header/Header';
 import Profile from 'Components/Profile';
 import AuthorProfile from 'pages/AuthorProfile';
 import React from 'react';

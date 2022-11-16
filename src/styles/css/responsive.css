@@ -13,15 +13,6 @@
         display: none;
     }
 
-    .sidebar {
-        width: 95px;
-        padding: 40px 20px;
-    }
-
-    .main-content {
-        padding-left: 95px;
-    }
-
     .header-form {
         width: 300px;
         margin-left: 35px;
@@ -145,18 +136,6 @@
         max-width: 960px;
     }
 
-    .sidebar {
-        padding: 15px 25px;
-        left: auto;
-        top: auto;
-        width: 100%;
-        height: 90px;
-        flex-direction: row;
-        align-items: center;
-        overflow-x: auto;
-        overflow-y: hidden;
-    }
-
     .sidebar-logo {
         margin: 0 25px 0 0;
         width: 30px;
@@ -192,10 +171,6 @@
 
     .sidebar-icon ul li:last-child {
         margin: 0 0 0 auto;
-    }
-
-    .main-content {
-        padding: 0 0 90px;
     }
 
     .header-form {
@@ -616,11 +591,6 @@
         margin-top: 7px;
     }
 
-    .sidebar {
-        padding: 10px 20px;
-        height: 74px;
-    }
-
     .sidebar-icon ul li a {
         width: 45px;
         height: 45px;
@@ -634,10 +604,6 @@
     .sidebar-icon ul li:nth-child(2) {
         margin-bottom: 0;
         padding: 0 20px 0 0;
-    }
-
-    .main-content {
-        padding: 0 0 75px;
     }
 
     .scroll-top {

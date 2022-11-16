@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import $ from 'jquery';
 
 import "./Header.css";
 import { LoginButton } from './components/LoginButton';
 import { DefaultButton } from './components/DefaultButton';
 import { Link } from 'react-router-dom';
+import { SideBarContext } from '../SideBar/context';
 
 const Header = (props) => {
+    const { isCollapsed } = useContext(SideBarContext)
     const user = true // user is athenticated
     const { hasContainer = true } = props;
 
@@ -99,7 +101,9 @@ const Header = (props) => {
                             {/* <div className="mobile-nav-toggler"><i className="fas fa-bars" /></div> */}
                             <div className="menu-wrap main-menu">
                                 <nav className="menu-nav py-lg-3 py-md-2">
-                                    <div className="logo"><Link to="/"><img src="assets/img/logo/logo-header.svg" alt="" /></Link></div>
+                                    {isCollapsed && (
+                                        <div className="logo"><Link to="/"><img src="assets/img/logo/logo-header.svg" alt="" /></Link></div>
+                                    )}
                                     <div className="navbar-wrap push-menu main-menu d-none d-lg-flex">
                                         {/* <ul className="navigation">
                                             <li><Link to="/">Home</Link></li>
@@ -132,22 +136,22 @@ const Header = (props) => {
                                                 user && (
                                                     <>
                                                         <li>
-                                                            <DefaultButton to="#" src="/assets/img/gift-icon.svg" />
+                                                            <DefaultButton to="#" src="/assets/img/icons/gift-icon.svg" />
                                                         </li>
                                                         <li>
-                                                            <DefaultButton to="#" src="/assets/img/notification-icon.svg" />
+                                                            <DefaultButton to="#" src="/assets/img/icons/notification-icon.svg" />
                                                         </li>
                                                         <li>
-                                                            <DefaultButton to="#" src="/assets/img/wallet-icon.svg" />
+                                                            <DefaultButton to="#" src="/assets/img/icons/wallet-icon.svg" />
                                                         </li>
                                                     </>
                                                 )
                                             }
                                             <li>
-                                                <DefaultButton to="#" src="/assets/img/open-link-icon.svg" />
+                                                <DefaultButton to="#" src="/assets/img/icons/open-link-icon.svg" />
                                             </li>
                                             <li>
-                                                <DefaultButton to="#" src="/assets/img/browser-icon.svg" />
+                                                <DefaultButton to="#" src="/assets/img/icons/browser-icon.svg" />
                                             </li>
                                             <li>
                                                 <LoginButton />
