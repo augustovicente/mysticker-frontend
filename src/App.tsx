@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import { useEffect } from "react"
 import { ThemeProvider } from 'styled-components'
 import $ from "jquery"
 import { I18nextProvider } from "react-i18next";

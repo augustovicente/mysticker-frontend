@@ -1,11 +1,10 @@
 import Input from 'Components/Input/Input';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import * as Yup from 'yup';
-import { motion } from 'framer-motion';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import SendImg from '../../../../assets/imgs/logo-send.svg'
-import LogoPru from '../../../../assets/imgs/logo.svg';
+import SendImg from 'assets/imgs/logo-send.svg'
+import LogoPru from 'assets/imgs/logo.svg';
 
 type formType = {
     email: string;

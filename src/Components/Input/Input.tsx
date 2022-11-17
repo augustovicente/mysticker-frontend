@@ -1,10 +1,9 @@
+import { useToggle } from "hooks/useToggle";
 import {
     forwardRef,
     ForwardRefRenderFunction,
     HTMLProps,
-    useEffect
 } from "react";
-import { FieldErrors } from "react-hook-form";
 import { useTheme } from "styled-components";
 import { ContainerTextInput } from "./styles";
 
@@ -30,6 +29,9 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, TextInputProps> = (
     ref
 ) => {
     const theme = useTheme();
+    const [isVisiblePassword, setIsVisiblePassword] = useToggle(false);
+
+    console.log('isVisiblePassword', isVisiblePassword)
 
     return (
         <ContainerTextInput isMobile={isMobile}>
@@ -60,8 +62,22 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, TextInputProps> = (
                 aria-invalid={errors?.message ? 'true' : 'false'}
                 style={{
                     outline: errors?.message ? `2px solid ${theme.colors.red}` : '',
+                    // marginRight: rest.type === 'password' ? '120px' : 'unset',
                 }}
+                type={rest.type === 'password' && !isVisiblePassword && 'password' || 'text'}
             />
+
+            {rest.type === 'password' && (
+                <button
+                    type="button"
+                    className="show-password"
+                    onClick={() => {
+                        setIsVisiblePassword(true);
+                    }}
+                >
+                    <i id="password-icon" className={isVisiblePassword ? 'fi-sr-eye-crossed' : 'fi-sr-eye' }></i>
+                </button>
+            )}
 
             {errors && (
                 <span role="alert" className="error-msg">{errors?.message}</span>

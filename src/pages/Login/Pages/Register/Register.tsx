@@ -1,6 +1,4 @@
 import Input from 'Components/Input/Input';
-import { motion } from 'framer-motion';
-import React from 'react';
 import * as Yup from 'yup';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -9,8 +7,7 @@ import { useToggle } from 'hooks/useToggle';
 import { GradientOverlay } from 'Components/GradientOverlay';
 import { useTheme } from 'styled-components';
 import { Link } from 'react-router-dom';
-import LogoPru from '../../../../assets/imgs/logo.svg';
-import Header from 'Components/BaseTemplate/components/Header/Header';
+import LogoPru from 'assets/imgs/logo.svg';
 import { FormBase } from 'pages/Login/components/FormBase.styles';
 
 type formType = {
