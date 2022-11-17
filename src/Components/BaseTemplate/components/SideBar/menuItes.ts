@@ -6,7 +6,7 @@ export const menuItems = [
     },
     {
         title: "Loja",
-        link: "/",
+        link: "/marketplace",
         icon: "/assets/img/icons/market-icon.svg",
     },
     {
