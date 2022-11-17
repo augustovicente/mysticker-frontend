@@ -1,6 +1,6 @@
 import * as S from './styles';
-import { ReactComponent as FingerprintIcon } from '../../assets/imgs/fingerprint.svg';
-import { ReactComponent as GalleryIcon } from '../../assets/imgs/galery.svg';
+import { ReactComponent as FingerprintIcon } from 'assets/imgs/fingerprint.svg';
+import { ReactComponent as GalleryIcon } from 'assets/imgs/galery.svg';
 import Input from 'Components/Input/Input';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -9,7 +9,7 @@ import { GradientOverlay } from 'Components/GradientOverlay';
 import { useTheme } from 'styled-components';
 import { useToggle } from 'hooks/useToggle';
 import axios from 'axios';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import Skeleton from 'react-loading-skeleton'
 import { maskCEP, maskCPF, maskPhone } from 'utils/helpers';
 import { Link } from 'react-router-dom';
@@ -205,9 +205,6 @@ export const Profile = () => {
                                             label='Nome'
                                             name='name'
                                             errors={errors.name}
-                                            style={{
-                                                outline: errors.name ? `2px solid ${theme.colors.red}` : 'none',
-                                            }}
                                         />
 
                                         <Input
@@ -215,9 +212,6 @@ export const Profile = () => {
                                             label='E-mail'
                                             errors={errors.email}
                                             name='email'
-                                            style={{
-                                                outline: errors.email ? `2px solid ${theme.colors.red}` : 'none',
-                                            }}
                                         />
                                     </div>
                                 </header>
@@ -305,11 +299,9 @@ export const Profile = () => {
                                         Editar Dados
                                     </button>
 
-                                    <button className='reset-password'>
-                                        <Link to="reset-password">
-                                            Redefinir Senha
-                                        </Link>
-                                    </button>
+                                    <Link className='reset-password' to="reset-password">
+                                        Redefinir Senha
+                                    </Link>
 
                                 </footer>
                             </form>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import { useEffect } from "react"
 import { ThemeProvider } from 'styled-components'
 import $ from "jquery"
 import { I18nextProvider } from "react-i18next";
@@ -41,7 +41,7 @@ function App() {
             <I18nextProvider i18n={i18n}>
                 <AuthProvider>
                     <GlobalTheme />
-                    {!!user ? <AuthRoutes /> : <MainRoutes />}
+                    {!user ? <AuthRoutes /> : <MainRoutes />}
                 </AuthProvider >
             </I18nextProvider>
         </ThemeProvider>

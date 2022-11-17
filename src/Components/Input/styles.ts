@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ContainerTextInput = styled.div<{isMobile: boolean}>`
+export const ContainerTextInput = styled.div<{ isMobile: boolean }>`
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -21,8 +21,6 @@ export const ContainerTextInput = styled.div<{isMobile: boolean}>`
     input[type=number]{
         -moz-appearance: textfield;
     }
-
-
 
     input.the-input {
         width: 100%;
@@ -57,15 +55,21 @@ export const ContainerTextInput = styled.div<{isMobile: boolean}>`
         }
     }
 
-    i {
-        color: ${({ theme }) => theme.colors.light};
-        font-size: 1.5rem;
-        /* position: absolute; */
-        bottom: 50%;
-        /* top: 50%; */
-        /* top: 0; */
-        left: 8px;
-        /* top: 0; */
+    button.show-password {
+        background: transparent;
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        position: absolute;
+        bottom: 6px;
+        right: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        i#password-icon {
+            color: ${({ theme }) => theme.colors.light};
+        }
     }
 
     span.error-msg {

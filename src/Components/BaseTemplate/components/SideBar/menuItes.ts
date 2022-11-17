@@ -26,7 +26,7 @@ export const menuItems = [
     },
     {
         title: "Meus Dados",
-        link: "/",
+        link: "/profile",
         icon: "/assets/img/icons/my-data-icon.svg",
     },
 ]

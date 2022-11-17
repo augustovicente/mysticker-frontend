@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const Container = styled.section`
     margin-top: 164px;
-    padding-bottom: 94px;
     display: grid;
     gap: 54px;
 
@@ -193,7 +192,6 @@ export const Container = styled.section`
                     border-radius: 10px;
                     font-weight: 700;
                     color: ${({ theme }) => theme.colors.white};
-
                 }
 
                 button[type="submit"] {
@@ -206,7 +204,15 @@ export const Container = styled.section`
                     }
                 }
 
-                button.reset-password {
+                a.reset-password {
+                    padding: 10px;
+                    border-radius: 10px;
+                    font-weight: 700;
+                    color: ${({ theme }) => theme.colors.white};
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                     background: transparent;
                     border: 2px solid ${({ theme }) => theme.colors.colorMiddle};
                 }
