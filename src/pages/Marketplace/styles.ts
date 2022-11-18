@@ -210,6 +210,7 @@ export const StickersPackageContainer = styled.li`
                     border-radius: 30px;
                     height: 42px;
                     font-weight: bold;
+
                 }
             }
 
@@ -318,7 +319,7 @@ export const CardsListSkeletonContainer = styled.div`
         justify-content: center;
         flex-direction: column;
         height: 100%;
-        width: 26%;
+        width: 29%;
         border-radius: 20px;
         gap: 10px;
         padding: 40px 0;
