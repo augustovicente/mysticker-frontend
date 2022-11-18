@@ -93,7 +93,7 @@ const Header = (props) => {
 
 
     return (
-        <header>
+        <header className='main-header'>
             <div id='sticky-header' className="menu-area ">
                 <div className={hasContainer ? 'container' : ''}>
                     <div className="row">

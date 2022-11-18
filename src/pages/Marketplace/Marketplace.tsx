@@ -1,97 +1,79 @@
-import { ReactNode, useState } from "react";
-import Skeleton from "react-loading-skeleton"
-import styled from "styled-components";
-import { MarketplaceContainer } from "./styles"
+import BaseTemplate from "Components/BaseTemplate";
+import { useToggle } from "hooks/useToggle";
+import { ReactNode, useCallback, useState } from "react";
+import { Skeletons } from "./components/Skeletons";
+import { StickerPackage } from "./components/StickerPackage";
+import {
+    MarketplaceContainer, StickersPackageContainer,
+} from "./styles"
 
-type SkeletonProps = {
-    skeletonWidth?: string;
-    skeletonHeight?: string;
-    children?: ReactNode;
-}
-
-const TitleSkeletonContainer = styled.div`
-    display: flex;
-    gap: 30px;
-`
-
-const CustomSkeleton = styled(Skeleton) <SkeletonProps>`
-    width: ${props => props.skeletonWidth ? props.skeletonWidth : "unset"};
-    height: ${props => props.skeletonHeight ? `${props.skeletonHeight} !important` : "unset"};
-`
-
-const CardsListSkeletonContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-    min-height: 600px;
-    width: 100%;
-
-    .skeleton-card {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        width: 28%;
-        padding: 80px;
-        border-radius: 20px;
-        background: ${props => props.theme.colors.middle};
-    }
-`
+const stickersMock = [
+    {
+        stars: "/assets/img/others/one-star.png",
+        type: "/assets/img/others/esmerald.png",
+        title: {
+            main: "Pacotinho",
+            secondary: "Esmeralda"
+        }
+    },
+    {
+        stars: "/assets/img/others/two-star.png",
+        type: "/assets/img/others/obisidian.png",
+        title: {
+            main: "Pacotinho",
+            secondary: "Obsidiana"
+        }
+    },
+    {
+        stars: "/assets/img/others/thre-star.png",
+        type: "/assets/img/others/esmerald.png",
+        title: {
+            main: "Pacotinho",
+            secondary: "Diamante"
+        }
+    },
+]
 
 export const Marketplace = () => {
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useToggle()
+    const [stickerStatsModalIsOpen, setStickerStatsModalIsOpen] = useState<string[]>([]);
+
+    const handleActionStickerModal = (id: string) => {
+        if(!stickerStatsModalIsOpen.includes(id)) {
+            setStickerStatsModalIsOpen([...stickerStatsModalIsOpen, id])
+        } else {
+            setStickerStatsModalIsOpen(stickerStatsModalIsOpen.filter((item: string) => item !== id))
+        }
+    }
 
     return (
-        <MarketplaceContainer>
-            {isLoading ? (
-                <>
-                    <TitleSkeletonContainer>
-                        <CustomSkeleton
-                            height={40}
-                            skeletonWidth="40px"
-                            borderRadius={4}
-                            baseColor="#3C375B"
-                            highlightColor="#625C89"
-                        />
-                        <CustomSkeleton
-                            height={40}
-                            skeletonWidth="351px"
-                            borderRadius={4}
-                            baseColor="#3C375B"
-                            highlightColor="#625C89"
-                        />
-                    </TitleSkeletonContainer>
+        <BaseTemplate footer={false}>
+            <MarketplaceContainer>
+                {isLoading ? (
+                    <Skeletons />
+                ) : (
+                    <>
+                        <h1>
+                            <img src="/assets/img/icons/market-icon.svg" />
+                            Loja de Figurinhas
+                        </h1>
 
-                    <CardsListSkeletonContainer>
-                        {[1, 2, 3].map((skeleton, index) => (
-                            <div className="skeleton-card">
-                                <CustomSkeleton
+                        <ul className="stickers-package-list">
+                            {stickersMock.map(({ stars, title, type }, index) => (
+                                <StickerPackage
                                     key={index}
-                                    borderRadius={4}
-                                    skeletonWidth="100%"
-                                    skeletonHeight="220px"
-                                    baseColor="#3C375B"
-                                    highlightColor="#625C89"
-                                    children={<>ads</>}
+                                    id={index}
+                                    stars={stars}
+                                    title={title}
+                                    type={type}
+                                    stickerStatsModalIsOpen={stickerStatsModalIsOpen}
+                                    handleActionStickerModal={handleActionStickerModal}
                                 />
-                            </div>
-                        ))}
-                    </CardsListSkeletonContainer>
-                </>
-
-            ) : (
-                <>
-                    <h1>
-                        <img src="/assets/img/icons/market-icon.svg" />
-                        Loja de Figurinhas
-                    </h1>
-
-                    <ul>
-                        <li>1</li>
-                        <li>1</li>
-                        <li>1</li>
-                    </ul>
-                </>
-            )}
-        </MarketplaceContainer>
-
+                            ))}
+                        </ul>
+                    </>
+                )}
+            </MarketplaceContainer>
+        </BaseTemplate>
     )
 }
