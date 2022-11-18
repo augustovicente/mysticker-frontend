@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const ContainerTextInput = styled.div<{ isMobile: boolean }>`
+export const ContainerTextInput = styled.div<{ isMobile: boolean, hasErrors?: boolean }>`
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -29,24 +29,26 @@ export const ContainerTextInput = styled.div<{ isMobile: boolean }>`
         background: ${({ theme }) => theme.colors.dark};
         color: ${({ theme }) => theme.colors.white};
         font-size: ${({ theme }) => theme.fontSizes.md};
+        outline: ${({ hasErrors }) => hasErrors ? '1px solid #FF0000' : 'transparent'};
+        padding-left: ${({ isMobile }) => isMobile ? '44px !important' : '16px'};
+        position: relative;
+
+        &.has-password {
+            padding-right: 64px !important;
+        }
 
         &:focus {
-            outline: 2px solid ${({ theme }) => theme.colors.colorMiddle} !important;
+            outline: 2px solid ${({ theme, hasErrors }) => !hasErrors ? theme.colors.colorMiddle : 'inherit'};
         }
 
         &::placeholder {
             font-size: inherit;
-            color: #CCCCCC;
-
-            ${({ isMobile, theme }) => isMobile && `
-                color: ${theme.colors.light};
-            `};
+            color: ${({ theme, isMobile }) => isMobile ? theme.colors.light : '#CCCCCCCC'};
         }
 
         &:disabled {
             cursor: not-allowed;
             outline: none;
-
             color: rgba(255, 255, 255, 0.3);
 
             &::placeholder {
@@ -55,20 +57,32 @@ export const ContainerTextInput = styled.div<{ isMobile: boolean }>`
         }
     }
 
+    i {
+        /* color: white; */
+        /* position: absolute; */
+        /* top: 30%; */
+        /* color: ${({ theme }) => theme.colors.light}; */
+        /* left: 16px; */
+        /* left: 0; */
+    }
+
     button.show-password {
         background: transparent;
-        height: 30px;
-        width: 30px;
         border-radius: 50%;
         position: absolute;
-        bottom: 6px;
+        right: 0;
+        top: 52%;
+        width: 34px;
         right: 16px;
         display: flex;
         justify-content: center;
         align-items: center;
+        padding: 2px;
 
         i#password-icon {
             color: ${({ theme }) => theme.colors.light};
+            font-size: 22px;
+            max-height: 26px;
         }
     }
 

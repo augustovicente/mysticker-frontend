@@ -9,11 +9,7 @@ import { useTheme } from 'styled-components';
 import LogoPru from 'assets/imgs/logo.svg'
 import { Link } from 'react-router-dom';
 import { FormBase } from './components/FormBase.styles';
-
-type loginType = {
-    email: string;
-    password: string;
-}
+import { SignInCredentials, useAuth } from 'contexts/auth.context';
 
 const loginSchema = Yup.object().shape({
     email: Yup.string().required('E-mail obrigatório').email('E-mail inválido'),
@@ -22,22 +18,19 @@ const loginSchema = Yup.object().shape({
 
 
 export const Login = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<loginType>({
+    const { register, handleSubmit, formState: { errors } } = useForm<SignInCredentials>({
         resolver: yupResolver(loginSchema),
         mode: 'onChange',
         reValidateMode: 'onChange',
         shouldFocusError: true,
     });
 
-    const [isLoading, setIsLoading] = useToggle(false);
     const theme = useTheme();
+    const { signIn, loading } = useAuth();
 
-    const onSubmit: SubmitHandler<loginType> = (data) => {
-        console.log('data', data)
-
-        setIsLoading(true);
+    const onSubmit: SubmitHandler<SignInCredentials> = async (dataValues) => {
+        await signIn(dataValues);
     };
-
 
     return (
         <S.Container>
@@ -85,8 +78,8 @@ export const Login = () => {
                     />
                 </div>
 
-                <button disabled={isLoading} type="submit">
-                    {isLoading ? (
+                <button disabled={loading} type="submit">
+                    {loading ? (
                         <div className="spinner-border spinner-border-md" role="status">
                         </div>
                     ) : 'Logar'}

@@ -1,36 +1,33 @@
+import axios from "axios";
 import { useToggle } from "hooks/useToggle";
 import React, { useState, useEffect, useContext, createContext, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "services/api";
 import { PREFIX_AUTH } from "utils/constants";
+import { toast } from 'react-toastify';
 
 type PropsProvider = {
     children?: React.ReactNode;
 };
 
-type SignInCredentials = {
+export type UserModel = {
+    id:                 number;
+    name:               string;
+    email:              string;
+    cpf:                string;
+    full_number:        string;
+    address_zip_code:   string;
+    address_number:     string;
+    address_complement: string;
+    email_verified:     boolean;
+    created_at:         Date;
+    updated_at:         Date;
+}
+
+export type SignInCredentials = {
     email: string;
     password: string;
 };
-
-type UserModel = {
-    id: number;
-    name: string;
-    email: string;
-    cpf: string;
-    phone: string;
-    address: Address
-}
-
-type Address = {
-    street: string;
-    number: number;
-    complement: string;
-    neighborhood: string;
-    city: string;
-    uf: string;
-    cep: string;
-}
 
 export type User = {
     user: UserModel;
@@ -38,12 +35,13 @@ export type User = {
 }
 
 export type AuthContextData = {
-    user: UserModel | null;
+    user: UserModel;
     token: string;
     loading: boolean;
-    signIn(credentials: SignInCredentials): Promise<void>;
+    signIn(credentials: SignInCredentials): Promise<any>;
     signOut(): void;
     resetUser(): void;
+    getUser(): void;
 };
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -70,54 +68,42 @@ export const AuthProvider = ({ children }: PropsProvider) => {
     }, []);
 
     const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
-        try {
-            setLoading(true);
+        setLoading(true);
 
+        try {
             const response = await api
-                .post('auth/login', {
+                .post('login', {
                     email,
                     password,
                 })
 
-            if (response.data) {
-                const { token, user } = response.data;
+            const { token, user } = response.data;
 
-                if (token && user) {
-                    localStorage.setItem(`${PREFIX_AUTH}:token`, JSON.stringify(token))
-                    localStorage.setItem(`${PREFIX_AUTH}:user`, JSON.stringify(user))
+            if (token && user) {
+                localStorage.setItem(`${PREFIX_AUTH}:token`, JSON.stringify(token))
+                localStorage.setItem(`${PREFIX_AUTH}:user`, JSON.stringify(user))
 
-                    setData({ token, user });
-                    setLoading(false);
+                setData({ token, user });
+                setLoading(false);
 
-                    navigate('/', { replace: true });
-                } else {
-                    // open_toast({
-                    //     type: 'danger',
-                    //     title: 'Erro',
-                    //     subtitle: 'Desculpe. Não foi possível realizar o login.',
-                    //     toastId: 'auth-error',
-                    // })
-                }
+                navigate('/', { replace: true });
+            } else {
+                return toast.error('Desculpe. Não foi possível realizar o login.')
             }
         }
-        catch (error: any) {
+        catch (error) {
             setLoading(false);
 
-            if (error?.response?.status === 403) {
-                // open_toast({
-                //     title: 'Usuário desabilitado!',
-                //     subtitle: 'Entre em contato com o seu gestor',
-                //     type: 'danger',
-                //     toastId: 'UserDisabled'
-                // })
-            }
-            else {
-                // open_toast({
-                //     title: 'CPF/E-mail ou Senha incorretos',
-                //     subtitle: 'Tente novamente por favor',
-                //     type: 'danger',
-                //     toastId: 'UserOrPasswordIncorrect'
-                // })
+            if (axios.isAxiosError(error)) {
+                if (error.response?.status === 405) {
+                    return toast.error(error?.response?.data?.message);
+                }
+
+                console.log('error message: ', error.message);
+                return toast.error("E-mail ou senha incorretos.");
+            } else {
+                console.log('unexpected error: ', error);
+                return toast.error("Erro ao realizar login, tente novamente");
             }
         }
     }, []);
@@ -130,7 +116,16 @@ export const AuthProvider = ({ children }: PropsProvider) => {
 
     const signOut = useCallback(async () => {
         resetUser()
-    }, [data?.user, data?.token]);
+    }, []);
+
+    const getUser = useCallback(async () => {
+        const { data } = await api.post('get-authenticated-user');
+
+        if (data) {
+            setData(prevState => ({ ...prevState, user: data }));
+            localStorage.setItem(`${PREFIX_AUTH}:user`, JSON.stringify(data));
+        }
+    }, []);
 
 
     return (
@@ -141,7 +136,8 @@ export const AuthProvider = ({ children }: PropsProvider) => {
                 signIn,
                 signOut,
                 token: data.token,
-                resetUser
+                resetUser,
+                getUser
             }}>
             {children}
         </AuthContext.Provider>

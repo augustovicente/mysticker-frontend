@@ -72,6 +72,10 @@ export const ResetPassword = () => {
                                 name='password'
                                 errors={errors.password}
                                 type="password"
+                                hasMobileStyle
+                                leftIcon={(
+                                    <i className="fi-sr-user"></i>
+                                )}
                             />
 
                             <Input
@@ -80,6 +84,10 @@ export const ResetPassword = () => {
                                 name='confirmPassword'
                                 errors={errors.confirmPassword}
                                 type="password"
+                                hasMobileStyle
+                                leftIcon={(
+                                    <i className="fi-sr-envelope"></i>
+                                )}
                             />
 
                             <button

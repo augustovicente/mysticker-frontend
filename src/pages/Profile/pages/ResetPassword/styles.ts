@@ -96,10 +96,6 @@ export const Container = styled.section`
                 margin-bottom: 32px;
             }
 
-            input {
-                padding: 12px !important;
-            }
-
             button {
                 margin-top: 24px;
                 width: 100%;

@@ -15,6 +15,7 @@ import Benefit_5Img from 'assets/imgs/5-benefits.png';
 import Slider from 'react-slick';
 import { CardBenefit, CardBenefitProps } from 'Components/CardBenefit';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from 'contexts/auth.context';
 
 const developers = [
     {

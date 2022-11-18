@@ -118,10 +118,6 @@ export const Container = styled.section`
                     font-weight: 400;
                 }
 
-                input {
-                    padding: 12px !important;
-                }
-
                 div.header-inputs {
                     display: grid;
                     gap: 32px;
@@ -172,10 +168,6 @@ export const Container = styled.section`
                 label {
                     color: ${({ theme }) => theme.colors.light};
                     font-weight: 400;
-                }
-
-                input {
-                    padding: 12px !important;
                 }
             }
 

@@ -6,9 +6,10 @@ import i18n from "./i18n";
 
 import { theme } from "styles/themes/theme";
 import GlobalTheme from "styles/themes/global";
-import { AuthRoutes } from "routes/auth.routes";
 import { AuthProvider, useAuth } from "contexts/auth.context";
-import { MainRoutes } from "routes/main.routes";
+import { ToastContainer, toast } from 'react-toastify';
+import { Router } from "routes/routes";
+
 // import Activity from './pages/Activity'
 // import AuthorProfile from './pages/AuthorProfile'
 // import Blog from './pages/Blog'
@@ -34,14 +35,13 @@ function App() {
         });
     }, []);
 
-    const { user } = useAuth();
-
     return (
         <ThemeProvider theme={theme}>
             <I18nextProvider i18n={i18n}>
                 <AuthProvider>
                     <GlobalTheme />
-                    {!user ? <AuthRoutes /> : <MainRoutes />}
+                        <Router />
+                    <ToastContainer theme="colored" />
                 </AuthProvider >
             </I18nextProvider>
         </ThemeProvider>

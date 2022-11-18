@@ -9,10 +9,11 @@ import { GradientOverlay } from 'Components/GradientOverlay';
 import { useTheme } from 'styled-components';
 import { useToggle } from 'hooks/useToggle';
 import axios from 'axios';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton'
 import { maskCEP, maskCPF, maskPhone } from 'utils/helpers';
 import { Link } from 'react-router-dom';
+import { useAuth } from 'contexts/auth.context';
 
 type ProfileDataProps = {
     avatar: string | ArrayBuffer | null;
@@ -115,6 +116,8 @@ export const Profile = () => {
         console.log('data', data)
     };
 
+    const { signOut, user, getUser } = useAuth();
+
     const searchCEP = async (cep: string) => {
         const response = await axios.get<dataCEP>(`https://viacep.com.br/ws/${cep}/json`);
 
@@ -146,7 +149,17 @@ export const Profile = () => {
                 setAvatar(reader.result);
             }
         }
-    }
+    };
+
+    useEffect(() => {
+        getUser();
+
+        setValue('name', user?.name);
+        setValue('email', user?.email);
+        setValue('cpf', user?.cpf || '');
+        setValue('phone', user?.full_number || '');
+        setValue('cep', user.address_zip_code || '');
+    }, []);
 
     return (
         <S.Container>
@@ -205,6 +218,10 @@ export const Profile = () => {
                                             label='Nome'
                                             name='name'
                                             errors={errors.name}
+                                            hasMobileStyle
+                                            leftIcon={(
+                                                <i className="fi-sr-user"></i>
+                                            )}
                                         />
 
                                         <Input
@@ -212,6 +229,7 @@ export const Profile = () => {
                                             label='E-mail'
                                             errors={errors.email}
                                             name='email'
+                                            hasMobileStyle
                                         />
                                     </div>
                                 </header>
@@ -225,6 +243,7 @@ export const Profile = () => {
                                         name='cpf'
                                         maxLength={11}
                                         onChange={event => maskCPF(event)}
+                                        hasMobileStyle
                                     />
 
                                     <Input
@@ -235,6 +254,7 @@ export const Profile = () => {
                                         maxLength={11}
                                         name='phone'
                                         onChange={event => maskPhone(event)}
+                                        hasMobileStyle
                                     />
 
                                     <Input
@@ -243,6 +263,7 @@ export const Profile = () => {
                                         autoComplete='address'
                                         errors={errors.address}
                                         name='address'
+                                        hasMobileStyle
                                     />
 
                                     <Input
@@ -252,6 +273,7 @@ export const Profile = () => {
                                         type='number'
                                         errors={errors.number}
                                         name='number'
+                                        hasMobileStyle
                                     />
 
                                     <Input
@@ -259,6 +281,7 @@ export const Profile = () => {
                                         label='Bairro'
                                         errors={errors.neighborhood}
                                         name='neighborhood'
+                                        hasMobileStyle
                                     />
 
                                     <Input
@@ -277,6 +300,7 @@ export const Profile = () => {
 
                                             maskCEP(event);
                                         }}
+                                        hasMobileStyle
                                     />
 
                                     <Input
@@ -284,6 +308,7 @@ export const Profile = () => {
                                         label='UF'
                                         errors={errors.uf}
                                         name='uf'
+                                        hasMobileStyle
                                     />
 
                                     <Input
@@ -291,6 +316,7 @@ export const Profile = () => {
                                         label='Cidade'
                                         errors={errors.city}
                                         name='city'
+                                        hasMobileStyle
                                     />
                                 </div>
 
