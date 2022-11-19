@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const ContainerTextInput = styled.div<{ isMobile: boolean, hasErrors?: boolean }>`
+export const ContainerTextInput = styled.div<{ isMobile?: boolean, hasErrors?: boolean, hasIconLeft?: boolean }>`
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -30,11 +30,14 @@ export const ContainerTextInput = styled.div<{ isMobile: boolean, hasErrors?: bo
         color: ${({ theme }) => theme.colors.white};
         font-size: ${({ theme }) => theme.fontSizes.md};
         outline: ${({ hasErrors }) => hasErrors ? '1px solid #FF0000' : 'transparent'};
-        padding-left: ${({ isMobile }) => isMobile ? '44px !important' : '16px'};
         position: relative;
 
+        ${({ isMobile, hasIconLeft }) => isMobile && hasIconLeft && css`
+            padding-left: 54px !important;
+        `}
+
         &.has-password {
-            padding-right: 64px !important;
+            padding-right: 54px !important;
         }
 
         &:focus {
@@ -57,27 +60,32 @@ export const ContainerTextInput = styled.div<{ isMobile: boolean, hasErrors?: bo
         }
     }
 
-    i {
-        /* color: white; */
-        /* position: absolute; */
-        /* top: 30%; */
-        /* color: ${({ theme }) => theme.colors.light}; */
-        /* left: 16px; */
-        /* left: 0; */
+    i.left-icon {
+        color: white;
+        font-size: 20px;
+        color: ${({ theme }) => theme.colors.light};
+        position: absolute;
+        top: 30%;
+        left: 16px;
     }
 
     button.show-password {
         background: transparent;
-        border-radius: 50%;
-        position: absolute;
-        right: 0;
-        top: 52%;
-        width: 34px;
-        right: 16px;
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 2px;
+        border-radius: 50%;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        width: 34px;
+        height: 34px;
+        right: 12px;
+        margin: 0;
+
+        &:focus {
+            outline: 1px solid ${({ theme }) => theme.colors.colorMiddle};
+        }
 
         i#password-icon {
             color: ${({ theme }) => theme.colors.light};
@@ -94,5 +102,11 @@ export const ContainerTextInput = styled.div<{ isMobile: boolean, hasErrors?: bo
         font-style: italic;
         font-size: ${({ theme }) => theme.fontSizes.sm};
         margin-left: 0.4rem;
+    }
+
+    @media (max-width: 768px) {
+        button.show-password {
+            top: 23%;
+        }
     }
 `;

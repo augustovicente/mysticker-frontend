@@ -26,12 +26,20 @@ const BaseTemplateMainContent = styled.div<BaseTemplateMain>`
     flex-direction: column;
     background: var(--middle);
     margin-left: ${props => props.collapsed ? "6%" : "16%"};
+
+    @media (max-width: 768px) {
+        margin-left: 0;
+    }
 `
 
 const BaseTemplateMain = styled.main<BaseTemplateMain>`
     padding: 0 80px 80px 80px;
     background: var(--dark);
     border-top-left-radius: ${props => props.collapsed ? "0px" : "80px"};
+
+    @media (max-width: 768px) {
+        padding: 0 22px 22px 22px;
+    }
 `
 
 const BaseTemplate = ({ sidebar = true, header = true, footer = true, children }: BaseTemplateProps) => {

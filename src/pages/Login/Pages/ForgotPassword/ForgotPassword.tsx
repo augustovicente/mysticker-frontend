@@ -17,8 +17,10 @@ const emailSchema = Yup.object().shape({
 import * as S from './styles';
 import { useToggle } from 'hooks/useToggle';
 import { GradientOverlay } from 'Components/GradientOverlay';
-import { useTheme } from 'styled-components';
 import { FormBase } from 'pages/Login/components/FormBase.styles';
+import { api } from 'services/api';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 export const ForgotPassword = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<formType>({
@@ -29,32 +31,40 @@ export const ForgotPassword = () => {
     });
 
     const [isLoading, setIsLoading] = useToggle(false);
-    const theme = useTheme();
     const [isEmailSended, setIsEmailSended] = useState(false);
 
-    const onSubmit: SubmitHandler<formType> = (data) => {
-        console.log('data', data)
-
-        new Promise(resolve => {
-            setTimeout(() => {
-                resolve(true);
-                setIsEmailSended(true);
-                setIsLoading(false);
-            }, 1200);
-        })
-
+    const onSubmit: SubmitHandler<formType> = async (data) => {
         setIsLoading(true);
+
+        try {
+            await api.post('forgot-password', data);
+
+            setIsEmailSended(true);
+            setIsLoading(false);
+        } catch (error) {
+            setIsLoading(false);
+            if (axios.isAxiosError(error)) {
+                console.log('error', error)
+                return toast.error('E-mail não cadastrado', {
+                    toastId: 'email-not-found'
+                });
+            } else {
+                return toast.error('Erro interno, tente novamente');
+            }
+        }
     };
 
     return (
         <S.Container>
             {!isEmailSended ? (
                 <FormBase
+                    noValidate
+                    onSubmit={handleSubmit(onSubmit)}
                     initial={{ x: '100vw', opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ duration: 0.3, easings: 'easeInOut' }}
                     exit={{ x: '100vw', opacity: 0 }}
-                    noValidate onSubmit={handleSubmit(onSubmit)}>
+                >
                     <header>
                         <h1>Esqueci minha senha</h1>
                     </header>

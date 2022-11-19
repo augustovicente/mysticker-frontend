@@ -15,6 +15,10 @@ export const SideBarContainer = styled.div<SideBarContainerProps>`
     height: 100vh;
     z-index: 999;
 
+    @media (max-width: 768px) {
+        display: none;
+    }
+
     header {
         display: flex;
         width: 100%;

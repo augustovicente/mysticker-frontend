@@ -41,7 +41,7 @@ function App() {
                 <AuthProvider>
                     <GlobalTheme />
                         <Router />
-                    <ToastContainer theme="colored" />
+                    <ToastContainer theme="colored" newestOnTop autoClose={3000}  />
                 </AuthProvider >
             </I18nextProvider>
         </ThemeProvider>
