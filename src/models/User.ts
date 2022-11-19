@@ -1,3 +1,4 @@
+import { api } from "services/api";
 import { connect, get_contract, web3 } from "services/web3";
 
 const getPackages = async () =>
@@ -34,10 +35,13 @@ const buy_package = async (package_type: number, amount: number, price: number) 
 
 const open_package = async (package_type: number) =>
 {
-    
+    const { 0: address } = await connect();
+    let res = await api.post('open-package', { package_type, address });
+    console.log(res);
 }
 
 export {
     getPackages,
-    buy_package
+    buy_package,
+    open_package
 }
