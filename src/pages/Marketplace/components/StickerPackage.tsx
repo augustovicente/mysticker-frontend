@@ -1,5 +1,5 @@
+import { buy_package } from "models/User";
 import { useCallback, useState } from "react";
-import { buy_package, connect } from "services/web3";
 import { StickersPackageContainer, StickersSeparator } from "../styles"
 
 type StickerPackageProps = {
@@ -14,21 +14,21 @@ type StickerPackageProps = {
     stickerStatsModalIsOpen: string[];
 }
 
-export const StickerPackage = ({ stars, type, title, id, handleActionStickerModal, stickerStatsModalIsOpen }: StickerPackageProps) => {
+export const StickerPackage = ({ stars, type, title, id, handleActionStickerModal, stickerStatsModalIsOpen }: StickerPackageProps) =>
+{
     const [count, setCount] = useState(0)
 
+    // example buy
     const handleBuy = async () => {
         const package_type = 1;
         const amount = 1;
         const price = 0.001;
-        console.log("handleBuy", package_type, amount, price);
         
         let result = await buy_package(
             package_type,
-            price,
+            amount,
             (price * amount)
         );
-        console.log("result", result);
     }
 
     const handleDecrement = useCallback(() => {
@@ -133,7 +133,6 @@ export const StickerPackage = ({ stars, type, title, id, handleActionStickerModa
                                 type="number"
                                 name="counter"
                                 id="counter"
-                                defaultValue={count}
                                 value={count}
                             />
                             <button
