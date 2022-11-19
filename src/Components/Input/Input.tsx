@@ -15,6 +15,7 @@ export type TextInputProps = HTMLProps<HTMLInputElement> & {
     errors?: any;
     hasMobileStyle?: boolean;
     leftIcon?: ReactNode;
+    isLoading?: boolean;
 };
 
 const Input: ForwardRefRenderFunction<HTMLInputElement, TextInputProps> = (
@@ -27,6 +28,7 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, TextInputProps> = (
         name,
         leftIcon,
         hasMobileStyle,
+        isLoading,
         ...rest
     },
     ref
@@ -37,24 +39,14 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, TextInputProps> = (
     const isMobileDevice = (hasMobileStyle && width) <= 768;
 
     return (
-        <ContainerTextInput isMobile={isMobileDevice} hasErrors={!!errors?.message}>
+        <ContainerTextInput isMobile={isMobileDevice} hasErrors={!!errors?.message} hasIconLeft={!!leftIcon}>
             {!isMobileDevice && (
                 <label htmlFor={name} className="the-label">
                     {label}
                 </label>
             )}
 
-            {/* <i className="fi-sr-user"></i>
-            <i className="fi-sr-building"></i>
-            <i className="fi-sr-marker"></i>
-            <i className="fi-sr-call-incoming"></i>
-            <i className="fi-sr-subtitles"></i>
-            <i className="fi-sr-user"></i>
-            <i className="fi-sr-envelope"></i> */}
-
-            <div>
-
-
+            <div className="box-input">
                 <input
                     {...rest}
                     ref={ref}

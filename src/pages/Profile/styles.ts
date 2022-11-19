@@ -1,3 +1,4 @@
+import Skeleton from 'react-loading-skeleton';
 import styled from 'styled-components';
 
 export const Container = styled.section`
@@ -57,7 +58,6 @@ export const Container = styled.section`
             right: 0;
             width: 85%;
             height: 100%;
-            background: red;
             z-index: -1;
             background: linear-gradient(180deg, rgba(29, 25, 51, 0.5) 0%, rgba(29, 25, 51, 0.07) 100%);
             border-radius: 12px;
@@ -89,13 +89,11 @@ export const Container = styled.section`
 
                 label.label-input {
                     position: relative;
-                    background: red;
                     min-width: 144px;
                     min-height: 144px;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    background: red;
                     border-radius: 50%;
                     background: ${({ theme }) => theme.colors.dark};
                     transition: filter 0.3s ease-in-out;
@@ -129,35 +127,39 @@ export const Container = styled.section`
                 display: grid;
                 grid-template-columns: repeat(6, 1fr);
 
-                div:has(#cpf) {
+                div:has(#cpf), div:has(.cpf) {
                     grid-column: 1 / 4;
                 }
 
-                div:has(#phone) {
+                div:has(#full_number), div:has(.full_number) {
                     grid-column: 4 / 7;
                 }
 
-                div:has(#address) {
-                    grid-column: 1 / 4;
+                div:has(#address), div:has(.address) {
+                    grid-column: 1 / 6;
                 }
 
-                div:has(#number) {
-                    grid-column: 4 / 4;
+                div:has(#number), div:has(.number) {
+                    grid-column: 6 / 7;
                 }
 
-                div:has(#neighborhood) {
-                    grid-column: 5 / 7;
-                }
-
-                div:has(#cep) {
+                div:has(#address_zip_code), div:has(.address_zip_code) {
                     grid-column: 1 / 3;
                 }
 
-                div:has(#uf) {
+                div:has(#uf), div:has(.uf) {
                     grid-column: 3 / 3;
                 }
 
-                div:has(#city) {
+                div:has(#city), div:has(.city) {
+                    grid-column: 4 / 7;
+                }
+
+                div:has(#neighborhood), div:has(.neighborhood) {
+                    grid-column: 1 / 4;
+                }
+
+                div:has(#address_complement), div:has(.address_complement) {
                     grid-column: 4 / 7;
                 }
 
@@ -190,6 +192,11 @@ export const Container = styled.section`
                     color: ${({ theme }) => theme.colors.middle};
                     background: linear-gradient(270deg, #FFDB45 0%, #FF8F4B 100%);
                     transition: filter 0.3s ease-in-out;
+                    max-height: 44px;
+                    min-height: 44px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
 
                     &:hover {
                         filter: brightness(0.8);
@@ -212,37 +219,30 @@ export const Container = styled.section`
         }
 
         @media (max-width: 768px) {
-            section {
-            }
-
             form {
                 padding: 18px;
                 max-width: unset;
+
+                header {
+                    grid-template-columns: 1fr;
+
+                    label {
+                        margin: 0 auto;
+                    }
+                }
 
                 div.form-content {
                     div {
                         grid-column: 1/7 !important;
                     }
-
-                    div:has(#cep) {
-                        grid-row: 4/5 !important;
-                    }
-
-                    div:has(#number) {
-                        grid-column: 1/4 !important;
-                        grid-row: 5/6 !important;
-                    }
-
-                    div:has(#uf) {
-                        grid-column: 4/7 !important;
-                        grid-row: 5/6 !important;
-                    }
                 }
             }
-            /* grid-template-columns: repeat(1, 1fr); */
+        }
+    }
+
+    @media (max-width: 768px) {
+        header {
+            display: none;
         }
     }
 `;
-
-
-

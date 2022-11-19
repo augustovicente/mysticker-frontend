@@ -10,20 +10,6 @@ type PropsProvider = {
     children?: React.ReactNode;
 };
 
-export type UserModel = {
-    id:                 number;
-    name:               string;
-    email:              string;
-    cpf:                string;
-    full_number:        string;
-    address_zip_code:   string;
-    address_number:     string;
-    address_complement: string;
-    email_verified:     boolean;
-    created_at:         Date;
-    updated_at:         Date;
-}
-
 export type SignInCredentials = {
     email: string;
     password: string;
@@ -34,6 +20,20 @@ export type User = {
     token: string;
 }
 
+export interface UserModel {
+    id:                 number;
+    name:               string;
+    email:              string;
+    cpf?:                string;
+    full_number?:        string;
+    address_zip_code?:   string;
+    address_number?:     string;
+    address_complement?: string;
+    email_verified:     boolean;
+    created_at:         string;
+    updated_at:         string;
+}
+
 export type AuthContextData = {
     user: UserModel;
     token: string;
@@ -41,7 +41,7 @@ export type AuthContextData = {
     signIn(credentials: SignInCredentials): Promise<any>;
     signOut(): void;
     resetUser(): void;
-    getUser(): void;
+    getUser(): Promise<UserModel | undefined>
 };
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -99,7 +99,6 @@ export const AuthProvider = ({ children }: PropsProvider) => {
                     return toast.error(error?.response?.data?.message);
                 }
 
-                console.log('error message: ', error.message);
                 return toast.error("E-mail ou senha incorretos.");
             } else {
                 console.log('unexpected error: ', error);
@@ -119,12 +118,19 @@ export const AuthProvider = ({ children }: PropsProvider) => {
     }, []);
 
     const getUser = useCallback(async () => {
-        const { data } = await api.post('get-authenticated-user');
+        try {
+            const { data } = await api.post<UserModel>('get-authenticated-user');
 
-        if (data) {
-            setData(prevState => ({ ...prevState, user: data }));
-            localStorage.setItem(`${PREFIX_AUTH}:user`, JSON.stringify(data));
+            if (data) {
+                setData(prevState => ({ ...prevState, user: data }));
+                localStorage.setItem(`${PREFIX_AUTH}:user`, JSON.stringify(data));
+            }
+
+            return data;
+        } catch (error) {
+            toast.error('Desculpe. Não foi possível obter os dados do usuário.')
         }
+
     }, []);
 
 

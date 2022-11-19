@@ -6,10 +6,19 @@ export const Container = styled.div`
     width: 100%;
     background: url('assets/img/others/world.png') no-repeat center/contain;
     padding: 0 24px;
+    height: fit-content;
+
+    &.sended {
+        height: 100vh;
+
+        header {
+            margin-bottom: 12px;
+        }
+    }
 
     form {
         margin: 64px 0px;
-        img {
+        img.logo-pru {
             display: block;
             max-height: 124px;
             height: 100%;
@@ -17,6 +26,10 @@ export const Container = styled.div`
             opacity: 0.10;
             pointer-events: none;
             user-select: none;
+        }
+
+        header h1 {
+            font-size: ${({ theme }) => theme.fontSizes.heading4};
         }
 
         div.container-inputs {
@@ -35,17 +48,20 @@ export const Container = styled.div`
                 border-radius: 8px;
                 background: ${({ theme }) => theme.colors.greenNeon};
                 color: ${({ theme }) => theme.colors.dark};
-                display: flex;
-                justify-content: center;
-                align-items: center;
+
                 border: 1px solid ${({ theme }) => theme.colors.colorMiddle};
                 width: 100%;
-                padding: 8px 0;
+                min-height: 46px;
                 margin: 32px auto 0;
 
                 a {
                     color: ${({ theme }) => theme.colors.white};
                     font-size: ${({ theme }) => theme.fontSizes.lg};
+                    width: 100%;
+                    min-height: 46px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                 }
             }
         }
@@ -64,6 +80,10 @@ export const Container = styled.div`
             input[type="checkbox"] {
                 width: 25px;
                 height: 25px;
+
+                &:focus {
+                    outline: 2px solid ${({ theme }) => theme.colors.colorMiddle};
+                }
 
                 &::after {
                     content: '';
@@ -105,6 +125,21 @@ export const Container = styled.div`
 
             &[disabled] {
                 cursor: not-allowed;
+            }
+        }
+
+        div.message-email {
+            strong {
+                color: ${({ theme }) => theme.colors.lightGrey};
+                font-weight: 700;
+                line-height: 180%;
+            }
+
+            img {
+                display: block;
+                margin: 18px auto 0;
+                max-width: 100%;
+                height: 124px;
             }
         }
     }

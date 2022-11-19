@@ -3,7 +3,6 @@ import { NotFoundPage } from 'pages/404/404';
 import { IndexAuth } from 'pages/Auth';
 import { Hall } from 'pages/Auth/Hall/Hall';
 import { Marketplace } from 'pages/Marketplace/Marketplace';
-import { ResetPassword } from 'pages/Profile/pages/ResetPassword/ResetPassword';
 import { Profile } from 'pages/Profile/Profile';
 import { Outlet, Route, Routes } from 'react-router-dom';
 import { useAuth } from 'contexts/auth.context';
@@ -11,6 +10,9 @@ import Home from 'pages/Home';
 import { Login } from 'pages/Login/Login';
 import { ForgotPassword } from 'pages/Login/Pages/ForgotPassword/ForgotPassword';
 import { Register } from 'pages/Login/Pages/Register/Register';
+import { NewPassword } from 'pages/Login/Pages/NewPassword/NewPassword';
+import { ResetPassword } from 'pages/Profile/pages/ResetPassword/ResetPassword';
+import { ConfirmEmail } from 'pages/Login/Pages/ConfirmEmail/ConfirmEmail';
 
 
 export const Router = () => {
@@ -22,6 +24,8 @@ export const Router = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="login" element={<Login />} />
                 <Route path="forgot-password" element={<ForgotPassword />} />
+                <Route path="reset-pwd/:code" element={<NewPassword />} />
+                <Route path="validation/:code" element={<ConfirmEmail />} />
                 <Route path="register" element={<Register />} />
                 <Route path="/marketplace" element={<Marketplace />} />
 
