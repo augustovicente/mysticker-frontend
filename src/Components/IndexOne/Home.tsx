@@ -130,7 +130,7 @@ const Home = () =>
                             <div className="description col-lg-12 align-self-center">
                                 <h2 className='title mb-4'>
                                     Copa <span>PRUU!</span>
-                                    <h6 className='d-block d-lg-none d-md-none w-100'>A copa dos Pombos</h6>
+                                    <span className='d-block d-lg-none d-md-none w-100'>A copa dos Pombos</span>
                                 </h2>
                             </div>
 

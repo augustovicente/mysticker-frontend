@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'services/web3';
 import AvatarImg from '../../assets/imgs/logo.png'
 
 import * as S from './styles';
@@ -31,7 +32,7 @@ const Profile = () => {
                         <text>Bem-Vindo Colecionador</text>
                         <strong className='username'>{user.name}</strong>
 
-                        <button>
+                        <button onClick={connect}>
                             Conecte sua Carteia
                         </button>
                     </header>
