@@ -1,4 +1,6 @@
 import * as S from './styles';
+import { ReactComponent as FingerprintIcon } from 'assets/imgs/fingerprint.svg';
+import { ReactComponent as LogoCopaPru } from 'assets/imgs/logo.svg';
 import { ReactComponent as ConfettiIcon } from 'assets/imgs/confetti.svg';
 import Input from 'Components/Input/Input';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -6,11 +8,10 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { useState } from 'react';
 import { useToggle } from 'hooks/useToggle';
-import { Link, useParams } from 'react-router-dom';
-import { GradientOverlay } from 'Components/GradientOverlay';
+import { Link } from 'react-router-dom';
 import { api } from 'services/api';
-import axios from 'axios';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 type ProfileDataProps = {
     password: string;
@@ -18,11 +19,11 @@ type ProfileDataProps = {
 };
 
 const resetPasswordSchema = Yup.object().shape({
-    password: Yup.string().required('Campo obrigatório'),
+    password: Yup.string().required('Campo obrigatória'),
     confirmPassword: Yup.string().oneOf([
         Yup.ref('password'),
         null,
-    ], 'As senhas não conferem'),
+    ], 'As senhas não são iguais'),
 });
 
 export const ResetPassword = () => {
@@ -36,89 +37,107 @@ export const ResetPassword = () => {
     const [isCompleted, setIsCompleted] = useState(false);
     const [isLoading, setIsLoading] = useToggle(false);
 
-    const { code } = useParams();
-
     const onSubmit: SubmitHandler<ProfileDataProps> = async (formValues) => {
         setIsLoading(true);
 
         try {
-            await api.post(`reset-password-by-link/${code}`, {
-                password: formValues.password,
+            await api.post('/reset-password', {
+                password: formValues.password
             });
 
+            setIsLoading(false);
             setIsCompleted(true);
-            setIsLoading(false);
         } catch (error) {
-            if (axios.isAxiosError(error)) {
-                if (error?.response?.data?.error === 'Code not found or expired') {
-                    return toast.error('Código inválido ou expirado');
-                }
-
-                return toast('Erro ao resetar senha');
-            } else {
-                toast.error('Erro ao resetar a senha, tente novamente');
-            }
-
             setIsLoading(false);
+            if(axios.isAxiosError(error)) {
+                if (error?.response?.data?.errorCode === 'IS_THE_SAME') {
+                    toast.error('A senha deve ser diferente da anterior', {
+                        toastId: 'IS_THE_SAME',
+                    });
+                }
+            } else {
+
+                return toast.error('Erro ao redefinir a senha, tente novamente', {
+                    toastId: 'RESET_PASSWORD_ERROR',
+                });
+            }
         }
     };
 
     return (
         <S.Container>
+            <header>
+                <div className='title'>
+                    <FingerprintIcon />
+                    <h2>Meus dados</h2>
+                </div>
+
+                <div className='dots'>
+                    <div className="dot"></div>
+                    <div className="dot"></div>
+                    <div className="dot"></div>
+                </div>
+            </header>
+
             <main>
-                {!isCompleted ? (
-                    <form noValidate>
-                        <h5>Redefinir Senha</h5>
-                        <Input
-                            {...register('password')}
-                            label='Digite a nova senha'
-                            name='password'
-                            autoComplete='password'
-                            autoCapitalize='off'
-                            autoCorrect='off'
-                            errors={errors.password}
-                            type="password"
-                            hasMobileStyle
-                        />
+                <div>
+                    {!isCompleted ? (
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <h5>Redefinir Senha</h5>
+                            <Input
+                                {...register('password')}
+                                label='Senha'
+                                name='password'
+                                errors={errors.password}
+                                type="password"
+                                hasMobileStyle
+                                leftIcon={(
+                                    <i className="left-icon fi-sr-user"></i>
+                                )}
+                            />
 
-                        <Input
-                            {...register('confirmPassword')}
-                            label='Confirmar senha'
-                            name='confirmPassword'
-                            errors={errors.confirmPassword}
-                            type="password"
-                            hasMobileStyle
-                        />
+                            <Input
+                                {...register('confirmPassword')}
+                                label='Confirmar senha'
+                                name='confirmPassword'
+                                errors={errors.confirmPassword}
+                                type="password"
+                                hasMobileStyle
+                                leftIcon={(
+                                    <i className="left-icon fi-sr-envelope"></i>
+                                )}
+                            />
 
-                        <button
-                            disabled={isLoading}
-                            type='submit'
-                            onClick={handleSubmit(onSubmit)}
-                        >
-                            {isLoading ? (
-                                <span className="spinner-border spinner-border-md">
-                                </span>
-                            ) : 'Confirmar alteração'}
-                        </button>
-                    </form>
-                ) : (
-                    <>
-                        <div className='message-reset'>
-                            <strong>
-                                Senha redefinida com sucesso!
-                            </strong>
+                            <button
+                                disabled={isLoading}
+                                type='submit'
+                                onClick={handleSubmit(onSubmit)}
+                            >
+                                {isLoading ? (
+                                    <span className="spinner-border spinner-border-md">
+                                    </span>
+                                ) : 'Confirmar alteração'}
+                            </button>
+                        </form>
+                    ) : (
+                        <>
+                            <div className='message-reset'>
+                                <strong>
+                                    Senha redefinida com sucesso!
+                                </strong>
 
-                            <ConfettiIcon />
-                        </div>
+                                <ConfettiIcon />
+                            </div>
 
-                        <Link className='link-home' to="/">
-                            Voltar para a página inicial
-                        </Link>
-                    </>
-                )}
+                            <Link className='to-home d-none' to='/'>
+                                Voltar para a página incial
+                            </Link>
+                        </>
+                    )}
+
+                    <LogoCopaPru className='logo' />
+                </div>
             </main>
-
-            <GradientOverlay />
         </S.Container>
     )
 }

@@ -23,7 +23,9 @@ const responseHandler = (response: any) => {
 const errorHandler = (error: any) => {
     if (axios.isAxiosError(error)) {
         if (error?.message === 'Network Error') {
-            toast.error('Verifique sua conexão com a internet');
+            toast.error('Verifique sua conexão com a internet', {
+                toastId: 'network-error'
+            });
         }
     }
     return Promise.reject(error);

@@ -115,7 +115,7 @@ export const Container = styled.section`
             }
         }
 
-        /* div.message-reset {
+        div.message-reset {
             display: flex;
             align-items: center;
             gap: 32px;
@@ -134,7 +134,7 @@ export const Container = styled.section`
                     margin-top: 4px;
                 }
             }
-        } */
+        }
 
         a.link-home {
             display: block !important;
@@ -142,32 +142,25 @@ export const Container = styled.section`
             text-decoration: underline;
             color: ${({ theme }) => theme.colors.light};
         }
+    }
 
-        div.message-reset {
-            flex-direction: column-reverse;
-            align-items: center;
-            display: flex;
-
-            strong {
-                max-width: 45%;
-                text-align: center;
-
-                &::after {
-                    width: 50% !important;
-                    margin: 0 auto;
-                }
-            }
-
-            svg {
-                order: 2;
-            }
+    @media (max-width: 1040px) {
+        main form {
+            width: 100%;
         }
 
+        svg.logo {
+            margin: 24px auto 12px;
+        }
     }
 
     @media (max-width: 768px) {
         div {
             width: 100%;
+        }
+
+        header {
+            display: none;
         }
 
         main {
@@ -180,20 +173,43 @@ export const Container = styled.section`
 
         main form {
             width: 100%;
+            padding: 12px;
 
             h5 {
                 margin-bottom: 0;
             }
 
-            div {
-                display: flex;
-                margin-bottom: 0;
-                padding: 0;
-            }
-
             button[type="submit"] {
                 max-width: fit-content;
             }
+        }
+
+        div.message-reset {
+            flex-direction: column-reverse;
+            align-items: center;
+            display: flex;
+            padding: 24px 0;
+
+            strong {
+                max-width: 45%;
+                text-align: center;
+
+                &::after {
+                    width: 50% !important;
+                    margin: 0 auto;
+                }
+            }
+        }
+
+        a.to-home {
+            display: block !important;
+            margin: 44px auto 12px;
+            text-decoration: underline;
+            color: ${({ theme }) => theme.colors.light};
+        }
+
+        svg.logo {
+            display: none;
         }
     }
 `;

@@ -46,7 +46,7 @@ const registerSchema = Yup.object().shape(
         email: Yup.string().email('E-mail inválido').required('Campo obrigatório').trim(),
         cpf: Yup.string().when('cpf', {
             is: (val: string) => val?.length > 0,
-            then: Yup.string().required('Campo obrigatório').min(11, 'CPF inválido'),
+            then: Yup.string().required('Campo obrigatório').min(14, 'CPF inválido').matches(/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/, 'CPF inválido'),
             otherwise: Yup.string().notRequired()
         }),
         full_number: Yup.string().when("full_number", {
@@ -130,16 +130,14 @@ const SkeletonInputs = [
 ];
 
 export const Profile = () => {
-    const { register, setValue, setError, watch, handleSubmit, formState: { errors } } = useForm<ProfileDataProps>({
+    const { register, setValue, setError, getValues, handleSubmit, trigger, formState: { errors } } = useForm<ProfileDataProps>({
         resolver: yupResolver(registerSchema),
         mode: 'onChange',
         reValidateMode: 'onChange',
         shouldFocusError: true,
     });
 
-
     const [avatar, setAvatar] = useState<any>(null);
-
     const [isLoading, setIsLoading] = useState({
         formLoading: true,
         submitLoading: false
@@ -153,8 +151,6 @@ export const Profile = () => {
             address_zip_code: formValues?.address_zip_code?.replace(/\D/g, ''),
             address_number: formValues?.address_number?.toString()
         }
-
-        console.log('formValues', formValues.address_number)
 
         setIsLoading(prevState => ({
             ...prevState,
@@ -264,7 +260,7 @@ export const Profile = () => {
                 </header>
 
                 <section>
-                    <form noValidate onSubmit={handleSubmit(onSubmit)}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <header>
                             <label className='label-input' htmlFor='avatar'>
                                 <input
@@ -296,6 +292,7 @@ export const Profile = () => {
                                     label='Nome'
                                     name='name'
                                     errors={errors.name}
+                                    maxLength={255}
                                     hasMobileStyle
                                     leftIcon={(
                                         <i className="left-icon fi-sr-user"></i>
@@ -307,6 +304,7 @@ export const Profile = () => {
                                     label='E-mail'
                                     errors={errors.email}
                                     name='email'
+                                    maxLength={255}
                                     hasMobileStyle
                                     leftIcon={(
                                         <i className="left-icon fi-sr-envelope"></i>
@@ -427,6 +425,7 @@ export const Profile = () => {
                                 label='Complemento'
                                 errors={errors.address_complement}
                                 name='address_complement'
+                                maxLength={25}
                                 hasMobileStyle
                             />
                         </div>
