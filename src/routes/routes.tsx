@@ -13,6 +13,7 @@ import { Register } from 'pages/Login/Pages/Register/Register';
 import { NewPassword } from 'pages/Login/Pages/NewPassword/NewPassword';
 import { ResetPassword } from 'pages/Profile/pages/ResetPassword/ResetPassword';
 import { ConfirmEmail } from 'pages/Login/Pages/ConfirmEmail/ConfirmEmail';
+import { Challenge } from 'pages/Challenge/Challenge';
 
 
 export const Router = () => {
@@ -42,6 +43,10 @@ export const Router = () => {
                 <Route path="profile" element={<Outlet />}>
                     <Route index element={<Profile />} />
                     <Route path="reset-password" element={<ResetPassword />} />
+                </Route>
+
+                <Route path='challenges' element={<Challenge />}>
+
                 </Route>
 
                 <Route path="marketplace" element={<Marketplace />} />
