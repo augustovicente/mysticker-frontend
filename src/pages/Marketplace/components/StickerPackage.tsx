@@ -1,4 +1,4 @@
-import { buy_package, open_package } from "models/User";
+import { buy_package, open_package, paste_stickers } from "models/User";
 import { useCallback, useState } from "react";
 import { StickersPackageContainer, StickersSeparator } from "../styles"
 
@@ -33,6 +33,10 @@ export const StickerPackage = ({ stars, type, title, id, handleActionStickerModa
 
     const handleOpen = async () => {
         await open_package(1);
+    }
+
+    const handlePaste = async () => {
+        await paste_stickers(4);
     }
 
     const handleDecrement = useCallback(() => {
@@ -116,7 +120,7 @@ export const StickerPackage = ({ stars, type, title, id, handleActionStickerModa
                         <h3>Pacotinho</h3>
                         <p>3 figurinhas</p>
                         <button
-                            onClick={handleOpen}
+                            onClick={handlePaste}
                         >
                             Comprar
                         </button>
