@@ -11,6 +11,7 @@ import Home from 'pages/Home';
 import { Login } from 'pages/Login/Login';
 import { ForgotPassword } from 'pages/Login/Pages/ForgotPassword/ForgotPassword';
 import { Register } from 'pages/Login/Pages/Register/Register';
+import { MyPackages } from 'pages/MyPackages/MyPackages';
 
 
 export const Router = () => {
@@ -24,6 +25,7 @@ export const Router = () => {
                 <Route path="forgot-password" element={<ForgotPassword />} />
                 <Route path="register" element={<Register />} />
                 <Route path="/marketplace" element={<Marketplace />} />
+                <Route path="/my-packages" element={<MyPackages />} />
 
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>

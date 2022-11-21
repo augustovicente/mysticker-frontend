@@ -1,38 +1,13 @@
 import BaseTemplate from "Components/BaseTemplate";
 import { useToggle } from "hooks/useToggle";
 import { ReactNode, useCallback, useState } from "react";
+import { Link } from "react-router-dom";
 import { Skeletons } from "./components/Skeletons";
 import { StickerPackage } from "./components/StickerPackage";
+import { stickersMock } from "./stickersMock";
 import {
     MarketplaceContainer, StickersPackageContainer,
 } from "./styles"
-
-const stickersMock = [
-    {
-        stars: "/assets/img/others/one-star.png",
-        type: "/assets/img/others/esmerald.png",
-        title: {
-            main: "Pacotinho",
-            secondary: "Esmeralda"
-        }
-    },
-    {
-        stars: "/assets/img/others/two-star.png",
-        type: "/assets/img/others/obisidian.png",
-        title: {
-            main: "Pacotinho",
-            secondary: "Obsidiana"
-        }
-    },
-    {
-        stars: "/assets/img/others/thre-star.png",
-        type: "/assets/img/others/esmerald.png",
-        title: {
-            main: "Pacotinho",
-            secondary: "Diamante"
-        }
-    },
-]
 
 export const Marketplace = () => {
     // const [isLoading, setIsLoading] = useToggle()
@@ -54,9 +29,15 @@ export const Marketplace = () => {
                     <Skeletons />
                 ) : (
                     <>
-                        <h1>
-                            <img src="/assets/img/icons/market-icon.svg" />
-                            Loja de Figurinhas
+                        <h1 className="marketplace-title">
+                            <div>
+                                <img src="/assets/img/icons/market-icon.svg" />
+                                Loja de Figurinhas
+                            </div>
+
+                                <Link to="/my-packages">
+                                    Meus pacotinhos
+                                </Link>
                         </h1>
 
                         <ul className="stickers-package-list">

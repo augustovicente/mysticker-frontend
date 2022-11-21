@@ -25,7 +25,7 @@ const BaseTemplateMainContent = styled.div<BaseTemplateMain>`
     width: 100%;
     flex-direction: column;
     background: var(--middle);
-    margin-left: ${props => props.collapsed ? "6%" : "16%"};
+    margin-left: ${props => props.collapsed ? "7%" : "17%"};
 `
 
 const BaseTemplateMain = styled.main<BaseTemplateMain>`

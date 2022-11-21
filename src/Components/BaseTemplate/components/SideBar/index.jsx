@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 import { Link } from "react-router-dom"
 import { SideBarContext } from "./context"
 import { menuItems } from "./menuItes"
@@ -37,7 +37,9 @@ const SideBar = () => {
                 <ul>
                     {menuItems.map(({ icon, link, title }, index) => (
                         <li key={index}>
-                            <MenuItem to={link}>
+                            <MenuItem
+                                to={link}
+                            >
                                 <img src={icon} />
                                 <h3>{title}</h3>
                             </MenuItem>
