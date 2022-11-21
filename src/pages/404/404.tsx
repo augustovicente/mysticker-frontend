@@ -11,7 +11,6 @@ import { GradientOverlay } from 'Components/GradientOverlay';
 export const NotFoundPage = () => {
     return (
         <>
-            <Header />
             <S.Container>
                 <img src={NotFoundImg} alt="404" />
                 <h1>Página não encontrada</h1>

@@ -15,7 +15,7 @@ export const Marketplace = () => {
     const [stickerStatsModalIsOpen, setStickerStatsModalIsOpen] = useState<string[]>([]);
 
     const handleActionStickerModal = (id: string) => {
-        if(!stickerStatsModalIsOpen.includes(id)) {
+        if (!stickerStatsModalIsOpen.includes(id)) {
             setStickerStatsModalIsOpen([...stickerStatsModalIsOpen, id])
         } else {
             setStickerStatsModalIsOpen(stickerStatsModalIsOpen.filter((item: string) => item !== id))
@@ -23,39 +23,37 @@ export const Marketplace = () => {
     }
 
     return (
-        <BaseTemplate footer={false}>
-            <MarketplaceContainer>
-                {isLoading ? (
-                    <Skeletons />
-                ) : (
-                    <>
-                        <h1 className="marketplace-title">
-                            <div>
-                                <img src="/assets/img/icons/market-icon.svg" />
-                                Loja de Figurinhas
-                            </div>
+        <MarketplaceContainer>
+            {isLoading ? (
+                <Skeletons />
+            ) : (
+                <>
+                    <h1 className="marketplace-title">
+                        <div>
+                            <img src="/assets/img/icons/market-icon.svg" />
+                            Loja de Figurinhas
+                        </div>
 
-                                <Link to="/my-packages">
-                                    Meus pacotinhos
-                                </Link>
-                        </h1>
+                        <Link to="/my-packages">
+                            Meus pacotinhos
+                        </Link>
+                    </h1>
 
-                        <ul className="stickers-package-list">
-                            {stickersMock.map(({ stars, title, type }, index) => (
-                                <StickerPackage
-                                    key={index}
-                                    id={index}
-                                    stars={stars}
-                                    title={title}
-                                    type={type}
-                                    stickerStatsModalIsOpen={stickerStatsModalIsOpen}
-                                    handleActionStickerModal={handleActionStickerModal}
-                                />
-                            ))}
-                        </ul>
-                    </>
-                )}
-            </MarketplaceContainer>
-        </BaseTemplate>
+                    <ul className="stickers-package-list">
+                        {stickersMock.map(({ stars, title, type }, index) => (
+                            <StickerPackage
+                                key={index}
+                                id={index}
+                                stars={stars}
+                                title={title}
+                                type={type}
+                                stickerStatsModalIsOpen={stickerStatsModalIsOpen}
+                                handleActionStickerModal={handleActionStickerModal}
+                            />
+                        ))}
+                    </ul>
+                </>
+            )}
+        </MarketplaceContainer>
     )
 }

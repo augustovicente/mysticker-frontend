@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
     width: 100%;
-    padding: 0 24px;
     margin-top: 164px;
     display: grid;
     gap: 54px;
