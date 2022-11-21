@@ -1,8 +1,8 @@
-import React, { DetailedHTMLProps, HTMLAttributes } from "react";
+import React, { DetailedHTMLProps, HTMLAttributes, ReactNode } from "react";
 
 export type CardBenefitProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
     title: string;
-    description: string;
+    description: ReactNode;
     image: string;
     order: number;
 };
@@ -18,7 +18,7 @@ export const CardBenefit = ({ title, description, image, order, ...rest }: CardB
 
             <h6 className="title">{title}</h6>
 
-            <p>{description}</p>
+            {description}
         </div>
     )
 }

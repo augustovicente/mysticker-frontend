@@ -21,7 +21,7 @@ export const menuItems = [
     },
     {
         title: "Desafios",
-        link: "/",
+        link: "/challenges",
         icon: "/assets/img/icons/challenge-icon.svg",
     },
     {
