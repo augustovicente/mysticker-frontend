@@ -33,7 +33,6 @@ const BaseTemplateMainContent = styled.div<BaseTemplateMain>`
 `
 
 const BaseTemplateMain = styled.main<BaseTemplateMain>`
-    /* padding: 0 80px 80px 80px; */
     background: var(--dark);
     border-top-left-radius: ${props => props.collapsed ? "0px" : "80px"};
 

@@ -6,6 +6,7 @@ export const MarketplaceContainer = styled.div`
     padding-bottom: 94px;
     display: grid;
     gap: 54px;
+    padding: 0 80px 80px 80px;
 
     .marketplace-title {
         display: flex;
