@@ -1,59 +1,23 @@
 import styled from "styled-components";
 
 export const Container = styled.section`
-    margin-top: 164px;
     display: grid;
+    place-items: center;
     gap: 54px;
-
-    header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        div.title {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-
-            h2 {
-                font-size: ${({ theme }) => theme.fontSizes.heading3};
-                color: ${({ theme }) => theme.colors.white};
-                margin: 0;
-            }
-        }
-
-        div.dots {
-            display: flex;
-            gap: 26px;
-
-            div.dot {
-                height: 37px;
-                width: 37px;
-                background: ${({ theme }) => theme.colors.colorMiddle};
-                border-radius: 50%;
-                transition: filter 0.3s ease-in-out;
-
-                &:hover {
-                    cursor: pointer;
-                    filter: brightness(0.8);
-                }
-            }
-        }
-    }
+    height: 100vh;
+    padding: 0 24px;
+    background: url('../assets/img/others/world.png') no-repeat center/contain;
 
     main {
-        width: 100%;
         background: ${({ theme }) => theme.colors.middle};
         border-radius: 12px;
-        padding: 44px;
+        /* padding: 44px; */
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
-        svg.logo {
-            max-width: 340px;
-            width: 100%;
-            height: auto;
-            opacity: 0.05;
-        }
+        max-width: 540px;
+        width: 100%;
+        height: fit-content;
+        position: relative;
+        padding: 44px;
 
         &::before {
             content: '';
@@ -71,43 +35,32 @@ export const Container = styled.section`
             transform: matrix(-1, 0, 0, 1, 0, 0);
         }
 
-        > div {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1040px;
-            flex-wrap: wrap;
-            margin: 0 auto;
-            gap: 12px;
-            padding: 0 40px;
-        }
-
         form {
-            width: 45%;
             display: flex;
             flex-direction: column;
             gap: 32px;
 
             h5 {
-                font-weight: 900;
+                font-weight: 800;
                 font-size: ${({ theme }) => theme.fontSizes.lg};
                 color: ${({ theme }) => theme.colors.white};
-                margin-bottom: 32px;
             }
 
             button[type="submit"] {
                 margin-top: 24px;
                 width: 100%;
                 min-width: 190px;
+                min-height: 50px;
                 padding: 10px;
                 background: ${({ theme }) => theme.gradients.yellow};
                 border-radius: 10px;
                 color: ${({ theme }) => theme.colors.middle};
-                font-weight: 900;
+                font-weight: 800;
                 font-size: ${({ theme }) => theme.fontSizes.lg};
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                width: fit-content;
 
                 &:hover:not(:disabled) {
                     filter: brightness(0.8);
@@ -140,27 +93,34 @@ export const Container = styled.section`
             display: block !important;
             margin: 44px auto;
             text-decoration: underline;
+            text-align: center;
             color: ${({ theme }) => theme.colors.light};
         }
-    }
 
-    @media (max-width: 1040px) {
-        main form {
-            width: 100%;
+        div.message-reset {
+            flex-direction: column-reverse;
+            align-items: center;
+            display: flex;
+
+            strong {
+                text-align: center;
+                white-space: pre;
+                font-size: ${({ theme }) => theme.fontSizes.heading4};
+
+                &::after {
+                    width: 50% !important;
+                    margin: 0 auto;
+                }
+            }
         }
 
-        svg.logo {
-            margin: 24px auto 12px;
-        }
     }
 
     @media (max-width: 768px) {
+        background-size: cover;
+
         div {
             width: 100%;
-        }
-
-        header {
-            display: none;
         }
 
         main {
@@ -173,43 +133,20 @@ export const Container = styled.section`
 
         main form {
             width: 100%;
-            padding: 12px;
 
             h5 {
                 margin-bottom: 0;
             }
 
+            div {
+                display: flex;
+                margin-bottom: 0;
+                padding: 0;
+            }
+
             button[type="submit"] {
                 max-width: fit-content;
             }
-        }
-
-        div.message-reset {
-            flex-direction: column-reverse;
-            align-items: center;
-            display: flex;
-            padding: 24px 0;
-
-            strong {
-                max-width: 45%;
-                text-align: center;
-
-                &::after {
-                    width: 50% !important;
-                    margin: 0 auto;
-                }
-            }
-        }
-
-        a.to-home {
-            display: block !important;
-            margin: 44px auto 12px;
-            text-decoration: underline;
-            color: ${({ theme }) => theme.colors.light};
-        }
-
-        svg.logo {
-            display: none;
         }
     }
 `;

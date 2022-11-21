@@ -6,27 +6,24 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { GradientOverlay } from 'Components/GradientOverlay';
-import { useTheme } from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import { useToggle } from 'hooks/useToggle';
 import axios from 'axios';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useReducer, useState } from 'react';
 import Skeleton from 'react-loading-skeleton'
-import { maskCEP, maskCPF, maskPhone } from 'utils/helpers';
+import { cepFormatter, cpfFormatter, maskCEP, maskCPF, maskPhone, phoneFormatter } from 'utils/helpers';
 import { Link } from 'react-router-dom';
-import { useAuth } from 'contexts/auth.context';
+import { useAuth, UserModel } from 'contexts/auth.context';
+import { SkeletonProfile } from 'pages/Profile/Skeleton';
+import { api } from 'services/api';
+import { toast } from 'react-toastify';
 
-type ProfileDataProps = {
+type ProfileDataProps = UserModel & {
     avatar: string | ArrayBuffer | null;
-    name: string;
-    email: string;
-    cpf: string;
-    phone: string;
-    address: string;
-    number: string;
-    neighborhood: string;
-    cep: string;
-    uf: string;
-    city: string;
+    uf: string | null;
+    city: string | null;
+    address: string | null;
+    neighborhood: string | null;
 }
 
 type dataCEP = {
@@ -49,79 +46,144 @@ const registerSchema = Yup.object().shape(
         email: Yup.string().email('E-mail inválido').required('Campo obrigatório').trim(),
         cpf: Yup.string().when('cpf', {
             is: (val: string) => val?.length > 0,
-            then: Yup.string().required('Campo obrigatório').min(11, 'CPF inválido'),
+            then: Yup.string().required('Campo obrigatório').min(14, 'CPF inválido').matches(/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/, 'CPF inválido'),
             otherwise: Yup.string().notRequired()
         }),
-        phone: Yup.string().when("phone", {
+        full_number: Yup.string().when("full_number", {
             is: (val: string) => val?.length > 0,
             then: Yup.string().min(14, 'Telefone inválido').max(15, 'Telefone inválido').trim(),
             otherwise: Yup.string().notRequired(),
         }),
-        address: Yup.string().when('cep', {
+        address: Yup.string().when('address_zip_code', {
             is: (val: string) => val?.length > 0,
             then: Yup.string().min(2, 'Endereço inválido').trim(),
             otherwise: Yup.string().notRequired(),
         }),
-        number: Yup.number().when('cep', {
+        address_number: Yup.number().when('address_zip_code', {
             is: (val: number) => !!val,
             then: Yup.number().positive('Número inválido').min(1, 'Número inválido').typeError('Número inválido'),
             otherwise: Yup.number().nullable(true).transform((_, val) => val === Number(val) ? val : null)
         }),
-        neighborhood: Yup.string().when('cep', {
+        neighborhood: Yup.string().when('address_zip_code', {
             is: (val: string) => val?.length > 0,
             then: Yup.string().min(2, 'Bairro inválido').trim(),
             otherwise: Yup.string().notRequired(),
         }),
-        cep: Yup.string().when("cep", {
+        address_zip_code: Yup.string().when("address_zip_code", {
             is: (val: string) => val?.length > 0,
             then: Yup.string().min(9, 'CEP inválido').max(9, 'CEP inválido').trim(),
             otherwise: Yup.string().notRequired(),
         }),
-        uf: Yup.string().when('cep', {
+        uf: Yup.string().when('address_zip_code', {
             is: (val: string) => val?.length > 0,
             then: Yup.string().min(2, 'UF inválido').max(2, 'UF inválido').trim(),
             otherwise: Yup.string().notRequired(),
         }),
-        city: Yup.string().when('cep', {
+        city: Yup.string().when('address_zip_code', {
             is: (val: string) => val?.length > 0,
             then: Yup.string().min(2, 'Cidade inválida').trim(),
             otherwise: Yup.string().notRequired(),
-        })
+        }),
+        address_complement: Yup.string().notRequired().nullable().trim(),
     },
     [
-        ['phone', 'phone'],
-        ['cep', 'cep'],
-        ['cep', 'uf'],
-        ['cep', 'city'],
-        ['cep', 'address'],
-        ['cep', 'number'],
-        ['cep', 'neighborhood'],
+        ['full_number', 'full_number'],
+        ['address_zip_code', 'address_zip_code'],
+        ['address_zip_code', 'uf'],
+        ['address_zip_code', 'city'],
+        ['address_zip_code', 'address'],
+        ['address_zip_code', 'number'],
+        ['address_zip_code', 'neighborhood'],
         ['cpf', 'cpf']
     ]
 );
 
+
+const SkeletonInputs = [
+    {
+        className: 'cpf'
+    },
+    {
+        className: 'full_number'
+    },
+    {
+        className: 'address_zip_code'
+    },
+    {
+        className: 'uf'
+    },
+    {
+        className: 'city'
+    },
+    {
+        className: 'address'
+    },
+    {
+        className: 'number'
+    },
+    {
+        className: 'neighborhood'
+    },
+    {
+        className: 'address_complement'
+    }
+];
+
 export const Profile = () => {
-    const { register, setValue, setError, handleSubmit, formState: { errors } } = useForm<ProfileDataProps>({
+    const { register, setValue, setError, getValues, handleSubmit, trigger, formState: { errors } } = useForm<ProfileDataProps>({
         resolver: yupResolver(registerSchema),
         mode: 'onChange',
         reValidateMode: 'onChange',
         shouldFocusError: true,
     });
 
-    const theme = useTheme();
-    const [isLoading, setIsLoading] = useToggle();
     const [avatar, setAvatar] = useState<any>(null);
+    const [isLoading, setIsLoading] = useState({
+        formLoading: true,
+        submitLoading: false
+    });
 
-    const onSubmit: SubmitHandler<ProfileDataProps> = (data) => {
-        console.log('data', data)
+    const onSubmit: SubmitHandler<ProfileDataProps> = async (formValues) => {
+        const formattedValues = {
+            ...formValues,
+            cpf: formValues?.cpf?.replace(/\D/g, ''),
+            full_number: formValues?.full_number?.replace(/\D/g, ''),
+            address_zip_code: formValues?.address_zip_code?.replace(/\D/g, ''),
+            address_number: formValues?.address_number?.toString()
+        }
+
+        setIsLoading(prevState => ({
+            ...prevState,
+            submitLoading: true
+        }));
+
+        try {
+            const { data } = await api.post('edit-data', formattedValues);
+
+            if (data) {
+                toast.success('Editado com sucesso')
+            }
+
+            setIsLoading(prevState => ({
+                ...prevState,
+                submitLoading: false
+            }));
+
+            getUpdateProfile();
+        } catch (error) {
+            setIsLoading(prevState => ({
+                ...prevState,
+                submitLoading: false
+            }));
+        }
     };
 
-    const { signOut, user, getUser } = useAuth();
+    const { getUser } = useAuth();
 
-    const searchCEP = async (cep: string) => {
-        const response = await axios.get<dataCEP>(`https://viacep.com.br/ws/${cep}/json`);
+    const searchCEP = async (address_zip_code: string) => {
+        const response = await axios.get<dataCEP>(`https://viacep.com.br/ws/${address_zip_code}/json`);
 
-        setError('cep', {
+        setError('address_zip_code', {
             type: 'manual',
             message: '',
         });
@@ -132,7 +194,7 @@ export const Profile = () => {
             setValue('city', response.data.localidade);
             setValue('uf', response.data.uf);
         } else {
-            setError('cep', {
+            setError('address_zip_code', {
                 type: 'manual',
                 message: 'CEP não encontrado',
             });
@@ -151,192 +213,305 @@ export const Profile = () => {
         }
     };
 
-    useEffect(() => {
-        getUser();
+    const getUpdateProfile = async () => {
+        await getUser()
+            .then((user) => {
+                setValue('name', user?.name || '');
+                setValue('email', user?.email || '');
+                setValue('cpf', cpfFormatter(user?.cpf || ''));
+                setValue('full_number', phoneFormatter(user?.full_number || ''));
+                setValue('address_zip_code', cepFormatter(user?.address_zip_code || ''));
+                setValue('address_number', user?.address_number || '');
+                setValue('address_complement', user?.address_complement || '');
 
-        setValue('name', user?.name);
-        setValue('email', user?.email);
-        setValue('cpf', user?.cpf || '');
-        setValue('phone', user?.full_number || '');
-        setValue('cep', user.address_zip_code || '');
+                if (user?.address_zip_code?.length === 8) {
+                    searchCEP(user?.address_zip_code);
+                }
+            })
+
+        setIsLoading(prevState => ({
+            ...prevState,
+            formLoading: false
+        }));
+    }
+
+    useEffect(() => {
+        getUpdateProfile();
     }, []);
+
+    if (isLoading.formLoading) {
+        return <ProfileSkeleton />
+    }
 
     return (
         <S.Container>
-            {isLoading ?
-                <Skeleton
-                    height={60}
-                    borderRadius={4}
-                    baseColor='#3C375B'
-                    highlightColor='#625C89'
-                />
-                : (
-                    <>
-                        <header>
-                            <div className='title'>
-                                <FingerprintIcon />
-                                <h2>Meus dados</h2>
-                            </div>
+            <>
+                <header>
+                    <div className='title'>
+                        <FingerprintIcon />
+                        <h2>Meus dados</h2>
+                    </div>
 
-                            <div className='dots'>
-                                <div className="dot"></div>
-                                <div className="dot"></div>
-                                <div className="dot"></div>
+                    <div className='dots'>
+                        <div className="dot"></div>
+                        <div className="dot"></div>
+                        <div className="dot"></div>
+                    </div>
+                </header>
+
+                <section>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <header>
+                            <label className='label-input' htmlFor='avatar'>
+                                <input
+                                    {...register('avatar')}
+                                    type="file"
+                                    accept='.jpeg, .webp, .jpg, .png'
+                                    id="avatar"
+                                    onChange={handleAvatar}
+                                />
+
+                                {avatar ? (
+                                    <img
+                                        className='avatar'
+                                        src={avatar}
+                                        alt=""
+                                        onError={({ currentTarget }) => {
+                                            currentTarget.onerror = null;
+                                            currentTarget.src = 'https://via.placeholder.com/150';
+                                        }}
+                                    />
+                                ) : (
+                                    <GalleryIcon />
+                                )}
+                            </label>
+
+                            <div className='header-inputs'>
+                                <Input
+                                    {...register('name')}
+                                    label='Nome'
+                                    name='name'
+                                    errors={errors.name}
+                                    maxLength={255}
+                                    hasMobileStyle
+                                    leftIcon={(
+                                        <i className="left-icon fi-sr-user"></i>
+                                    )}
+                                />
+
+                                <Input
+                                    {...register('email')}
+                                    label='E-mail'
+                                    errors={errors.email}
+                                    name='email'
+                                    maxLength={255}
+                                    hasMobileStyle
+                                    leftIcon={(
+                                        <i className="left-icon fi-sr-envelope"></i>
+                                    )}
+                                />
                             </div>
                         </header>
 
-                        <section>
-                            <form noValidate onSubmit={handleSubmit(onSubmit)}>
-                                <header>
-                                    <label className='label-input' htmlFor='avatar'>
-                                        <input
-                                            {...register('avatar')}
-                                            type="file"
-                                            accept='.jpeg, .webp, .jpg, .png'
-                                            id="avatar"
-                                            onChange={handleAvatar}
-                                        />
+                        <div className='form-content'>
+                            <Input
+                                {...register('cpf')}
+                                label='CPF'
+                                errors={errors.cpf}
+                                inputMode='numeric'
+                                name='cpf'
+                                maxLength={11}
+                                onChange={event => maskCPF(event)}
+                                hasMobileStyle
+                                leftIcon={(
+                                    <i className="left-icon fi-sr-subtitles"></i>
+                                )}
+                            />
 
-                                        {avatar ? (
-                                            <img
-                                                className='avatar'
-                                                src={avatar}
-                                                alt=""
-                                                onError={({ currentTarget }) => {
-                                                    currentTarget.onerror = null;
-                                                    currentTarget.src = 'https://via.placeholder.com/150';
-                                                }}
-                                            />
-                                        ) : (
-                                            <GalleryIcon />
-                                        )}
-                                    </label>
+                            <Input
+                                {...register('full_number')}
+                                label='Telefone'
+                                errors={errors.full_number}
+                                inputMode="numeric"
+                                maxLength={11}
+                                name='full_number'
+                                onChange={event => maskPhone(event)}
+                                hasMobileStyle
+                                leftIcon={(
+                                    <i className="left-icon fi-sr-call-incoming"></i>
+                                )}
+                            />
 
-                                    <div className='header-inputs'>
-                                        <Input
-                                            {...register('name')}
-                                            label='Nome'
-                                            name='name'
-                                            errors={errors.name}
-                                            hasMobileStyle
-                                            leftIcon={(
-                                                <i className="fi-sr-user"></i>
-                                            )}
-                                        />
+                            <Input
+                                {...register('address_zip_code')}
+                                label='CEP'
+                                errors={errors.address_zip_code}
+                                name='address_zip_code'
+                                maxLength={8}
+                                onChange={event => {
+                                    const { value } = event.currentTarget;
 
-                                        <Input
-                                            {...register('email')}
-                                            label='E-mail'
-                                            errors={errors.email}
-                                            name='email'
-                                            hasMobileStyle
-                                        />
-                                    </div>
-                                </header>
+                                    const address_zip_code = value.replace(/\D/g, '');
+                                    if (address_zip_code.length === 8) {
+                                        searchCEP(value);
+                                    }
 
-                                <div className='form-content'>
-                                    <Input
-                                        {...register('cpf')}
-                                        label='CPF'
-                                        errors={errors.cpf}
-                                        inputMode='numeric'
-                                        name='cpf'
-                                        maxLength={11}
-                                        onChange={event => maskCPF(event)}
-                                        hasMobileStyle
-                                    />
+                                    maskCEP(event);
+                                }}
+                                hasMobileStyle
+                                leftIcon={(
+                                    <i className="left-icon fi-sr-marker"></i>
+                                )}
+                            />
 
-                                    <Input
-                                        {...register('phone')}
-                                        label='Telefone'
-                                        errors={errors.phone}
-                                        inputMode="numeric"
-                                        maxLength={11}
-                                        name='phone'
-                                        onChange={event => maskPhone(event)}
-                                        hasMobileStyle
-                                    />
+                            <Input
+                                {...register('uf')}
+                                label='UF'
+                                errors={errors.uf}
+                                name='uf'
+                                hasMobileStyle
+                            />
 
-                                    <Input
-                                        {...register('address')}
-                                        label='Endereço'
-                                        autoComplete='address'
-                                        errors={errors.address}
-                                        name='address'
-                                        hasMobileStyle
-                                    />
+                            <Input
+                                {...register('city')}
+                                label='Cidade'
+                                errors={errors.city}
+                                name='city'
+                                hasMobileStyle
+                                leftIcon={(
+                                    <i className="left-icon fi-sr-building"></i>
+                                )}
+                            />
 
-                                    <Input
-                                        {...register('number')}
-                                        label='Nº'
-                                        inputMode='numeric'
-                                        type='number'
-                                        errors={errors.number}
-                                        name='number'
-                                        hasMobileStyle
-                                    />
+                            <Input
+                                {...register('address')}
+                                label='Endereço'
+                                autoComplete='address'
+                                errors={errors.address}
+                                name='address'
+                                hasMobileStyle
+                                leftIcon={(
+                                    <i className="left-icon fi-sr-marker"></i>
+                                )}
+                            />
 
-                                    <Input
-                                        {...register('neighborhood')}
-                                        label='Bairro'
-                                        errors={errors.neighborhood}
-                                        name='neighborhood'
-                                        hasMobileStyle
-                                    />
+                            <Input
+                                {...register('address_number')}
+                                label='Nº'
+                                inputMode='numeric'
+                                type='number'
+                                errors={errors.address_number}
+                                name='address_number'
+                                hasMobileStyle
+                                maxLength={8}
+                                leftIcon={(
+                                    <i className="left-icon fi-sr-envelope"></i>
+                                )}
+                            />
 
-                                    <Input
-                                        {...register('cep')}
-                                        label='CEP'
-                                        errors={errors.cep}
-                                        name='cep'
-                                        maxLength={8}
-                                        onChange={event => {
-                                            const { value } = event.currentTarget;
+                            <Input
+                                {...register('neighborhood')}
+                                label='Bairro'
+                                errors={errors.neighborhood}
+                                name='neighborhood'
+                                hasMobileStyle
+                                leftIcon={(
+                                    <i className="left-icon fi-sr-marker"></i>
+                                )}
+                            />
 
-                                            const cep = value.replace(/\D/g, '');
-                                            if (cep.length === 8) {
-                                                searchCEP(value);
-                                            }
+                            <Input
+                                {...register('address_complement')}
+                                label='Complemento'
+                                errors={errors.address_complement}
+                                name='address_complement'
+                                maxLength={25}
+                                hasMobileStyle
+                            />
+                        </div>
 
-                                            maskCEP(event);
-                                        }}
-                                        hasMobileStyle
-                                    />
+                        <footer>
+                            <button disabled={isLoading.submitLoading} type="submit">
+                                {isLoading.submitLoading ?
+                                    (
+                                        <span className="spinner-border spinner-border-md">
+                                        </span>
+                                    )
+                                    : 'Editar Dados'
+                                }
+                            </button>
 
-                                    <Input
-                                        {...register('uf')}
-                                        label='UF'
-                                        errors={errors.uf}
-                                        name='uf'
-                                        hasMobileStyle
-                                    />
+                            <Link className='reset-password' to="reset-password">
+                                Redefinir Senha
+                            </Link>
+                        </footer>
+                    </form>
+                </section>
+                <GradientOverlay />
+            </>
+        </S.Container>
+    )
+}
 
-                                    <Input
-                                        {...register('city')}
-                                        label='Cidade'
-                                        errors={errors.city}
-                                        name='city'
-                                        hasMobileStyle
-                                    />
-                                </div>
+const ProfileSkeleton = () => {
+    return (
+        <S.Container>
+            <>
+                <header>
+                    <div className='title'>
+                        <Skeleton
+                            width={53}
+                            height={46}
+                            baseColor='#3C375B'
+                            highlightColor='#6345EE'
+                            borderRadius={4}
+                        />
 
-                                <footer>
-                                    <button type="submit">
-                                        Editar Dados
-                                    </button>
+                        <Skeleton
+                            width={340}
+                            height={46}
+                            baseColor='#3C375B'
+                            highlightColor='#6345EE'
+                            borderRadius={4}
+                        />
+                    </div>
 
-                                    <Link className='reset-password' to="reset-password">
-                                        Redefinir Senha
-                                    </Link>
+                    <div className='dots'>
+                        <div className="dot"></div>
+                        <div className="dot"></div>
+                        <div className="dot"></div>
+                    </div>
+                </header>
 
-                                </footer>
-                            </form>
-                        </section>
+                <section>
+                    <form>
+                        <header>
+                            <Skeleton
+                                width={144}
+                                height={144}
+                                circle
+                                baseColor='#3C375B'
+                                highlightColor='#6345EE'
+                            />
 
-                        <GradientOverlay />
-                    </>
-                )
-            }
+                            <div className='header-inputs'>
+                                <SkeletonProfile />
+                            </div>
+                        </header>
+
+                        <div className="form-content">
+                            {SkeletonInputs.map(input => (
+                                <SkeletonProfile
+                                    key={input.className}
+                                    className={input.className}
+                                />
+                            ))}
+                        </div>
+                    </form>
+                </section>
+
+                <GradientOverlay />
+            </>
         </S.Container>
     )
 }

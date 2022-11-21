@@ -1,3 +1,4 @@
+import { buy_package, open_package } from "models/User";
 import { useCallback, useState } from "react";
 import { StickersPackageContainer, StickersSeparator } from "../styles"
 
@@ -13,8 +14,26 @@ type StickerPackageProps = {
     stickerStatsModalIsOpen: string[];
 }
 
-export const StickerPackage = ({ stars, type, title, id, handleActionStickerModal, stickerStatsModalIsOpen }: StickerPackageProps) => {
+export const StickerPackage = ({ stars, type, title, id, handleActionStickerModal, stickerStatsModalIsOpen }: StickerPackageProps) =>
+{
     const [count, setCount] = useState(0)
+
+    // example buy
+    const handleBuy = async () => {
+        const package_type = 1;
+        const amount = 1;
+        const price = 0.001;
+        
+        let result = await buy_package(
+            package_type,
+            amount,
+            (price * amount)
+        );
+    }
+
+    const handleOpen = async () => {
+        await open_package(1);
+    }
 
     const handleDecrement = useCallback(() => {
         if (count > 0) {
@@ -96,7 +115,11 @@ export const StickerPackage = ({ stars, type, title, id, handleActionStickerModa
                     <div className="payment">
                         <h3>Pacotinho</h3>
                         <p>3 figurinhas</p>
-                        <button>Comprar</button>
+                        <button
+                            onClick={handleOpen}
+                        >
+                            Comprar
+                        </button>
                     </div>
                     <div className="quantity">
                         <h4>0,001 ETH</h4>
@@ -114,7 +137,6 @@ export const StickerPackage = ({ stars, type, title, id, handleActionStickerModa
                                 type="number"
                                 name="counter"
                                 id="counter"
-                                defaultValue={count}
                                 value={count}
                             />
                             <button

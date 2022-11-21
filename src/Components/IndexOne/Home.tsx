@@ -12,10 +12,12 @@ import Benefit_2Img from 'assets/imgs/2-benefits.png';
 import Benefit_3Img from 'assets/imgs/3-benefits.png';
 import Benefit_4Img from 'assets/imgs/4-benefits.png';
 import Benefit_5Img from 'assets/imgs/5-benefits.png';
+import { ReactComponent as WhitepaperIcon} from 'assets/imgs/whitepaper-icon.svg';
 import Slider from 'react-slick';
 import { CardBenefit, CardBenefitProps } from 'Components/CardBenefit';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from 'contexts/auth.context';
+import { Link } from 'react-router-dom';
 
 const developers = [
     {
@@ -43,31 +45,66 @@ const developers = [
 const benefits: CardBenefitProps[] = [
     {
         title: 'Desafios',
-        description: 'A expressão Lorem ipsum em design gráfico e editoração é um texto padrão em latim utilizado na produção gráfica par',
+        description:
+            <>
+                <p>Acompanhando de perto a Copa Pruu, você fica por dentro de tudo e pode participar de desafios <b>valendo boosters</b>, <b>produtos</b> ou até <b>pix</b></p>
+            </>
+        ,
         image: Benefit_1Img,
         order: 1,
     },
     {
         title: 'Lançamento PRUU',
-        description: 'A expressão Lorem ipsum em design gráfico e editoração é um texto padrão em latim utilizado na produção gráfica par',
+        description:
+            <>
+                <p>Ao colecionar você podera <b>resgatar itens</b> do <b>Drop Exclusivo</b> da <b>marca Pruu</b>
+                    <br /><br />
+                    <b>Camisetas, moletom, boné five penal, caneca com tirante e</b> outras novidades que virão pra compor seu outfit na revoada
+                </p>
+            </>
+        ,
         image: Benefit_2Img,
         order: 2,
     },
     {
         title: 'Aceita PIXs?',
-        description: 'A expressão Lorem ipsum em design gráfico e editoração é um texto padrão em latim utilizado na produção gráfica par',
+        description:
+            <>
+                <p>
+                    Para a alegria geral da nação: vai ter pagamento por pix sim! É bem tranquilo e rápido de fazer.
+                    <br /><br />
+
+                    Mas, se preferir, você também pode fazer pagamentos
+                    via <b>cartão de crédito</b>
+                </p>
+            </>
+        ,
         image: Benefit_3Img,
         order: 3,
     },
     {
         title: 'Mercadão',
-        description: 'A expressão Lorem ipsum em design gráfico e editoração é um texto padrão em latim utilizado na produção gráfica par',
+        description:
+            <>
+                <p>Fique a vontade para <b>revender</b> as <b>figurinhas repetidas!</b>
+                    <br /><br />
+
+                    A ideia é que você possa comprar ou vender para outros participantes e, quem sabe, ganhar uma graninha extra com isso
+                </p>
+            </>
+        ,
         image: Benefit_4Img,
         order: 4,
     },
     {
         title: 'Boteco Verso',
-        description: 'A expressão Lorem ipsum em design gráfico e editoração é um texto padrão em latim utilizado na produção gráfica par',
+        description:
+            <>
+                <p>
+                    Você vai poder <b>assistir</b> os principais <b>jogos</b> e vibrar junto com a galera <b>no</b> nosso <b>Boteco Verso</b>, o <b>primeiro boteco do Metaverso</b>. Podendo ainda <b>concorrer booster</b> durante a partidas.
+                </p>
+            </>
+        ,
         image: Benefit_5Img,
         order: 5,
     },
@@ -84,8 +121,7 @@ const settings = {
     swipeToSlide: true,
 }
 
-const Home = () =>
-{
+const Home = () => {
     const { width } = useWindowSize();
     const classNameSectionCup = width! < 576 ? '' : 'container';
     const { t } = useTranslation();
@@ -102,10 +138,15 @@ const Home = () =>
                                         {t('home.section_1.title')}
                                     </h1>
 
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vitae ultrices ipsum luctus nulla volutpat, integer lacus. Aliquet orci, velit
-                                    </p>
+                                    <p>{t('home.section_1.subtitle')}</p>
 
-                                    <a href="/" className="banner-btn">Abrir o Albúm de Figurinhas</a>
+                                    <div className='section1-buttons'>
+                                        <Link to="/" className="banner-btn">Abrir o Albúm de Figurinhas</Link>
+                                        <Link to="/" className="banner-btn whitepaper">
+                                            <WhitepaperIcon />
+                                            Whitepaper
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
 
@@ -130,7 +171,6 @@ const Home = () =>
                             <div className="description col-lg-12 align-self-center">
                                 <h2 className='title mb-4'>
                                     Copa <span>PRUU!</span>
-                                    <h6 className='d-block d-lg-none d-md-none w-100'>A copa dos Pombos</h6>
                                 </h2>
                             </div>
 
@@ -141,10 +181,13 @@ const Home = () =>
                             </div>
 
                             <div className="description col-lg-12 col-md-8 align-self-center">
-                                <p className='mb-4 mb-md-3 mb-lg-4 me-3'>A expressão Lorem ipsum em design gráfico e editoração é um texto padrão em latim utilizado na produção gráfica para preencher os espaços de texto em publicações para testar e ajustar aspectos visuais antes de utilizar conteúdo real. Wikipédia
+                                <p className='mb-4 mb-md-3 mb-lg-4 me-3'>
+                                    {t('home.section_2.subtitle')}
                                 </p>
 
-                                <a href="#" className="banner-btn">Abrir o Albúm de Figurinhas</a>
+                                <a href="#" className="banner-btn">
+                                    {t('home.section_2.button')}
+                                </a>
                             </div>
                         </div>
 
@@ -155,7 +198,9 @@ const Home = () =>
 
             <section id="benefits">
                 <div className="container">
-                    <h2 className="title text-sm-start text-md-start text-lg-center">Benefícios</h2>
+                    <h2 className="title text-sm-start text-md-start text-lg-center">
+                        {t('home.section_3.title')}
+                    </h2>
 
                     <div className="d-none d-md-grid d-lg-grid grid">
                         {benefits.map((benefit, index) => (
@@ -190,13 +235,14 @@ const Home = () =>
                     <div className="row">
                         <div className="col-12 d-flex justify-content-center align-items-center flex-column">
                             <h3 className="title">
-                                O 1º Buster é {'\n'}
-                                por nossa conta
+                                {t('home.section_4.title')}
                             </h3>
                             <img src={BusterImg} loading="lazy" alt="Pacote de figurinha" />
 
                             <button className='pick-sticker'>
-                                <a href="/">Resgate seu Pacotinho</a>
+                                <a href="/">
+                                    {t('home.section_4.button')}
+                                </a>
                             </button>
 
                             <img src={BootImg} loading="lazy" className="boot" alt="Pacote de figurinha" />
@@ -209,7 +255,9 @@ const Home = () =>
                 <div className="container">
                     {/* Desenvolvedores */}
                     <div>
-                        <h3 className="title devs">Desenvolvedores</h3>
+                        <h3 className="title devs">
+                            {t('home.section_5.developers.title')}
+                        </h3>
 
                         <div className='grid'>
                             {developers.map((developer, index) => (
@@ -223,7 +271,9 @@ const Home = () =>
 
                     {/* Parceiros */}
                     <div>
-                        <h3 className="title partners">Parceiros</h3>
+                        <h3 className="title partners">
+                            {t('home.section_5.partners.title')}
+                        </h3>
 
                         <div className='grid'>
                             {developers.map((developer, index) => (
@@ -248,31 +298,73 @@ const Home = () =>
                     <div className="row mt-5 d-flex justify-content-between">
                         <div className="col-lg-4  mt-4">
                             <div className="roadmap-item">
-                                <span className='phase'>Fase 1</span>
+                                <span className='phase'>
+                                    {t('home.section_6.phase1.title')}
+                                </span>
                                 <div className="icon"></div>
-                                <h5>Desafios</h5>
+                                <h5>
+                                    {t('home.section_6.phase1.subtitle')}
+                                </h5>
 
-                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate vero eaque odit consectetur corporis, obcaecati vel ea possimus quibusdam sint fuga dolor nobis dolore assumenda quis nam temporibus veritatis harum?</p>
+                                <li>
+                                    {t('home.section_6.phase1.list.item1')}
+                                </li>
+
+                                <li>
+                                    {t('home.section_6.phase1.list.item2')}
+                                </li>
+
+                                <li>
+                                    {t('home.section_6.phase1.list.item3')}
+                                </li>
+                            </div>
+                        </div>
+
+                        <div className="col-lg-4 mt-4">
+                            <div className="roadmap-item">
+                                <span className='phase'>
+                                    {t('home.section_6.phase2.title')}
+                                </span>
+                                <div className="icon"></div>
+                                <h5>
+                                    {t('home.section_6.phase2.subtitle')}
+                                </h5>
+
+                                <li>
+                                    {t('home.section_6.phase2.list.item1')}
+                                </li>
+
+                                <li>
+                                    {t('home.section_6.phase2.list.item2')}
+                                </li>
+
+                                <li>
+                                    {t('home.section_6.phase2.list.item3')}
+                                </li>
                             </div>
                         </div>
 
                         <div className="col-lg-4  mt-4">
                             <div className="roadmap-item">
-                                <span className='phase'>Fase 1</span>
+                                <span className='phase'>
+                                    {t('home.section_6.phase3.title')}
+                                </span>
                                 <div className="icon"></div>
-                                <h5>Desafios</h5>
+                                <h5>
+                                    {t('home.section_6.phase3.subtitle')}
+                                </h5>
 
-                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate vero eaque odit consectetur corporis, obcaecati vel ea possimus quibusdam sint fuga dolor nobis dolore assumenda quis nam temporibus veritatis harum?</p>
-                            </div>
-                        </div>
+                                <li>
+                                    {t('home.section_6.phase3.list.item1')}
+                                </li>
 
-                        <div className="col-lg-4  mt-4">
-                            <div className="roadmap-item">
-                                <span className='phase'>Fase 1</span>
-                                <div className="icon"></div>
-                                <h5>Desafios</h5>
+                                <li>
+                                    {t('home.section_6.phase3.list.item2')}
+                                </li>
 
-                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate vero eaque odit consectetur corporis, obcaecati vel ea possimus quibusdam sint fuga dolor nobis dolore assumenda quis nam temporibus veritatis harum?</p>
+                                <li>
+                                    {t('home.section_6.phase3.list.item3')}
+                                </li>
                             </div>
                         </div>
                     </div>
@@ -284,7 +376,9 @@ const Home = () =>
                     <img className='me-5' src={GolImg} alt="Imagem de um gol de futebol" />
 
                     <button className='pick-sticker'>
-                        <a href="/">Resgate seu Pacotinho</a>
+                        <Link to="/">
+                            {t('home.section_7.button')}
+                        </Link>
                     </button>
                 </div>
             </section>

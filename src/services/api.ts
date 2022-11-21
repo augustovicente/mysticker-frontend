@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { PREFIX_AUTH } from 'utils/constants';
 
 export const api = axios.create({
@@ -19,6 +20,17 @@ const responseHandler = (response: any) => {
     return response;
 };
 
+const errorHandler = (error: any) => {
+    if (axios.isAxiosError(error)) {
+        if (error?.message === 'Network Error') {
+            toast.error('Verifique sua conexão com a internet', {
+                toastId: 'network-error'
+            });
+        }
+    }
+    return Promise.reject(error);
+};
+
 // Intercerpetor de requisições
 api.interceptors.request.use((config) => {
     let token = localStorage.getItem(`${PREFIX_AUTH}:token`);
@@ -32,4 +44,4 @@ api.interceptors.request.use((config) => {
     return config;
 }, (error) => Promise.reject(error));
 
-api.interceptors.response.use(responseHandler);
+api.interceptors.response.use(responseHandler, errorHandler);

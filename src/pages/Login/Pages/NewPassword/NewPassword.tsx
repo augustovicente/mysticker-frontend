@@ -1,5 +1,6 @@
 import * as S from './styles';
 import { ReactComponent as FingerprintIcon } from 'assets/imgs/fingerprint.svg';
+import { ReactComponent as GalleryIcon } from 'assets/imgs/galery.svg';
 import { ReactComponent as LogoCopaPru } from 'assets/imgs/logo.svg';
 import { ReactComponent as ConfettiIcon } from 'assets/imgs/confetti.svg';
 import Input from 'Components/Input/Input';
@@ -8,10 +9,10 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { useState } from 'react';
 import { useToggle } from 'hooks/useToggle';
-import { Link } from 'react-router-dom';
-import { api } from 'services/api';
-import { toast } from 'react-toastify';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import { api } from 'services/api';
 
 type ProfileDataProps = {
     password: string;
@@ -19,14 +20,14 @@ type ProfileDataProps = {
 };
 
 const resetPasswordSchema = Yup.object().shape({
-    password: Yup.string().required('Campo obrigatória'),
+    password: Yup.string().required('Campo obrigatório'),
     confirmPassword: Yup.string().oneOf([
         Yup.ref('password'),
         null,
-    ], 'As senhas não são iguais'),
+    ], 'As senhas não conferem'),
 });
 
-export const ResetPassword = () => {
+export const NewPassword = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<ProfileDataProps>({
         resolver: yupResolver(resetPasswordSchema),
         mode: 'onChange',
@@ -37,63 +38,52 @@ export const ResetPassword = () => {
     const [isCompleted, setIsCompleted] = useState(false);
     const [isLoading, setIsLoading] = useToggle(false);
 
+    const { code } = useParams();
+
     const onSubmit: SubmitHandler<ProfileDataProps> = async (formValues) => {
         setIsLoading(true);
 
         try {
-            await api.post('/reset-password', {
-                password: formValues.password
+            await api.post(`reset-password-by-link/${code}`, {
+                password: formValues.password,
             });
 
-            setIsLoading(false);
             setIsCompleted(true);
+            setIsLoading(false);
         } catch (error) {
             setIsLoading(false);
-            if(axios.isAxiosError(error)) {
-                if (error?.response?.data?.errorCode === 'IS_THE_SAME') {
-                    toast.error('A senha deve ser diferente da anterior', {
-                        toastId: 'IS_THE_SAME',
+
+            if (axios.isAxiosError(error)) {
+                if (error?.response?.data?.error === 'Code not found or expired') {
+                    return toast.error('Código inválido ou expirado', {
+                        toastId: 'code-not-found-or-expired',
                     });
                 }
-            } else {
 
-                return toast.error('Erro ao redefinir a senha, tente novamente', {
-                    toastId: 'RESET_PASSWORD_ERROR',
-                });
+                return toast.error('Erro ao resetar a senha, tente novamente');
+            } else {
+                toast.error('Erro ao resetar a senha, tente novamente');
             }
         }
     };
 
     return (
         <S.Container>
-            <header>
-                <div className='title'>
-                    <FingerprintIcon />
-                    <h2>Meus dados</h2>
-                </div>
-
-                <div className='dots'>
-                    <div className="dot"></div>
-                    <div className="dot"></div>
-                    <div className="dot"></div>
-                </div>
-            </header>
-
             <main>
                 <div>
                     {!isCompleted ? (
-                        <form onSubmit={handleSubmit(onSubmit)}>
+                        <form noValidate>
                             <h5>Redefinir Senha</h5>
                             <Input
                                 {...register('password')}
                                 label='Senha'
                                 name='password'
+                                autoComplete='password'
+                                autoCapitalize='off'
+                                autoCorrect='off'
                                 errors={errors.password}
                                 type="password"
                                 hasMobileStyle
-                                leftIcon={(
-                                    <i className="left-icon fi-sr-user"></i>
-                                )}
                             />
 
                             <Input
@@ -103,9 +93,6 @@ export const ResetPassword = () => {
                                 errors={errors.confirmPassword}
                                 type="password"
                                 hasMobileStyle
-                                leftIcon={(
-                                    <i className="left-icon fi-sr-envelope"></i>
-                                )}
                             />
 
                             <button
@@ -123,19 +110,17 @@ export const ResetPassword = () => {
                         <>
                             <div className='message-reset'>
                                 <strong>
-                                    Senha redefinida com sucesso!
+                                    Senha redefinida {'\n'}com sucesso!
                                 </strong>
 
                                 <ConfettiIcon />
                             </div>
 
-                            <Link className='to-home d-none' to='/'>
-                                Voltar para a página incial
+                            <Link className='link-home' to="/">
+                                Voltar para a página inicial
                             </Link>
                         </>
                     )}
-
-                    <LogoCopaPru className='logo' />
                 </div>
             </main>
         </S.Container>

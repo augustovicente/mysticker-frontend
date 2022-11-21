@@ -3,3 +3,4 @@ build.zip
 build/*
 package-lock.json
 yarn.lock
+.env

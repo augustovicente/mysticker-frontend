@@ -1,7 +1,59 @@
 {
     "home": {
         "section_1": {
-            "title": "MySticker\nÁlbum de\nFigurinha"
+            "title": "A comunidade dos álbuns de figurinha",
+            "subtitle": "A MySticker te faz reviver a nostalgia dos álbuns e te ajuda a acabar com a curiosidade de ter a sua primeira NFT"
+        },
+        "section_2": {
+            "subtitle": "Para estrear essa plataforma com o pé direito - especialmente para você que já está no hype da Copa - temos uma ótima notícia: Vem aí a CopaPruu 2022. \n\n A Copa do Mundo dos Pombos. Você pode completar seu álbum e ainda ganhar os bônus mais maneiros.",
+            "button": "Abrir o Albúm de Figurinhas"
+        },
+        "section_3": {
+            "title": "Benefícios"
+        },
+        "section_4": {
+            "title": "O 1º Buster é \n por nossa conta",
+            "button": "Resgate seu Pacotinho"
+        },
+        "section_5": {
+            "developers": {
+                "title": "Desenvolvedores"
+            },
+            "partners": {
+                "title": "Parceiros"
+            }
+        },
+        "section_6": {
+            "phase1": {
+                "title": "Fase 1",
+                "subtitle": "Desafios",
+                "list": {
+                    "item1": "Recompensas para os vencedores",
+                    "item2": "Prêmios em itens físicos da PRUU",
+                    "item3": "Prêmios em figurinhas"
+                }
+            },
+            "phase2": {
+                "title": "Fase 2",
+                "subtitle": "Desafios",
+                "list": {
+                    "item1": "Recompensas para os vencedores",
+                    "item2": "Prêmios em itens físicos da PRUU",
+                    "item3": "Prêmios em figurinhas"
+                }
+            },
+            "phase3": {
+                "title": "Fase 3",
+                "subtitle": "Desafios",
+                "list": {
+                    "item1": "Recompensas para os vencedores",
+                    "item2": "Prêmios em itens físicos da PRUU",
+                    "item3": "Prêmios em figurinhas"
+                }
+            }
+        },
+        "section_7": {
+            "button": "Resgate seu Pacotinho"
         }
     }
 }
