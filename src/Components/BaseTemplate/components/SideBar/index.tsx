@@ -75,9 +75,11 @@ const SideBar = () => {
             {!isCollapsed && (
                 <footer>
                     <YourWalletCard>
-                        <h5>Sua Carteira</h5>
+                        <h5>
+                            {t("sidebar.wallet")}
+                        </h5>
                         <button>
-                            Conectar
+                            {t("sidebar.connect_wallet")}
 
                             <img src="/assets/img/icons/chain-icon.svg" />
                         </button>

@@ -62,7 +62,9 @@
         "prizes": "Prêmios",
         "events": "Eventos",
         "chalenges": "Desafios",
-        "profile": "Meus Dados"
+        "profile": "Meus Dados",
+        "wallet": "Sua Carteira",
+        "connect_wallet": "Conectar"
     },
     "login": {
         "title": "Login",

@@ -61,8 +61,10 @@
         "store": "Store",
         "prizes": "Prizes",
         "events": "Events",
-        "chalenges": "chalenges",
-        "profile": "My Data"
+        "chalenges": "Chalenges",
+        "profile": "My Data",
+        "wallet": "Your Waller",
+        "connect_wallet": "Connect"
     },
     "login": {
         "title": "Login",
