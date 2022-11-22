@@ -16,6 +16,7 @@ import { ResetPassword } from 'pages/Profile/pages/ResetPassword/ResetPassword';
 import { ConfirmEmail } from 'pages/Login/Pages/ConfirmEmail/ConfirmEmail';
 import { Challenge } from 'pages/Challenge/Challenge';
 import { Album } from 'pages/Album/Album';
+import BaseTemplate from 'Components/BaseTemplate';
 
 
 export const Router = () => {
@@ -40,26 +41,29 @@ export const Router = () => {
     }
 
     return (
-        <Routes>
-            <Route path="/" element={<IndexAuth />}>
-                <Route index element={<Hall />} />
+        <BaseTemplate footer={false} >
+            <Routes>
+                <Route path="/" element={<Outlet />}>
+                    <Route index element={<Hall />} />
 
-                <Route path="profile" element={<Outlet />}>
-                    <Route index element={<Profile />} />
-                    <Route path="reset-password" element={<ResetPassword />} />
+                    <Route path="profile" element={(
+                        <Outlet />
+                    )}>
+                        <Route index element={<Profile />} />
+                        <Route path="reset-password" element={<ResetPassword />} />
+                    </Route>
+
+                    <Route path='challenges' element={<Challenge />}>
+
+                    </Route>
+
+                    <Route path="marketplace" element={<Marketplace />} />
                 </Route>
 
-                <Route path='challenges' element={<Challenge />}>
-
-                </Route>
-
-                <Route path="marketplace" element={<Marketplace />} />
-            </Route>
-
-            <Route path="*" element={<NotFoundPage />} />
+                <Route path="*" element={<NotFoundPage />} />
 
 
-            {/* <Route path="/nft-marketplace" element={<Explore />} />
+                {/* <Route path="/nft-marketplace" element={<Explore />} />
             <Route path="/collections" element={<Collections />} />
             <Route path="/blog" element={<Blog />} />
 
@@ -73,6 +77,8 @@ export const Router = () => {
             <Route path="/creators" element={<Creators />} />
             <Route path="/market-single" element={<MarketSingle />} />
             <Route path="/nft-live-bidding" element={<NftLiveBidding />} /> */}
-        </Routes>
+            </Routes>
+        </BaseTemplate>
+
     )
 }

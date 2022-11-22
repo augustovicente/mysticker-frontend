@@ -111,6 +111,10 @@ img,
     overflow: hidden
 }
 
+ul {
+    list-style: none;
+}
+
 a,
 button {
     -webkit-transition: all 0.3s ease-out 0s;

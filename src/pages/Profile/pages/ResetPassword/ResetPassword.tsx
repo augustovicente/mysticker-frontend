@@ -49,7 +49,7 @@ export const ResetPassword = () => {
             setIsCompleted(true);
         } catch (error) {
             setIsLoading(false);
-            if(axios.isAxiosError(error)) {
+            if (axios.isAxiosError(error)) {
                 if (error?.response?.data?.errorCode === 'IS_THE_SAME') {
                     toast.error('A senha deve ser diferente da anterior', {
                         toastId: 'IS_THE_SAME',
