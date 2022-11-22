@@ -5,7 +5,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as S from './styles';
 import { useToggle } from 'hooks/useToggle';
 import { GradientOverlay } from 'Components/GradientOverlay';
-import { useTheme } from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import LogoPru from 'assets/imgs/logo.svg';
 import { FormBase } from 'pages/Login/components/FormBase.styles';
@@ -14,7 +13,7 @@ import axios from 'axios';
 import { api } from 'services/api';
 import { useState } from 'react';
 import SendImg from 'assets/imgs/logo-send.svg'
-
+import { useTranslation } from 'react-i18next';
 
 type formType = {
     name: string;
@@ -31,20 +30,22 @@ type Register = {
     password: string;
 }
 
-const registerSchema = Yup.object().shape({
-    name: Yup.string().required('Campo obrigátorio'),
-    email: Yup.string().required('Campo obrigátorio').email('E-mail inválido'),
-    password: Yup.string().required('Campo obrigátorio'),
-    confirmPassword: Yup.string()
-        .required('Campo obrigátorio')
-        .oneOf([Yup.ref('password'), null], 'Senha não confere'),
-    confirmEmail: Yup.string()
-        .required('Campo obrigátorio')
-        .oneOf([Yup.ref('email'), null], 'E-mail não confere'),
-    therms: Yup.boolean().required()
-}).required();
+export const Register = () =>
+{
+    const { t } = useTranslation();
+    const registerSchema = Yup.object().shape({
+        name: Yup.string().required(t('signup.errors.required_name') || ''),
+        email: Yup.string().required(t('signup.errors.required_email') || '').email(t('signup.errors.invalid_email') || ''),
+        password: Yup.string().required(t('signup.errors.required_password') || ''),
+        confirmPassword: Yup.string()
+            .required(t('signup.errors.required_password_confirmation') || '')
+            .oneOf([Yup.ref('password'), null], t('signup.errors.password_confirmation') || ''),
+        confirmEmail: Yup.string()
+            .required(t('signup.errors.required_email_confirmation') || '')
+            .oneOf([Yup.ref('email'), null], t('signup.errors.email_confirmation') || ''),
+        therms: Yup.boolean().required()
+    }).required();
 
-export const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<formType>({
         resolver: yupResolver(registerSchema),
         mode: 'onChange',
@@ -57,7 +58,7 @@ export const Register = () => {
 
     const onSubmit: SubmitHandler<formType> = async (formValues) => {
         if (!formValues.therms) {
-            return toast.info('Você precisa aceitar os termos de uso');
+            return toast.info(t('signup.errors.terms_of_use') || '');
         }
 
         setIsLoading(true);
@@ -76,12 +77,12 @@ export const Register = () => {
 
             if (axios.isAxiosError(error)) {
                 if (error?.response?.status === 422) {
-                    return toast.error('E-mail já utilizado');
+                    return toast.error(t('signup.errors.email_used') || '');
                 } else {
-                    return toast.error('Erro ao realizar cadastro');
+                    return toast.error(t('signup.errors.general_error') || '');
                 }
             } else {
-                return toast.error('Erro ao realizar cadastro');
+                return toast.error(t('signup.errors.general_error') || '');
             }
         }
     };
@@ -99,7 +100,7 @@ export const Register = () => {
                 >
                     <header>
                         <div>
-                            <h1>Cadastrar</h1>
+                            <h1>{t('signup.title')}</h1>
                         </div>
 
                         <img className='logo-pru' src={LogoPru} alt="Logo copa pruu" />
@@ -108,7 +109,7 @@ export const Register = () => {
                     <div className="container-inputs">
                         <Input
                             {...register('name')}
-                            label='Nome completo *'
+                            label={t('signup.fields.name')}
                             autoComplete='name'
                             autoCorrect='off'
                             errors={errors.name}
@@ -118,7 +119,7 @@ export const Register = () => {
                         <Input
                             hasMobileStyle
                             {...register('email')}
-                            label='E-mail'
+                            label={t('signup.fields.email')}
                             autoComplete='email'
                             inputMode='email'
                             autoCapitalize='off'
@@ -129,7 +130,7 @@ export const Register = () => {
                         <Input
                             hasMobileStyle
                             {...register('confirmEmail')}
-                            label='Confirmação de e-mail *'
+                            label={t('signup.fields.email_confirmation')}
                             autoComplete='email'
                             inputMode='email'
                             autoCapitalize='off'
@@ -140,7 +141,7 @@ export const Register = () => {
                         <Input
                             hasMobileStyle
                             {...register('password')}
-                            label='Crie uma senha *'
+                            label={t('signup.fields.password')}
                             autoComplete='password'
                             type='password'
                             autoCapitalize='off'
@@ -151,7 +152,7 @@ export const Register = () => {
                         <Input
                             hasMobileStyle
                             {...register('confirmPassword')}
-                            label='Confirmar senha *'
+                            label={t('signup.fields.confirm_password')}
                             autoComplete='password'
                             type='password'
                             autoCapitalize='off'
@@ -161,7 +162,9 @@ export const Register = () => {
 
                         <div className="container-checkbox">
                             <input {...register('therms')} id='therms' type="checkbox" />
-                            <label htmlFor='therms'>Li e aceito os Termos e Compromissos</label>
+                            <label htmlFor='therms'>
+                                {t('signup.fields.terms_of_use')}
+                            </label>
                         </div>
                     </div>
 
@@ -173,12 +176,12 @@ export const Register = () => {
                             {isLoading ? (
                                 <div className="spinner-border spinner-border-md" role="status">
                                 </div>
-                            ) : 'Cadastrar'}
+                            ) : t('signup.actions.submit')}
                         </button>
 
                         <button disabled={isLoading}>
                             <Link className='to-login' to="/login">
-                                Já tenho conta
+                                {t('signup.actions.already_have_an_account')}
                             </Link>
                         </button>
                     </div>
@@ -186,12 +189,14 @@ export const Register = () => {
             ) : (
                 <FormBase noValidate>
                     <header>
-                        <h1>Confirme seu email</h1>
+                        <h1>
+                            {t('signup.email_sended.title')}
+                        </h1>
                     </header>
 
                     <div className='message-email'>
                         <strong>
-                            Verifique a caixa de entrada do seu e-mail para ativar a sua conta!
+                            {t('signup.email_sended.subtitle')}
                         </strong>
 
                         <img src={SendImg} alt="Logo copa pru" />

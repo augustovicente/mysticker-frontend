@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react"
+import { useTranslation } from 'react-i18next';
 import { Link } from "react-router-dom"
 import { SideBarContext } from "./context"
 import { menuItems } from "./menuItes"
@@ -6,6 +7,7 @@ import { HandleCollapseButton, MenuItem, SideBarContainer, YourWalletCard } from
 
 const SideBar = () => {
     const { isCollapsed, setIsCollapsed } = useContext(SideBarContext)
+    const { t } = useTranslation();
 
     return (
         <SideBarContainer collapsed={isCollapsed}>
@@ -41,7 +43,7 @@ const SideBar = () => {
                                 to={link}
                             >
                                 <img src={icon} />
-                                <h3>{title}</h3>
+                                <h3>{t("sidebar."+title)}</h3>
                             </MenuItem>
                         </li>
                     ))}

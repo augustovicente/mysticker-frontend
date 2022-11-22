@@ -1,31 +1,31 @@
 export const menuItems = [
     {
-        title: "Álbum",
+        title: "album",
         link: "/",
         icon: "/assets/img/icons/album-icon.svg",
     },
     {
-        title: "Loja",
+        title: "store",
         link: "/marketplace",
         icon: "/assets/img/icons/market-icon.svg",
     },
     {
-        title: "Prêmios",
+        title: "prizes",
         link: "/",
         icon: "/assets/img/icons/gifts-icon.svg",
     },
     {
-        title: "Eventos",
+        title: "events",
         link: "/",
         icon: "/assets/img/icons/events-icon.svg",
     },
     {
-        title: "Desafios",
+        title: "chalenges",
         link: "/challenges",
         icon: "/assets/img/icons/challenge-icon.svg",
     },
     {
-        title: "Meus Dados",
+        title: "profile",
         link: "/profile",
         icon: "/assets/img/icons/my-data-icon.svg",
     },

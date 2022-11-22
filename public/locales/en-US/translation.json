@@ -55,5 +55,58 @@
         "section_7": {
             "button": "Resgate seu Pacotinho"
         }
+    },
+    "sidebar":{
+        "album": "Album",
+        "store": "Store",
+        "prizes": "Prizes",
+        "events": "Events",
+        "chalenges": "chalenges",
+        "profile": "My Data"
+    },
+    "login": {
+        "title": "Login",
+        "input_email": "Email",
+        "input_password": "Password",
+        "signup_quest": "Don't have an account?",
+        "signup_action": "Create here",
+        "forgot_password": "Forgot the password",
+        "errors": {
+            "required_email": "Email is required",
+            "invalid_email": "Email is invalid",
+            "required_password": "Password is required"
+        }
+    },
+    "signup": {
+        "errors": {
+            "required_name": "Name is required",
+            "required_email": "Email is required",
+            "invalid_email": "Email is invalid",
+            "required_email_confirmation": "Email confirmation is required",
+            "email_confirmation": "Emails do not match",
+            "required_password": "Password is required",
+            "required_password_confirmation": "Password confirmation is required",
+            "password_confirmation": "Passwords do not match",
+            "terms_of_use": "You must accept the terms of use",
+            "email_used": "Email already in use",
+            "general_error": "An error occurred, please try again later"
+        },
+        "title": "Sign Up",
+        "fields": {
+            "name": "Full Name *",
+            "email": "Email",
+            "email_confirmation": "Email confirmation *",
+            "password": "Create a password *",
+            "confirm_password": "Confirm password *",
+            "terms_of_use": "I accept the terms of use"
+        },
+        "actions": {
+            "submit": "Sign Up",
+            "already_have_an_account": "Already have an account"
+        },
+        "email_validation":{
+            "title": "Confirm your email",
+            "subtitle": "We sent an email to you, please check your inbox and click on the link to confirm your email."
+        }
     }
 }
