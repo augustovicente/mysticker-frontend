@@ -61,7 +61,7 @@ const SideBar = () => {
                                     <img src={menu.icon} />
                                 )}
 
-                                <h3>{menu.title}</h3>
+                                <h3>{t("sidebar"+menu.title)}</h3>
 
                                 {menu.blocked && !isCollapsed && (
                                     <i className="fi-sr-lock"></i>
