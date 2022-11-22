@@ -9,7 +9,7 @@ export const SkeletonProfile = ({ className }: SkeletonProfileProps) => {
         <div>
             <Skeleton
                 width={70}
-                height={24}
+                height={16}
                 baseColor='#3C375B'
                 highlightColor='#6345EE'
                 borderRadius={4}

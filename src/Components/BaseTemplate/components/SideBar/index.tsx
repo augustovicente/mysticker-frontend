@@ -1,11 +1,13 @@
 import React, { useContext, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { SideBarContext } from "./context"
-import { menuItems } from "./menuItes"
+import { menuItems } from "./menuItems"
 import { HandleCollapseButton, MenuItem, SideBarContainer, YourWalletCard } from "./styles"
+import LockIcon from "assets/imgs/lock.svg"
 
 const SideBar = () => {
-    const { isCollapsed, setIsCollapsed } = useContext(SideBarContext)
+    const { isCollapsed, setIsCollapsed } = useContext(SideBarContext);
+    const location = useLocation();
 
     return (
         <SideBarContainer collapsed={isCollapsed}>
@@ -35,13 +37,33 @@ const SideBar = () => {
 
             <main>
                 <ul>
-                    {menuItems.map(({ icon, link, title }, index) => (
-                        <li key={index}>
+                    {menuItems.map((menu) => (
+                        <li key={menu.link}>
                             <MenuItem
-                                to={link}
+                                collapsed={isCollapsed}
+                                isBlocked={menu.blocked}
+                                title={menu.title}
+                                to={menu.link}
+                                onClick={(event) => menu.blocked && event.preventDefault()}
+                                className={({ isActive, isPending }) =>
+                                    isActive
+                                        ? "active"
+                                        : isPending
+                                            ? "pending"
+                                            : ""
+                                }
                             >
-                                <img src={icon} />
-                                <h3>{title}</h3>
+                                {menu.blocked && isCollapsed ? (
+                                    <img src={LockIcon} alt="" />
+                                ) : (
+                                    <img src={menu.icon} />
+                                )}
+
+                                <h3>{menu.title}</h3>
+
+                                {menu.blocked && !isCollapsed && (
+                                    <i className="fi-sr-lock"></i>
+                                )}
                             </MenuItem>
                         </li>
                     ))}

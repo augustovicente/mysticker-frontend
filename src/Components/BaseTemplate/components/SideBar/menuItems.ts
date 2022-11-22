@@ -6,27 +6,29 @@ export const menuItems = [
     },
     {
         title: "Loja",
-        link: "/marketplace",
+        link: "marketplace",
         icon: "/assets/img/icons/market-icon.svg",
     },
     {
         title: "Prêmios",
-        link: "/",
+        link: "rewards",
         icon: "/assets/img/icons/gifts-icon.svg",
     },
     {
         title: "Eventos",
-        link: "/",
+        link: "events",
         icon: "/assets/img/icons/events-icon.svg",
+        blocked: true
     },
     {
         title: "Desafios",
-        link: "/challenges",
+        link: "challenges",
         icon: "/assets/img/icons/challenge-icon.svg",
+        blocked: true
     },
     {
         title: "Meus Dados",
-        link: "/profile",
+        link: "profile",
         icon: "/assets/img/icons/my-data-icon.svg",
     },
 ]

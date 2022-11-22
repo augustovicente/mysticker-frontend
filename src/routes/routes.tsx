@@ -41,8 +41,13 @@ export const Router = () => {
     return (
         <BaseTemplate footer={false} >
             <Routes>
-                <Route path="/" element={<Outlet />}>
-                    <Route index element={<Hall />} />
+                {/* <Route> */}
+                <Route path='/' element={<Outlet />} >
+                    <Route index element={<><h2>Album</h2></>} />
+                    <Route path="rewards" element={<><h2>Premios</h2></>} />
+                    <Route path="marketplace" element={<Marketplace />} />
+                    {/* <Route path="events" element={<><h2>Eventos</h2></>} /> */}
+                    {/* <Route path='challenges' element={<Challenge />} /> */}
 
                     <Route path="profile" element={(
                         <Outlet />
@@ -50,13 +55,10 @@ export const Router = () => {
                         <Route index element={<Profile />} />
                         <Route path="reset-password" element={<ResetPassword />} />
                     </Route>
-
-                    <Route path='challenges' element={<Challenge />}>
-
-                    </Route>
-
-                    <Route path="marketplace" element={<Marketplace />} />
                 </Route>
+
+
+                {/* </Route> */}
 
                 <Route path="*" element={<NotFoundPage />} />
 

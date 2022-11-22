@@ -9,7 +9,7 @@ import { GradientOverlay } from 'Components/GradientOverlay';
 import styled, { useTheme } from 'styled-components';
 import { useToggle } from 'hooks/useToggle';
 import axios from 'axios';
-import { ChangeEvent, useEffect, useReducer, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useReducer, useState } from 'react';
 import Skeleton from 'react-loading-skeleton'
 import { cepFormatter, cpfFormatter, maskCEP, maskCPF, maskPhone, phoneFormatter } from 'utils/helpers';
 import { Link } from 'react-router-dom';
@@ -213,7 +213,7 @@ export const Profile = () => {
         }
     };
 
-    const getUpdateProfile = async () => {
+    const getUpdateProfile = useCallback(async () => {
         await getUser()
             .then((user) => {
                 setValue('name', user?.name || '');
@@ -233,7 +233,7 @@ export const Profile = () => {
             ...prevState,
             formLoading: false
         }));
-    }
+    }, []);
 
     useEffect(() => {
         getUpdateProfile();
@@ -495,6 +495,7 @@ const ProfileSkeleton = () => {
                             />
 
                             <div className='header-inputs'>
+                                <SkeletonProfile />
                                 <SkeletonProfile />
                             </div>
                         </header>
