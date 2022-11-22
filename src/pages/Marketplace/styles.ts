@@ -3,10 +3,8 @@ import Skeleton from "react-loading-skeleton"
 
 export const MarketplaceContainer = styled.div`
     margin-top: 164px;
-    padding-bottom: 94px;
     display: grid;
     gap: 54px;
-    padding: 0 80px 80px 80px;
 
     .marketplace-title {
         display: flex;
@@ -37,7 +35,7 @@ export const MarketplaceContainer = styled.div`
     .stickers-package-list {
         display: flex;
         justify-content: space-between;
-        min-height: 70vh;
+        flex-wrap: wrap;
         width: 100%;
     }
 `
@@ -72,8 +70,10 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
 
         .sticker-package-container {
             img {
-                height: 240px;
-                width: 160px;
+                display: block;
+                object-fit: contain;
+                width: 162px;
+                height: auto;
             }
         }
 

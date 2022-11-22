@@ -15,6 +15,7 @@ import { NewPassword } from 'pages/Login/Pages/NewPassword/NewPassword';
 import { ResetPassword } from 'pages/Profile/pages/ResetPassword/ResetPassword';
 import { ConfirmEmail } from 'pages/Login/Pages/ConfirmEmail/ConfirmEmail';
 import { Challenge } from 'pages/Challenge/Challenge';
+import { Album } from 'pages/Album/Album';
 import BaseTemplate from 'Components/BaseTemplate';
 
 
@@ -32,6 +33,7 @@ export const Router = () => {
                 <Route path="register" element={<Register />} />
                 <Route path="/marketplace" element={<Marketplace />} />
                 <Route path="/my-packages" element={<MyPackages />} />
+                <Route path="/album" element={<Album />} />
 
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
@@ -41,8 +43,13 @@ export const Router = () => {
     return (
         <BaseTemplate footer={false} >
             <Routes>
-                <Route path="/" element={<Outlet />}>
-                    <Route index element={<Hall />} />
+                {/* <Route> */}
+                <Route path='/' element={<Outlet />} >
+                    <Route index element={<><h2>Album</h2></>} />
+                    <Route path="rewards" element={<><h2>Premios</h2></>} />
+                    <Route path="marketplace" element={<Marketplace />} />
+                    {/* <Route path="events" element={<><h2>Eventos</h2></>} /> */}
+                    {/* <Route path='challenges' element={<Challenge />} /> */}
 
                     <Route path="profile" element={(
                         <Outlet />
@@ -50,13 +57,10 @@ export const Router = () => {
                         <Route index element={<Profile />} />
                         <Route path="reset-password" element={<ResetPassword />} />
                     </Route>
-
-                    <Route path='challenges' element={<Challenge />}>
-
-                    </Route>
-
-                    <Route path="marketplace" element={<Marketplace />} />
                 </Route>
+
+
+                {/* </Route> */}
 
                 <Route path="*" element={<NotFoundPage />} />
 

@@ -25,7 +25,7 @@ const BaseTemplateMainContent = styled.div<BaseTemplateMain>`
     display: flex;
     width: 100%;
     flex-direction: column;
-    margin-left: ${props => props.collapsed ? "7%" : "17%"};
+    margin-left: ${props => props.collapsed ? "94px" : "210px"};
 
     @media (max-width: 768px) {
         margin-left: 0;

@@ -8,7 +8,7 @@ export const Challenge = () => {
             <header>
                 <div className='title'>
                     <ChallengeIcon />
-                    <h2>Meus dados</h2>
+                    <h2>Desafios</h2>
                 </div>
 
                 <div className='dots'>

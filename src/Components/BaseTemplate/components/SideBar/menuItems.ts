@@ -1,32 +1,34 @@
 export const menuItems = [
     {
         title: "album",
-        link: "/",
+        link: "/album",
         icon: "/assets/img/icons/album-icon.svg",
     },
     {
         title: "store",
-        link: "/marketplace",
+        link: "marketplace",
         icon: "/assets/img/icons/market-icon.svg",
     },
     {
         title: "prizes",
-        link: "/",
+        link: "rewards",
         icon: "/assets/img/icons/gifts-icon.svg",
     },
     {
         title: "events",
-        link: "/",
+        link: "events",
         icon: "/assets/img/icons/events-icon.svg",
+        blocked: true
     },
     {
         title: "chalenges",
-        link: "/challenges",
+        link: "challenges",
         icon: "/assets/img/icons/challenge-icon.svg",
+        blocked: true
     },
     {
         title: "profile",
-        link: "/profile",
+        link: "profile",
         icon: "/assets/img/icons/my-data-icon.svg",
     },
 ]
