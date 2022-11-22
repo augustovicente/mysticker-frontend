@@ -10,8 +10,7 @@ import {
 } from "./styles"
 
 export const Marketplace = () => {
-    // const [isLoading, setIsLoading] = useToggle()
-    const isLoading = false
+    const [isLoading, setIsLoading] = useToggle()
     const [stickerStatsModalIsOpen, setStickerStatsModalIsOpen] = useState<string[]>([]);
 
     const handleActionStickerModal = (id: string) => {

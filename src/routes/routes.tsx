@@ -15,6 +15,7 @@ import { NewPassword } from 'pages/Login/Pages/NewPassword/NewPassword';
 import { ResetPassword } from 'pages/Profile/pages/ResetPassword/ResetPassword';
 import { ConfirmEmail } from 'pages/Login/Pages/ConfirmEmail/ConfirmEmail';
 import { Challenge } from 'pages/Challenge/Challenge';
+import { Album } from 'pages/Album/Album';
 
 
 export const Router = () => {
@@ -31,6 +32,7 @@ export const Router = () => {
                 <Route path="register" element={<Register />} />
                 <Route path="/marketplace" element={<Marketplace />} />
                 <Route path="/my-packages" element={<MyPackages />} />
+                <Route path="/album" element={<Album />} />
 
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>

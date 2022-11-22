@@ -1,7 +1,7 @@
 export const menuItems = [
     {
         title: "Álbum",
-        link: "/",
+        link: "/album",
         icon: "/assets/img/icons/album-icon.svg",
     },
     {
