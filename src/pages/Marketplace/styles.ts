@@ -6,11 +6,32 @@ export const MarketplaceContainer = styled.div`
     padding-bottom: 94px;
     display: grid;
     gap: 54px;
+    padding: 0 80px 80px 80px;
 
-    h1 {
+    .marketplace-title {
+        display: flex;
+        justify-content: space-between;
         color: white;
         margin: 0;
         margin-bottom: 12vh;
+
+        img {
+            height: 50px;
+            width: 50px;
+            margin-right: 1.25rem;
+        }
+
+        a {
+            font-size: 1rem;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to left, rgba(255, 83, 83, 1), rgba(254, 69, 126, 1));
+            width: 15%;
+            border-radius: 30px;
+            font-weight: bold;
+        }
     }
 
     .stickers-package-list {
@@ -21,7 +42,11 @@ export const MarketplaceContainer = styled.div`
     }
 `
 
-export const StickersPackageContainer = styled.li`
+type StickersPackageContainerProps = {
+    index: number;
+}
+
+export const StickersPackageContainer = styled.li<StickersPackageContainerProps>`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -39,15 +64,24 @@ export const StickersPackageContainer = styled.li`
         background-repeat: no-repeat;
         padding: 22px 22px 0px 22px;
 
+        .sticker-star-container {
+            img {
+                height: 40px;
+            }
+        }
+
+        .sticker-package-container {
+            img {
+                height: 240px;
+                width: 160px;
+            }
+        }
+
         div {
             display: flex;
             width: 100%;
             justify-content: center;
             align-content: center;
-
-            img {
-                margin: 0;
-            }
 
             h2 {
                 display: flex;
@@ -99,7 +133,7 @@ export const StickersPackageContainer = styled.li`
             padding: 8px;
 
             position: absolute;
-            top: -100%;
+            top: -105%;
             z-index: 99;
 
             .sticker-stats-close-modal-btn {
@@ -171,12 +205,26 @@ export const StickersPackageContainer = styled.li`
             display: flex;
             justify-content: center;
             align-items: start;
-            background: linear-gradient(to left, rgba(255, 83, 83, 1), rgba(254, 69, 126, 1));
+            background: ${props => {
+                switch(props.index) {
+                    case 0:
+                        return "linear-gradient(to left, rgba(255, 83, 83, 1), rgba(254, 69, 126, 1));";
+                        break;
+                    case 1:
+                        return "linear-gradient(to left, rgba(70, 148, 255, 1), rgba(181, 59, 254, 1));";
+                        break;
+                    case 2:
+                        return "linear-gradient(to left, rgba(70, 148, 255, 1), rgba(48, 229, 132, 1));";
+                        break;
+                    default:
+                        return "linear-gradient(to left, rgba(255, 83, 83, 1), rgba(254, 69, 126, 1));";
+                }
+            }};
             border-radius: 30px;
             width: 100%;
             padding: 1rem;
             z-index: 2;
-            margin-bottom: -2rem;
+            margin-bottom: -2.25rem;
 
             .payment {
                 display: flex;
@@ -210,7 +258,6 @@ export const StickersPackageContainer = styled.li`
                     border-radius: 30px;
                     height: 42px;
                     font-weight: bold;
-
                 }
             }
 
@@ -229,11 +276,9 @@ export const StickersPackageContainer = styled.li`
                 }
 
                 h4 {
-                    font-size: 0.75rem;
+                    font-size: 0.875rem;
                     margin-bottom: 4px;
                 }
-
-
 
                 p {
                     font-size: 0.875rem;
@@ -279,7 +324,7 @@ export const StickersPackageContainer = styled.li`
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 3rem 1rem 1rem 1rem;
+            padding: 3rem 1rem 0.75rem 1rem;
             background: white;
             border-bottom-right-radius: 30px;
             border-bottom-left-radius: 30px;

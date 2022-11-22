@@ -52,12 +52,12 @@ export const StickerPackage = ({ stars, type, title, id, handleActionStickerModa
     }, [count]);
 
     return (
-        <StickersPackageContainer>
+        <StickersPackageContainer index={id}>
             <div className="stikers-package-main">
-                <div>
+                <div className="sticker-star-container">
                     <img src={stars} alt="" />
                 </div>
-                <div>
+                <div className="sticker-package-container">
                     <img src={type} alt="" />
                 </div>
                 <div>

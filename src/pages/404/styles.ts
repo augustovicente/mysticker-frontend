@@ -7,8 +7,7 @@ export const Container = styled.div`
     align-items: center;
     flex-direction: column;
     width: 100%;
-    height: calc(100vh - 194px);
-    background: url('../assets/img/others/world.png') no-repeat center center/contain;
+    height: calc(100vh - 224px);
     padding: 0 32px;
 
     h1 {

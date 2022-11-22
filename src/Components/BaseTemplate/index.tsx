@@ -4,6 +4,7 @@ import Header from 'Components/BaseTemplate/components/Header/Header'
 import styled from 'styled-components'
 import SideBar from './components/SideBar'
 import { SideBarContext, SideBarProvider } from './components/SideBar/context'
+import { useAuth } from 'contexts/auth.context'
 
 type BaseTemplateProps = {
     sidebar?: boolean;
@@ -24,8 +25,7 @@ const BaseTemplateMainContent = styled.div<BaseTemplateMain>`
     display: flex;
     width: 100%;
     flex-direction: column;
-    background: var(--middle);
-    margin-left: ${props => props.collapsed ? "6%" : "16%"};
+    margin-left: ${props => props.collapsed ? "7%" : "17%"};
 
     @media (max-width: 768px) {
         margin-left: 0;
@@ -33,8 +33,8 @@ const BaseTemplateMainContent = styled.div<BaseTemplateMain>`
 `
 
 const BaseTemplateMain = styled.main<BaseTemplateMain>`
-    /* padding: 0 80px 80px 80px; */
-    background: var(--dark);
+    padding: 0 80px 80px 80px;
+    background: url('assets/img/others/world.png') no-repeat center/contain;
     border-top-left-radius: ${props => props.collapsed ? "0px" : "80px"};
 
     @media (max-width: 768px) {
@@ -61,12 +61,13 @@ const BaseTemplate = ({ sidebar = true, header = true, footer = true, children }
 }
 
 const BaseTemplateMainContentComponent = ({ children, header, footer }: { children: ReactNode, header?: boolean, footer?: boolean }) => {
-    const { isCollapsed } = useContext(SideBarContext)
+    const { isCollapsed } = useContext(SideBarContext);
+    const { user } = useAuth();
 
     return (
         <BaseTemplateMainContent collapsed={isCollapsed}>
             {header && <Header />}
-            <BaseTemplateMain collapsed={isCollapsed}>
+            <BaseTemplateMain collapsed={isCollapsed} style={{ padding: !user && 0 }}>
                 {children}
             </BaseTemplateMain>
             {footer && <Footer />}

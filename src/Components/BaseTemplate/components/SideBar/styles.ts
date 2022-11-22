@@ -10,7 +10,7 @@ export const SideBarContainer = styled.div<SideBarContainerProps>`
     position: fixed;
     flex-direction: column;
     justify-content: flex-start;
-    width: ${props => props.collapsed ? "6%" : "16%"};
+    width: ${props => props.collapsed ? "7%" : "17%"};
     background-color: var(--middle);
     height: 100vh;
     z-index: 999;
@@ -59,7 +59,7 @@ export const SideBarContainer = styled.div<SideBarContainerProps>`
         ul {
             display: flex;
             flex-direction: column;
-            gap: ${prosp => prosp.collapsed ? "5px 0" : "15px 0"};
+            gap: ${prosp => prosp.collapsed ? "5px 0" : "10px 0"};
 
             li {
                 a {
@@ -127,7 +127,6 @@ export const MenuItem = styled(Link)`
         background: linear-gradient(to right, rgba(43, 38, 72, 1), rgba(43, 38, 72, 0));
         border-right: 6px ${props => props.theme.colors.colorDark} solid;
     }
-
 
     img {
         height: 1.5rem;
