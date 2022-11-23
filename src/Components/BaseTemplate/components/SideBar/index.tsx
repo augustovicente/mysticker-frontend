@@ -1,14 +1,12 @@
-import React, { useContext, useState } from "react"
+import React, { useContext } from "react"
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from "react-router-dom"
-import { SideBarContext } from "./context"
 import { menuItems } from "./menuItems"
-import { HandleCollapseButton, MenuItem, SideBarContainer, YourWalletCard } from "./styles"
+import { MenuItem, SideBarContainer } from "./styles"
 import LockIcon from "assets/imgs/lock.svg"
 import { useAuth } from "contexts/auth.context";
 
 const SideBar = () => {
-    const { isCollapsed, setIsCollapsed } = useContext(SideBarContext)
     const { t } = useTranslation();
     const { user } = useAuth();
 
@@ -17,29 +15,14 @@ const SideBar = () => {
         : menuItems.filter(item => !item.isAuthenticatedRoute);
 
     return (
-        <SideBarContainer collapsed={isCollapsed}>
-            <HandleCollapseButton
-                onClick={() => setIsCollapsed(!isCollapsed)}
-                collapsed={isCollapsed}
-            >
-                <img src="/assets/img/icons/sidebar-white-arrow.svg" />
-            </HandleCollapseButton>
+        <SideBarContainer>
 
             <header>
-                {isCollapsed ? (
-                    <div className="sidebar-home-icon">
-                        <Link to="/">
-                            <img src="assets/img/icons/home-icon.svg" alt="" />
-                        </Link>
-                    </div>
-
-                ) : (
-                    <div className="sidebar-logo">
-                        <Link to="/" >
-                            <img src="assets/img/logo/logo-header.svg" alt="" />
-                        </Link>
-                    </div>
-                )}
+                <div className="sidebar-home-icon">
+                    <Link to="/">
+                        <img src="assets/img/icons/home-icon.svg" alt="" />
+                    </Link>
+                </div>
             </header>
 
             <main>
@@ -47,7 +30,6 @@ const SideBar = () => {
                     {navLinks.map((menu) => (
                         <li key={menu.link}>
                             <MenuItem
-                                collapsed={isCollapsed}
                                 isBlocked={menu.blocked}
                                 title={menu.title}
                                 to={menu.link}
@@ -60,37 +42,18 @@ const SideBar = () => {
                                             : ""
                                 }
                             >
-                                {menu.blocked && isCollapsed ? (
+                                {menu.blocked ? (
                                     <img src={LockIcon} alt="" />
                                 ) : (
                                     <img src={menu.icon} />
                                 )}
 
                                 <h3>{t("sidebar."+menu.title)}</h3>
-
-                                {menu.blocked && !isCollapsed && (
-                                    <i className="fi-sr-lock"></i>
-                                )}
                             </MenuItem>
                         </li>
                     ))}
                 </ul>
             </main>
-
-            {!isCollapsed && (
-                <footer>
-                    <YourWalletCard>
-                        <h5>
-                            {t("sidebar.wallet")}
-                        </h5>
-                        <button>
-                            {t("sidebar.connect_wallet")}
-
-                            <img src="/assets/img/icons/chain-icon.svg" />
-                        </button>
-                    </YourWalletCard>
-                </footer>
-            )}
         </SideBarContainer>
     )
 }

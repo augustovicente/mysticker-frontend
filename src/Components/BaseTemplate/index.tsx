@@ -3,8 +3,8 @@ import Footer from 'Components/BaseTemplate/components/Footer/Footer'
 import Header from 'Components/BaseTemplate/components/Header/Header'
 import styled from 'styled-components'
 import SideBar from './components/SideBar'
-import { SideBarContext, SideBarProvider } from './components/SideBar/context'
 import { useAuth } from 'contexts/auth.context'
+import { SideBarContainer } from './components/SideBar/styles'
 
 type BaseTemplateProps = {
     sidebar?: boolean;
@@ -13,30 +13,25 @@ type BaseTemplateProps = {
     children: ReactNode;
 }
 
-type BaseTemplateMain = {
-    collapsed?: boolean
-}
-
 const BaseTemplateContainer = styled.div`
     display: flex;
 `
 
-const BaseTemplateMainContent = styled.div<BaseTemplateMain>`
+const BaseTemplateMainContent = styled.div`
     display: flex;
     width: 100%;
     flex-direction: column;
-    margin-left: ${props => props.collapsed ? "94px" : "210px"};
-    padding: 0 1.5rem;
+    margin-left: 94px;
 
     @media (max-width: 768px) {
         margin-left: 0;
     }
 `
 
-const BaseTemplateMain = styled.main<BaseTemplateMain>`
+const BaseTemplateMain = styled.main`
     padding-bottom: 24px;
     background: url('assets/img/others/world.png') no-repeat center/contain;
-    border-top-left-radius: ${props => props.collapsed ? "0px" : "80px"};
+    border-top-left-radius: 0px;
 
     @media (max-width: 768px) {
         padding: 0 22px 22px 22px;
@@ -45,30 +40,25 @@ const BaseTemplateMain = styled.main<BaseTemplateMain>`
 
 const BaseTemplate = ({ sidebar = true, header = true, footer = true, children }: BaseTemplateProps) => {
     return (
-        <>
-            <SideBarProvider>
-                <BaseTemplateContainer>
-                    {sidebar && <SideBar />}
-                    <BaseTemplateMainContentComponent
-                        footer={footer}
-                        header={header}
-                    >
-                        {children}
-                    </BaseTemplateMainContentComponent>
-                </BaseTemplateContainer>
-            </SideBarProvider>
-        </>
+        <BaseTemplateContainer>
+            {sidebar && <SideBar />}
+            <BaseTemplateMainContentComponent
+                footer={footer}
+                header={header}
+            >
+                {children}
+            </BaseTemplateMainContentComponent>
+        </BaseTemplateContainer>
     )
 }
 
 const BaseTemplateMainContentComponent = ({ children, header, footer }: { children: ReactNode, header?: boolean, footer?: boolean }) => {
-    const { isCollapsed } = useContext(SideBarContext);
     const { user } = useAuth();
 
     return (
-        <BaseTemplateMainContent collapsed={isCollapsed}>
+        <BaseTemplateMainContent>
             {header && <Header />}
-            <BaseTemplateMain collapsed={isCollapsed}>
+            <BaseTemplateMain>
                 {children}
             </BaseTemplateMain>
             {footer && <Footer />}
