@@ -19,24 +19,29 @@ export const StickerPackage = ({ stars, type, title, id, handleActionStickerModa
     const [count, setCount] = useState(0)
 
     // example buy
-    const handleBuy = async () => {
-        const package_type = 1;
-        const amount = 1;
-        const price = 0.001;
+    const handleBuy = async (package_type:number) =>
+    {
+        let price:number = 0;
+        switch (package_type)
+        {
+            case 1:
+                price = 0.001;
+                break;
+            case 2:
+                price = 0.005;
+                break;
+            case 3:
+                price = 0.01;
+                break;
+        }
+
+        console.log("buying package", package_type, count, price);
         
-        let result = await buy_package(
+        await buy_package(
             package_type,
-            amount,
-            (price * amount)
+            count,
+            (price * count)
         );
-    }
-
-    const handleOpen = async () => {
-        await open_package(1);
-    }
-
-    const handlePaste = async () => {
-        await paste_stickers(4);
     }
 
     const handleDecrement = useCallback(() => {
@@ -120,7 +125,7 @@ export const StickerPackage = ({ stars, type, title, id, handleActionStickerModa
                         <h3>Pacotinho</h3>
                         <p>3 figurinhas</p>
                         <button
-                            onClick={handlePaste}
+                            onClick={() => handleBuy(id)}
                         >
                             Comprar
                         </button>

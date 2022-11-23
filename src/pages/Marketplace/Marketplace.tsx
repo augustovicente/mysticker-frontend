@@ -1,16 +1,12 @@
 import { useToggle } from "hooks/useToggle";
-import { ReactNode, useCallback, useState } from "react";
+import { useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import { Link } from "react-router-dom";
 import { Skeletons } from "./components/Skeletons";
 import { StickerPackage } from "./components/StickerPackage";
 import { stickersMock } from "./stickersMock";
-import {
-    MarketplaceContainer, StickersPackageContainer,
-} from "./styles"
+import { MarketplaceContainer } from "./styles"
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import VectorLeft from "../../assets/imgs/vector-left.png";
-import VectorRight from "../../assets/imgs/vector-right.png";
 
 
 export const Marketplace = () => {
@@ -44,10 +40,10 @@ export const Marketplace = () => {
                     </div>
 
                     <ul className="stickers-package-list">
-                        {stickersMock.map(({ stars, title, type }, index) => (
+                        {stickersMock.map(({ stars, title, type, id }, index) => (
                             <StickerPackage
                                 key={index}
-                                id={index}
+                                id={id}
                                 stars={stars}
                                 title={title}
                                 type={type}
@@ -58,25 +54,12 @@ export const Marketplace = () => {
                     </ul>
                     <Carousel
                         showStatus={false}
-                        // showArrows={false}
                         selectedItem={currentStep}
-                        // renderArrowNext={()=>{
-                        //     return (<div
-                        //         onClick={() => setCurrentStep(currentStep-1)} 
-                        //         style={{
-                        //             backgroundColor: '#fff',
-                        //             position: 'absolute',
-                        //             margin: 'auto'
-                        //         }}
-                        //     >
-                        //         <img src={VectorRight} />
-                        //     </div>)
-                        // }}
                     >
-                        {stickersMock.map(({ stars, title, type }, index) => (
+                        {stickersMock.map(({ stars, title, type, id }, index) => (
                             <StickerPackage
                                 key={index}
-                                id={index}
+                                id={id}
                                 stars={stars}
                                 title={title}
                                 type={type}
@@ -85,14 +68,6 @@ export const Marketplace = () => {
                             />
                         ))}
                     </Carousel>
-                    {/* <div className="custom-controls">
-                        <div onClick={() => setCurrentStep(currentStep-1)}>
-                            <img src={VectorLeft} />
-                        </div>
-                        <div onClick={() => setCurrentStep(currentStep+1)}>
-                            <img src={VectorRight} />
-                        </div>
-                    </div> */}
                 </>
             )}
         </MarketplaceContainer>
