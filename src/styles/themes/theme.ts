@@ -8,6 +8,7 @@ export const theme = {
         colorMiddle: "#6345EE",
         colorLight: "#B1A2F6",
         greenNeon: "#97FF57",
+        geenDark: "#19332E",
         darkGrey: "#5F5D6D",
         lightGrey: "#9D9CA3",
 

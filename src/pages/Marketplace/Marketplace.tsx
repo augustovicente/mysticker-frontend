@@ -13,9 +13,8 @@ import { useAuth } from "contexts/auth.context";
 
 export const Marketplace = () => {
     const { user } = useAuth()
-
-    const [isLoading, setIsLoading] = useToggle()
     const [stickerStatsModalIsOpen, setStickerStatsModalIsOpen] = useState<string[]>([]);
+    const [isLoading, setIsLoading] = useToggle()
 
     const handleActionStickerModal = (id: string) => {
         if (!stickerStatsModalIsOpen.includes(id)) {

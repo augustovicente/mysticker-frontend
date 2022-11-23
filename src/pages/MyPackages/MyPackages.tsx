@@ -11,6 +11,7 @@ import { toast } from "react-toastify"
 import { api } from "services/api"
 import { Link } from "react-router-dom"
 import { open_package } from "models/User"
+import { Skeletons } from "./components/Skeletons"
 
 export const MyPackages = () => {
     const [count, setCount] = useState(0)
@@ -19,15 +20,15 @@ export const MyPackages = () => {
     const [availablePackages, setAvailablePackages] = useState(3)
     const [isLoading, setIsLoading] = useToggle(false);
 
-    const onSubmitReveal = async () => {
+    const onSubmitReveal = async (numberType: number) => {
         setIsLoading(true)
 
         try {
-            const response = await open_package(1);
-            console.log({response});
-            setIsLoading(true)
+            const response = await open_package(numberType);
+            console.log({ response });
+            setIsLoading(false)
         } catch (error) {
-            console.log({error})
+            console.log({ error })
         }
     }
 
@@ -57,121 +58,127 @@ export const MyPackages = () => {
 
     return (
         <MyPackagesContainer>
-            <h1 className="my-package-title">
-                <img src="/assets/img/icons/album-icon.svg" alt="" />
-                Álbum
-            </h1>
+            {isLoading ? (
+                <Skeletons />
+            ) : (
+                <>
+                    <h1 className="my-package-title">
+                        <img src="/assets/img/icons/album-icon.svg" alt="" />
+                        Álbum
+                    </h1>
 
-            <ul>
-                {stickersMock.map(({ stars, title, type, id }, index) => selectedIndex === id ? (
-                    <StickersPackageContainer key={id}>
-                        <div className="stars-package-container">
-                            <div className="stars-container">
-                                <img src={stars} alt="" />
-                            </div>
-                            <div className="package-container">
-                                <button
-                                    className="prev-package"
-                                    onClick={prev}
-                                >
-                                    <img src="/assets/img/icons/arrow-left-black.svg" alt="" />
-                                </button>
+                    <ul>
+                        {stickersMock.map(({ stars, title, type, id, numberType }, index) => selectedIndex === id ? (
+                            <StickersPackageContainer key={id}>
+                                <div className="stars-package-container">
+                                    <div className="stars-container">
+                                        <img src={stars} alt="" />
+                                    </div>
+                                    <div className="package-container">
+                                        <button
+                                            className="prev-package"
+                                            onClick={prev}
+                                        >
+                                            <img src="/assets/img/icons/arrow-left-black.svg" alt="" />
+                                        </button>
+                                        <img src={type} alt="" />
+                                        <button
+                                            className="next-package"
+                                            onClick={next}
+                                        >
+                                            <img src="/assets/img/icons/arrow-right-black.svg" alt="" />
+                                        </button>
+                                    </div>
+
+                                    <div className="available-packages">
+                                        <span>
+                                            {
+                                                availablePackages.toString().length < 2
+                                                    ?
+                                                    `0${availablePackages}`
+                                                    :
+                                                    availablePackages
+                                            }
+                                        </span>
+                                        <p>
+                                            pacotinhos <br />
+                                            disponiveis
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="quantity-counter-container">
+                                    <button
+                                        className="min-max-btn"
+                                    >
+                                        min.
+                                    </button>
+                                    <div className="quantity-counter">
+                                        <button
+                                            className="counter-decrement"
+                                            type="button"
+                                            onClick={handleDecrement}
+                                        >
+                                            -
+                                        </button>
+                                        <input
+                                            type="number"
+                                            name="counter"
+                                            id="counter"
+                                            value={count}
+                                        />
+                                        <button
+                                            className="counter-increment"
+                                            type="button"
+                                            onClick={handleIncrement}
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+                                    <button
+                                        className="min-max-btn"
+                                    >
+                                        max.
+                                    </button>
+                                </div>
+
+                                <div className="reveal-stickers-container">
+                                    <button
+                                        className="reveal-btn"
+                                        onClick={() => onSubmitReveal(numberType)}
+                                    >
+                                        Revelar figurinhas
+                                    </button>
+
+                                    <Link
+                                        className="buy-more-btn"
+                                        to="/marketplace"
+                                    >
+                                        <img src="/assets/img/icons/market-icon.svg" alt="" />
+
+                                        <p>Comprar + Pacotinhos</p>
+                                    </Link>
+
+                                    <div className="buy-with-pix">
+                                        <img src="/assets/img/icons/pix-icon.svg" alt="" />
+
+                                        <p>Compre por PIX</p>
+                                    </div>
+                                </div>
+                            </StickersPackageContainer>
+                        ) : (
+                            <PackageContainer
+                                key={id}
+                                whileHover={{ scale: 1.2 }}
+                                transition={{ duration: 0.2 }}
+                                onClick={() => setSelectedIndex(id)}
+                            >
                                 <img src={type} alt="" />
-                                <button
-                                    className="next-package"
-                                    onClick={next}
-                                >
-                                    <img src="/assets/img/icons/arrow-right-black.svg" alt="" />
-                                </button>
-                            </div>
-
-                            <div className="available-packages">
-                                <span>
-                                    {
-                                        availablePackages.toString().length < 2
-                                            ?
-                                            `0${availablePackages}`
-                                            :
-                                            availablePackages
-                                    }
-                                </span>
-                                <p>
-                                    pacotinhos <br />
-                                    disponiveis
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="quantity-counter-container">
-                            <button
-                                className="min-max-btn"
-                            >
-                                min.
-                            </button>
-                            <div className="quantity-counter">
-                                <button
-                                    className="counter-decrement"
-                                    type="button"
-                                    onClick={handleDecrement}
-                                >
-                                    -
-                                </button>
-                                <input
-                                    type="number"
-                                    name="counter"
-                                    id="counter"
-                                    value={count}
-                                />
-                                <button
-                                    className="counter-increment"
-                                    type="button"
-                                    onClick={handleIncrement}
-                                >
-                                    +
-                                </button>
-                            </div>
-                            <button
-                                className="min-max-btn"
-                            >
-                                max.
-                            </button>
-                        </div>
-
-                        <div className="reveal-stickers-container">
-                            <button
-                                className="reveal-btn"
-                                onClick={onSubmitReveal}
-                            >
-                                Revelar figurinhas
-                            </button>
-
-                            <Link
-                                className="buy-more-btn"
-                                to="/marketplace"
-                            >
-                                <img src="/assets/img/icons/market-icon.svg" alt="" />
-
-                                <p>Comprar + Pacotinhos</p>
-                            </Link>
-
-                            <div className="buy-with-pix">
-                                <img src="/assets/img/icons/pix-icon.svg" alt="" />
-
-                                <p>Compre por PIX</p>
-                            </div>
-                        </div>
-                    </StickersPackageContainer>
-                ) : (
-                    <PackageContainer
-                        key={id}
-                        whileHover={{ scale: 1.2 }}
-                        transition={{ duration: 0.2 }}
-                        onClick={() => setSelectedIndex(id)}
-                    >
-                        <img src={type} alt="" />
-                    </PackageContainer>
-                ))}
-            </ul>
+                            </PackageContainer>
+                        ))}
+                    </ul>
+                </>
+            )}
         </MyPackagesContainer>
     )
 }
