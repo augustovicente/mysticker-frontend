@@ -2,9 +2,10 @@ import styled from "styled-components"
 import Skeleton from "react-loading-skeleton"
 
 export const MarketplaceContainer = styled.div`
-    margin-top: 164px;
+    margin-top: 8rem;
     display: grid;
     gap: 54px;
+    padding: 1rem 0;
 
     .marketplace-title {
         display: flex;
@@ -12,6 +13,10 @@ export const MarketplaceContainer = styled.div`
         color: white;
         margin: 0;
         margin-bottom: 2rem;
+
+        h1.title-text{
+            margin-right: auto;
+        }
 
         img {
             height: 50px;
@@ -38,6 +43,82 @@ export const MarketplaceContainer = styled.div`
         flex-wrap: wrap;
         width: 100%;
     }
+
+    .carousel-root {
+        display: none;
+    }
+    /* media query for mobile */
+    @media (max-width: 768px) {
+        .marketplace-title{
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            h1.title-text{
+                text-align: center;
+                font-size: 1.5rem;
+                margin: 0 auto;
+            }
+            a {
+                padding: 0.5rem;
+                font-size: 1rem;
+                width: 50%;
+                border-radius: 10px;
+                font-weight: bold;
+            }
+        }
+        .stickers-package-list {
+            display: none;
+        }
+        .carousel-root {
+            display: block;
+            max-width: 100%;
+            min-width: 100%;
+            width: 100%;
+            .carousel.carousel-slider{
+                overflow: visible;
+                .control-dots{
+                    bottom: -2.5rem;
+                }
+            }
+            .carousel.carousel-slider {
+                overflow: inherit;
+            }
+
+            .carousel .control-next.control-arrow, .carousel .control-next.control-arrow:hover{
+                background-color: transparent;
+                right: -2.5rem;
+            }
+
+            .carousel .control-prev.control-arrow, .carousel .control-prev.control-arrow:hover {
+                background-color: transparent;
+                left: -2.5rem;
+            }
+
+            .carousel .control-arrow, .carousel.carousel-slider .control-arrow{
+                opacity: 1;
+            }
+
+            .carousel .control-next.control-arrow:before {
+                content: '';
+                border: solid #FFDB45;
+                border-width: 0 5px 5px 0;
+                display: inline-block;
+                padding: 14px;
+                transform: rotate(-45deg);
+                -webkit-transform: rotate(-45deg);
+            }
+
+            .carousel .control-prev.control-arrow:before {
+                content: '';
+                border: solid #FFDB45;
+                border-width: 0 5px 5px 0;
+                display: inline-block;
+                padding: 14px;
+                transform: rotate(135deg);
+                -webkit-transform: rotate(135deg);
+            }
+        }
+    }
 `
 
 type StickersPackageContainerProps = {
@@ -54,6 +135,13 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
     gap: 10px;
     background: ${props => props.theme.colors.middle};
 
+    /* media query for mobile */
+    @media (max-width: 768px) {
+        width: 100%;
+        justify-content: unset;
+        height: fit-content;
+        flex: 0 0 100%;
+    }
     .stikers-package-main {
         display: flex;
         flex-direction: column;
@@ -65,6 +153,7 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
         .sticker-star-container {
             img {
                 height: 40px;
+                width: auto;
             }
         }
 
