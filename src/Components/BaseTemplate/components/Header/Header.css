@@ -35,7 +35,6 @@
     margin: 7px 0px;
 }
 
-/* Large devices (desktops, 992px and up) */
 @media (max-width: 991.98px) {
     .menu-area {
         padding: 25px 0;
@@ -64,10 +63,8 @@
     }
 }
 
-/* Medium devices (tablets, 768px and up) */
 @media (max-width: 767.98px) {
     .menu-area .mobile-nav-toggler {
-        /* margin: 35px 35px 0 0; */
         margin: 24px 35px 0 0;
     }
 

@@ -1,25 +1,35 @@
-import styled from "styled-components"
+import styled, { css } from "styled-components"
 import { Link } from "react-router-dom"
 
-export const LoginButtonContaine = styled(Link)`
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    min-width: 126px;
-    min-height: 42px;
+export const LoginButtonContainer = styled.button<{ isAuthenticated: boolean }>`
+    font-size: 1rem !important;
+    gap: 18px;
+    padding: 4.24px;
+    transition: all .2s ease-in-out;
     background: none;
     border-radius: 25px;
     line-height: 1;
     cursor: pointer;
-    color: var(--white) !important;
-    border: 2px solid var(--color-dark);
-    font-size: 1rem !important;
-    gap: 18px;
-    padding: 4.24px;
 
-    transition: all .2s;
+    ${({ isAuthenticated }) => !isAuthenticated && css`
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        min-width: 126px;
+        min-height: 42px;
+        color: var(--white) !important;
+        border: 2px solid ${({ theme }) => theme.colors.colorMiddle};
 
-    &:hover {
-        background-color: var(--color-dark);
-    }
+        &::after {
+            content: "Login";
+            font-size: 1rem;
+            color: var(--white);
+            position: absolute;
+            left: 26px;
+        }
+
+        &:hover {
+            background-color: ${({ theme }) => theme.colors.colorMiddle};
+        }
+    `}
 `

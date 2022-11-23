@@ -5,10 +5,16 @@ import { SideBarContext } from "./context"
 import { menuItems } from "./menuItems"
 import { HandleCollapseButton, MenuItem, SideBarContainer, YourWalletCard } from "./styles"
 import LockIcon from "assets/imgs/lock.svg"
+import { useAuth } from "contexts/auth.context";
 
 const SideBar = () => {
     const { isCollapsed, setIsCollapsed } = useContext(SideBarContext)
     const { t } = useTranslation();
+    const { user } = useAuth();
+
+    const navLinks = user
+        ? menuItems
+        : menuItems.filter(item => !item.isAuthenticatedRoute);
 
     return (
         <SideBarContainer collapsed={isCollapsed}>
@@ -38,7 +44,7 @@ const SideBar = () => {
 
             <main>
                 <ul>
-                    {menuItems.map((menu) => (
+                    {navLinks.map((menu) => (
                         <li key={menu.link}>
                             <MenuItem
                                 collapsed={isCollapsed}

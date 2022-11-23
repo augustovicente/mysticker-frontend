@@ -34,7 +34,7 @@ const BaseTemplateMainContent = styled.div<BaseTemplateMain>`
 `
 
 const BaseTemplateMain = styled.main<BaseTemplateMain>`
-    padding: 0;
+    padding-bottom: 24px;
     background: url('assets/img/others/world.png') no-repeat center/contain;
     border-top-left-radius: ${props => props.collapsed ? "0px" : "80px"};
 
