@@ -37,12 +37,14 @@ export const Marketplace = () => {
                             Loja de Figurinhas
                         </div>
 
-                        <Link to='/my-packages' className="btn-home">
-                            <HomeIcon />
-                            <span>
-                                Voltar para o início
-                            </span>
-                        </Link>
+                        {user && (
+                            <Link to='/my-packages' className="btn-home">
+                                <HomeIcon />
+                                <span>
+                                    Meus Pacotinhos
+                                </span>
+                            </Link>
+                        )}
                     </h1>
 
                     <ul className="stickers-package-list">

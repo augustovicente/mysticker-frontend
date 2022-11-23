@@ -14,6 +14,9 @@ export const SideBarContainer = styled.div<SideBarContainerProps>`
     height: 100vh;
     z-index: 999;
     gap: 16px;
+    ${({ collapsed }) => collapsed && css`
+        max-width: 94px;
+    `};
 
     @media (max-width: 768px) {
         display: none;

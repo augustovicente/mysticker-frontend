@@ -1,13 +1,20 @@
 import React, { useContext, useState } from "react"
+import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from "react-router-dom"
 import { SideBarContext } from "./context"
 import { menuItems } from "./menuItems"
 import { HandleCollapseButton, MenuItem, SideBarContainer, YourWalletCard } from "./styles"
 import LockIcon from "assets/imgs/lock.svg"
+import { useAuth } from "contexts/auth.context";
 
 const SideBar = () => {
-    const { isCollapsed, setIsCollapsed } = useContext(SideBarContext);
-    const location = useLocation();
+    const { isCollapsed, setIsCollapsed } = useContext(SideBarContext)
+    const { t } = useTranslation();
+    const { user } = useAuth();
+
+    const navLinks = user
+        ? menuItems
+        : menuItems.filter(item => !item.isAuthenticatedRoute);
 
     return (
         <SideBarContainer collapsed={isCollapsed}>
@@ -37,7 +44,7 @@ const SideBar = () => {
 
             <main>
                 <ul>
-                    {menuItems.map((menu) => (
+                    {navLinks.map((menu) => (
                         <li key={menu.link}>
                             <MenuItem
                                 collapsed={isCollapsed}
@@ -59,7 +66,7 @@ const SideBar = () => {
                                     <img src={menu.icon} />
                                 )}
 
-                                <h3>{menu.title}</h3>
+                                <h3>{t("sidebar."+menu.title)}</h3>
 
                                 {menu.blocked && !isCollapsed && (
                                     <i className="fi-sr-lock"></i>
@@ -73,9 +80,11 @@ const SideBar = () => {
             {!isCollapsed && (
                 <footer>
                     <YourWalletCard>
-                        <h5>Sua Carteira</h5>
+                        <h5>
+                            {t("sidebar.wallet")}
+                        </h5>
                         <button>
-                            Conectar
+                            {t("sidebar.connect_wallet")}
 
                             <img src="/assets/img/icons/chain-icon.svg" />
                         </button>

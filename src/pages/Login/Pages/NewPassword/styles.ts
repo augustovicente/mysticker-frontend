@@ -6,7 +6,6 @@ export const Container = styled.section`
     gap: 54px;
     height: 100vh;
     padding: 0 24px;
-    background: url('../assets/img/others/world.png') no-repeat center/contain;
 
     main {
         background: ${({ theme }) => theme.colors.middle};

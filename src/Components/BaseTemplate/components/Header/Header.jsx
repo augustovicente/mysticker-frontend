@@ -6,12 +6,11 @@ import { LoginButton } from './components/LoginButton';
 import { DefaultButton } from './components/DefaultButton';
 import { Link } from 'react-router-dom';
 import { SideBarContext } from '../SideBar/context';
-import { useAuth } from 'contexts/auth.context';
+import { useAuth } from '../../../../contexts/auth.context';
 
 const Header = (props) => {
-    const { user } = useAuth()
-
     const { isCollapsed } = useContext(SideBarContext)
+    const { user } = useAuth();
     const { hasContainer = true } = props;
 
     useEffect(() => {
@@ -42,7 +41,6 @@ const Header = (props) => {
             });
         }
     }, []);
-
 
     useEffect(() => {
         $(".menu-tigger").on("click", function () {
@@ -85,14 +83,13 @@ const Header = (props) => {
         }
     }, []);
 
-
     return (
         <header className='main-header'>
             <div id='sticky-header' className="menu-area ">
                 <div className={hasContainer ? 'container' : ''}>
                     <div className="row">
                         <div className="col-12">
-                            {/* <div className="mobile-nav-toggler"><i className="fas fa-bars" /></div> */}
+                            <div className="mobile-nav-toggler"><i className="fas fa-bars" /></div>
                             <div className="menu-wrap main-menu">
                                 <nav className="menu-nav py-lg-3 py-md-2">
                                     {isCollapsed && (
@@ -113,22 +110,22 @@ const Header = (props) => {
                                                 user && (
                                                     <>
                                                         <li>
-                                                            <DefaultButton to="#" src="/assets/img/icons/gift-icon.svg" />
+                                                            <DefaultButton title='Premios' to="#" src="/assets/img/icons/gift-icon.svg" />
                                                         </li>
                                                         <li>
-                                                            <DefaultButton to="#" src="/assets/img/icons/notification-icon.svg" />
+                                                            <DefaultButton title='Notificacoes' to="#" src="/assets/img/icons/notification-icon.svg" />
                                                         </li>
                                                         <li>
-                                                            <DefaultButton to="#" src="/assets/img/icons/wallet-icon.svg" />
+                                                            <DefaultButton title='Carteira' to="#" src="/assets/img/icons/wallet-icon.svg" />
                                                         </li>
                                                     </>
                                                 )
                                             }
                                             <li>
-                                                <DefaultButton to="#" src="/assets/img/icons/open-link-icon.svg" />
+                                                <DefaultButton title='Whitepaper' to="#" src="/assets/img/icons/open-link-icon.svg" />
                                             </li>
                                             <li>
-                                                <DefaultButton to="#" src="/assets/img/icons/browser-icon.svg" />
+                                                <DefaultButton title='Idioma' to="#" src="/assets/img/icons/browser-icon.svg" />
                                             </li>
                                             <li>
                                                 <LoginButton />

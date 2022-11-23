@@ -2,7 +2,8 @@
 @media (max-width: 1500px) {
     .custom-container,
     .container {
-        max-width: 1170px;
+        max-width: 95%;
+        margin: 0 0 0 auto;
     }
 
     .banner-content {

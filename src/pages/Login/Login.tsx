@@ -3,21 +3,21 @@ import * as Yup from 'yup';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as S from './styles';
-import { useToggle } from 'hooks/useToggle';
 import { GradientOverlay } from 'Components/GradientOverlay';
-import { useTheme } from 'styled-components';
 import LogoPru from 'assets/imgs/logo.svg'
 import { Link } from 'react-router-dom';
 import { FormBase } from './components/FormBase.styles';
 import { SignInCredentials, useAuth } from 'contexts/auth.context';
+import { useTranslation } from 'react-i18next';
 
-const loginSchema = Yup.object().shape({
-    email: Yup.string().required('E-mail obrigatório').email('E-mail inválido'),
-    password: Yup.string().required('Senha obrigatória'),
-});
+export const Login = () =>
+{
+    const { t } = useTranslation();
+    const loginSchema = Yup.object().shape({
+        email: Yup.string().required(t('login.errors.required_email') || '').email(t('login.errors.invalid_email') || ''),
+        password: Yup.string().required(t('login.errors.required_password') || ''),
+    });
 
-
-export const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<SignInCredentials>({
         resolver: yupResolver(loginSchema),
         mode: 'onChange',
@@ -25,7 +25,6 @@ export const Login = () => {
         shouldFocusError: true,
     });
 
-    const theme = useTheme();
     const { signIn, loading } = useAuth();
 
     const onSubmit: SubmitHandler<SignInCredentials> = async (dataValues) => {
@@ -43,10 +42,10 @@ export const Login = () => {
             >
                 <header>
                     <div>
-                        <h1>Login</h1>
+                        <h1>{t('login.title')}</h1>
 
                         <div>
-                            <span>Não tem uma conta?</span> <Link to="/register">Crie uma aqui</Link>
+                            <span>{t('login.signup_quest')}</span> <Link to="/register">{t('login.signup_action')}</Link>
                         </div>
                     </div>
 
@@ -57,7 +56,7 @@ export const Login = () => {
                 <div className="container-inputs">
                     <Input
                         {...register('email')}
-                        label='E-mail'
+                        label={t('login.input_email')}
                         autoComplete='email'
                         inputMode='email'
                         autoCapitalize='off'
@@ -68,7 +67,7 @@ export const Login = () => {
 
                     <Input
                         {...register('password')}
-                        label='Senha'
+                        label={t('login.input_password')}
                         autoComplete='password'
                         autoCapitalize='off'
                         autoCorrect='off'
@@ -86,7 +85,7 @@ export const Login = () => {
                 </button>
 
                 <Link className='forgot-password' to="/forgot-password">
-                    Esqueci a senha
+                    {t('login.forgot_password')}
                 </Link>
             </FormBase>
             <GradientOverlay />

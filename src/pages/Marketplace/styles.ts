@@ -55,7 +55,7 @@ export const MarketplaceContainer = styled.div`
         justify-content: space-between;
         color: white;
         margin: 0;
-        margin-bottom: 12vh;
+        margin-bottom: 2rem;
 
         img {
             height: 50px;

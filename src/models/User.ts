@@ -36,12 +36,18 @@ const buy_package = async (package_type: number, amount: number, price: number) 
 const open_package = async (package_type: number) =>
 {
     const { 0: address } = await connect();
-    let res = await api.post('open-package', { package_type, address });
-    console.log(res);
+    await api.post('open-package', { package_type, address });
+}
+
+const paste_stickers = async (country_id: number) =>
+{
+    const { 0: address } = await connect();
+    await api.post('paste-stickers', { country_id, address });
 }
 
 export {
     getPackages,
     buy_package,
-    open_package
+    open_package,
+    paste_stickers,
 }
