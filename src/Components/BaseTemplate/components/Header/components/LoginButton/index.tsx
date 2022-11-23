@@ -1,10 +1,22 @@
-import { LoginButtonContaine } from "./styles"
+import { useAuth } from "contexts/auth.context"
+import { LoginButtonContaine, UserAvatarLogged } from "./styles"
 
 export const LoginButton = () => {
+    const { user } = useAuth()
+
     return (
-        <LoginButtonContaine to="/login">
-            Login
-            <img src="/assets/img/use-avatar.svg" />
-        </LoginButtonContaine>
+        <>
+            {user ? (
+                <UserAvatarLogged to="/profile">
+                    <img src="/assets/img/use-avatar.svg" />
+                </UserAvatarLogged>
+            ) : (
+                <LoginButtonContaine to="/login">
+                    Login
+                    <img src="/assets/img/use-avatar.svg" />
+                </LoginButtonContaine>
+            )}
+        </>
+
     )
 }

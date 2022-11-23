@@ -23,3 +23,12 @@ export const LoginButtonContaine = styled(Link)`
         background-color: var(--color-dark);
     }
 `
+
+export const UserAvatarLogged = styled(Link)`
+    display: flex;
+
+    img {
+        width: 38px;
+        height: 38px;
+    }
+`

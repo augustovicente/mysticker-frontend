@@ -8,8 +8,12 @@ import { stickersMock } from "./stickersMock";
 import {
     MarketplaceContainer, StickersPackageContainer,
 } from "./styles"
+import { ReactComponent as HomeIcon } from '../../assets/imgs/home.svg';
+import { useAuth } from "contexts/auth.context";
 
 export const Marketplace = () => {
+    const { user } = useAuth()
+
     const [isLoading, setIsLoading] = useToggle()
     const [stickerStatsModalIsOpen, setStickerStatsModalIsOpen] = useState<string[]>([]);
 
@@ -33,8 +37,11 @@ export const Marketplace = () => {
                             Loja de Figurinhas
                         </div>
 
-                        <Link to="/my-packages">
-                            Meus pacotinhos
+                        <Link to='/my-packages' className="btn-home">
+                            <HomeIcon />
+                            <span>
+                                Voltar para o início
+                            </span>
                         </Link>
                     </h1>
 

@@ -5,6 +5,50 @@ export const MarketplaceContainer = styled.div`
     margin-top: 164px;
     display: grid;
     gap: 54px;
+    padding: 0 80px 80px 80px;
+
+    a.btn-home {
+        display: inline-flex;
+        gap: 32px;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+        background: ${({ theme }) => theme.colors.middleL};
+        color: ${({ theme }) => theme.colors.white};
+        border-radius: 25px;
+        padding: 18px 21px;
+        transition: all .3s ease-in-out;
+        line-height: 1;
+        font-size: 1rem;
+        font-weight: bold;
+
+        &:hover {
+            color: ${({ theme }) => theme.colors.dark};
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 58px;
+            height: 58px;
+            background: linear-gradient(to left, rgba(255, 83, 83, 1), rgba(254, 69, 126, 1));
+            z-index: -1;
+            border-radius: 30px;
+            transition: .3s linear;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        }
+
+        &:hover::after {
+            width: 100%;
+        }
+
+        svg {
+            margin-left: -2px;
+        }
+
+    }
 
     .marketplace-title {
         display: flex;
@@ -17,18 +61,6 @@ export const MarketplaceContainer = styled.div`
             height: 50px;
             width: 50px;
             margin-right: 1.25rem;
-        }
-
-        a {
-            font-size: 1rem;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(to left, rgba(255, 83, 83, 1), rgba(254, 69, 126, 1));
-            width: 15%;
-            border-radius: 30px;
-            font-weight: bold;
         }
     }
 
