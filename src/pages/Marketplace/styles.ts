@@ -4,7 +4,8 @@ import Skeleton from "react-loading-skeleton"
 export const MarketplaceContainer = styled.div`
     margin-top: 8rem;
     display: grid;
-    padding: 0 80px 80px 80px;
+    padding: 2rem;
+    padding-top: 0;
 
     a.btn-home {
         display: inline-flex;
@@ -52,7 +53,7 @@ export const MarketplaceContainer = styled.div`
     .marketplace-title {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 8.75rem;
+        margin-bottom: 4rem;
 
         h1.title-text{
             margin-right: auto;
@@ -150,6 +151,24 @@ export const MarketplaceContainer = styled.div`
                 padding: 14px;
                 transform: rotate(135deg);
                 -webkit-transform: rotate(135deg);
+            }
+        }
+        a.btn-home {
+            font-size: 1rem;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to left, rgba(255, 83, 83, 1), rgba(254, 69, 126, 1));
+            width: auto;
+            border-radius: 30px;
+            padding: .5rem 3rem;
+            font-weight: bold;
+            svg{
+                display: none;
+            }
+            &::after {
+                display: none;
             }
         }
     }
