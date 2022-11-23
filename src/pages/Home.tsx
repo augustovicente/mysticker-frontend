@@ -4,9 +4,7 @@ import BaseTemplate from 'Components/BaseTemplate'
 
 const Home = () => {
     return (
-        <BaseTemplate>
-            <IndexOne />
-        </BaseTemplate>
+        <IndexOne />
     )
 }
 

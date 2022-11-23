@@ -9,7 +9,6 @@ import LockIcon from "assets/imgs/lock.svg"
 const SideBar = () => {
     const { isCollapsed, setIsCollapsed } = useContext(SideBarContext)
     const { t } = useTranslation();
-    const location = useLocation();
 
     return (
         <SideBarContainer collapsed={isCollapsed}>

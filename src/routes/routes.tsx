@@ -24,19 +24,21 @@ export const Router = () => {
 
     if (!user) {
         return (
-            <Routes location={location} key={location.pathname}>
-                <Route path="/" element={<Home />} />
-                <Route path="login" element={<Login />} />
-                <Route path="forgot-password" element={<ForgotPassword />} />
-                <Route path="reset-pwd/:code" element={<NewPassword />} />
-                <Route path="validation/:code" element={<ConfirmEmail />} />
-                <Route path="register" element={<Register />} />
-                <Route path="/marketplace" element={<Marketplace />} />
-                <Route path="/my-packages" element={<MyPackages />} />
-                <Route path="/album" element={<Album />} />
+            <BaseTemplate footer={false} >
+                <Routes location={location} key={location.pathname}>
+                    <Route path="/" element={<Home />} />
+                    <Route path="login" element={<Login />} />
+                    <Route path="forgot-password" element={<ForgotPassword />} />
+                    <Route path="reset-pwd/:code" element={<NewPassword />} />
+                    <Route path="validation/:code" element={<ConfirmEmail />} />
+                    <Route path="register" element={<Register />} />
+                    <Route path="/marketplace" element={<Marketplace />} />
+                    <Route path="/my-packages" element={<MyPackages />} />
+                    <Route path="/album" element={<Album />} />
 
-                <Route path="*" element={<NotFoundPage />} />
-            </Routes>
+                    <Route path="*" element={<NotFoundPage />} />
+                </Routes>
+            </BaseTemplate>
         )
     }
 
