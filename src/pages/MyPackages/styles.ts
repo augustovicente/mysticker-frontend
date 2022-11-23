@@ -32,7 +32,9 @@ export const StickersPackageContainer = styled.li`
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
-    width: 26%;
+    max-height: 640px;
+    width: 100%;
+    max-width: 282px;
     border-radius: 30px;
     background: ${props => props.theme.colors.purple};
 
@@ -46,7 +48,7 @@ export const StickersPackageContainer = styled.li`
             justify-content: center;
 
             img {
-                height: 54px;
+                height: 45px;
             }
         }
 
@@ -59,9 +61,9 @@ export const StickersPackageContainer = styled.li`
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                height: 40px;
-                width: 40px;
-                border-radius: 40px;
+                height: 35px;
+                width: 35px;
+                border-radius: 35px;
                 background: ${props => props.theme.colors.yellow};
             }
         }
@@ -74,14 +76,15 @@ export const StickersPackageContainer = styled.li`
             span {
                 color: rgba(43, 38, 72, 1);
                 font-weight: bold;
-                font-size: 2rem;
-                margin-right: 8px;
+                font-size: 1.875rem;
+                margin-right: 5px;
             }
 
             p {
+                font-size: 0.625rem;
                 font-weight: bold;
                 color: white;
-                line-height: 1.25rem;
+                line-height: .75rem;
                 margin: 0;
             }
         }
@@ -91,9 +94,9 @@ export const StickersPackageContainer = styled.li`
         display: flex;
         background: ${props => props.theme.colors.middleL};
         border-radius: 30px;
-        justify-content: space-around;
         align-items: center;
         padding: 20px 28px 90px 28px;
+        gap: 8px;
 
         .min-max-btn {
             display: flex;
@@ -105,15 +108,16 @@ export const StickersPackageContainer = styled.li`
             background: transparent;
             border: 1px white solid;
             border-radius: 12px;
-            width: 50px;
-            height: 25px;
+            width: 51px;
+            height: 20px;
         }
 
         .quantity-counter {
             display: flex;
             align-items: center;
-            justify-content: space-around;
             width: 60%;
+            gap: 8px;
+
 
             button {
                 display: flex;
@@ -121,9 +125,9 @@ export const StickersPackageContainer = styled.li`
                 align-items: center;
                 background: ${props => props.theme.colors.purple};
                 border: 1px white solid;
-                height: 37px;
-                width: 40px;
-                border-radius: 12px;
+                height: 28.51px;
+                width: 28.85px;
+                border-radius: 8px;
                 color: white;
                 font-weight: bold;
                 font-size: 1.5rem;
@@ -131,8 +135,8 @@ export const StickersPackageContainer = styled.li`
 
             input {
                 display: flex;
-                height: 42px;
-                width: 45px;
+                height: 34.44px;
+                width: 40.02px;
                 border-radius: 12px;
                 font-weight: bold;
                 font-size: 1.25rem;
@@ -161,8 +165,9 @@ export const StickersPackageContainer = styled.li`
             width: 100%;
             background: ${props => props.theme.colors.pink};
             border-radius: 30px;
-            height: 48px;
+            height: 41px;
             color: white;
+            font-size: 0.813rem;
             font-weight: bold;
         }
 
@@ -174,10 +179,11 @@ export const StickersPackageContainer = styled.li`
             background: transparent;
             border: ${props => props.theme.colors.lightGrey} 1px solid;
             border-radius: 30px;
-            height: 48px;
+            height: 41px;
 
             img {
-
+                height: 24px;
+                width: 24px;
             }
 
             p {
@@ -185,6 +191,7 @@ export const StickersPackageContainer = styled.li`
                 display: flex;
                 color: #080B24;
                 font-weight: bold;
+                font-size: 0.813rem;
 
                 &::before {
                     display: flex;
@@ -192,7 +199,7 @@ export const StickersPackageContainer = styled.li`
                     height: 20px;
                     background: ${props => props.theme.colors.lightGrey};
                     width: 2px;
-                    margin: 0 17px;
+                    margin: 0 15px;
                 }
             }
         }
@@ -204,12 +211,13 @@ export const StickersPackageContainer = styled.li`
             align-items: center;
 
             img {
-                max-height: 48px;
+                height: 41px;
+                width: 119px;
             }
 
             p {
                 color: ${props => props.theme.colors.middle};
-                font-size: 0.875rem;
+                font-size: 0.75rem;
                 margin: 0;
             }
         }

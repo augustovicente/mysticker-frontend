@@ -31,11 +31,11 @@ export const Marketplace = () => {
                 <Skeletons />
             ) : (
                 <>
-                    <h1 className="marketplace-title">
-                        <div>
+                    <div className="marketplace-title">
+                        <h1>
                             <img src="/assets/img/icons/market-icon.svg" />
                             Loja de Figurinhas
-                        </div>
+                        </h1>
 
                         {user && (
                             <Link to='/my-packages' className="btn-home">
@@ -45,7 +45,7 @@ export const Marketplace = () => {
                                 </span>
                             </Link>
                         )}
-                    </h1>
+                    </div>
 
                     <ul className="stickers-package-list">
                         {stickersMock.map(({ stars, title, type }, index) => (

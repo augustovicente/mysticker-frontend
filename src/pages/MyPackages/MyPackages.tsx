@@ -63,8 +63,8 @@ export const MyPackages = () => {
             </h1>
 
             <ul>
-                {stickersMock.map(({ stars, title, type, id }) => selectedIndex === id ? (
-                    <StickersPackageContainer>
+                {stickersMock.map(({ stars, title, type, id }, index) => selectedIndex === id ? (
+                    <StickersPackageContainer key={id}>
                         <div className="stars-package-container">
                             <div className="stars-container">
                                 <img src={stars} alt="" />
@@ -120,7 +120,6 @@ export const MyPackages = () => {
                                     type="number"
                                     name="counter"
                                     id="counter"
-                                    defaultValue={count}
                                     value={count}
                                 />
                                 <button
@@ -164,6 +163,7 @@ export const MyPackages = () => {
                     </StickersPackageContainer>
                 ) : (
                     <PackageContainer
+                        key={id}
                         whileHover={{ scale: 1.2 }}
                         transition={{ duration: 0.2 }}
                         onClick={() => setSelectedIndex(id)}
