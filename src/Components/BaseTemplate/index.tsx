@@ -26,7 +26,7 @@ const BaseTemplateMainContent = styled.div<BaseTemplateMain>`
     width: 100%;
     flex-direction: column;
     margin-left: ${props => props.collapsed ? "94px" : "210px"};
-    padding: 0 1rem;
+    padding: 0 1.5rem;
 
     @media (max-width: 768px) {
         margin-left: 0;
@@ -34,7 +34,7 @@ const BaseTemplateMainContent = styled.div<BaseTemplateMain>`
 `
 
 const BaseTemplateMain = styled.main<BaseTemplateMain>`
-    padding: 0 80px 80px 80px;
+    padding: 0;
     background: url('assets/img/others/world.png') no-repeat center/contain;
     border-top-left-radius: ${props => props.collapsed ? "0px" : "80px"};
 
@@ -68,7 +68,7 @@ const BaseTemplateMainContentComponent = ({ children, header, footer }: { childr
     return (
         <BaseTemplateMainContent collapsed={isCollapsed}>
             {header && <Header />}
-            <BaseTemplateMain collapsed={isCollapsed} style={{ padding: !user && 0 }}>
+            <BaseTemplateMain collapsed={isCollapsed}>
                 {children}
             </BaseTemplateMain>
             {footer && <Footer />}
