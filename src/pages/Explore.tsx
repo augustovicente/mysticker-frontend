@@ -1,7 +1,7 @@
 import BaseTemplate from 'Components/BaseTemplate'
 import React from 'react'
 import NftMarket from '../Components/Explore/NftMarket'
-import Header from '../Components/BaseTemplate/components/Header/Header'
+import Header from '../Components/BaseTemplate/components/Header/Header.jsx'
 
 const Explore = () => {
     return (

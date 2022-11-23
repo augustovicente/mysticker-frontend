@@ -6,19 +6,12 @@ import { LoginButton } from './components/LoginButton';
 import { DefaultButton } from './components/DefaultButton';
 import { Link } from 'react-router-dom';
 import { SideBarContext } from '../SideBar/context';
+import { useAuth } from '../../../../contexts/auth.context';
 
 const Header = (props) => {
     const { isCollapsed } = useContext(SideBarContext)
-    const user = true // user is athenticated
+    const { user } = useAuth();
     const { hasContainer = true } = props;
-
-    // // console.log(history);
-    // const getColor=(curr) =>{
-    //   if(history.location.pathname===curr)
-    //   {
-    //     return("var(--purple-color)")
-    //   }
-    // }
 
     useEffect(() => {
         //SubMenu Dropdown Toggle
@@ -48,7 +41,6 @@ const Header = (props) => {
             });
         }
     }, []);
-
 
     useEffect(() => {
         $(".menu-tigger").on("click", function () {
@@ -91,19 +83,15 @@ const Header = (props) => {
         }
     }, []);
 
-
     return (
         <header className='main-header'>
             <div id='sticky-header' className="menu-area ">
                 <div className={hasContainer ? 'container' : ''}>
                     <div className="row">
                         <div className="col-12">
-                            {/* <div className="mobile-nav-toggler"><i className="fas fa-bars" /></div> */}
+                            <div className="mobile-nav-toggler"><i className="fas fa-bars" /></div>
                             <div className="menu-wrap main-menu">
                                 <nav className="menu-nav py-lg-3 py-md-2">
-                                    {isCollapsed && (
-                                        <div className="logo"><Link to="/"><img src="assets/img/logo/logo-header.svg" alt="" /></Link></div>
-                                    )}
                                     <div className="navbar-wrap push-menu main-menu d-none d-lg-flex">
                                         {/* <ul className="navigation">
                                             <li><Link to="/">Home</Link></li>
@@ -136,22 +124,22 @@ const Header = (props) => {
                                                 user && (
                                                     <>
                                                         <li>
-                                                            <DefaultButton to="#" src="/assets/img/icons/gift-icon.svg" />
+                                                            <DefaultButton title='Premios' to="#" src="/assets/img/icons/gift-icon.svg" />
                                                         </li>
                                                         <li>
-                                                            <DefaultButton to="#" src="/assets/img/icons/notification-icon.svg" />
+                                                            <DefaultButton title='Notificacoes' to="#" src="/assets/img/icons/notification-icon.svg" />
                                                         </li>
                                                         <li>
-                                                            <DefaultButton to="#" src="/assets/img/icons/wallet-icon.svg" />
+                                                            <DefaultButton title='Carteira' to="#" src="/assets/img/icons/wallet-icon.svg" />
                                                         </li>
                                                     </>
                                                 )
                                             }
                                             <li>
-                                                <DefaultButton to="#" src="/assets/img/icons/open-link-icon.svg" />
+                                                <DefaultButton title='Whitepaper' to="#" src="/assets/img/icons/open-link-icon.svg" />
                                             </li>
                                             <li>
-                                                <DefaultButton to="#" src="/assets/img/icons/browser-icon.svg" />
+                                                <DefaultButton title='Idioma' to="#" src="/assets/img/icons/browser-icon.svg" />
                                             </li>
                                             <li>
                                                 <LoginButton />

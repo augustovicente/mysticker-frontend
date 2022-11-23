@@ -4,7 +4,6 @@ export const Container = styled.div`
     display: grid;
     place-items: center;
     width: 100%;
-    background: url('assets/img/others/world.png') no-repeat center/contain;
     padding: 0 24px;
     height: fit-content;
 
