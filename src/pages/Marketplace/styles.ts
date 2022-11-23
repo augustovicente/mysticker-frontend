@@ -5,43 +5,78 @@ export const MarketplaceContainer = styled.div`
     margin-top: 8rem;
     display: grid;
     gap: 54px;
-    padding: 1rem 0;
+    padding: 0 80px 80px 80px;
+
+    a.btn-home {
+        display: inline-flex;
+        gap: 32px;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+        background: ${({ theme }) => theme.colors.middleL};
+        color: ${({ theme }) => theme.colors.white};
+        border-radius: 25px;
+        padding: 18px 21px;
+        transition: all .3s ease-in-out;
+        line-height: 1;
+        font-size: 1rem;
+        font-weight: bold;
+
+        &:hover {
+            color: ${({ theme }) => theme.colors.dark};
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 58px;
+            height: 58px;
+            background: linear-gradient(to left, rgba(255, 83, 83, 1), rgba(254, 69, 126, 1));
+            z-index: -1;
+            border-radius: 30px;
+            transition: .3s linear;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        }
+
+        &:hover::after {
+            width: 100%;
+        }
+
+        svg {
+            margin-left: -2px;
+        }
+
+    }
 
     .marketplace-title {
         display: flex;
         justify-content: space-between;
-        color: white;
-        margin: 0;
-        margin-bottom: 2rem;
+        margin-bottom: 8.75rem;
 
         h1.title-text{
             margin-right: auto;
         }
 
         img {
-            height: 50px;
-            width: 50px;
-            margin-right: 1.25rem;
+            height: 49px;
+            width: 49px;
+            margin-right: 1.313rem;
         }
 
-        a {
-            font-size: 1rem;
+        h1 {
+            font-size: 2.438rem;
             color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(to left, rgba(255, 83, 83, 1), rgba(254, 69, 126, 1));
-            width: 15%;
-            border-radius: 30px;
-            font-weight: bold;
+            margin: 0;
         }
     }
 
     .stickers-package-list {
         display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
+        justify-content: center;
         width: 100%;
+        gap: 80px;
     }
 
     .carousel-root {
@@ -128,9 +163,12 @@ type StickersPackageContainerProps = {
 export const StickersPackageContainer = styled.li<StickersPackageContainerProps>`
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    max-height: 600px;
     height: 100%;
-    width: 29%;
+    width: 100%;
+    max-width: 282px;
     border-radius: 20px;
     gap: 10px;
     background: ${props => props.theme.colors.middle};
@@ -161,7 +199,7 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
             img {
                 display: block;
                 object-fit: contain;
-                width: 162px;
+                width: 165px;
                 height: auto;
             }
         }
@@ -186,7 +224,8 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
                     color: ${props => props.theme.colors.greenNeon};
                  }
 
-                 margin-top: 1rem;
+                 margin-top: 0.75rem;
+                 font-size: 1.875rem;
             }
         }
     }
@@ -196,17 +235,22 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
         flex-direction: column;
         position: relative;
 
-        .sticker-stats {
+        .sticker-stats-btn {
             display: flex;
             justify-content: center;
             align-items: center;
             background-color: ${props => props.theme.colors.colorMiddle};
             border-radius: 8px;
-            padding: 10px;
+            padding: 8px;
 
             position: absolute;
-            right: 8%;
-            top: -30%;
+            right: 4%;
+            top: -20%;
+
+            img {
+                width: 0.875rem;
+                height: 0.875rem;
+            }
         }
 
         .sticker-stats-modal {
@@ -215,14 +259,14 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
             align-items: center;
             flex-direction: column;
             align-self: center;
-            width: 60%;
+            width: 163px;
             background-color: ${props => props.theme.colors.middle};
             border: ${props => props.theme.colors.light} solid 1.5px;
             border-radius: 10px;
             padding: 8px;
 
             position: absolute;
-            top: -105%;
+            top: -75%;
             z-index: 99;
 
             .sticker-stats-close-modal-btn {
@@ -232,12 +276,12 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
                 background: none;
 
                 position: absolute;
-                right: 8px;
-                top: 8px;
+                right: 0.5rem;
+                top: 0.5rem;
 
                 img {
-                    height: 20px;
-                    width: 20px;
+                    height: 0.75rem;
+                    width: 0.75rem;
                 }
             }
 
@@ -247,7 +291,9 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
                 width: 90%;
 
                 img {
-                    margin-right: 5%;
+                    margin-right: 0.5rem;
+                    height: 1.5rem;
+                    width: 1.5rem;
                 }
 
                 p {
@@ -255,7 +301,7 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
                     flex-direction: column;
                     flex-wrap: wrap;
                     margin: 0;
-                    font-size: 0.75rem;
+                    font-size: 0.563rem;
                     font-weight: bold;
                 }
             }
@@ -271,19 +317,18 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
                     p {
                         margin: 0;
                         color: ${props => props.theme.colors.colorLight};
-                        font-size: 0.75rem;
+                        font-size: 0.5rem;
                     }
 
                     img {
-                        display: flex;
-                        margin-right: 5px;
-                        height: 33px;
-                        width: 21px;
+                        margin-right: 3px;
+                        height: 1rem;
+                        width: 1rem;
                     }
 
                     span {
                         color: white;
-                        font-size: 0.875rem;
+                        font-size: 0.625rem;
                         margin-left: 0.875rem;
                     }
                 }
@@ -311,7 +356,7 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
             }};
             border-radius: 30px;
             width: 100%;
-            padding: 1rem;
+            padding: 1.313rem 1.063rem;
             z-index: 2;
             margin-bottom: -2.25rem;
 
@@ -327,13 +372,12 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
                 }
 
                 h3 {
-                    font-size: 1rem;
-                    margin-bottom: 4px;
+                    font-size: 0.938rem;
                 }
 
                 p {
-                    font-size: 0.875rem;
-                    margin-bottom: 1rem;
+                    font-size: 0.75rem;
+                    margin-bottom: 0.5rem;
                 }
 
                 button {
@@ -365,13 +409,13 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
                 }
 
                 h4 {
-                    font-size: 0.875rem;
+                    font-size: 0.75rem;
                     margin-bottom: 4px;
                 }
 
                 p {
-                    font-size: 0.875rem;
-                    margin-bottom: 1rem;
+                    font-size: 0.75rem;
+                    margin-bottom: 0.5rem;
                 }
 
                 .quantity-counter {
@@ -386,9 +430,9 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
                         align-items: center;
                         background: ${props => props.theme.colors.purple};
                         border: 1px white solid;
-                        height: 37px;
-                        width: 40px;
-                        border-radius: 12px;
+                        height: 27px;
+                        width: 31px;
+                        border-radius: 8px;
                         color: white;
                         font-weight: bold;
                         font-size: 1.5rem;
@@ -396,8 +440,8 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
 
                     input {
                         display: flex;
-                        height: 42px;
-                        width: 40px;
+                        height: 37px;
+                        width: 42px;
                         border-radius: 12px;
                         font-weight: bold;
                         font-size: 1.25rem;
@@ -413,7 +457,7 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 3rem 1rem 0.75rem 1rem;
+            padding: 3rem 1rem 0.75rem 1.875rem;
             background: white;
             border-bottom-right-radius: 30px;
             border-bottom-left-radius: 30px;
@@ -421,6 +465,11 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
             span {
                 font-weight: bold;
                 font-size: 1rem;
+            }
+
+            img {
+                height: 41px;
+                width: 121px;
             }
         }
     }

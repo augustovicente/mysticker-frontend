@@ -34,9 +34,7 @@ export const StickerPackage = ({ stars, type, title, id, handleActionStickerModa
                 price = 0.01;
                 break;
         }
-
-        console.log("buying package", package_type, count, price);
-        
+                
         await buy_package(
             package_type,
             count,
@@ -76,7 +74,7 @@ export const StickerPackage = ({ stars, type, title, id, handleActionStickerModa
             </div>
             <div className="stikers-package-payment">
                 <button
-                    className="sticker-stats"
+                    className="sticker-stats-btn"
                     onClick={() => handleActionStickerModal(id.toString())}
                 >
                     <img src="/assets/img/icons/stats-white-icon.svg" alt="" />

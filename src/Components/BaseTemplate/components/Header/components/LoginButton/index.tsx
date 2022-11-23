@@ -3,8 +3,6 @@ import { LoginButtonContainer } from "./styles"
 import { Button, Popover, Tooltip } from 'antd';
 import { useTheme } from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { useToggle } from "hooks/useToggle";
 
 export const LoginButton = () => {
     const { user, signOut } = useAuth();

@@ -24,7 +24,6 @@ export const Router = () => {
 
     if (!user) {
         return (
-            <BaseTemplate footer={false} >
                 <Routes location={location} key={location.pathname}>
                     <Route path="/" element={<Home />} />
                     <Route path="login" element={<Login />} />
@@ -32,13 +31,13 @@ export const Router = () => {
                     <Route path="reset-pwd/:code" element={<NewPassword />} />
                     <Route path="validation/:code" element={<ConfirmEmail />} />
                     <Route path="register" element={<Register />} />
-                    <Route path="/marketplace" element={<Marketplace />} />
-                    <Route path="/my-packages" element={<MyPackages />} />
-                    <Route path="/album" element={<Album />} />
+                    <Route path="/marketplace" element={<BaseTemplate footer={false}><Marketplace /></BaseTemplate>} />
+                    <Route path="/album" element={<BaseTemplate footer={false}><Album /></BaseTemplate>} />
+                    <Route path="rewards" element={<BaseTemplate footer={false}><h2>Premios</h2></BaseTemplate>} />
+
 
                     <Route path="*" element={<NotFoundPage />} />
                 </Routes>
-            </BaseTemplate>
         )
     }
 
@@ -47,9 +46,11 @@ export const Router = () => {
             <Routes>
                 {/* <Route> */}
                 <Route path='/' element={<Outlet />} >
-                    <Route index element={<><h2>Album</h2></>} />
+                    <Route index element={<Home />} />
                     <Route path="rewards" element={<><h2>Premios</h2></>} />
                     <Route path="marketplace" element={<Marketplace />} />
+                    <Route path="/my-packages" element={<MyPackages />} />
+                    <Route path="/album" element={<Album />} />
                     {/* <Route path="events" element={<><h2>Eventos</h2></>} /> */}
                     {/* <Route path='challenges' element={<Challenge />} /> */}
 

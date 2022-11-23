@@ -92,31 +92,17 @@ const Header = (props) => {
                             <div className="mobile-nav-toggler"><i className="fas fa-bars" /></div>
                             <div className="menu-wrap main-menu">
                                 <nav className="menu-nav py-lg-3 py-md-2">
+                                    {isCollapsed && (
+                                        <div className="logo">
+                                            <Link to="/">
+                                                <img
+                                                    src="assets/img/logo/logo-header.svg"
+                                                    alt=""
+                                                />
+                                            </Link>
+                                        </div>
+                                    )}
                                     <div className="navbar-wrap push-menu main-menu d-none d-lg-flex">
-                                        {/* <ul className="navigation">
-                                            <li><Link to="/">Home</Link></li>
-                                            <li><Link to="/nft-marketplace">Explore</Link></li>
-                                            <li><Link to="/collections">Collection</Link></li>
-                                            <li className="menu-item-has-children"><a href="/#">Pages</a>
-                                                <ul className="submenu">
-                                                    <li><Link to="/activity">Activity</Link></li>
-                                                    <li><Link to="/category">Category</Link></li>
-                                                    <li><Link to="/ranking">Ranking</Link></li>
-                                                    <li><Link to="/creators">Creators</Link></li>
-                                                    <li><Link to="/market-single">Market Single</Link></li>
-                                                    <li><Link to="/nft-live-bidding">Live Bidding</Link></li>
-                                                    <li><Link to="/create-item">Create Item</Link></li>
-                                                    <li><Link to="/author-profile">Author Profile</Link></li>
-                                                    <li><Link to="/login-register">Login &amp; Register</Link></li>
-                                                </ul>
-                                            </li>
-                                            <li className="menu-item-has-children"><Link to="/#">Blog</Link>
-                                                <ul className="submenu">
-                                                    <li><Link to="/blog">Our Blog</Link></li>
-                                                    <li><Link to="/blog-details">Blog Details</Link></li>
-                                                </ul>
-                                            </li>
-                                        </ul> */}
                                     </div>
                                     <div className="header-action d-none d-sm-none d-lg-block">
                                         <ul>

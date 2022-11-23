@@ -5,11 +5,14 @@ import { Link } from "react-router-dom";
 import { Skeletons } from "./components/Skeletons";
 import { StickerPackage } from "./components/StickerPackage";
 import { stickersMock } from "./stickersMock";
-import { MarketplaceContainer } from "./styles"
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-
+import { MarketplaceContainer, StickersPackageContainer } from "./styles"
+import { ReactComponent as HomeIcon } from '../../assets/imgs/home.svg';
+import { useAuth } from "contexts/auth.context";
 
 export const Marketplace = () => {
+    const { user } = useAuth()
+
     const [isLoading, setIsLoading] = useToggle()
     const [currentStep, setCurrentStep] = useState<number>(0)
     const [stickerStatsModalIsOpen, setStickerStatsModalIsOpen] = useState<string[]>([]);
@@ -34,9 +37,14 @@ export const Marketplace = () => {
                             Loja de Figurinhas
                         </h1>
 
-                        <Link to="/my-packages">
-                            Meus pacotinhos
-                        </Link>
+                        {user && (
+                            <Link to='/my-packages' className="btn-home">
+                                <HomeIcon />
+                                <span>
+                                    Meus Pacotinhos
+                                </span>
+                            </Link>
+                        )}
                     </div>
 
                     <ul className="stickers-package-list">
