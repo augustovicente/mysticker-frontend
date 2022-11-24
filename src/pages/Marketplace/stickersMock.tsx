@@ -6,7 +6,8 @@ export const stickersMock = [
         title: {
             main: "Pacotinho",
             secondary: "Esmeralda"
-        }
+        },
+        numberType: 1,
     },
     {
         id: 2,
@@ -15,7 +16,9 @@ export const stickersMock = [
         title: {
             main: "Pacotinho",
             secondary: "Obsidiana"
-        }
+        },
+        numberType: 2,
+
     },
     {
         id: 3,
@@ -24,6 +27,7 @@ export const stickersMock = [
         title: {
             main: "Pacotinho",
             secondary: "Diamante"
-        }
+        },
+        numberType: 3,
     },
 ]

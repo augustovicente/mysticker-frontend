@@ -1,10 +1,12 @@
-import { motion } from "framer-motion";
-import styled from "styled-components";
+import { motion } from "framer-motion"
+import styled from "styled-components"
+import Skeleton from "react-loading-skeleton"
 
 export const MyPackagesContainer = styled.div`
     margin-top: 164px;
     padding-bottom: 94px;
     display: grid;
+    padding: 0 80px 80px 80px;
 
     .my-package-title {
         display: flex;
@@ -228,4 +230,45 @@ export const PackageContainer = styled(motion.div)`
     cursor: pointer;
     margin-bottom: 30vh;
     scale: 0.8;
+`
+
+export const CardsListSkeletonContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 40px;
+
+    .skeleton-card {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        height: 640px;
+        width: 282px;
+        border-radius: 20px;
+        gap: 10px;
+        padding: 40px 0;
+        background: ${props => props.theme.colors.middle};
+
+        span {
+            display: flex;
+            justify-content: center;
+        }
+    }
+`
+
+type SkeletonProps = {
+    skeletonWidth?: string;
+    skeletonHeight?: string;
+}
+
+export const CustomSkeleton = styled(Skeleton) <SkeletonProps>`
+    width: ${props => props.skeletonWidth ? props.skeletonWidth : "unset"};
+    height: ${props => props.skeletonHeight ? `${props.skeletonHeight} !important` : "unset"};
+`
+
+export const TitleSkeletonContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 12vh;
 `

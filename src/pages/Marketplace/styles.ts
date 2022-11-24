@@ -4,7 +4,6 @@ import Skeleton from "react-loading-skeleton"
 export const MarketplaceContainer = styled.div`
     margin-top: 8rem;
     display: grid;
-    gap: 54px;
     padding: 0 80px 80px 80px;
 
     a.btn-home {
@@ -483,7 +482,7 @@ type SkeletonProps = {
 export const TitleSkeletonContainer = styled.div`
     display: flex;
     gap: 30px;
-    margin-bottom: 12vh;
+    margin-bottom: 8.75rem;
 `
 
 export const CustomSkeleton = styled(Skeleton) <SkeletonProps>`
@@ -493,16 +492,16 @@ export const CustomSkeleton = styled(Skeleton) <SkeletonProps>`
 
 export const CardsListSkeletonContainer = styled.div`
     display: flex;
-    justify-content: space-between;
-    min-height: 70vh;
+    justify-content: center;
     width: 100%;
+    gap: 80px;
 
     .skeleton-card {
         display: flex;
         justify-content: center;
         flex-direction: column;
-        height: 100%;
-        width: 29%;
+        height: 600px;
+        width: 296px;
         border-radius: 20px;
         gap: 10px;
         padding: 40px 0;
