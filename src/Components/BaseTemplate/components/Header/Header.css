@@ -14,7 +14,6 @@
     display: none;
     margin-top: 28px;
     z-index: 99;
-    margin: 30px 35px 0 0;
 }
 
 .menu-area.market-single-header {
@@ -65,7 +64,7 @@
 
 @media (max-width: 767.98px) {
     .menu-area .mobile-nav-toggler {
-        margin: 24px 35px 0 0;
+        margin: 24px 26px 0 0;
     }
 
     .menu-area {
@@ -74,12 +73,5 @@
 
     .menu-wrap {
         padding: 20px 25px;
-    }
-
-}
-
-@media (max-width: 460px) {
-    .menu-area .mobile-nav-toggler {
-        margin: 24px 35px 0 0;
     }
 }

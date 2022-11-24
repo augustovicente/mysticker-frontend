@@ -1,15 +1,19 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import $ from 'jquery';
 
 import "./Header.css";
 import { LoginButton } from './components/LoginButton';
 import { DefaultButton } from './components/DefaultButton';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../../../../contexts/auth.context';
+import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from 'contexts/auth.context';
+import { Avatar, Menu, Radio, Space } from 'antd';
+import i18n from 'i18n';
+import * as S from './styles';
 
 const Header = (props) => {
     const { user } = useAuth();
     const { hasContainer = true } = props;
+    const location = useLocation();
 
     useEffect(() => {
         //SubMenu Dropdown Toggle
@@ -81,12 +85,50 @@ const Header = (props) => {
         }
     }, []);
 
+    const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
+
+    const onChange = (e) => {
+        i18n.changeLanguage(e.target.value)
+        setSelectedLanguage(e.target.value);
+    };
+
+    function getItem(label, key, icon, children) {
+        return {
+            key,
+            icon,
+            children,
+            label,
+        };
+    }
+    const items = [
+        getItem('Linguagem', '1', <i className="fi-sr-home"></i>),
+        getItem('Whitepaper', '2', <i className="fi-sr-home"></i>),
+        getItem('Carteira', 'sub1', <i className="fi-sr-home"></i>, [
+            getItem('Option 3', '3'),
+            getItem('Option 4', '4'),
+            getItem('Submenu', 'sub1-2', null, [getItem('Option 5', '5'), getItem('Option 6', '6')]),
+        ]),
+        getItem('Prêmios', 'sub2', <i className="fi-sr-home"></i>, [
+            getItem('Option 7', '7'),
+            getItem('Option 8', '8'),
+            getItem('Option 9', '9'),
+            getItem('Option 10', '10'),
+        ]),
+        getItem('Notificações', 'sub3', <i className="fi-sr-home"></i>, [
+            getItem('Option 11', '7'),
+            getItem('Option 12', '8'),
+            getItem('Option 13', '9'),
+            getItem('Option 14', '10'),
+        ]),
+        getItem('Sair', 'logout', <i className="fi-sr-home"></i>),
+    ];
+
     return (
         <header className='main-header'>
             <div id='sticky-header' className="menu-area ">
-                <div className={hasContainer ? 'container' : ''}>
+                <div className={location.pathname === '/' ? 'container' : 'container-fluid'}>
                     <div className="row">
-                        <div className="col-12">
+                        <div className="col-12 p-0">
                             <div className="mobile-nav-toggler"><i className="fas fa-bars" /></div>
                             <div className="menu-wrap main-menu">
                                 <nav className="menu-nav py-lg-3 py-md-2">
@@ -106,22 +148,44 @@ const Header = (props) => {
                                                 user && (
                                                     <>
                                                         <li>
-                                                            <DefaultButton title='Premios' to="#" src="/assets/img/icons/gift-icon.svg" />
+                                                            <DefaultButton
+                                                                title='Prêmios'
+                                                                icon="/assets/img/icons/gift-icon.svg"
+                                                                disabled
+                                                                onlyLink='/'
+                                                            >
+                                                            </DefaultButton>
                                                         </li>
                                                         <li>
-                                                            <DefaultButton title='Notificacoes' to="#" src="/assets/img/icons/notification-icon.svg" />
+                                                            <DefaultButton
+                                                                disabled
+                                                                onlyLink='/'
+                                                                title='Notificações'
+                                                                icon="/assets/img/icons/notification-icon.svg"
+                                                            />
                                                         </li>
                                                         <li>
-                                                            <DefaultButton title='Carteira' to="#" src="/assets/img/icons/wallet-icon.svg" />
+                                                            <DefaultButton title='Carteira' icon="/assets/img/icons/wallet-icon.svg" />
                                                         </li>
                                                     </>
                                                 )
                                             }
                                             <li>
-                                                <DefaultButton title='Whitepaper' to="#" src="/assets/img/icons/open-link-icon.svg" />
+                                                <DefaultButton
+                                                    onlyLink='https://google.com'
+                                                    title='Whitepaper'
+                                                    icon="/assets/img/icons/open-link-icon.svg"
+                                                />
                                             </li>
                                             <li>
-                                                <DefaultButton title='Idioma' to="#" src="/assets/img/icons/browser-icon.svg" />
+                                                <DefaultButton title='Idioma' icon="/assets/img/icons/browser-icon.svg">
+                                                    <Radio.Group onChange={onChange} value={selectedLanguage}>
+                                                        <Space className='container-languages' direction="vertical">
+                                                            <Radio value='pt-BR'>PT - BR</Radio>
+                                                            <Radio value='en-US'>EN - US</Radio>
+                                                        </Space>
+                                                    </Radio.Group>
+                                                </DefaultButton>
                                             </li>
                                             <li>
                                                 <LoginButton />
@@ -136,12 +200,31 @@ const Header = (props) => {
                             <div className="mobile-menu">
                                 <nav className="menu-box">
                                     <div className="close-btn"><i className="fas fa-times" /></div>
-                                    <div className="nav-logo"><a href="/#"><img src="assets/img/logo/logo.png" alt="" title="true" /></a>
+                                    <div className="nav-logo"><a href="/#"><img src="assets/img/logo/logo-header.svg" alt="Logo MySticker" title="Logo MySticker" /></a>
                                     </div>
-                                    <div className="menu-outer">
 
-                                        {/*Here Menu Will Come Automatically Via Javascript / Same Menu as in Header*/}
-                                    </div>
+                                    <S.MobileNav>
+                                        <header>
+                                            <div className="avatar">
+                                                <i className="fi-sr-user"></i>
+                                            </div>
+
+                                            <h5>{user?.name}</h5>
+                                        </header>
+
+                                        <main>
+                                            <Menu
+                                                style={{ width: 256 }}
+                                                defaultSelectedKeys={['1']}
+                                                defaultOpenKeys={['sub1']}
+                                                mode="inline"
+                                                theme='dark'
+                                                items={items}
+                                            />
+                                        </main>
+
+                                    </S.MobileNav>
+
                                     <div className="social-links">
                                         <ul className="clearfix">
                                             <li><a href="/#"><span className="fab fa-twitter" /></a></li>
@@ -154,7 +237,6 @@ const Header = (props) => {
                                 </nav>
                             </div>
                             <div className="menu-backdrop" />
-                            {/* End Mobile Menu */}
                         </div>
                     </div>
                 </div>

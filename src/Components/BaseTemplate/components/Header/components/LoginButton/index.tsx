@@ -1,8 +1,11 @@
 import { useAuth } from "contexts/auth.context"
-import { LoginButtonContainer } from "./styles"
-import { Button, Popover, Tooltip } from 'antd';
+import * as S from "./styles"
+import { Button, Divider, Popover, Tooltip } from 'antd';
 import { useTheme } from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ReactComponent as SettingsIcon } from "assets/imgs/settings.svg";
+import { ReactComponent as WalletIcon } from "assets/imgs/wallet.svg";
+import { ReactComponent as SignoutIcon } from "assets/imgs/sign-out.svg";
 
 export const LoginButton = () => {
     const { user, signOut } = useAuth();
@@ -15,14 +18,43 @@ export const LoginButton = () => {
         }
     }
 
-    const text = <span>Title</span>;
     const content = (
-        <div>
-            <p>Content</p>
-            <Button onClick={signOut}>
-                Logout
-            </Button>
-        </div>
+        <S.ProfilePopover>
+            <header>
+                <strong title={user?.name}>{user?.name}</strong>
+
+                <div className="avatar">
+                    <i className="fi-sr-user"></i>
+                </div>
+            </header>
+
+            <div className="divider" />
+
+            <section>
+                <Link to="/profile" className="">
+                    <SettingsIcon width={28} height={28} />
+
+                    <span>Meus Dados</span>
+                </Link>
+
+                <Link to="/profile" className="">
+                    <WalletIcon width={28} height={28} />
+
+                    <span>Minha carteira</span>
+                </Link>
+            </section>
+
+            <div className="divider" />
+
+            <section>
+                <Link onClick={signOut} to="/login">
+                    <SignoutIcon width={28} height={28} />
+
+                    <span>Sair</span>
+                </Link>
+            </section>
+
+        </S.ProfilePopover>
     );
 
     return (
@@ -33,16 +65,15 @@ export const LoginButton = () => {
         >
             <Popover
                 placement="topLeft"
-                title='Teste'
                 content={content}
                 trigger={user ? "click" : "none"}
                 zIndex={9999}
+                showArrow={false}
+                color="#1d1733"
             >
-                <LoginButtonContainer onClick={handleOnClick} isAuthenticated={!!user}>
+                <S.LoginButtonContainer onClick={handleOnClick} isAuthenticated={!!user}>
                     <img src="/assets/img/use-avatar.svg" />
-                </LoginButtonContainer>
-
-                {/* <Button>TL</Button> */}
+                </S.LoginButtonContainer>
             </Popover>
         </Tooltip>
     )
