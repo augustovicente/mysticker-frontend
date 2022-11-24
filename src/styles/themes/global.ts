@@ -27,12 +27,20 @@ export default createGlobalStyle`
 
     body {
         position: relative;
-        font-family: ${({ theme }) => theme.fontFamily.inter} !important;
+        font-family: ${({ theme }) => theme.fontFamily.inter}, sans-serif;
         font-size: 1rem; // 16px
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased !important;
         font-weight: 400;
         background: ${({ theme }) => theme.colors.dark};
+    }
+
+    button, textarea, a {
+        font-family: 'Inter', sans-serif;
+    }
+
+    .ant-radio-wrapper {
+        color: white;
     }
 
     @media (max-width: 767px) {
