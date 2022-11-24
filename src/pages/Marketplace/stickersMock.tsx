@@ -7,6 +7,12 @@ export const stickersMock = [
             main: "Pacotinho",
             secondary: "Esmeralda"
         },
+        probabilities: {
+            bronze: 0.85,
+            silver: 0.125,
+            gold: 0.025
+        },
+        price: 0.001,
         numberType: 1,
     },
     {
@@ -17,6 +23,12 @@ export const stickersMock = [
             main: "Pacotinho",
             secondary: "Obsidiana"
         },
+        probabilities: {
+            bronze: 0.775,
+            silver: 0.175,
+            gold: 0.05
+        },
+        price: 0.005,
         numberType: 2,
 
     },
@@ -28,6 +40,12 @@ export const stickersMock = [
             main: "Pacotinho",
             secondary: "Diamante"
         },
+        probabilities: {
+            bronze: 0.7,
+            silver: 0.225,
+            gold: 0.075
+        },
+        price: 0.01,
         numberType: 3,
     },
 ]

@@ -479,15 +479,19 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
             background: white;
             border-bottom-right-radius: 30px;
             border-bottom-left-radius: 30px;
-
+            opacity: .7;
             span {
                 font-weight: bold;
-                font-size: 1rem;
+                font-size: .7rem;
             }
 
             img {
                 height: 41px;
                 width: 121px;
+                &.lock{
+                    height: 20px;
+                    width: 20px;
+                }
             }
         }
     }
