@@ -4,22 +4,6 @@ import { AlbumModal } from "../styles";
 
 type StickerProps = {
     stickerId: number;
-    teamsGroupSelected: string;
-    team: {
-        icon: string;
-        name: string;
-        players: ({
-            id: number;
-            name: string;
-            img: string;
-            tier: string;
-        } | {
-            id: number;
-            name: string;
-            img?: undefined;
-            tier?: undefined;
-        })[];
-    }
 }
 
 const userOwnedStickers = [
@@ -41,16 +25,9 @@ const userOwnedStickers = [
     }
 ]
 
-export const Sticker = ({ stickerId, team, teamsGroupSelected }: StickerProps) => {
+export const Sticker = ({ stickerId, }: StickerProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [playerSelected, setPlayerSelected] = useState(stickerId)
-
-    const currentPlayer = useMemo(() => {
-        const ownedGrouop: any = userOwnedStickers.map(group => group.teamsGroupName === teamsGroupSelected && group);
-        const ownedTeam: any = ownedGrouop[0].teams.map((ownedTeam: any) => ownedTeam.name === team.name && ownedTeam)
-        const players = ownedTeam[0].players
-        return players.map((player: any) => player.id === stickerId)
-    }, [teamsGroupSelected, userOwnedStickers, stickerId])
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -83,7 +60,7 @@ export const Sticker = ({ stickerId, team, teamsGroupSelected }: StickerProps) =
                 onClick={showModal}
             >
 
-                {currentPlayer[stickerId - 1] ? (
+                {/* {currentPlayer[stickerId - 1] ? (
                     <>
                         <img className="player-img" src="/assets/img/icons/team-players/player.svg" alt="" />
                         <img className="player-tier" src="/assets/img/icons/tier-gold-icon.svg" alt="" />
@@ -95,7 +72,7 @@ export const Sticker = ({ stickerId, team, teamsGroupSelected }: StickerProps) =
                         <img className="add-icon" src="/assets/img/icons/add-icon.svg" alt="" />
                         <img src="/assets/img/icons/paste-sticker-action-icon.svg" alt="" />
                     </>
-                )}
+                )} */}
 
             </div>
 
@@ -103,7 +80,7 @@ export const Sticker = ({ stickerId, team, teamsGroupSelected }: StickerProps) =
                 <div
                     className="sticker"
                 >
-                    {currentPlayer[playerSelected - 1] ? (
+                    {/* {currentPlayer[playerSelected - 1] ? (
                         <>
                             <img className="player-img" src="/assets/img/icons/team-players/player.svg" alt="" />
                             <img className="player-tier" src="/assets/img/icons/tier-gold-icon.svg" alt="" />
@@ -115,7 +92,7 @@ export const Sticker = ({ stickerId, team, teamsGroupSelected }: StickerProps) =
                             <img className="add-icon" src="/assets/img/icons/add-icon.svg" alt="" />
                             <img src="/assets/img/icons/paste-sticker-action-icon.svg" alt="" />
                         </>
-                    )}
+                    )} */}
                 </div>
 
                 <div className="rarity-number">

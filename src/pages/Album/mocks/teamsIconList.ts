@@ -12,7 +12,7 @@ export const teamsIconList = [
                 name: "México",
             },
             {
-                name: "USA",
+                name: "Estados Unidos",
             },
             {
                 name: "Argentina",
@@ -113,7 +113,7 @@ export const teamsIconList = [
                 name: "México",
             },
             {
-                name: "USA",
+                name: "Estados Unidos",
             },
         ]
     },
