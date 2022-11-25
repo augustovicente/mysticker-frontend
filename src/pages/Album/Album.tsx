@@ -1,41 +1,24 @@
-import { useCallback, useState, useMemo } from "react"
+import { useCallback, useState, useMemo, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { Sticker } from "./components/Sticker"
 import { teamsIconList } from "./mocks/teamsIconList"
 import { teamsNameList } from "./mocks/teamsNameList"
 import { AlbumContainer } from "./styles"
-
-const userOwnedStickers = [
-    {
-        teamsGroupName: "north-america",
-        teams: [
-            {
-                name: "Canadá",
-                players: [
-                    {
-                        id: 1,
-                    },
-                    {
-                        id: 2,
-                    },
-                ]
-            }
-        ]
-    }
-]
+import { stickers } from "./mocks/stickers"
 
 export const Album = () => {
-    const [teamsGroupSelected, setTeamsGroupSelected] = useState("all")
+    const [teamsGroupSelected, setTeamsGroupSelected] = useState("todos")
     const [teamSelected, setTeamSelected] = useState(0)
+    const [currentTeam, setCurrentTeam] = useState<{ name: string; }>({ name: "" });
 
     const groupOfTeams = useMemo(() => {
         const group = teamsIconList.filter(({ teams, teamsGroupName }) => teamsGroupName === teamsGroupSelected)
-        return group[0].teams
+        return group[0]?.teams
     }, [teamsGroupSelected])
 
-    const currentPlayer = useMemo(() => {
-        return groupOfTeams[teamSelected]?.players.map((player) => player.id === 1)
-    }, [teamsGroupSelected])
+    useEffect(() => {
+        setCurrentTeam(groupOfTeams[teamSelected])
+    }, [])
 
     const handleNextTeam = useCallback(() => {
         if (teamSelected < groupOfTeams.length - 1) {
@@ -77,13 +60,13 @@ export const Album = () => {
                         </p>
                         Pacotinho Disponivel
                     </Link>
-                    {groupOfTeams.map(({ icon, name }, index) => (
+                    {groupOfTeams.map(({ name }, index) => (
                         <li
                             key={index}
                             className={teamSelected === index ? `selected` : ""}
                             onClick={() => setTeamSelected(index)}
                         >
-                            <img src={icon} alt="" />
+                            <img src={`/assets/img/icons/team-flags/${teamsGroupSelected.toLocaleLowerCase()}/${name.toLocaleLowerCase().replaceAll(" ", "-")}.svg`} alt="" />
                             {name}
                         </li>
                     ))}
@@ -105,9 +88,9 @@ export const Album = () => {
                             <span className="total-counter">
                                 /
                                 {
-                                    groupOfTeams.length < 10
-                                        ? `0${groupOfTeams.length}`
-                                        : groupOfTeams.length
+                                    groupOfTeams?.length < 10
+                                        ? `0${groupOfTeams?.length}`
+                                        : groupOfTeams?.length
                                 }
                             </span>
 
@@ -130,17 +113,27 @@ export const Album = () => {
 
                     <div className="sticker-container">
                         <div className="sticker-content">
-                            <div className="sticker-row">
-                                {groupOfTeams[teamSelected]?.players.map((sticker, index) => (
-                                    <Sticker
-                                        teamsGroupSelected={teamsGroupSelected}
-                                        team={groupOfTeams[teamSelected]}
-                                        key={index}
-                                        stickerId={sticker.id}
-                                    />
-                                ))}
-                            </div>
+                            {/* <div className="sticker-row">
+                                 {groupOfTeams[teamSelected]?.players.map((sticker, index) => index < 6 && (
+                                     <Sticker
+                                         teamsGroupSelected={teamsGroupSelected}
+                                         team={groupOfTeams[teamSelected]}
+                                         key={index}
+                                         stickerId={sticker.id}
+                                     />
+                                 ))}
+                             </div>
 
+                             <div className="sticker-row">
+                                 {groupOfTeams[teamSelected]?.players.map((sticker, index) => index >= 6 && (
+                                     <Sticker
+                                         teamsGroupSelected={teamsGroupSelected}
+                                         team={groupOfTeams[teamSelected]}
+                                         key={index}
+                                         stickerId={sticker.id}
+                                     />
+                                 ))}
+                             </div> */}
                         </div>
                     </div>
                 </div>
@@ -150,3 +143,6 @@ export const Album = () => {
         </AlbumContainer>
     )
 }
+
+
+

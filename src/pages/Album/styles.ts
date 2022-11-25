@@ -55,12 +55,15 @@ export const AlbumContainer = styled.div`
         .team-icons-list {
             display: flex;
             gap: 0.875rem;
+            max-width: calc(100vw - 260px);
+            overflow-x: hidden;
 
             li, .available-packages {
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
                 align-content: center;
+                min-width: 66px;
                 width: 66px;
                 min-height: 92.47px;
                 background: ${props => props.theme.colors.middleL};
@@ -191,13 +194,14 @@ export const AlbumContainer = styled.div`
 
                 .sticker-content {
                     display: flex;
+                    justify-content: space-between;
                     width: 100%;
-                    flex-direction: column;
                     gap: 42px;
 
                     .sticker-row {
                         display: flex;
                         flex-wrap: wrap;
+                        max-width: 30%;
                         gap: 20px;
 
                         .sticker {

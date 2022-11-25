@@ -76,8 +76,6 @@ export const Sticker = ({ stickerId, team, teamsGroupSelected }: StickerProps) =
         }
     }, [playerSelected])
 
-    console.log(currentPlayer, stickerId-1)
-
     return (
         <>
             <div
