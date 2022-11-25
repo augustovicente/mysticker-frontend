@@ -7,11 +7,11 @@ export const web3 = new Web3(provider);
 
 export const connect: () => Promise<string[]> = () => {
     return new Promise((resolve, reject) => {
-        
+
         if(_window.ethereum)
         {
             _window.ethereum.request({method:'eth_requestAccounts'})
-                .then((res:any) => 
+                .then((res:any) =>
                 {
                     resolve(res);
                 })

@@ -10,6 +10,7 @@ import { AuthProvider, useAuth } from "contexts/auth.context";
 import { ToastContainer, toast } from 'react-toastify';
 import { Router } from "routes/routes";
 
+
 // import Activity from './pages/Activity'
 // import AuthorProfile from './pages/AuthorProfile'
 // import Blog from './pages/Blog'

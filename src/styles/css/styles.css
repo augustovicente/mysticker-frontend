@@ -401,6 +401,7 @@ label {
     display: flex;
     width: 100%;
     justify-content: center;
+    padding: 0 80px 80px 80px;
 }
 
 .main-header {
@@ -662,7 +663,7 @@ label {
     -webkit-transform: translateX(101%);
     -ms-transform: translateX(101%);
     transform: translateX(101%);
-    background: var(--middle);
+    background: #060924;
 }
 
 .mobile-menu .navbar-collapse {
@@ -722,8 +723,7 @@ label {
     max-height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
-    background: var(--middle);
-    padding: 20px;
+    /* padding: 20px; */
     z-index: 5;
     box-shadow: -9px 0 14px 0px rgb(0 0 0 / 6%);
 }
@@ -736,7 +736,7 @@ label {
 .mobile-menu .close-btn {
     position: absolute;
     right: 38px;
-    top: 43px;
+    top: 23px;
     width: 35px;
     text-align: center;
     font-size: 26px;

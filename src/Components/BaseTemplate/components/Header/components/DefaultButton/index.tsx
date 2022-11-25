@@ -17,20 +17,29 @@ type DefaultButtonProps = AnchorHTMLAttributes<HTMLAnchorElement> & ButtonHTMLAt
 export const DefaultButton = ({ icon, onlyLink, title, children, needsAuth, ...rest }: DefaultButtonProps) => {
     const { user, signOut } = useAuth();
     const theme = useTheme();
+    const [showTooltip, setShowTooltip] = useState(false);
 
     return (
         <Tooltip
             placement="bottom"
             color={theme.colors.middleL}
             title={title}
+            open={showTooltip}
+            onOpenChange={setShowTooltip}
         >
             {onlyLink ? (
-                <DefaultButtonContainer {...rest} as="a" href={!rest.disabled && onlyLink} rel="noreferrer" target="_blank">
+                <DefaultButtonContainer
+                    {...rest}
+                    as="a"
+                    href={!rest.disabled ? onlyLink : undefined}
+                    rel="noreferrer" target="_blank"
+                >
                     <img src={icon} />
                 </DefaultButtonContainer>
             ) : (
                 <Popover
-                    placement="topLeft"
+                    placement="bottom"
+                    onOpenChange={() => setShowTooltip(false)}
                     content={(
                         <S.ProfilePopover>
                             <header>

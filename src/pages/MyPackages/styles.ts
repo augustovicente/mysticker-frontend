@@ -27,6 +27,10 @@ export const MyPackagesContainer = styled.div`
         justify-content: center;
         align-items: center;
     }
+
+    @media (max-width: 768px) {
+        padding: unset;
+    }
 `
 
 export const StickersPackageContainer = styled.li`

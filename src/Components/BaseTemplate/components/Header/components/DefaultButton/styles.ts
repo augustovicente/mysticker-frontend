@@ -21,6 +21,7 @@ export const ProfilePopover = styled.div`
     display: flex;
     flex-direction: column;
     gap: 8px;
+    min-width: 144px;
     max-width: 240px;
     color: ${({ theme }) => theme.colors.white};
 
