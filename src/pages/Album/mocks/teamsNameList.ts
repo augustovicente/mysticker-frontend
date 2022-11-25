@@ -1,14 +1,14 @@
 export const teamsNameList = [
     {
-        name: "all",
+        name: "todos",
         title: "Todos",
     },
     {
-        name: "north-america",
+        name: "america-norte",
         title: "America Norte",
     },
     {
-        name: "soulth-america",
+        name: "america-sul",
         title: "America Sul",
     },
     {

@@ -1,29 +1,50 @@
-import { useCallback, useState, useMemo } from "react"
+import { useCallback, useState, useMemo, useEffect } from "react"
 import { Link } from "react-router-dom"
+import { Sticker } from "./components/Sticker"
 import { teamsIconList } from "./mocks/teamsIconList"
 import { teamsNameList } from "./mocks/teamsNameList"
 import { AlbumContainer } from "./styles"
+import { stickers } from "./mocks/stickers"
+
+const ownedStickers: number[] = [
+    263,
+    262
+]
 
 export const Album = () => {
-    const [teamsGroupSelected, setTeamsGroupSelected] = useState("all")
-    const [teamSelected, setTeamSelected] = useState(0)
+    const [teamsGroupSelected, setTeamsGroupSelected] = useState("todos")
+    const [teamIndexSelected, setTeamSelected] = useState(0)
 
     const groupOfTeams = useMemo(() => {
         const group = teamsIconList.filter(({ teams, teamsGroupName }) => teamsGroupName === teamsGroupSelected)
-        return group[0].teams
+        return group[0]?.teams
     }, [teamsGroupSelected])
 
+    const currentTeamSelected = useMemo(() => {
+        const players = stickers.filter(({ country, players }) => country.toLocaleLowerCase().replaceAll(" ", "-") === groupOfTeams[teamIndexSelected].name.toLocaleLowerCase().replaceAll(" ", "-") && players)
+        return players[0]
+    }, [groupOfTeams, teamIndexSelected, teamsGroupSelected])
+
+    const ownedStikersAmount = useMemo(() => {
+        return currentTeamSelected.players.reduce((counter, player) => ownedStickers.includes(player.id) ? counter + 1 : counter, 0)
+    }, [groupOfTeams, teamIndexSelected, teamsGroupSelected])
+
+    const handleSelectNewTeamGroup = useCallback((name: string) => {
+        setTeamsGroupSelected(name)
+        setTeamSelected(0)
+    }, [])
+
     const handleNextTeam = useCallback(() => {
-        if(teamSelected < groupOfTeams.length -1) {
-            setTeamSelected(teamSelected + 1);
+        if (teamIndexSelected < groupOfTeams.length - 1) {
+            setTeamSelected(teamIndexSelected + 1)
         }
-    }, [teamSelected, groupOfTeams])
+    }, [teamIndexSelected, groupOfTeams])
 
     const handlePreviewTeam = useCallback(() => {
-        if(teamSelected > 0) {
-            setTeamSelected(teamSelected - 1);
+        if (teamIndexSelected > 0) {
+            setTeamSelected(teamIndexSelected - 1)
         }
-    }, [teamSelected, groupOfTeams])
+    }, [teamIndexSelected, groupOfTeams])
 
     return (
         <AlbumContainer>
@@ -37,7 +58,7 @@ export const Album = () => {
                     {teamsNameList.map(({ name, title }, index) => (
                         <li
                             key={index}
-                            onClick={() => setTeamsGroupSelected(name)}
+                            onClick={() => handleSelectNewTeamGroup(name)}
                             className={name === teamsGroupSelected ? `selected` : ""}
                         >
                             {title}
@@ -53,13 +74,13 @@ export const Album = () => {
                         </p>
                         Pacotinho Disponivel
                     </Link>
-                    {groupOfTeams.map(({ icon, name }, index) => (
+                    {groupOfTeams.map(({ name }, index) => (
                         <li
                             key={index}
-                            className={teamSelected === index ? `selected` : ""}
+                            className={teamIndexSelected === index ? `selected` : ""}
                             onClick={() => setTeamSelected(index)}
                         >
-                            <img src={icon} alt="" />
+                            <img src={`/assets/img/icons/team-flags/${teamsGroupSelected.toLocaleLowerCase()}/${name.toLocaleLowerCase().replaceAll(" ", "-")}.svg`} alt="" />
                             {name}
                         </li>
                     ))}
@@ -71,56 +92,69 @@ export const Album = () => {
                     <div className="header">
                         <div className="header-counter">
                             <span className="current-counter">
-                                {
-                                    teamSelected.toString().length < 10
-                                        ? `0${teamSelected + 1}`
-                                        : teamSelected + 1
-                                }
+                                {ownedStikersAmount}
                             </span>
 
                             <span className="total-counter">
                                 /
                                 {
-                                    groupOfTeams.length < 10
-                                        ? `0${groupOfTeams.length}`
-                                        : groupOfTeams.length
+                                    currentTeamSelected.players?.length < 10
+                                        ? `0${currentTeamSelected.players?.length}`
+                                        : currentTeamSelected.players?.length
                                 }
                             </span>
 
                         </div>
 
                         <div className="header-title">
-                            <button onClick={handlePreviewTeam}>
-                                <img src="/assets/img/icons/arrow-left-white.svg" alt="" />
-                            </button>
-                            <span>{groupOfTeams[teamSelected]?.name}</span>
-                            <button onClick={handleNextTeam}>
-                                <img src="/assets/img/icons/arrow-right-white.svg" alt="" />
-                            </button>
+                            <div className="title">
+                                <button onClick={handlePreviewTeam}>
+                                    <img src="/assets/img/icons/arrow-left-white.svg" alt="" />
+                                </button>
+                                <span>{groupOfTeams[teamIndexSelected]?.name}</span>
+                                <button onClick={handleNextTeam}>
+                                    <img src="/assets/img/icons/arrow-right-white.svg" alt="" />
+                                </button>
+                            </div>
                         </div>
 
-                        <span></span>
+                        <span className="fill"></span>
                     </div>
 
-                    <div>
-                        <div>
+                    <div className="sticker-container">
+                        <div className="sticker-content">
+                            <div className="sticker-row">
+                                {currentTeamSelected?.players.map((sticker, index) => index < 6 && (
+                                    <Sticker
+                                        key={index}
+                                        stickerId={sticker.id}
+                                        rarity={sticker.rarity}
+                                        name={sticker.name}
+                                        country_id={currentTeamSelected.id}
+                                    />
+                                ))}
+                            </div>
 
-                        </div>
-                        <div>
-
-                        </div>
-                    </div>
-
-                    <div>
-                        <div>
-
-                        </div>
-                        <div>
-
+                            <div className="sticker-row">
+                                {currentTeamSelected?.players.map((sticker, index) => index >= 6 && (
+                                    <Sticker
+                                        key={index}
+                                        stickerId={sticker.id}
+                                        rarity={sticker.rarity}
+                                        name={sticker.name}
+                                        country_id={currentTeamSelected.id}
+                                    />
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
             </main>
+
+
         </AlbumContainer>
     )
 }
+
+
+

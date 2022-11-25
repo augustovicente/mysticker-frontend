@@ -1,46 +1,135 @@
 export const teamsIconList = [
     {
-        teamsGroupName: "all",
-        teams: []
-    },
-    {
-        teamsGroupName: "north-america",
+        teamsGroupName: "todos",
         teams: [
             {
-                icon: "/assets/img/icons/team-flags/america-norte/canada.svg",
                 name: "Canadá",
             },
             {
-                icon: "/assets/img/icons/team-flags/america-norte/costa-rica.svg",
                 name: "Costa Rica",
             },
             {
-                icon: "/assets/img/icons/team-flags/america-norte/mexico.svg",
                 name: "México",
             },
             {
-                icon: "/assets/img/icons/team-flags/america-norte/usa.svg",
-                name: "USA",
+                name: "Estados Unidos",
+            },
+            {
+                name: "Argentina",
+            },
+            {
+                name: "Brasil",
+            },
+            {
+                name: "Equador",
+            },
+            {
+                name: "Uruguai",
+            },
+            {
+                name: "Senegal",
+            },
+            {
+                name: "Tunísia",
+            },
+            {
+                name: "Camarões",
+            },
+            {
+                name: "Gana",
+            },
+            {
+                name: "Marrocos",
+            },
+            {
+                name: "Arábia Saudita",
+            },
+            {
+                name: "Coreia do sul",
+            },
+            {
+                name: "Iran",
+            },
+            {
+                name: "Japão",
+            },
+            {
+                name: "Qatar",
+            },
+            {
+                name: "Dinamarca",
+            },
+            {
+                name: "Espanha",
+            },
+            {
+                name: "França",
+            },
+            {
+                name: "Holanda",
+            },
+            {
+                name: "Inglaterra",
+            },
+            {
+                name: "País de gales",
+            },
+            {
+                name: "Polônia",
+            },
+            {
+                name: "Portugal",
+            },
+            {
+                name: "Sérvia",
+            },
+            {
+                name: "Suiça",
+            },
+            {
+                name: "Austrália",
+            },
+            {
+                name: "Alemanha",
+            },
+            {
+                name: "Bélgica",
+            },
+            {
+                name: "Croácia",
             },
         ]
     },
     {
-        teamsGroupName: "soulth-america",
+        teamsGroupName: "america-norte",
         teams: [
             {
-                icon: "/assets/img/icons/team-flags/america-sul/argentina.svg",
+                name: "Canadá",
+            },
+            {
+                name: "Costa Rica",
+            },
+            {
+                name: "México",
+            },
+            {
+                name: "Estados Unidos",
+            },
+        ]
+    },
+    {
+        teamsGroupName: "america-sul",
+        teams: [
+            {
                 name: "Argentina",
             },
             {
-                icon: "/assets/img/icons/team-flags/america-sul/brasil.svg",
                 name: "Brasil",
             },
             {
-                icon: "/assets/img/icons/team-flags/america-sul/equador.svg",
                 name: "Equador",
             },
             {
-                icon: "/assets/img/icons/team-flags/america-sul/uruguai.svg",
                 name: "Uruguai",
             },
         ]
@@ -48,19 +137,88 @@ export const teamsIconList = [
     {
         teamsGroupName: "africa",
         teams: [
-
+            {
+                name: "Senegal",
+            },
+            {
+                name: "Tunísia",
+            },
+            {
+                name: "Camarões",
+            },
+            {
+                name: "Gana",
+            },
+            {
+                name: "Marrocos",
+            },
         ]
     },
     {
         teamsGroupName: "asia",
         teams: [
-
+            {
+                name: "Arábia Saudita",
+            },
+            {
+                name: "Coreia do sul",
+            },
+            {
+                name: "Iran",
+            },
+            {
+                name: "Japão",
+            },
+            {
+                name: "Qatar",
+            },
         ]
     },
     {
         teamsGroupName: "europa",
         teams: [
-
+            {
+                name: "Dinamarca",
+            },
+            {
+                name: "Espanha",
+            },
+            {
+                name: "França",
+            },
+            {
+                name: "Holanda",
+            },
+            {
+                name: "Inglaterra",
+            },
+            {
+                name: "PAÍS DE GALES",
+            },
+            {
+                name: "Polônia",
+            },
+            {
+                name: "Portugal",
+            },
+            {
+                name: "Sérvia",
+            },
+            {
+                name: "Suiça",
+            },
+            {
+                name: "Austrália",
+            },
+            {
+                name: "Alemanha",
+            },
+            {
+                name: "Bélgica",
+            },
+            {
+                name: "Croácia",
+            },
         ]
     },
 ]
