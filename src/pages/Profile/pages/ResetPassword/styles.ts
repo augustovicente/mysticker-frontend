@@ -4,6 +4,7 @@ export const Container = styled.section`
     margin-top: 164px;
     display: grid;
     gap: 54px;
+    padding: 0 80px 80px 80px;
 
     header {
         display: flex;
@@ -155,6 +156,7 @@ export const Container = styled.section`
     }
 
     @media (max-width: 768px) {
+        padding: unset;
         div {
             width: 100%;
         }

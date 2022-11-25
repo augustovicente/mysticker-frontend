@@ -4,23 +4,24 @@ import $ from 'jquery';
 import "./Header.css";
 import { LoginButton } from './components/LoginButton';
 import { DefaultButton } from './components/DefaultButton';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from 'contexts/auth.context';
-import { Avatar, Menu, Radio, Space } from 'antd';
+import { Avatar, Button, Menu, Radio, Space } from 'antd';
 import i18n from 'i18n';
 import * as S from './styles';
+import { MobileNav } from './components/MobileNav/MobileNav';
+import { ReactComponent as DiscordIcon } from 'assets/imgs/discord.svg';
+import { ReactComponent as TwitterIcon } from 'assets/imgs/twitter.svg';
+import { ReactComponent as OpenseaIcon } from 'assets/imgs/opensea.svg';
+import { ReactComponent as InstagramIcon } from 'assets/imgs/instagram.svg';
+import { connect_wallet } from 'models/User';
 
 const Header = (props) => {
-    const { user } = useAuth();
+    const { user, signOut } = useAuth();
     const { hasContainer = true } = props;
     const location = useLocation();
 
     useEffect(() => {
-        //SubMenu Dropdown Toggle
-        if ($('.menu-area li.menu-item-has-children ul').length) {
-            $('.menu-area .navigation li.menu-item-has-children').append('<div class="dropdown-btn"><span class="fas fa-angle-down"></span></div>');
-        }
-
         //Mobile Nav Hide Show
         if ($('.mobile-menu').length) {
 
@@ -31,6 +32,8 @@ const Header = (props) => {
             $('.mobile-menu li.menu-item-has-children .dropdown-btn').on('click', function () {
                 $(this).toggleClass('open');
                 $(this).prev('ul').slideToggle(500);
+
+                $('body').css('overflow', 'hidden');
             });
 
             $('.menu-backdrop, .mobile-menu .close-btn').click(() => {
@@ -86,42 +89,101 @@ const Header = (props) => {
     }, []);
 
     const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
+    const [selectedMenu, setSelectedMenu] = useState(null);
+    const navigate = useNavigate();
 
-    const onChange = (e) => {
-        i18n.changeLanguage(e.target.value)
+    const handleChangeLanguage = (e) => {
         setSelectedLanguage(e.target.value);
+        i18n.changeLanguage(e.target.value)
     };
 
-    function getItem(label, key, icon, children) {
-        return {
-            key,
-            icon,
-            children,
-            label,
-        };
+    const handleLogin = () => {
+        $('body').removeClass('mobile-menu-visible');
+        navigate('/login');
     }
-    const items = [
-        getItem('Linguagem', '1', <i className="fi-sr-home"></i>),
-        getItem('Whitepaper', '2', <i className="fi-sr-home"></i>),
-        getItem('Carteira', 'sub1', <i className="fi-sr-home"></i>, [
-            getItem('Option 3', '3'),
-            getItem('Option 4', '4'),
-            getItem('Submenu', 'sub1-2', null, [getItem('Option 5', '5'), getItem('Option 6', '6')]),
-        ]),
-        getItem('Prêmios', 'sub2', <i className="fi-sr-home"></i>, [
-            getItem('Option 7', '7'),
-            getItem('Option 8', '8'),
-            getItem('Option 9', '9'),
-            getItem('Option 10', '10'),
-        ]),
-        getItem('Notificações', 'sub3', <i className="fi-sr-home"></i>, [
-            getItem('Option 11', '7'),
-            getItem('Option 12', '8'),
-            getItem('Option 13', '9'),
-            getItem('Option 14', '10'),
-        ]),
-        getItem('Sair', 'logout', <i className="fi-sr-home"></i>),
-    ];
+
+    const menuItems = [
+        {
+            id: 'language',
+            icon: '/assets/img/icons/browser-icon.svg',
+            title: 'Linguagem',
+            selectedMenu: selectedMenu,
+            setSelectedMenu: setSelectedMenu,
+            children: (
+                <Radio.Group
+                    style={{ display: 'flex', flexDirection: 'column', padding: 0, gap: '18px' }}
+                    onChange={handleChangeLanguage}
+                    value={selectedLanguage}
+                >
+                    <Radio value='pt-BR'>PT - BR</Radio>
+                    <Radio value='en-US'>EN - US</Radio>
+                </Radio.Group>
+            )
+        },
+        {
+            id: 'whitepaper',
+            icon: '/assets/img/icons/open-link-icon.svg',
+            title: 'Whitepaper',
+            selectedMenu,
+            onClick: () => {
+                $('body').removeClass('mobile-menu-visible');
+                window.open('https://www.google.com.br', '_blank')
+            }
+        },
+        {
+            id: 'wallet',
+            icon: '/assets/img/icons/wallet-icon.svg',
+            title: 'Carteira',
+            selectedMenu: selectedMenu,
+            setSelectedMenu: setSelectedMenu,
+            needsAuth: true,
+            children: (
+                <>
+                    <Button onClick={() => connect_wallet()}>
+                        CONECTAR CARTEIRA
+                    </Button>
+                </>
+            )
+        },
+        {
+            id: 'rewards',
+            icon: '/assets/img/icons/gift-icon.svg',
+            title: 'Prêmios',
+            // selectedMenu,
+            // setSelectedMenu,
+            needsAuth: true,
+            children: (
+                <>
+                    <h1>minha carteira</h1>
+                </>
+            )
+        },
+        {
+            id: 'notifications',
+            icon: '/assets/img/icons/notification-icon.svg',
+            title: 'Notificações',
+            // selectedMenu,
+            // setSelectedMenu,
+            needsAuth: true,
+            children: (
+                <>
+                    <h1>minha carteira</h1>
+                </>
+            )
+        },
+        {
+            id: 'logout',
+            icon: '/assets/img/icons/sign-out.svg',
+            title: 'Sair',
+            selectedMenu,
+            setSelectedMenu,
+            needsAuth: true,
+            onClick: () => {
+                $('body').removeClass('mobile-menu-visible');
+                signOut();
+            }
+        },
+    ]
 
     return (
         <header className='main-header'>
@@ -142,7 +204,7 @@ const Header = (props) => {
                                     </div>
                                     <div className="navbar-wrap push-menu main-menu d-none d-lg-flex">
                                     </div>
-                                    <div className="header-action d-none d-sm-none d-lg-block">
+                                    <div className="header-action d-none d-lg-block">
                                         <ul>
                                             {
                                                 user && (
@@ -179,7 +241,7 @@ const Header = (props) => {
                                             </li>
                                             <li>
                                                 <DefaultButton title='Idioma' icon="/assets/img/icons/browser-icon.svg">
-                                                    <Radio.Group onChange={onChange} value={selectedLanguage}>
+                                                    <Radio.Group onChange={handleChangeLanguage} value={selectedLanguage}>
                                                         <Space className='container-languages' direction="vertical">
                                                             <Radio value='pt-BR'>PT - BR</Radio>
                                                             <Radio value='en-US'>EN - US</Radio>
@@ -195,8 +257,8 @@ const Header = (props) => {
 
                                 </nav>
                             </div>
-                            {/* Mobile Menu  */}
 
+                            {/* Mobile Menu  */}
                             <div className="mobile-menu">
                                 <nav className="menu-box">
                                     <div className="close-btn"><i className="fas fa-times" /></div>
@@ -204,36 +266,69 @@ const Header = (props) => {
                                     </div>
 
                                     <S.MobileNav>
-                                        <header>
-                                            <div className="avatar">
-                                                <i className="fi-sr-user"></i>
-                                            </div>
-
-                                            <h5>{user?.name}</h5>
-                                        </header>
-
                                         <main>
-                                            <Menu
-                                                style={{ width: 256 }}
-                                                defaultSelectedKeys={['1']}
-                                                defaultOpenKeys={['sub1']}
-                                                mode="inline"
-                                                theme='dark'
-                                                items={items}
-                                            />
+                                            <header>
+                                                {user ? (
+                                                    <>
+                                                        <div className="avatar">
+                                                            <img src="/assets/img/use-avatar.svg" alt="" />
+                                                        </div>
+
+                                                        <h5>{user?.name}</h5>
+                                                    </>
+                                                ) : (
+                                                    <button onClick={handleLogin} className='not-logged'>
+                                                        <>
+                                                            <div className="avatar">
+                                                                <img src="/assets/img/use-avatar.svg" alt="" />
+                                                            </div>
+                                                        </>
+                                                        <h5>Faça login</h5>
+                                                    </button>
+                                                )}
+                                            </header>
+
+                                            <ul>
+                                                {menuItems.map(item => (
+                                                    <MobileNav
+                                                        id={item.id}
+                                                        icon={item.icon}
+                                                        title={item.title}
+                                                        children={item.children}
+                                                        selectedMenu={item.selectedMenu}
+                                                        setSelectedMenu={item.setSelectedMenu}
+                                                        onClick={item.onClick}
+                                                        needsAuth={item.needsAuth}
+                                                    />
+                                                ))}
+                                            </ul>
                                         </main>
 
+                                        <footer>
+                                            <ul>
+                                                <li>
+                                                    <a href="https://google.com" target="blank">
+                                                        <DiscordIcon />
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://google.com" target="blank">
+                                                        <TwitterIcon />
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://google.com" target="blank">
+                                                        <OpenseaIcon />
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="https://google.com" target="blank">
+                                                        <InstagramIcon />
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </footer>
                                     </S.MobileNav>
-
-                                    <div className="social-links">
-                                        <ul className="clearfix">
-                                            <li><a href="/#"><span className="fab fa-twitter" /></a></li>
-                                            <li><a href="/#"><span className="fab fa-facebook-square" /></a></li>
-                                            <li><a href="/#"><span className="fab fa-pinterest-p" /></a></li>
-                                            <li><a href="/#"><span className="fab fa-instagram" /></a></li>
-                                            <li><a href="/#"><span className="fab fa-youtube" /></a></li>
-                                        </ul>
-                                    </div>
                                 </nav>
                             </div>
                             <div className="menu-backdrop" />

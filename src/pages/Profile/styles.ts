@@ -2,9 +2,10 @@ import Skeleton from 'react-loading-skeleton';
 import styled from 'styled-components';
 
 export const Container = styled.section`
-    margin-top: 164px;
+    margin-top: 8rem;
     display: grid;
     gap: 54px;
+    padding: 0 80px 80px 80px;
 
     header {
         display: flex;
@@ -241,6 +242,7 @@ export const Container = styled.section`
     }
 
     @media (max-width: 768px) {
+        padding: unset;
         header {
             display: none;
         }
