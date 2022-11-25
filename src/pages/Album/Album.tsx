@@ -1,8 +1,28 @@
 import { useCallback, useState, useMemo } from "react"
 import { Link } from "react-router-dom"
+import { Sticker } from "./components/Sticker"
 import { teamsIconList } from "./mocks/teamsIconList"
 import { teamsNameList } from "./mocks/teamsNameList"
 import { AlbumContainer } from "./styles"
+
+const userOwnedStickers = [
+    {
+        teamsGroupName: "north-america",
+        teams: [
+            {
+                name: "Canadá",
+                players: [
+                    {
+                        id: 1,
+                    },
+                    {
+                        id: 2,
+                    },
+                ]
+            }
+        ]
+    }
+]
 
 export const Album = () => {
     const [teamsGroupSelected, setTeamsGroupSelected] = useState("all")
@@ -13,14 +33,18 @@ export const Album = () => {
         return group[0].teams
     }, [teamsGroupSelected])
 
+    const currentPlayer = useMemo(() => {
+        return groupOfTeams[teamSelected]?.players.map((player) => player.id === 1)
+    }, [teamsGroupSelected])
+
     const handleNextTeam = useCallback(() => {
-        if(teamSelected < groupOfTeams.length -1) {
+        if (teamSelected < groupOfTeams.length - 1) {
             setTeamSelected(teamSelected + 1);
         }
     }, [teamSelected, groupOfTeams])
 
     const handlePreviewTeam = useCallback(() => {
-        if(teamSelected > 0) {
+        if (teamSelected > 0) {
             setTeamSelected(teamSelected - 1);
         }
     }, [teamSelected, groupOfTeams])
@@ -90,37 +114,39 @@ export const Album = () => {
                         </div>
 
                         <div className="header-title">
-                            <button onClick={handlePreviewTeam}>
-                                <img src="/assets/img/icons/arrow-left-white.svg" alt="" />
-                            </button>
-                            <span>{groupOfTeams[teamSelected]?.name}</span>
-                            <button onClick={handleNextTeam}>
-                                <img src="/assets/img/icons/arrow-right-white.svg" alt="" />
-                            </button>
+                            <div className="title">
+                                <button onClick={handlePreviewTeam}>
+                                    <img src="/assets/img/icons/arrow-left-white.svg" alt="" />
+                                </button>
+                                <span>{groupOfTeams[teamSelected]?.name}</span>
+                                <button onClick={handleNextTeam}>
+                                    <img src="/assets/img/icons/arrow-right-white.svg" alt="" />
+                                </button>
+                            </div>
                         </div>
 
-                        <span></span>
+                        <span className="fill"></span>
                     </div>
 
-                    <div>
-                        <div>
-
-                        </div>
-                        <div>
-
-                        </div>
-                    </div>
-
-                    <div>
-                        <div>
-
-                        </div>
-                        <div>
+                    <div className="sticker-container">
+                        <div className="sticker-content">
+                            <div className="sticker-row">
+                                {groupOfTeams[teamSelected]?.players.map((sticker, index) => (
+                                    <Sticker
+                                        teamsGroupSelected={teamsGroupSelected}
+                                        team={groupOfTeams[teamSelected]}
+                                        key={index}
+                                        stickerId={sticker.id}
+                                    />
+                                ))}
+                            </div>
 
                         </div>
                     </div>
                 </div>
             </main>
+
+
         </AlbumContainer>
     )
 }

@@ -1,10 +1,12 @@
 import styled from "styled-components"
+import { Modal } from 'antd'
 
 export const AlbumContainer = styled.div`
     margin-top: 164px;
     padding-bottom: 94px;
     display: grid;
     padding: 0 80px 80px 80px;
+    position: relative;
 
     .album-header-container {
         display: flex;
@@ -114,7 +116,6 @@ export const AlbumContainer = styled.div`
     .album-main-content-container {
         display: flex;
         width: 100%;
-        height: 1029px;
         background: ${props => props.theme.colors.geenDark};
         border: 5px solid ${props => props.theme.colors.blue};
         border-radius: 1.125rem;
@@ -129,7 +130,7 @@ export const AlbumContainer = styled.div`
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
-            padding: 10px 34px;
+            padding: 10px 34px 75px 34px;
 
             .header {
                 display: flex;
@@ -147,6 +148,7 @@ export const AlbumContainer = styled.div`
 
                 .header-counter {
                     display: flex;
+                    flex: 1;
                     align-items: center;
                     height: 80px;
 
@@ -162,15 +164,307 @@ export const AlbumContainer = styled.div`
 
                 .header-title {
                     display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 11px 27px;
-                    border-radius: 12px;
-                    height: 50px;
-                    min-width: 329px;
-                    background: linear-gradient(to right, rgba(70, 148, 255, 1), rgba(181, 59, 254, 1));
+                    justify-content: center;
+                    flex: 1;
+
+                    .title {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 11px 27px;
+                        border-radius: 12px;
+                        height: 50px;
+                        min-width: 329px;
+                        background: linear-gradient(to right, rgba(70, 148, 255, 1), rgba(181, 59, 254, 1));
+                    }
+                }
+
+                .fill {
+                    flex: 1;
                 }
             }
+
+            .sticker-container {
+                display: flex;
+                margin-top: 81px;
+                justify-content: space-between;
+
+                .sticker-content {
+                    display: flex;
+                    width: 100%;
+                    flex-direction: column;
+                    gap: 42px;
+
+                    .sticker-row {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 20px;
+
+                        .sticker {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            position: relative;
+                            width: 115.0px;
+                            height: 152.96px;
+                            border: white 3px solid;
+                            border-radius: 8px;
+                            cursor: pointer;
+                            background: ${props => props.theme.colors.dark};
+
+                            span {
+                                font-size: 10px;
+                                font-weight: bold;
+                                position: absolute;
+                                top: 3px;
+                                right: 12px;
+                                background-image: linear-gradient(to right, rgba(70, 148, 255, 1), rgba(48, 229, 132, 1));
+                                background-clip: text;
+                                -webkit-background-clip: text;
+                                -webkit-text-fill-color: transparent;
+                            }
+
+                            img {
+                                width: 72.16px;
+                                height: 78.93px;
+                            }
+
+                            .add-icon {
+                                position: absolute;
+                                height: 37px;
+                                width: 37px;
+                            }
+
+                            .player-img {
+                                display: flex;
+                                position: absolute;
+                                top: -5px;
+                                height: 146.77px;
+                                width: 90%;
+                            }
+
+                            .player-tier {
+                                display: flex;
+                                position: absolute;
+                                height: 42.91px;
+                                width: 27.71px;
+                                bottom: -15px;
+                                right: 3px;
+                                z-index: 2;
+                            }
+
+                            .player-base-tier {
+                                display: flex;
+                                position: absolute;
+                                width: 100%;
+                                height: 11px;
+                                bottom: 6.5px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+`
+
+export const AlbumModal = styled(Modal)`
+    top: 20vh;
+    width: 296px !important;
+    border: 2px rgba(255, 255, 255, .3) solid;
+    padding: 22px 20px;
+    background: ${props => props.theme.colors.geenDark};
+    border-radius: 10px;
+
+    .ant-modal-content {
+        height: 100%;
+        border: 2px rgba(255, 255, 255, .3) solid;
+        background: ${props => props.theme.colors.geenDark};
+
+        .ant-modal-body {
+            .sticker {
+                transition: none !important;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                width: 100%;
+                height: 259.3px;
+                border: white 3px solid;
+                border-radius: 8px;
+                cursor: pointer;
+                background: ${props => props.theme.colors.dark};
+
+                span {
+                    font-size: 1.25rem;
+                    font-weight: bold;
+                    position: absolute;
+                    top: 3px;
+                    right: 12px;
+                    background-image: linear-gradient(to right, rgba(70, 148, 255, 1), rgba(48, 229, 132, 1));
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+
+                img {
+                    width: 132px;
+                    height: 144px;
+                }
+
+                .add-icon {
+                    position: absolute;
+                    height: 68px;
+                    width: 68px;
+                }
+
+                .player-img {
+                    display: flex;
+                    position: absolute;
+                    top: -6px;
+                    height: 100%;
+                    width: 93%;
+                }
+
+                .player-tier {
+                    display: flex;
+                    position: absolute;
+                    height: 78.21px;
+                    width: 50.4px;
+                    bottom: -28px;
+                    right: 8px;
+                    z-index: 2;
+                }
+
+                .player-base-tier {
+                    display: flex;
+                    position: absolute;
+                    width: 100%;
+                    height: 20px;
+                    bottom: 6.5px;
+                }
+            }
+
+            .rarity-number {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-top: .5rem;
+
+                .rarity {
+                    display: flex;
+                    flex-direction: column;
+                    font-size: 15px;
+                    color: white;
+
+                    span {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: 4px;
+                        font-size: 15px;
+                        font-weight: bold;
+                        text-transform: uppercase;
+                        color: ${props => props.theme.colors.middle};
+                        background: ${props => props.theme.colors.yellow};
+                        letter-spacing: 0px;
+                    }
+                }
+
+                span {
+                    font-size: 2.813rem;
+                    color: white;
+                    font-weight: bold;
+                    letter-spacing: -2px;
+                }
+            }
+
+            .next-preview-sticker {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                position: relative;
+                margin-top: 0.5rem;
+
+                .next-preview {
+                    display: flex;
+                    justify-content: space-between;
+                    width: 70%;
+                    padding: 8px 28px;
+                    background: ${props => props.theme.colors.colorMiddle};
+                    border-radius: 30px;
+                    z-index: 2;
+
+                    button {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        background: transparent;
+                    }
+                }
+
+                .next-preview-line {
+                    position: absolute;
+                    display: flex;
+                    width: 100%;
+                    height: 2px;
+                    content: "";
+                    background: ${props => props.theme.colors.lightGrey};
+                }
+            }
+
+            .paste-sell-buy-container {
+                display: flex;
+                flex-direction: column;
+                gap: 13px;
+                margin-top: 22px;
+
+                .paste-sell-buy-btn {
+                    display: flex;
+                    justify-content: center;
+                    align-content: center;
+                    width: 100%;
+                    color: white;
+                    background: transparent;
+                    border: 2px ${props => props.theme.colors.lightGrey} solid;
+                    height: 43px;
+                    border-radius: 8px;
+
+                    img {
+                        flex: 1;
+                        align-self: center;
+                        max-height: 24px;
+                    }
+
+                    p {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100%;
+                        text-align: center;
+                        flex: 1;
+                        font-weight: bold;
+                        font-size: 0.75rem;
+                        margin: 0;
+                        text-transform: uppercase;
+                    }
+
+                    span {
+                        display: flex;
+                        align-self: center;
+                        flex: 1;
+                    }
+
+                    &[disabled] {
+                        cursor: not-allowed;
+                    }
+                }
+            }
+        }
+
+        .ant-modal-footer {
+            display: none;
         }
     }
 `
