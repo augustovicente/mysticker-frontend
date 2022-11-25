@@ -1,89 +1,98 @@
-import { useCallback, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
-import { AlbumModal } from "../styles";
+import { paste_stickers } from "models/User"
+import { useCallback, useState } from "react"
+import { Link } from "react-router-dom"
+import { AlbumModal, StikerContainer } from "../styles"
 
 type StickerProps = {
-    stickerId: number;
-    rarity: number;
-    name: string;
+    stickerId: number
+    rarity: number
+    name: string
+    country_id: number;
 }
 
-export const Sticker = ({ stickerId, name, rarity }: StickerProps) => {
-    const [isModalOpen, setIsModalOpen] = useState(true);
+const ownedStickers: number[] = [
+    263,
+    262
+]
+
+const pastedStickers: number[] = [
+    262,
+]
+
+export const Sticker = ({ stickerId, name, rarity, country_id }: StickerProps) => {
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const [playerSelected, setPlayerSelected] = useState(stickerId)
 
+    const handlePasteSticker = useCallback(() => {
+        paste_stickers(country_id);
+    }, [])
+
     const showModal = () => {
-        setIsModalOpen(true);
-    };
+        setIsModalOpen(true)
+    }
 
     const handleOk = () => {
-        setIsModalOpen(false);
-    };
+        setIsModalOpen(false)
+    }
 
     const handleCancel = () => {
-        setIsModalOpen(false);
-    };
+        setIsModalOpen(false)
+    }
 
     const handleNextPlayer = useCallback(() => {
         if (playerSelected < 12) {
-            setPlayerSelected(playerSelected + 1);
+            setPlayerSelected(playerSelected + 1)
         }
     }, [playerSelected])
 
     const handlePreviewPlayer = useCallback(() => {
         if (playerSelected > 1) {
-            setPlayerSelected(playerSelected - 1);
+            setPlayerSelected(playerSelected - 1)
         }
     }, [playerSelected])
 
     return (
         <>
-            <div
+            <StikerContainer
                 className="sticker"
                 onClick={showModal}
+                pasted={pastedStickers.includes(stickerId)}
             >
-
-                <img className="player-img" src={`/copa_pruu/${stickerId}.png`} alt={name} />
-                <img className="player-tier" src={`/assets/img/icons/tier-${rarity}-icon.svg`} />
-                <img className="player-base-tier" src={`/assets/img/icons/tier-base-${rarity}-icon.svg`} />
-
-                {/* {currentPlayer[stickerId - 1] ? (
+                {ownedStickers.includes(stickerId) ? (
                     <>
-                        <img className="player-img" src="/assets/img/icons/team-players/player.svg" />
-                        <img className="player-tier" src="/assets/img/icons/tier-gold-icon.svg" />
-                        <img className="player-base-tier" src="/assets/img/icons/tier-base-gold-icon.svg" />
+                        <img className="player-img" src={`/copa_pruu/${stickerId}.png`} alt={name} />
+                        <img className="player-tier" src={`/assets/img/icons/tier-${rarity}-icon.svg`} />
+                        <img className="player-base-tier" src={`/assets/img/icons/tier-base-${rarity}-icon.svg`} />
                     </>
                 ) : (
+
                     <>
                         <span>{`#0${stickerId}`}</span>
                         <img className="add-icon" src="/assets/img/icons/add-icon.svg" />
                         <img src="/assets/img/icons/paste-sticker-action-icon.svg" />
                     </>
-                )} */}
+                )}
 
-            </div>
+            </StikerContainer>
 
             <AlbumModal title="" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 <div
                     className="sticker"
                 >
-
-                    <img className="player-img" src={`/copa_pruu/${stickerId}.png`} alt={name} />
-                    <img className="player-tier" src={`/assets/img/icons/tier-${rarity}-icon.svg`} />
-                    <img className="player-base-tier" src={`/assets/img/icons/tier-base-${rarity}-icon.svg`} />
-                    {/* {currentPlayer[playerSelected - 1] ? (
+                    {ownedStickers.includes(stickerId) ? (
                         <>
-                            <img className="player-img" src="/assets/img/icons/team-players/player.svg" />
-                            <img className="player-tier" src="/assets/img/icons/tier-gold-icon.svg" />
-                            <img className="player-base-tier" src="/assets/img/icons/tier-base-gold-icon.svg" />
+                            <img className="player-img" src={`/copa_pruu/${stickerId}.png`} alt={name} />
+                            <img className="player-tier" src={`/assets/img/icons/tier-${rarity}-icon.svg`} />
+                            <img className="player-base-tier" src={`/assets/img/icons/tier-base-${rarity}-icon.svg`} />
                         </>
                     ) : (
+
                         <>
-                            <span>{`#0${playerSelected}`}</span>
+                            <span>{`#0${stickerId}`}</span>
                             <img className="add-icon" src="/assets/img/icons/add-icon.svg" />
                             <img src="/assets/img/icons/paste-sticker-action-icon.svg" />
                         </>
-                    )} */}
+                    )}
                 </div>
 
                 <div className="rarity-number">
@@ -118,13 +127,26 @@ export const Sticker = ({ stickerId, name, rarity }: StickerProps) => {
                 </div>
 
                 <div className="paste-sell-buy-container">
-                    <button className="paste-sell-buy-btn">
-                        <img src="/assets/img/icons/paste-burn-green-icon.svg" />
+                    {!pastedStickers.includes(stickerId) && (
+                        <button
+                            disabled={!ownedStickers.includes(stickerId)}
+                            className="paste-sell-buy-btn"
+                            onClick={() => ownedStickers.includes(stickerId) ? handlePasteSticker : {}}
+                        >
+                            <img src="/assets/img/icons/paste-burn-green-icon.svg" />
 
-                        <p>Colar</p>
+                            <p>Colar</p>
 
-                        <span />
-                    </button>
+                            {!ownedStickers.includes(stickerId) ? (
+                                <span>
+                                    <img src="/src/assets/imgs/lock.svg" />
+                                </span>
+                            ) : (
+                                <span />
+                            )}
+                        </button>
+                    )}
+
                     <button className="paste-sell-buy-btn" disabled={true}>
                         <img src="/assets/img/icons/sell-green-icon.svg" />
 

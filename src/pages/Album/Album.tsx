@@ -6,6 +6,11 @@ import { teamsNameList } from "./mocks/teamsNameList"
 import { AlbumContainer } from "./styles"
 import { stickers } from "./mocks/stickers"
 
+const ownedStickers: number[] = [
+    263,
+    262
+]
+
 export const Album = () => {
     const [teamsGroupSelected, setTeamsGroupSelected] = useState("todos")
     const [teamIndexSelected, setTeamSelected] = useState(0)
@@ -16,8 +21,12 @@ export const Album = () => {
     }, [teamsGroupSelected])
 
     const currentTeamSelected = useMemo(() => {
-        const players = stickers.filter(({country, players}) => country.toLocaleLowerCase().replaceAll(" ", "-") === groupOfTeams[teamIndexSelected].name.toLocaleLowerCase().replaceAll(" ", "-") && players)
+        const players = stickers.filter(({ country, players }) => country.toLocaleLowerCase().replaceAll(" ", "-") === groupOfTeams[teamIndexSelected].name.toLocaleLowerCase().replaceAll(" ", "-") && players)
         return players[0]
+    }, [groupOfTeams, teamIndexSelected, teamsGroupSelected])
+
+    const ownedStikersAmount = useMemo(() => {
+        return currentTeamSelected.players.reduce((counter, player) => ownedStickers.includes(player.id) ? counter + 1 : counter, 0)
     }, [groupOfTeams, teamIndexSelected, teamsGroupSelected])
 
     const handleSelectNewTeamGroup = useCallback((name: string) => {
@@ -27,13 +36,13 @@ export const Album = () => {
 
     const handleNextTeam = useCallback(() => {
         if (teamIndexSelected < groupOfTeams.length - 1) {
-            setTeamSelected(teamIndexSelected + 1);
+            setTeamSelected(teamIndexSelected + 1)
         }
     }, [teamIndexSelected, groupOfTeams])
 
     const handlePreviewTeam = useCallback(() => {
         if (teamIndexSelected > 0) {
-            setTeamSelected(teamIndexSelected - 1);
+            setTeamSelected(teamIndexSelected - 1)
         }
     }, [teamIndexSelected, groupOfTeams])
 
@@ -83,9 +92,7 @@ export const Album = () => {
                     <div className="header">
                         <div className="header-counter">
                             <span className="current-counter">
-                                {
-                                    0
-                                }
+                                {ownedStikersAmount}
                             </span>
 
                             <span className="total-counter">
@@ -117,26 +124,28 @@ export const Album = () => {
                     <div className="sticker-container">
                         <div className="sticker-content">
                             <div className="sticker-row">
-                                 {currentTeamSelected?.players.map((sticker, index) => index < 6 && (
-                                     <Sticker
-                                         key={index}
-                                         stickerId={sticker.id}
-                                         rarity={sticker.rarity}
-                                         name={sticker.name}
-                                     />
-                                 ))}
-                             </div>
+                                {currentTeamSelected?.players.map((sticker, index) => index < 6 && (
+                                    <Sticker
+                                        key={index}
+                                        stickerId={sticker.id}
+                                        rarity={sticker.rarity}
+                                        name={sticker.name}
+                                        country_id={currentTeamSelected.id}
+                                    />
+                                ))}
+                            </div>
 
-                             <div className="sticker-row">
-                                 {currentTeamSelected?.players.map((sticker, index) => index >= 6 && (
-                                     <Sticker
-                                         key={index}
-                                         stickerId={sticker.id}
-                                         rarity={sticker.rarity}
-                                         name={sticker.name}
-                                     />
-                                 ))}
-                             </div>
+                            <div className="sticker-row">
+                                {currentTeamSelected?.players.map((sticker, index) => index >= 6 && (
+                                    <Sticker
+                                        key={index}
+                                        stickerId={sticker.id}
+                                        rarity={sticker.rarity}
+                                        name={sticker.name}
+                                        country_id={currentTeamSelected.id}
+                                    />
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,10 @@
 import styled from "styled-components"
 import { Modal } from 'antd'
 
+type StickerProps = {
+    pasted: boolean;
+}
+
 export const AlbumContainer = styled.div`
     margin-top: 164px;
     padding-bottom: 94px;
@@ -204,67 +208,7 @@ export const AlbumContainer = styled.div`
                         max-width: 30%;
                         gap: 20px;
 
-                        .sticker {
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            position: relative;
-                            width: 115.0px;
-                            height: 152.96px;
-                            border: white 3px solid;
-                            border-radius: 8px;
-                            cursor: pointer;
-                            background: ${props => props.theme.colors.dark};
 
-                            span {
-                                font-size: 10px;
-                                font-weight: bold;
-                                position: absolute;
-                                top: 3px;
-                                right: 12px;
-                                background-image: linear-gradient(to right, rgba(70, 148, 255, 1), rgba(48, 229, 132, 1));
-                                background-clip: text;
-                                -webkit-background-clip: text;
-                                -webkit-text-fill-color: transparent;
-                            }
-
-                            img {
-                                width: 72.16px;
-                                height: 78.93px;
-                            }
-
-                            .add-icon {
-                                position: absolute;
-                                height: 37px;
-                                width: 37px;
-                            }
-
-                            .player-img {
-                                display: flex;
-                                position: absolute;
-                                top: 5px;
-                                height: 85%;
-                                width: 90%;
-                            }
-
-                            .player-tier {
-                                display: flex;
-                                position: absolute;
-                                height: 42.91px;
-                                width: 27.71px;
-                                bottom: -15px;
-                                right: 3px;
-                                z-index: 2;
-                            }
-
-                            .player-base-tier {
-                                display: flex;
-                                position: absolute;
-                                width: 100%;
-                                height: 11px;
-                                bottom: 6.5px;
-                            }
-                        }
                     }
                 }
             }
@@ -474,5 +418,78 @@ export const AlbumModal = styled(Modal)`
         .ant-modal-footer {
             display: none;
         }
+    }
+`
+
+export const StikerContainer = styled.div<StickerProps>`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    ${props => props.pasted
+        ?
+            `
+                width: 104.08px;
+                height: 144.6px;
+            `
+        :
+            `
+                width: 120.0px;
+                height: 162.96px;
+                border: white 3px solid;
+            `
+    }
+    border-radius: 8px;
+    cursor: pointer;
+    background: ${props => props.theme.colors.dark};
+
+    span {
+        font-size: 10px;
+        font-weight: bold;
+        position: absolute;
+        top: 3px;
+        right: 12px;
+        background-image: linear-gradient(to right, rgba(70, 148, 255, 1), rgba(48, 229, 132, 1));
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    img {
+        width: 72.16px;
+        height: 78.93px;
+    }
+
+    .add-icon {
+        position: absolute;
+        height: 37px;
+        width: 37px;
+    }
+
+    .player-img {
+        display: flex;
+        position: absolute;
+        top: 5px;
+        height: 85%;
+        width: 90%;
+    }
+
+    .player-tier {
+        display: flex;
+        position: absolute;
+        height: 42.91px;
+        width: 27.71px;
+        bottom: -15px;
+        right: 3px;
+        z-index: 2;
+    }
+
+    .player-base-tier {
+        display: flex;
+        position: absolute;
+        width: 100%;
+        height: 11px;
+        bottom: 8px;
     }
 `
