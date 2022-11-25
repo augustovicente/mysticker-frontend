@@ -23,31 +23,35 @@ export const MyPackages = () => {
 
     const onSubmitReveal = async (numberType: number) =>
     {
-        setIsLoading(true)
-        const amount_available = numberType == 3
-            ? availablePackages?.diamond
-            : numberType == 2
-                ? availablePackages?.obsidian
-                : availablePackages?.esmerald;
+        if(count > 0)
+        {
 
-        if (amount_available && count > amount_available)
-        {
-            setIsLoading(false)
-            return toast.error("Você não possui pacotes suficientes para revelar");
-        }
-        else
-        {
-            try {
-                const response = await open_package(numberType);
-                console.log({ response });
-                setIsLoading(false)
-            }
-            catch (error)
+            setIsLoading(true)
+            const amount_available = numberType == 3
+                ? availablePackages?.diamond
+                : numberType == 2
+                    ? availablePackages?.obsidian
+                    : availablePackages?.esmerald;
+    
+            if (amount_available && count > amount_available)
             {
-                console.log({ error })
                 setIsLoading(false)
+                return toast.error("Você não possui pacotes suficientes para revelar");
             }
-            update_packages();
+            else
+            {
+                try {
+                    const response = await open_package(numberType);
+                    console.log({ response });
+                    setIsLoading(false)
+                }
+                catch (error)
+                {
+                    console.log({ error })
+                    setIsLoading(false)
+                }
+                update_packages();
+            }
         }
     }
 
