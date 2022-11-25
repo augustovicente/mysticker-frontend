@@ -6,11 +6,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as SettingsIcon } from "assets/imgs/settings.svg";
 import { ReactComponent as WalletIcon } from "assets/imgs/wallet.svg";
 import { ReactComponent as SignoutIcon } from "assets/imgs/sign-out.svg";
+import { useState } from "react";
 
 export const LoginButton = () => {
     const { user, signOut } = useAuth();
     const theme = useTheme();
     const navigate = useNavigate();
+    const [showTooltip, setShowTooltip] = useState(false);
 
     const handleOnClick = () => {
         if (!user) {
@@ -62,6 +64,8 @@ export const LoginButton = () => {
             placement="bottom"
             color={theme.colors.middleL}
             title={user && "Perfil"}
+            open={showTooltip}
+            onOpenChange={setShowTooltip}
         >
             <Popover
                 placement="topLeft"
@@ -70,6 +74,7 @@ export const LoginButton = () => {
                 zIndex={9999}
                 showArrow={false}
                 color="#1d1733"
+                onOpenChange={() => setShowTooltip(false)}
             >
                 <S.LoginButtonContainer onClick={handleOnClick} isAuthenticated={!!user}>
                     <img src="/assets/img/use-avatar.svg" />

@@ -1,6 +1,9 @@
-import { buy_package, open_package, paste_stickers } from "models/User";
+import { buy_package } from "models/User";
 import { useCallback, useState } from "react";
 import { StickersPackageContainer, StickersSeparator } from "../styles"
+import LockIcon from "assets/imgs/lock.svg"
+import { useAuth } from "contexts/auth.context";
+import { toast } from 'react-toastify';
 
 type StickerPackageProps = {
     stars: string;
@@ -9,38 +12,62 @@ type StickerPackageProps = {
         main: string;
         secondary: string;
     };
+    probabilities: {
+        bronze: number;
+        silver: number;
+        gold: number;
+    };
+    price: number;
     id: number;
     handleActionStickerModal: (id: string) => void;
     stickerStatsModalIsOpen: string[];
+    exchangeRate: number;
 }
 
-export const StickerPackage = ({ stars, type, title, id, handleActionStickerModal, stickerStatsModalIsOpen }: StickerPackageProps) =>
+export const StickerPackage = ({
+    probabilities,
+    stars,
+    type,
+    title,
+    id,
+    price,
+    exchangeRate,
+    handleActionStickerModal,
+    stickerStatsModalIsOpen
+}: StickerPackageProps) =>
 {
     const [count, setCount] = useState(0)
-
+    const { user } = useAuth()
     // example buy
     const handleBuy = async (package_type:number) =>
     {
-        let price:number = 0;
-        switch (package_type)
+        if(user)
         {
-            case 1:
-                price = 0.001;
-                break;
-            case 2:
-                price = 0.005;
-                break;
-            case 3:
-                price = 0.01;
-                break;
+            let price:number = 0;
+            switch (package_type)
+            {
+                case 1:
+                    price = 0.001;
+                    break;
+                case 2:
+                    price = 0.005;
+                    break;
+                case 3:
+                    price = 0.01;
+                    break;
+            }
+                    
+            await buy_package(
+                package_type,
+                count,
+                (price * count)
+            );
         }
-                
-        await buy_package(
-            package_type,
-            count,
-            (price * count)
-        );
-    }
+        else
+        {
+            return toast.error("Necessário estar logado para comprar um pacote.");
+        }
+    }    
 
     const handleDecrement = useCallback(() => {
         if (count > 0) {
@@ -90,30 +117,30 @@ export const StickerPackage = ({ stars, type, title, id, handleActionStickerModa
                         <div className="stickers-stats-prob">
                             <img src="/assets/img/icons/stats-blue-icon.svg" alt="" />
                             <p>
-                                <span>Problabilidade</span>
-                                <span>Pacotinho Esmeralda</span>
+                                <span>Probabilidades</span>
+                                <span>Pacotinho {title.secondary}</span>
                             </p>
                         </div>
                         <StickersSeparator margin=".5rem 0 .75rem 0" />
                         <ul>
                             <li>
                                 <img src="/assets/img/icons/gold-sticker-icon.svg" alt="" />
-                                <p>Figurinhas Ouros</p>
-                                <span>01p</span>
+                                <p>Figurinhas Ouro</p>
+                                <span>{100*probabilities.gold}%</span>
                             </li>
                             <StickersSeparator margin=".25rem 0" />
 
                             <li>
                                 <img src="/assets/img/icons/silver-sticker-icon.svg" alt="" />
-                                <p>Figurinhas Ouros</p>
-                                <span>01p</span>
+                                <p>Figurinhas Prata</p>
+                                <span>{100*probabilities.silver}%</span>
                             </li>
                             <StickersSeparator margin=".25rem 0" />
 
                             <li>
                                 <img src="/assets/img/icons/bronze-sticker-icon.svg" alt="" />
-                                <p>Figurinhas Ouros</p>
-                                <span>01p</span>
+                                <p>Figurinhas Bronze</p>
+                                <span>{100*probabilities.bronze}%</span>
                             </li>
                         </ul>
                     </div>
@@ -129,8 +156,10 @@ export const StickerPackage = ({ stars, type, title, id, handleActionStickerModa
                         </button>
                     </div>
                     <div className="quantity">
-                        <h4>0,001 ETH</h4>
-                        <p>R$ 25,00</p>
+                        <h4>{price.toString().replace('.',',')} ETH</h4>
+                        <p>
+                            {((+exchangeRate) * (+price)).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+                        </p>
 
                         <div className="quantity-counter">
                             <button
@@ -158,6 +187,7 @@ export const StickerPackage = ({ stars, type, title, id, handleActionStickerModa
                 </div>
                 <div className="description">
                     <span>Compre por PIX</span>
+                    <img className="lock" src={LockIcon} alt="" />
                     <img src="/assets/img/icons/pix-icon.svg" alt="" />
                 </div>
             </div>

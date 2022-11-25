@@ -35,7 +35,7 @@ export default createGlobalStyle`
         background: ${({ theme }) => theme.colors.dark};
     }
 
-    button, textarea, a {
+    button, textarea, a, span {
         font-family: 'Inter', sans-serif;
     }
 

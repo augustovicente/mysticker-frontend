@@ -266,6 +266,10 @@ export const AlbumContainer = styled.div`
             }
         }
     }
+
+    @media (max-width: 768px) {
+        padding: unset;
+    }
 `
 
 export const AlbumModal = styled(Modal)`
