@@ -4,29 +4,12 @@ import { AlbumModal } from "../styles";
 
 type StickerProps = {
     stickerId: number;
+    rarity: number;
+    name: string;
 }
 
-const userOwnedStickers = [
-    {
-        teamsGroupName: "north-america",
-        teams: [
-            {
-                name: "Canadá",
-                players: [
-                    {
-                        id: 1,
-                    },
-                    {
-                        id: 2,
-                    },
-                ]
-            }
-        ]
-    }
-]
-
-export const Sticker = ({ stickerId, }: StickerProps) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+export const Sticker = ({ stickerId, name, rarity }: StickerProps) => {
+    const [isModalOpen, setIsModalOpen] = useState(true);
     const [playerSelected, setPlayerSelected] = useState(stickerId)
 
     const showModal = () => {
@@ -60,17 +43,21 @@ export const Sticker = ({ stickerId, }: StickerProps) => {
                 onClick={showModal}
             >
 
+                <img className="player-img" src={`/copa_pruu/${stickerId}.png`} alt={name} />
+                <img className="player-tier" src={`/assets/img/icons/tier-${rarity}-icon.svg`} />
+                <img className="player-base-tier" src={`/assets/img/icons/tier-base-${rarity}-icon.svg`} />
+
                 {/* {currentPlayer[stickerId - 1] ? (
                     <>
-                        <img className="player-img" src="/assets/img/icons/team-players/player.svg" alt="" />
-                        <img className="player-tier" src="/assets/img/icons/tier-gold-icon.svg" alt="" />
-                        <img className="player-base-tier" src="/assets/img/icons/tier-base-gold-icon.svg" alt="" />
+                        <img className="player-img" src="/assets/img/icons/team-players/player.svg" />
+                        <img className="player-tier" src="/assets/img/icons/tier-gold-icon.svg" />
+                        <img className="player-base-tier" src="/assets/img/icons/tier-base-gold-icon.svg" />
                     </>
                 ) : (
                     <>
-                        <span>{`#0${playerSelected}`}</span>
-                        <img className="add-icon" src="/assets/img/icons/add-icon.svg" alt="" />
-                        <img src="/assets/img/icons/paste-sticker-action-icon.svg" alt="" />
+                        <span>{`#0${stickerId}`}</span>
+                        <img className="add-icon" src="/assets/img/icons/add-icon.svg" />
+                        <img src="/assets/img/icons/paste-sticker-action-icon.svg" />
                     </>
                 )} */}
 
@@ -80,17 +67,21 @@ export const Sticker = ({ stickerId, }: StickerProps) => {
                 <div
                     className="sticker"
                 >
+
+                    <img className="player-img" src={`/copa_pruu/${stickerId}.png`} alt={name} />
+                    <img className="player-tier" src={`/assets/img/icons/tier-${rarity}-icon.svg`} />
+                    <img className="player-base-tier" src={`/assets/img/icons/tier-base-${rarity}-icon.svg`} />
                     {/* {currentPlayer[playerSelected - 1] ? (
                         <>
-                            <img className="player-img" src="/assets/img/icons/team-players/player.svg" alt="" />
-                            <img className="player-tier" src="/assets/img/icons/tier-gold-icon.svg" alt="" />
-                            <img className="player-base-tier" src="/assets/img/icons/tier-base-gold-icon.svg" alt="" />
+                            <img className="player-img" src="/assets/img/icons/team-players/player.svg" />
+                            <img className="player-tier" src="/assets/img/icons/tier-gold-icon.svg" />
+                            <img className="player-base-tier" src="/assets/img/icons/tier-base-gold-icon.svg" />
                         </>
                     ) : (
                         <>
                             <span>{`#0${playerSelected}`}</span>
-                            <img className="add-icon" src="/assets/img/icons/add-icon.svg" alt="" />
-                            <img src="/assets/img/icons/paste-sticker-action-icon.svg" alt="" />
+                            <img className="add-icon" src="/assets/img/icons/add-icon.svg" />
+                            <img src="/assets/img/icons/paste-sticker-action-icon.svg" />
                         </>
                     )} */}
                 </div>
@@ -128,23 +119,23 @@ export const Sticker = ({ stickerId, }: StickerProps) => {
 
                 <div className="paste-sell-buy-container">
                     <button className="paste-sell-buy-btn">
-                        <img src="/assets/img/icons/paste-burn-green-icon.svg" alt="" />
+                        <img src="/assets/img/icons/paste-burn-green-icon.svg" />
 
                         <p>Colar</p>
 
                         <span />
                     </button>
                     <button className="paste-sell-buy-btn" disabled={true}>
-                        <img src="/assets/img/icons/sell-green-icon.svg" alt="" />
+                        <img src="/assets/img/icons/sell-green-icon.svg" />
 
                         <p>vender</p>
 
                         <span>
-                            <img src="/src/assets/imgs/lock.svg" alt="" />
+                            <img src="/src/assets/imgs/lock.svg" />
                         </span>
                     </button>
                     <Link className="paste-sell-buy-btn" to="/marketplace">
-                        <img src="/assets/img/icons/cart-buy-green-icon.svg" alt="" />
+                        <img src="/assets/img/icons/cart-buy-green-icon.svg" />
 
                         <p>comprar</p>
 

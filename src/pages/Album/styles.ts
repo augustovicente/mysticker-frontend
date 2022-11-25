@@ -242,8 +242,8 @@ export const AlbumContainer = styled.div`
                             .player-img {
                                 display: flex;
                                 position: absolute;
-                                top: -5px;
-                                height: 146.77px;
+                                top: 5px;
+                                height: 85%;
                                 width: 90%;
                             }
 
@@ -329,8 +329,8 @@ export const AlbumModal = styled(Modal)`
                 .player-img {
                     display: flex;
                     position: absolute;
-                    top: -6px;
-                    height: 100%;
+                    top: 9.5px;
+                    height: 88%;
                     width: 93%;
                 }
 
@@ -347,7 +347,7 @@ export const AlbumModal = styled(Modal)`
                 .player-base-tier {
                     display: flex;
                     position: absolute;
-                    width: 100%;
+                    width: 94%;
                     height: 20px;
                     bottom: 6.5px;
                 }

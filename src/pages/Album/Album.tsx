@@ -20,8 +20,6 @@ export const Album = () => {
         return players[0]
     }, [groupOfTeams, teamIndexSelected, teamsGroupSelected])
 
-    console.log(currentTeamSelected)
-
     const handleSelectNewTeamGroup = useCallback((name: string) => {
         setTeamsGroupSelected(name)
         setTeamSelected(0)
@@ -86,18 +84,16 @@ export const Album = () => {
                         <div className="header-counter">
                             <span className="current-counter">
                                 {
-                                    teamIndexSelected.toString().length < 10
-                                        ? `0${teamIndexSelected + 1}`
-                                        : teamIndexSelected + 1
+                                    0
                                 }
                             </span>
 
                             <span className="total-counter">
                                 /
                                 {
-                                    groupOfTeams?.length < 10
-                                        ? `0${groupOfTeams?.length}`
-                                        : groupOfTeams?.length
+                                    currentTeamSelected.players?.length < 10
+                                        ? `0${currentTeamSelected.players?.length}`
+                                        : currentTeamSelected.players?.length
                                 }
                             </span>
 
@@ -120,11 +116,13 @@ export const Album = () => {
 
                     <div className="sticker-container">
                         <div className="sticker-content">
-                            {/* <div className="sticker-row">
+                            <div className="sticker-row">
                                  {currentTeamSelected?.players.map((sticker, index) => index < 6 && (
                                      <Sticker
                                          key={index}
                                          stickerId={sticker.id}
+                                         rarity={sticker.rarity}
+                                         name={sticker.name}
                                      />
                                  ))}
                              </div>
@@ -134,9 +132,11 @@ export const Album = () => {
                                      <Sticker
                                          key={index}
                                          stickerId={sticker.id}
+                                         rarity={sticker.rarity}
+                                         name={sticker.name}
                                      />
                                  ))}
-                             </div> */}
+                             </div>
                         </div>
                     </div>
                 </div>
