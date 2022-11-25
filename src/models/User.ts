@@ -5,10 +5,7 @@ const getPackages = async () =>
 {
     let contract = await get_contract();
     let user_address = await connect();
-    contract.methods.getUserPackage(user_address[0]).call()
-        .then((res:any) => {
-            console.log(res);
-        });
+    return await contract.methods.getUserPackage(user_address[0]).call();
 };
 
 const buy_package = async (package_type: number, amount: number, price: number) =>

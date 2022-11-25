@@ -1,34 +1,53 @@
-import BaseTemplate from "Components/BaseTemplate"
 import { stickersMock } from "pages/Marketplace/stickersMock"
-import { useCallback, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { MyPackagesContainer, PackageContainer, StickersPackageContainer } from "./styles"
-import { Carousel } from "antd"
 import { CarouselRef } from "antd/es/carousel"
-import { motion } from "framer-motion"
 import { useToggle } from "hooks/useToggle"
-import axios from "axios"
-import { toast } from "react-toastify"
-import { api } from "services/api"
 import { Link } from "react-router-dom"
-import { open_package } from "models/User"
+import { getPackages, open_package } from "models/User"
 import { Skeletons } from "./components/Skeletons"
+import { toast } from "react-toastify"
+
+type MyPackagesProps = {
+    esmerald: number;
+    obsidian: number;
+    diamond: number;
+}
 
 export const MyPackages = () => {
     const [count, setCount] = useState(0)
     const carousel = useRef<CarouselRef>(null)
     const [selectedIndex, setSelectedIndex] = useState<number>(1)
-    const [availablePackages, setAvailablePackages] = useState(3)
+    const [availablePackages, setAvailablePackages] = useState<MyPackagesProps>()
     const [isLoading, setIsLoading] = useToggle(false);
 
-    const onSubmitReveal = async (numberType: number) => {
+    const onSubmitReveal = async (numberType: number) =>
+    {
         setIsLoading(true)
+        const amount_available = numberType == 3
+            ? availablePackages?.diamond
+            : numberType == 2
+                ? availablePackages?.obsidian
+                : availablePackages?.esmerald;
 
-        try {
-            const response = await open_package(numberType);
-            console.log({ response });
+        if (amount_available && count > amount_available)
+        {
             setIsLoading(false)
-        } catch (error) {
-            console.log({ error })
+            return toast.error("Você não possui pacotes suficientes para revelar");
+        }
+        else
+        {
+            try {
+                const response = await open_package(numberType);
+                console.log({ response });
+                setIsLoading(false)
+            }
+            catch (error)
+            {
+                console.log({ error })
+                setIsLoading(false)
+            }
+            update_packages();
         }
     }
 
@@ -38,8 +57,10 @@ export const MyPackages = () => {
         }
     }, [count]);
 
-    const handleIncrement = useCallback(() => {
-        if (count < 5) {
+    const handleIncrement = useCallback(() =>
+    {
+        if(count < 5)
+        {
             setCount(count + 1);
         }
     }, [count]);
@@ -56,6 +77,21 @@ export const MyPackages = () => {
         }
     }, [selectedIndex])
 
+    const update_packages = async () =>
+    {
+        getPackages().then((response:any) => {
+            setAvailablePackages({
+                esmerald: response[0],
+                obsidian: response[1],
+                diamond: response[2]
+            });
+        });
+    }
+
+    useEffect(() => {
+        update_packages();
+    }, [])
+
     return (
         <MyPackagesContainer>
             {isLoading ? (
@@ -68,7 +104,7 @@ export const MyPackages = () => {
                     </h1>
 
                     <ul>
-                        {stickersMock.map(({ stars, title, type, id, numberType }, index) => selectedIndex === id ? (
+                        {stickersMock.map(({ stars, title, type, id, numberType }, index) => selectedIndex === (id-1) ? (
                             <StickersPackageContainer key={id}>
                                 <div className="stars-package-container">
                                     <div className="stars-container">
@@ -92,12 +128,11 @@ export const MyPackages = () => {
 
                                     <div className="available-packages">
                                         <span>
-                                            {
-                                                availablePackages.toString().length < 2
-                                                    ?
-                                                    `0${availablePackages}`
-                                                    :
-                                                    availablePackages
+                                            {id == 3
+                                                ? availablePackages?.diamond
+                                                : id == 2
+                                                    ? availablePackages?.obsidian
+                                                    : availablePackages?.esmerald
                                             }
                                         </span>
                                         <p>
@@ -126,6 +161,12 @@ export const MyPackages = () => {
                                             name="counter"
                                             id="counter"
                                             value={count}
+                                            max={id == 3
+                                                ? availablePackages?.diamond
+                                                : id == 2
+                                                    ? availablePackages?.obsidian
+                                                    : availablePackages?.esmerald
+                                            }
                                         />
                                         <button
                                             className="counter-increment"
