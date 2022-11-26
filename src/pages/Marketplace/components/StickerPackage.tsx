@@ -58,12 +58,21 @@ export const StickerPackage = ({
                         price = 0.01;
                         break;
                 }
-                        
-                await buy_package(
-                    package_type,
-                    count,
-                    (price * count)
-                );
+
+                setCount(0);
+
+                try{
+                    await buy_package(
+                        package_type,
+                        count,
+                        (price * count)
+                    );
+                    toast.success("Compra realizada com sucesso! Você pode abrir seus pacotes na aba Meus Pacotes.");
+                }
+                catch (error)
+                {
+                    toast.error(`Erro ao comprar pacote!`);
+                }
             }
             else
             {
