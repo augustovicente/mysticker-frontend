@@ -17,7 +17,7 @@ type MyPackagesProps = {
 export const MyPackages = () => {
     const [count, setCount] = useState(0)
     const carousel = useRef<CarouselRef>(null)
-    const [selectedIndex, setSelectedIndex] = useState<number>(1)
+    const [selectedIndex, setSelectedIndex] = useState<number>(0)
     const [availablePackages, setAvailablePackages] = useState<MyPackagesProps>()
     const [isLoading, setIsLoading] = useToggle(false);
 
@@ -107,7 +107,7 @@ export const MyPackages = () => {
                         Álbum
                     </h1>
 
-                    <ul>
+                    <ul className="desktop-cards">
                         {stickersMock.map(({ stars, title, type, id, numberType }, index) => selectedIndex === (id-1) ? (
                             <StickersPackageContainer key={id}>
                                 <div className="stars-package-container">
@@ -216,7 +216,7 @@ export const MyPackages = () => {
                                 key={id}
                                 whileHover={{ scale: 1.2 }}
                                 transition={{ duration: 0.2 }}
-                                onClick={() => setSelectedIndex(id)}
+                                onClick={() => setSelectedIndex(id - 1)}
                             >
                                 <img src={type} alt="" />
                             </PackageContainer>
