@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-export const Container = styled.li`
+export const Container = styled.li<{isSelected?: boolean}>`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -31,12 +31,28 @@ export const Container = styled.li`
         margin-left: 32px;
     }
 
-    button {
+    button.arrow-icon {
+        position: relative;
+        width: 44px;
         background: transparent;
+
+        &:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -18px;
+            width: 3px;
+            height: 100%;
+            background: ${({ theme, isSelected }) => isSelected ? theme.colors.colorMiddle : theme.colors.middleL};
+            border-radius: 25px;
+        }
 
         svg {
             transition: transform 0.2s ease-in-out;
             stroke: ${({ theme }) => theme.colors.colorMiddle};
+            path {
+                stroke: ${({ theme, isSelected }) => isSelected ? theme.colors.colorMiddle : theme.colors.middleL};
+            }
         }
     }
 `;
@@ -45,7 +61,7 @@ export const Container = styled.li`
 export const AnimatedChildren = styled(motion.div)`
 
     div {
-        padding: 25px;
+        padding: 32px 25px;
         background: ${({ theme }) => theme.colors.middle};
     }
 `;

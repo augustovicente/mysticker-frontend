@@ -3,7 +3,7 @@
     .custom-container,
     .container {
         max-width: 95%;
-        margin: 0 0 0 auto;
+        /* margin: 0 0 0 auto; */
     }
 
     .banner-content {
@@ -128,10 +128,6 @@
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (max-width: 1199.98px) {
-    .sticky-menu {
-        margin-left: unset;
-    }
-
     .custom-container,
     .container {
         max-width: 960px;
@@ -141,6 +137,7 @@
         margin: 0 25px 0 0;
         width: 30px;
         flex: 0 0 30px;
+        padding: 0;
     }
 
     .sidebar-icon ul {
@@ -352,6 +349,11 @@
 /* Large devices (desktops, 992px and up) */
 @media (max-width: 991.98px) {
 
+    #sticky-header div.col-12 {
+        background: var(--middle);
+        padding: 0 !important;
+    }
+
     .custom-container,
     .container {
         max-width: 720px;
@@ -487,8 +489,6 @@
         margin-top: 60px;
     }
 
-
-
     section#roadmap {
         padding: 112px 0 420px;
     }
@@ -507,14 +507,17 @@
     section#roadmap .roadmap-item {
         margin-top: 44px;
     }
-
 }
-
 
 /* Medium devices (tablets, 768px and up) */
 @media (max-width: 767.98px) {
     #sticky-header {
-        padding: unset;
+        max-width: 100%;
+        padding: 18px 22px !important;
+    }
+
+    #sticky-header.sticky-menu {
+        /* margin: 0 !important; */
     }
 
     .custom-container,

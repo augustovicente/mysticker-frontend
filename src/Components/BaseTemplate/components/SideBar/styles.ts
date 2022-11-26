@@ -8,7 +8,7 @@ export const SideBarContainer = styled.div`
     justify-content: space-between;
     background-color: ${({ theme }) => theme.colors.middle};
     height: 100vh;
-    z-index: 999;
+    z-index: 10;
     gap: 16px;
     max-width: 94px;
 
