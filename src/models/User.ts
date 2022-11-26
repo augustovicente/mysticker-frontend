@@ -12,13 +12,23 @@ const getPackages = async () =>
 const buy_package = async (package_type: number, amount: number, price: number) =>
 {
     const nftContract = await get_contract();
-
+    let count_feedback = 0;
     const accounts = await connect();
     const tx = await nftContract.methods
         .buyPackage(package_type, amount)
         .send({
             from: accounts[0],
             value: web3.utils.toWei(price.toString(), 'ether')
+        })
+        .on('transactionHash', (hash: any) => {
+            if(count_feedback === 0)
+            {
+                toast.success(
+                    `Transação enviada com sucesso! Aguarde a confirmação da transação.`,
+                    { autoClose: false }
+                );
+                count_feedback++;
+            }
         });
 
     return tx;

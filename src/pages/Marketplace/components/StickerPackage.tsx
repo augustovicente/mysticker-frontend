@@ -61,7 +61,8 @@ export const StickerPackage = ({
 
                 setCount(0);
 
-                try{
+                try
+                {
                     await buy_package(
                         package_type,
                         count,
