@@ -399,9 +399,11 @@ label {
 
 #sticky-header {
     display: flex;
+    max-width: calc(100vw - 260px);
     width: 100%;
     justify-content: center;
-    padding: 0 80px 80px 80px;
+    padding: 0 12px;
+    border-radius: 5px;
 }
 
 .main-header {
@@ -418,8 +420,6 @@ label {
     z-index: 9;
     height: auto;
 }
-
-
 
 .logo img {
     /* display: block; */
@@ -602,14 +602,13 @@ label {
 .sticky-menu {
     display: flex;
     justify-content: center;
-    width: 84vw;
     position: fixed;
+    background: var(--middle);
+    border-radius: 25px;
     top: 0;
     z-index: 99;
-    -webkit-animation: 1000ms ease-in-out 0s normal none 1 running fadeInDown;
-    animation: 1000ms ease-in-out 0s normal none 1 running fadeInDown;
-    -webkit-box-shadow: 0 10px 15px rgba(25, 25, 25, 0.1);
-    box-shadow: 0 10px 15px rgba(25, 25, 25, 0.1);
+    -webkit-animation: 0.3s ease-in-out 0s normal none 1 running fadeInDown;
+    animation: 0.3s ease-in-out 0s normal none 1 running fadeInDown;
     border-radius: 0;
 }
 
@@ -618,6 +617,7 @@ label {
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 
 
@@ -627,7 +627,7 @@ label {
 }
 
 /* 3. Mobile-menu */
-.nav-outer .mobile-nav-toggler {
+/* .nav-outer .mobile-nav-toggler {
     position: relative;
     float: right;
     font-size: 40px;
@@ -637,7 +637,7 @@ label {
     color: var(--white);
     margin-right: 30px;
     top: 15px;
-}
+} */
 
 .nav-logo img {
     width: 150px;
@@ -735,9 +735,8 @@ label {
 
 .mobile-menu .close-btn {
     position: absolute;
-    right: 38px;
+    right: 26px;
     top: 23px;
-    width: 35px;
     text-align: center;
     font-size: 26px;
     color: var(--white);

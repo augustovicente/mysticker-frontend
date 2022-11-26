@@ -54,11 +54,14 @@ const connect_wallet = async () =>
          })
             .then((res) => {
                 toast.success('Carteira vinculada com sucesso!');
+                localStorage.setItem('wallet', address.toString());
             })
             .catch((err) => {
                 toast.error(`Erro ao vincular carteira`);
                 console.log(err);
             })
+
+            return address
     }
 }
 

@@ -14,7 +14,10 @@ import { ReactComponent as DiscordIcon } from 'assets/imgs/discord.svg';
 import { ReactComponent as TwitterIcon } from 'assets/imgs/twitter.svg';
 import { ReactComponent as OpenseaIcon } from 'assets/imgs/opensea.svg';
 import { ReactComponent as InstagramIcon } from 'assets/imgs/instagram.svg';
+import { ReactComponent as LinkIcon } from 'assets/imgs/link.svg';
 import { connect_wallet } from 'models/User';
+import { useToggle } from 'hooks/useToggle';
+import { toast } from 'react-toastify';
 
 const Header = (props) => {
     const { user, signOut } = useAuth();
@@ -32,8 +35,6 @@ const Header = (props) => {
             $('.mobile-menu li.menu-item-has-children .dropdown-btn').on('click', function () {
                 $(this).toggleClass('open');
                 $(this).prev('ul').slideToggle(500);
-
-                $('body').css('overflow', 'hidden');
             });
 
             $('.menu-backdrop, .mobile-menu .close-btn').click(() => {
@@ -55,6 +56,7 @@ const Header = (props) => {
 
         $(".menu-close,.offcanvas-overly").on("click", function () {
             $(".extra-info,.offcanvas-overly").removeClass("active");
+
         });
         /*=============================================
             =     Menu sticky & Scroll to top      =
@@ -68,6 +70,7 @@ const Header = (props) => {
 
             } else {
                 $("#sticky-header").addClass("sticky-menu");
+
                 $('.scroll-to-target').addClass('open');
                 $("#header-top-fixed").addClass("header-fixed-position");
             }
@@ -91,6 +94,8 @@ const Header = (props) => {
     const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
     const [selectedMenu, setSelectedMenu] = useState(null);
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useToggle();
+    const [wallet, setWallet] = useState(localStorage.getItem('wallet') || '');
 
     const handleChangeLanguage = (e) => {
         setSelectedLanguage(e.target.value);
@@ -100,6 +105,30 @@ const Header = (props) => {
     const handleLogin = () => {
         $('body').removeClass('mobile-menu-visible');
         navigate('/login');
+    }
+
+
+
+    const handleConnectWallet = async () => {
+        setIsLoading(true);
+        await connect_wallet()
+            .then(res => {
+                setWallet(res);
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
+    }
+
+    const handleCopyWallet = () => {
+        navigator.clipboard.writeText(wallet);
+        toast.success('Carteira copiada com sucesso!', { toastId: 'copyWallet' });
+    }
+
+    const handleDisconnectWallet = () => {
+        setWallet('');
+        localStorage.removeItem('wallet');
+        toast.success('Carteira desconectada com sucesso!', { toastId: 'disconnectWallet' });
     }
 
     const menuItems = [
@@ -127,7 +156,7 @@ const Header = (props) => {
             selectedMenu,
             onClick: () => {
                 $('body').removeClass('mobile-menu-visible');
-                window.open('https://www.google.com.br', '_blank')
+                window.open('https://mysticker.gitbook.io/whitepaper-mysticker/', '_blank')
             }
         },
         {
@@ -139,9 +168,45 @@ const Header = (props) => {
             needsAuth: true,
             children: (
                 <>
-                    <Button onClick={() => connect_wallet()}>
-                        CONECTAR CARTEIRA
-                    </Button>
+                    <S.Wallets>
+                        {wallet ? (
+                            <>
+                                <button title={wallet} onClick={handleCopyWallet} className="wallet">
+                                    <span className='wallet-address'>
+                                        {wallet.slice(0, 6) + '...' + wallet.slice(-4)}
+                                    </span>
+                                </button>
+
+                                <button onClick={handleDisconnectWallet} className='disconnect'>
+                                    Desconectar carteira
+                                </button>
+                            </>
+
+                        ) : (
+                            <>
+                                <button onClick={handleConnectWallet} className="wallet">
+                                    {isLoading ? (
+                                        <div className="spinner-border spinner-border-md" role="status">
+                                        </div>
+                                    ) : (
+                                        <>
+                                            Conectar Carteira
+                                            <LinkIcon height={26} width={26} />
+                                        </>
+                                    )}
+                                </button>
+
+                                <span className='description'>
+                                    Conecte sua carteira para poder comprar e ver suas figurinhas
+                                </span>
+
+                                <button onClick={() => { }} className='create-wallet'>
+                                    Criar carteira
+                                </button>
+                            </>
+                        )}
+
+                    </S.Wallets>
                 </>
             )
         },
@@ -152,11 +217,6 @@ const Header = (props) => {
             // selectedMenu,
             // setSelectedMenu,
             needsAuth: true,
-            children: (
-                <>
-                    <h1>minha carteira</h1>
-                </>
-            )
         },
         {
             id: 'notifications',
@@ -165,11 +225,6 @@ const Header = (props) => {
             // selectedMenu,
             // setSelectedMenu,
             needsAuth: true,
-            children: (
-                <>
-                    <h1>minha carteira</h1>
-                </>
-            )
         },
         {
             id: 'logout',
@@ -183,7 +238,7 @@ const Header = (props) => {
                 signOut();
             }
         },
-    ]
+    ];
 
     return (
         <header className='main-header'>
@@ -194,11 +249,11 @@ const Header = (props) => {
                             <div className="mobile-nav-toggler"><i className="fas fa-bars" /></div>
                             <div className="menu-wrap main-menu">
                                 <nav className="menu-nav py-lg-3 py-md-2">
-                                    <div className="logo">
+                                    <div className="logo d-block d-lg-none">
                                         <Link to="/">
                                             <img
-                                                src="assets/img/logo/logo-header.svg"
-                                                alt=""
+                                                src="/assets/img/logo/logo-header.svg"
+                                                alt="Logo My Sticker"
                                             />
                                         </Link>
                                     </div>
@@ -227,14 +282,56 @@ const Header = (props) => {
                                                             />
                                                         </li>
                                                         <li>
-                                                            <DefaultButton title='Carteira' icon="/assets/img/icons/wallet-icon.svg" />
+                                                            <DefaultButton
+                                                                title='Carteiras'
+                                                                icon="/assets/img/icons/wallet-icon.svg"
+                                                            >
+                                                                <S.Wallets>
+                                                                    {wallet ? (
+                                                                        <>
+                                                                            <button title={wallet} onClick={handleCopyWallet} className="wallet">
+                                                                                <span className='wallet-address'>
+                                                                                    {wallet.slice(0, 6) + '...' + wallet.slice(-4)}
+                                                                                </span>
+                                                                            </button>
+
+                                                                            <button onClick={handleDisconnectWallet} className='disconnect'>
+                                                                                Desconectar carteira
+                                                                            </button>
+                                                                        </>
+
+                                                                    ) : (
+                                                                        <>
+                                                                            <button onClick={handleConnectWallet} className="wallet">
+                                                                                {isLoading ? (
+                                                                                    <div className="spinner-border spinner-border-md" role="status">
+                                                                                    </div>
+                                                                                ) : (
+                                                                                    <>
+                                                                                        Conectar Carteira
+                                                                                        <LinkIcon height={26} width={26} />
+                                                                                    </>
+                                                                                )}
+                                                                            </button>
+
+                                                                            <span className='description'>
+                                                                                Conecte sua carteira para poder comprar e ver suas figurinhas
+                                                                            </span>
+
+                                                                            <button onClick={() => { }} className='create-wallet'>
+                                                                                Criar carteira
+                                                                            </button>
+                                                                        </>
+                                                                    )}
+                                                                </S.Wallets>
+                                                            </DefaultButton>
                                                         </li>
                                                     </>
                                                 )
                                             }
                                             <li>
                                                 <DefaultButton
-                                                    onlyLink='https://google.com'
+                                                    onlyLink='https://mysticker.gitbook.io/whitepaper-mysticker/'
                                                     title='Whitepaper'
                                                     icon="/assets/img/icons/open-link-icon.svg"
                                                 />
@@ -307,22 +404,22 @@ const Header = (props) => {
                                         <footer>
                                             <ul>
                                                 <li>
-                                                    <a href="https://google.com" target="blank">
+                                                    <a href="https://discord.gg/uGyxrDAQgy" target="blank">
                                                         <DiscordIcon />
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="https://google.com" target="blank">
+                                                    <a href="https://twitter.com/pruu_oficial" target="blank">
                                                         <TwitterIcon />
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="https://google.com" target="blank">
+                                                    <a href="#" target="blank">
                                                         <OpenseaIcon />
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="https://google.com" target="blank">
+                                                    <a href="https://www.instagram.com/pruu_oficial/" target="blank">
                                                         <InstagramIcon />
                                                     </a>
                                                 </li>

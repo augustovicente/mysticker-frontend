@@ -31,6 +31,7 @@ export const MobileNav = (props: MobileNavProps) => {
     return (
         <>
             <S.Container {...props}
+                isSelected={props.selectedMenu === props.id}
                 onClick={() => props.children && props.setSelectedMenu
                     ? handleOpenMenu(props.id)
                     : props.onClick?.()
@@ -43,15 +44,17 @@ export const MobileNav = (props: MobileNavProps) => {
                 </div>
 
                 {props.children && (
-                    <button >
-                        <ArrowIcon style={{
-                            transform: props.selectedMenu === props.id ? 'rotate(90deg)' : 'rotate(-90deg)'
-                        }} className="arrow-icon" />
+                    <button className="arrow-icon">
+                        <ArrowIcon
+                            style={{
+                                transform: props.selectedMenu === props.id ? 'rotate(90deg)' : 'rotate(-90deg)',
+                            }}
+                        />
                     </button>
                 )}
             </S.Container>
 
-            <AnimatePresence presenceAffectsLayout>
+            <AnimatePresence>
                 {props.selectedMenu === props.id && props.children &&  (
                     <S.AnimatedChildren
                         initial={{ opacity: 0, height: 0 }}

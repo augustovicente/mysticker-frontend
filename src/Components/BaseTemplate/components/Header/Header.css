@@ -12,7 +12,8 @@
     line-height: 1;
     color: var(--white);
     display: none;
-    margin-top: 28px;
+    margin-top: 22px;
+    right: 25px;
     z-index: 99;
 }
 
@@ -31,12 +32,12 @@
 .menu-wrap {
     border-radius: 5px;
     position: relative;
-    margin: 7px 0px;
 }
 
 @media (max-width: 991.98px) {
     .menu-area {
-        padding: 25px 0;
+        padding: 25px 0 !important;
+        height: 30px;
     }
 
     .menu-area .mobile-nav-toggler {
@@ -46,6 +47,11 @@
     .menu-area {
         margin-top: 0;
         margin-bottom: -145px;
+    }
+
+    .menu-area.sticky-menu {
+        margin-top: 22px !important;
+        padding: 0 !important;
     }
 
     .menu-area.market-single-header {
@@ -63,15 +69,19 @@
 }
 
 @media (max-width: 767.98px) {
-    .menu-area .mobile-nav-toggler {
-        margin: 24px 26px 0 0;
-    }
-
     .menu-area {
         padding: 15px 0;
     }
 
     .menu-wrap {
-        padding: 20px 25px;
+        padding: 25px;
+    }
+
+    #sticky-header {
+        background: transparent;
+    }
+
+    .sticky-menu {
+        padding: 0 22px !important;
     }
 }

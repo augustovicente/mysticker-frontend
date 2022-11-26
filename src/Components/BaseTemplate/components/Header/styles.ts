@@ -77,3 +77,60 @@ export const MobileNav = styled.div`
         }
     }
 `;
+
+
+export const Wallets = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+
+    span.wallet-address {
+        font-weight: 500;
+        text-align: center;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    span.description {
+        text-align: center;
+        color: #4694FF;
+    }
+
+    button.wallet {
+        display: flex;
+        justify-content: space-between;
+        justify-content: center;
+        align-items: center;
+        min-width: 210px;
+        max-height: 50px;
+        padding: 12px 16px;
+        border-radius: 25px;
+        outline: 2px solid ${({ theme }) => theme.colors.colorMiddle};
+        background: transparent;
+        cursor: pointer;
+        color: ${({ theme }) => theme.colors.white};
+        font-size: ${({ theme }) => theme.fontSizes.md};
+        font-weight: 700;
+        gap: 12px;
+
+        &:hover {
+            background: ${({ theme }) => theme.colors.colorMiddle};
+        }
+    }
+
+    button.disconnect, .create-wallet {
+        background: ${({ theme }) => theme.colors.greenNeon};
+        border-radius: 25px;
+        max-width: fit-content;
+        padding: 2px 18px;
+        margin: 18px auto 8px;
+        color: ${({ theme }) => theme.colors.middle};
+
+        &:hover {
+            filter: brightness(0.8);
+        }
+    }
+
+`;
