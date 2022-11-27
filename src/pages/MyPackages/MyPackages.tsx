@@ -47,7 +47,7 @@ export const MyPackages = () => {
                 try {
                     const response:any = await open_package(numberType, count);
                     setIsLoading(false)
-                    setRevealedCards(response.data.map((card:any) => card.sticker_id));
+                    setRevealedCards(response.stickers_drawed.map((card:any) => card.sticker_id));
                     showGif(numberType, 1)
                 }
                 catch (error)
