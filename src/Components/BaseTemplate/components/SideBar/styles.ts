@@ -13,13 +13,33 @@ export const SideBarContainer = styled.div`
     max-width: 94px;
 
     @media (max-width: 768px) {
-        display: none;
+        header {
+            display: none !important;
+        }
+        main {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            justify-content: space-around;
+            align-items: center;
+            background: ${({ theme }) => theme.colors.middle};
+
+            ul {
+                flex-direction: row !important;
+                justify-content: space-between;
+                /* overflow: auto; */
+            }
+        }
+
     }
 
     header {
         display: flex;
         width: 100%;
-        padding: 58px 0; justify-content: center;
+        padding: 58px 0;
+        justify-content: center;
+
         .sidebar-home-icon {
             height: 34px;
             transition: all 0.3s;
@@ -32,6 +52,7 @@ export const SideBarContainer = styled.div`
         .sidebar-logo {
             display: flex;
             width: 100%;
+
             a {
                 display: flex;
                 justify-content: center;

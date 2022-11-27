@@ -6,6 +6,8 @@ export const Container = styled.div`
     height: 100vh;
     width: 100%;
     padding: 0 24px;
+    overflow: hidden;
+    background: url('/assets/img/others/world.png') no-repeat center/cover;
 
     form {
         a {
