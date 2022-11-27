@@ -513,11 +513,11 @@
 @media (max-width: 767.98px) {
     #sticky-header {
         max-width: 100%;
-        padding: 18px 22px !important;
+        padding: 18px 26px !important;
     }
 
     #sticky-header.sticky-menu {
-        padding: 22px !important;
+        padding: 0 26px !important;
     }
 
     .custom-container,

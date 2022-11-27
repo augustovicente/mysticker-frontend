@@ -34,7 +34,7 @@ const BaseTemplateMain = styled.main`
     border-top-left-radius: 0px;
 
     @media (max-width: 768px) {
-        padding: 0 22px 22px 22px;
+        padding: 0 22px 98px 22px;
     }
 `
 
