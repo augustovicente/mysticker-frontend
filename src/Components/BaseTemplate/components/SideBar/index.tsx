@@ -16,7 +16,6 @@ const SideBar = () => {
 
     return (
         <SideBarContainer>
-
             <header>
                 <div className="sidebar-home-icon">
                     <Link to="/">
@@ -31,7 +30,6 @@ const SideBar = () => {
                         <li key={menu.link}>
                             <MenuItem
                                 isBlocked={menu.blocked}
-                                title={menu.title}
                                 to={menu.link}
                                 onClick={(event) => menu.blocked && event.preventDefault()}
                                 className={({ isActive, isPending }) =>
@@ -48,7 +46,7 @@ const SideBar = () => {
                                     <img src={menu.icon} />
                                 )}
 
-                                <h3>{t("sidebar."+menu.title)}</h3>
+                                <h3>{t("sidebar." + menu.title)}</h3>
                             </MenuItem>
                         </li>
                     ))}

@@ -13,6 +13,7 @@ export const LoginButton = () => {
     const theme = useTheme();
     const navigate = useNavigate();
     const [showTooltip, setShowTooltip] = useState(false);
+    const [popoverIsVisible, setPopoverIsVisible] = useState(false);
 
     const handleOnClick = () => {
         if (!user) {
@@ -33,7 +34,7 @@ export const LoginButton = () => {
             <div className="divider" />
 
             <section>
-                <Link to="/profile" className="">
+                <Link onClick={() => setPopoverIsVisible(false)} to="/profile" className="">
                     <SettingsIcon width={28} height={28} />
 
                     <span>Meus Dados</span>
@@ -68,13 +69,17 @@ export const LoginButton = () => {
             onOpenChange={setShowTooltip}
         >
             <Popover
-                placement="topLeft"
+                placement="bottomRight"
                 content={content}
                 trigger={user ? "click" : "none"}
                 zIndex={9999}
                 showArrow={false}
                 color="#1d1733"
-                onOpenChange={() => setShowTooltip(false)}
+                open={popoverIsVisible}
+                onOpenChange={(visible) => {
+                    setShowTooltip(false);
+                    setPopoverIsVisible(visible);
+                }}
             >
                 <S.LoginButtonContainer onClick={handleOnClick} isAuthenticated={!!user}>
                     <img src="/assets/img/use-avatar.svg" />

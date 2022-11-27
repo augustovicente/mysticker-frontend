@@ -6,6 +6,8 @@ export const Container = styled.section`
     gap: 54px;
     height: 100vh;
     padding: 0 24px;
+    overflow: hidden;
+    background: url('/assets/img/others/world.png') no-repeat center/cover;
 
     main {
         background: ${({ theme }) => theme.colors.middle};

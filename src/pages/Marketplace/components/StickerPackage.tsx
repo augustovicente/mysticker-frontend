@@ -41,31 +41,44 @@ export const StickerPackage = ({
     // example buy
     const handleBuy = async (package_type:number) =>
     {
-        if(user)
+        if(count > 0)
         {
-            let price:number = 0;
-            switch (package_type)
+            if(user)
             {
-                case 1:
-                    price = 0.001;
-                    break;
-                case 2:
-                    price = 0.005;
-                    break;
-                case 3:
-                    price = 0.01;
-                    break;
+                let price:number = 0;
+                switch (package_type)
+                {
+                    case 1:
+                        price = 0.001;
+                        break;
+                    case 2:
+                        price = 0.005;
+                        break;
+                    case 3:
+                        price = 0.01;
+                        break;
+                }
+
+                setCount(0);
+
+                try
+                {
+                    await buy_package(
+                        package_type,
+                        count,
+                        (price * count)
+                    );
+                    toast.success("Compra realizada com sucesso! Você pode abrir seus pacotes na aba Meus Pacotes.");
+                }
+                catch (error)
+                {
+                    toast.error(`Erro ao comprar pacote!`);
+                }
             }
-                    
-            await buy_package(
-                package_type,
-                count,
-                (price * count)
-            );
-        }
-        else
-        {
-            return toast.error("Necessário estar logado para comprar um pacote.");
+            else
+            {
+                return toast.error("Necessário estar logado para comprar um pacote.");
+            }
         }
     }    
 

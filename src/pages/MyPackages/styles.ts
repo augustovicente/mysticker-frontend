@@ -28,6 +28,11 @@ export const MyPackagesContainer = styled.div`
         align-items: center;
     }
 
+    div.revealed-container{
+        width: 100%;
+        display: flex;
+    }
+
     @media (max-width: 768px) {
         padding: unset;
     }

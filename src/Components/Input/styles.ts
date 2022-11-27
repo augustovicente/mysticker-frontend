@@ -30,7 +30,6 @@ export const ContainerTextInput = styled.div<{ isMobile?: boolean, hasErrors?: b
         color: ${({ theme }) => theme.colors.white};
         font-size: ${({ theme }) => theme.fontSizes.md};
         outline: ${({ hasErrors }) => hasErrors ? '1px solid #FF0000' : 'transparent'};
-        position: relative;
 
         ${({ isMobile, hasIconLeft }) => isMobile && hasIconLeft && css`
             padding-left: 54px !important;
@@ -77,15 +76,11 @@ export const ContainerTextInput = styled.div<{ isMobile?: boolean, hasErrors?: b
         border-radius: 50%;
         position: absolute;
         right: 0;
-        top: 50%;
+        bottom: 10px;
+        right: 12px;
         width: 34px;
         height: 34px;
-        right: 12px;
         margin: 0;
-
-        &:focus {
-            outline: 1px solid ${({ theme }) => theme.colors.colorMiddle};
-        }
 
         i#password-icon {
             color: ${({ theme }) => theme.colors.light};
@@ -105,8 +100,10 @@ export const ContainerTextInput = styled.div<{ isMobile?: boolean, hasErrors?: b
     }
 
     @media (max-width: 768px) {
-        button.show-password {
-            top: 23%;
-        }
+        ${({ hasIconLeft }) => hasIconLeft && css`
+            button.show-password {
+                top: 23% !important;
+            }
+        `}
     }
 `;

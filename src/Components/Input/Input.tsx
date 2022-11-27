@@ -69,21 +69,26 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, TextInputProps> = (
 
                 {rest.type === 'password' && (
                     <button
+                        tabIndex={-1}
                         type="button"
                         className="show-password"
                         onClick={() => {
                             setIsVisiblePassword(true);
                         }}
                     >
-                        <i id="password-icon" className={isVisiblePassword ? 'fi-sr-eye-crossed' : 'fi-sr-eye'}></i>
+                        <i aria-hidden={true} id="password-icon" className={isVisiblePassword ? 'fi-sr-eye-crossed' : 'fi-sr-eye'}></i>
                     </button>
                 )}
-
             </div>
 
-
             {errors && (
-                <span role="alert" className="error-msg">{errors?.message}</span>
+                <span
+                    role="alert"
+                    className="error-msg"
+                    aria-errormessage={errors?.message}
+                >
+                    {errors?.message}
+                </span>
             )}
 
         </ContainerTextInput>

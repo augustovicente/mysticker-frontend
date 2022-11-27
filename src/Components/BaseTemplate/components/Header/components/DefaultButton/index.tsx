@@ -39,7 +39,9 @@ export const DefaultButton = ({ icon, onlyLink, title, children, needsAuth, ...r
             ) : (
                 <Popover
                     placement="bottom"
-                    onOpenChange={() => setShowTooltip(false)}
+                    onOpenChange={(visible) => {
+                        setShowTooltip(false);
+                    }}
                     content={(
                         <S.ProfilePopover>
                             <header>
@@ -47,7 +49,6 @@ export const DefaultButton = ({ icon, onlyLink, title, children, needsAuth, ...r
                             </header>
 
                             <div className="divider" />
-
                             {children}
                         </S.ProfilePopover>
                     )}

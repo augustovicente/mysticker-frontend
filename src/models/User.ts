@@ -6,32 +6,32 @@ const getPackages = async () =>
 {
     let contract = await get_contract();
     let user_address = await connect();
-    contract.methods.getUserPackage(user_address[0]).call()
-        .then((res:any) => {
-            console.log(res);
-        });
+    return await contract.methods.getUserPackage(user_address[0]).call();
 };
 
 const buy_package = async (package_type: number, amount: number, price: number) =>
 {
     const nftContract = await get_contract();
-
+    let count_feedback = 0;
     const accounts = await connect();
-    try
-    {
-        const tx = await nftContract.methods
-            .buyPackage(package_type, amount)
-            .send({
-                from: accounts[0],
-                value: web3.utils.toWei(price.toString(), 'ether')
-            });
+    const tx = await nftContract.methods
+        .buyPackage(package_type, amount)
+        .send({
+            from: accounts[0],
+            value: web3.utils.toWei(price.toString(), 'ether')
+        })
+        .on('transactionHash', (hash: any) => {
+            if(count_feedback === 0)
+            {
+                toast.success(
+                    `Transação enviada com sucesso! Aguarde a confirmação da transação.`,
+                    { autoClose: false }
+                );
+                count_feedback++;
+            }
+        });
 
-        return tx;
-    }
-    catch(error)
-    {
-        return error;
-    }
+    return tx;
 };
 
 const open_package = async (package_type: number) =>
@@ -57,11 +57,14 @@ const connect_wallet = async () =>
          })
             .then((res) => {
                 toast.success('Carteira vinculada com sucesso!');
+                localStorage.setItem('wallet', address.toString());
             })
             .catch((err) => {
                 toast.error(`Erro ao vincular carteira`);
                 console.log(err);
             })
+
+            return address
     }
 }
 

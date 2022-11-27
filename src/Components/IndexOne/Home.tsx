@@ -127,7 +127,7 @@ const Home = () => {
     const { t } = useTranslation();
 
     return (
-        <>
+        <main id='home-mysticker'>
             <section className="banner-bg">
                 <div className="banner-area">
                     <div className="container">
@@ -142,10 +142,10 @@ const Home = () => {
 
                                     <div className='section1-buttons'>
                                         <Link to="/" className="banner-btn">Abrir o Albúm de Figurinhas</Link>
-                                        <Link to="/" className="banner-btn whitepaper">
+                                        <a href="https://mysticker.gitbook.io/whitepaper-mysticker/" target="_blank" className="banner-btn whitepaper">
                                             <WhitepaperIcon />
                                             Whitepaper
-                                        </Link>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -382,7 +382,7 @@ const Home = () => {
                     </button>
                 </div>
             </section>
-        </>
+        </main>
     )
 }
 
