@@ -45,7 +45,7 @@ export const MyPackages = () => {
             else
             {
                 try {
-                    const response:any = await open_package(numberType);
+                    const response:any = await open_package(numberType, count);
                     setIsLoading(false)
                     setRevealedCards(response.data.map((card:any) => card.sticker_id));
                     showGif(numberType, 1)
@@ -276,7 +276,7 @@ export const MyPackages = () => {
                         (<div className="revealed-container">
                             <RevealedCards
                                 openMoreCards={() => setIsRevealing(false)}
-                                revealedCards={[1,2,3,4,5,6]}
+                                revealedCards={revealedCards}
                             />
                         </div>)
                     }

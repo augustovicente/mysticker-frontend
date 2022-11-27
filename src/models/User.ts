@@ -34,10 +34,10 @@ const buy_package = async (package_type: number, amount: number, price: number) 
     return tx;
 };
 
-const open_package = async (package_type: number) =>
+const open_package = async (package_type: number, amount:number) =>
 {
     const { 0: address } = await connect();
-    await api.post('open-package', { package_type, address });
+    await api.post('open-package', { package_type, address, amount });
 }
 
 const paste_stickers = async (country_id: number) =>
