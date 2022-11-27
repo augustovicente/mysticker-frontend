@@ -127,7 +127,7 @@ const Home = () => {
     const { t } = useTranslation();
 
     return (
-        <>
+        <main id='home-mysticker'>
             <section className="banner-bg">
                 <div className="banner-area">
                     <div className="container">
@@ -382,7 +382,7 @@ const Home = () => {
                     </button>
                 </div>
             </section>
-        </>
+        </main>
     )
 }
 

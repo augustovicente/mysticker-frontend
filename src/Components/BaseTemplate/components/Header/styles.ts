@@ -4,7 +4,8 @@ export const MobileNav = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100vh;
+    min-height: 85vh;
+    overflow-y: auto;
     main {
         header {
             display: flex;
@@ -66,7 +67,7 @@ export const MobileNav = styled.div`
 
     footer {
         width: 280px;
-        margin: 0 auto 90px;
+        margin: 48px auto 24px;
         border-radius: 12px;
         padding: 12px;
         background: linear-gradient(151.25deg, #6345EE -23.07%, rgba(99, 69, 238, 0) 128.42%);
