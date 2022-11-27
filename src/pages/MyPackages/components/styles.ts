@@ -11,24 +11,30 @@ export const RevealedStickersContainer = styled.div`
         border-radius: 30px 30px 0 0;
         min-height: 15rem;
         width: 100%;
-        align-items: center;
         overflow: visible;
-        gap: 2rem;
         position: relative;
         z-index: 1;
-        div.revealed-card{
+        div.cards-scroll{
             display: flex;
-            margin-left: .5rem;
-            img{
-                height: 10rem;
-                width: 15rem;
-                min-width: 8rem;
-                min-height: 6rem;
-            }
-            &.focused{
-                margin: auto;
+            align-items: center;
+            gap: 2rem;
+            margin-left: 6rem;
+            transition: all 0.5s ease;
+            div.revealed-card{
+                cursor: pointer;
+                display: flex;
+                margin-left: .5rem;
                 img{
-                    transform: scale(1.2);
+                    height: 10rem;
+                    width: 15rem;
+                    min-width: 8rem;
+                    min-height: 6rem;
+                }
+                &.focused{
+                    margin: auto;
+                    img{
+                        transform: scale(1.3);
+                    }
                 }
             }
         }
@@ -77,7 +83,7 @@ export const RevealedStickersContainer = styled.div`
             flex-direction: column;
             padding: 2rem;
             gap: 1rem;
-            button{
+            button, a{
                 border-radius: 30px;
                 padding: 0.5rem;
                 display: flex;

@@ -226,7 +226,10 @@ export const MyPackages = () => {
                     </ul>)
                     : (
                         <div className="revealed-container">
-                            <RevealedCards revealedCards={[1,2,3,4,5,6]} />
+                            <RevealedCards
+                                openMoreCards={() => setIsRevealing(false)}
+                                revealedCards={[1,2,3,4,5,6]}
+                            />
                         </div>
                     )}
                 </>

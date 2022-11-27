@@ -7,6 +7,7 @@ export const MyPackagesContainer = styled.div`
     padding-bottom: 94px;
     display: grid;
     padding: 0 80px 80px 80px;
+    overflow: hidden;
 
     .my-package-title {
         display: flex;
