@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { Modal } from 'antd'
+import { Col, Modal } from 'antd'
 
 type StickerProps = {
     pasted: boolean;
@@ -35,6 +35,7 @@ export const AlbumContainer = styled.div`
 
         .teams-name-list {
             display: flex;
+            flex-wrap: wrap;
             gap: 15px;
 
             li {
@@ -60,7 +61,12 @@ export const AlbumContainer = styled.div`
             display: flex;
             gap: 0.875rem;
             max-width: calc(100vw - 260px);
-            overflow-x: hidden;
+            padding-bottom: 0.875rem;
+            overflow-x: scroll;
+
+            &::-webkit-scrollbar {
+                height: 10px;
+            }
 
             li, .available-packages {
                 display: flex;
@@ -117,6 +123,10 @@ export const AlbumContainer = styled.div`
                 }
 
             }
+
+            @media (max-width: 768px) {
+                max-width: calc(100vw - 50px);
+            }
         }
     }
 
@@ -130,6 +140,7 @@ export const AlbumContainer = styled.div`
 
         .album-main-content {
             display: flex;
+            position: relative;
             flex-direction: column;
             width: 100%;
             height: 100%;
@@ -188,6 +199,20 @@ export const AlbumContainer = styled.div`
 
                 .fill {
                     flex: 1;
+                    justify-content: flex-end;
+                    display: flex;
+                    font-weight: bold;
+                    font-size: 24px;
+                }
+
+                @media (max-width: 1100px) {
+                    .header-counter {
+                        display: none;
+                    }
+
+                    .fill {
+                        display: none;
+                    }
                 }
             }
 
@@ -196,27 +221,92 @@ export const AlbumContainer = styled.div`
                 margin-top: 81px;
                 justify-content: space-between;
 
-                .sticker-content {
+                .sticker-content-desktop, .sticker-content-mobile {
                     display: flex;
                     justify-content: space-between;
                     width: 100%;
-                    gap: 42px;
 
                     .sticker-row {
                         display: flex;
+                        max-width: 40%;
+                        align-items: center;
                         flex-wrap: wrap;
-                        max-width: 30%;
-                        gap: 20px;
+                        gap: 60px;
+                        height: fit-content;
+                    }
+                }
 
+                .sticker-content-mobile {
+                    display: none;
+                }
 
+                @media (max-width: 1134px) {
+                    .sticker-content-desktop {
+                        display: none;
+                    }
+
+                    .sticker-content-mobile {
+                        display: flex;
+
+                        .sticker-row {
+                            max-width: 100%;
+                            justify-content: center;
+
+                        }
+                    }
+                }
+
+                @media (max-width: 576px) {
+                    .sticker-row {
+                        gap: 20px !important;
+                    }
+                }
+
+            }
+        }
+
+        @media (max-width: 768px) {
+            padding: unset;
+            margin: 0;
+            margin-top: 80px;
+
+            .album-main-content {
+                padding: 0 20px 20px 20px;
+                margin-bottom: 90px;
+                .header {
+                    justify-content: center !important;
+
+                    .header-title {
+                        position: absolute;
+                        top: -80px;
                     }
                 }
             }
         }
+
+        @media (max-width: 428px) {
+            .album-main-content {
+                padding: 0;
+
+                .header {
+                    .header-title {
+                        .title {
+                            min-width: unset;
+                            width: 80vw;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        @media (max-width: 576px) {
+            width: 90vw;
+        }
     }
 
-    @media (max-width: 768px) {
-        padding: unset;
+    @media (max-width: 768px){
+        padding: 0;
     }
 `
 
@@ -234,6 +324,8 @@ export const AlbumModal = styled(Modal)`
         background: ${props => props.theme.colors.geenDark};
 
         .ant-modal-body {
+            position: relative;
+
             .sticker {
                 transition: none !important;
                 display: flex;
@@ -413,11 +505,52 @@ export const AlbumModal = styled(Modal)`
                     }
                 }
             }
+
+            .modal-close {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                position: absolute;
+                width: 88px;
+                height: 30.32px;
+                top: -20%;
+                left: -25%;
+                border-radius: 8px;
+                padding: 2px;
+
+                p, span {
+                    margin: 0;
+                }
+
+                span {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100%;
+                    width: 30%;
+                    border-radius: 8px;
+
+                    background: ${props => props.theme.colors.middle};
+                    margin-right: 5px;
+                }
+
+                p {
+                    color: ${props => props.theme.colors.middle};
+                    font-weight: bold;
+                    font-size: 15px;
+                }
+            }
         }
 
         .ant-modal-footer {
             display: none;
         }
+
+        .ant-modal-close-x {
+            display: none;
+        }
+
+
     }
 `
 
@@ -430,16 +563,37 @@ export const StikerContainer = styled.div<StickerProps>`
     ${props => props.pasted
         ?
             `
-                width: 104.08px;
-                height: 144.6px;
+                width: 140px;
+                height: 200px;
+
+                @media (max-width: 1440px) {
+                    width: 120px;
+                    height: 180px;
+                }
+
+                @media (max-width: 578px) {
+                    width: 95px;
+                    height: 138px;
+                }
             `
         :
             `
-                width: 120.0px;
-                height: 162.96px;
+                width: 140px;
+                height: 200px;
                 border: white 3px solid;
+
+                @media (max-width: 1440px) {
+                    width: 120px;
+                    height: 180px;
+                }
+
+                @media (max-width: 578px) {
+                    width: 95px;
+                    height: 138px;
+                }
             `
     }
+
     border-radius: 8px;
     cursor: pointer;
     background: ${props => props.theme.colors.dark};
@@ -489,7 +643,7 @@ export const StikerContainer = styled.div<StickerProps>`
         display: flex;
         position: absolute;
         width: 100%;
-        height: 11px;
-        bottom: 8px;
+        height: 6.8%;
+        bottom: 11px;
     }
 `

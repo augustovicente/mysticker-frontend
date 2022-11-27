@@ -5,6 +5,7 @@ import { teamsIconList } from "./mocks/teamsIconList"
 import { teamsNameList } from "./mocks/teamsNameList"
 import { AlbumContainer } from "./styles"
 import { stickers } from "./mocks/stickers"
+import { Col, Row } from "antd"
 
 const ownedStickers: number[] = [
     263,
@@ -19,6 +20,7 @@ export const Album = () => {
         const group = teamsIconList.filter(({ teams, teamsGroupName }) => teamsGroupName === teamsGroupSelected)
         return group[0]?.teams
     }, [teamsGroupSelected])
+    console.log(groupOfTeams)
 
     const currentTeamSelected = useMemo(() => {
         const players = stickers.filter(({ country, players }) => country.toLocaleLowerCase().replaceAll(" ", "-") === groupOfTeams[teamIndexSelected].name.toLocaleLowerCase().replaceAll(" ", "-") && players)
@@ -118,12 +120,18 @@ export const Album = () => {
                             </div>
                         </div>
 
-                        <span className="fill"></span>
+                        <span className="fill">
+                            {
+                                teamIndexSelected < 9
+                                    ? `0${teamIndexSelected + 1}`
+                                    : teamIndexSelected + 1
+                            }
+                        </span>
                     </div>
 
                     <div className="sticker-container">
-                        <div className="sticker-content">
-                            <div className="sticker-row">
+                        <div className="sticker-content-desktop">
+                            <Row className="sticker-row">
                                 {currentTeamSelected?.players.map((sticker, index) => index < 6 && (
                                     <Sticker
                                         key={index}
@@ -133,9 +141,9 @@ export const Album = () => {
                                         country_id={currentTeamSelected.id}
                                     />
                                 ))}
-                            </div>
+                            </Row>
 
-                            <div className="sticker-row">
+                            <Row className="sticker-row">
                                 {currentTeamSelected?.players.map((sticker, index) => index >= 6 && (
                                     <Sticker
                                         key={index}
@@ -145,13 +153,24 @@ export const Album = () => {
                                         country_id={currentTeamSelected.id}
                                     />
                                 ))}
-                            </div>
+                            </Row>
+                        </div>
+                        <div className="sticker-content-mobile">
+                            <Row className="sticker-row">
+                                {currentTeamSelected?.players.map((sticker, index) => (
+                                    <Sticker
+                                        key={index}
+                                        stickerId={sticker.id}
+                                        rarity={sticker.rarity}
+                                        name={sticker.name}
+                                        country_id={currentTeamSelected.id}
+                                    />
+                                ))}
+                            </Row>
                         </div>
                     </div>
                 </div>
             </main>
-
-
         </AlbumContainer>
     )
 }
