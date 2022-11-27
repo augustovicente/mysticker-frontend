@@ -37,7 +37,7 @@ export const RevealedCards = ({revealedCards}:RevealedCardsProps) =>
                                 ? '-5rem'
                                 :'6rem'
                             : (index < focusedCard)
-                                ?'-6rem'
+                                ?'-10rem'
                                 :'2rem',
                     }}
                 >
