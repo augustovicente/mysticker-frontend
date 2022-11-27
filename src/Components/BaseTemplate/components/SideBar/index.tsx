@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useCallback, useContext, useEffect } from "react"
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from "react-router-dom"
 import { menuItems } from "./menuItems"
@@ -9,14 +9,26 @@ import { useAuth } from "contexts/auth.context";
 const SideBar = () => {
     const { t } = useTranslation();
     const { user } = useAuth();
+    const location = useLocation();
 
     const navLinks = user
         ? menuItems
         : menuItems.filter(item => !item.isAuthenticatedRoute);
 
+    const scrollToActiveLink = useCallback(() => {
+        const activeLink = document.querySelector(".active");
+        if (activeLink) {
+            activeLink.scrollIntoView({ behavior: "smooth" });
+        }
+    }, [location?.pathname])
+
+    useEffect(() => {
+        scrollToActiveLink();
+    }, [location?.pathname]);
+
+
     return (
         <SideBarContainer>
-
             <header>
                 <div className="sidebar-home-icon">
                     <Link to="/">
@@ -31,7 +43,6 @@ const SideBar = () => {
                         <li key={menu.link}>
                             <MenuItem
                                 isBlocked={menu.blocked}
-                                title={menu.title}
                                 to={menu.link}
                                 onClick={(event) => menu.blocked && event.preventDefault()}
                                 className={({ isActive, isPending }) =>
@@ -48,7 +59,7 @@ const SideBar = () => {
                                     <img src={menu.icon} />
                                 )}
 
-                                <h3>{t("sidebar."+menu.title)}</h3>
+                                <h3>{t("sidebar." + menu.title)}</h3>
                             </MenuItem>
                         </li>
                     ))}

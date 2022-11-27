@@ -12,14 +12,12 @@ export const SideBarContainer = styled.div`
     gap: 16px;
     max-width: 94px;
 
-    @media (max-width: 768px) {
-        display: none;
-    }
-
     header {
         display: flex;
         width: 100%;
-        padding: 58px 0; justify-content: center;
+        padding: 58px 0;
+        justify-content: center;
+
         .sidebar-home-icon {
             height: 34px;
             transition: all 0.3s;
@@ -32,6 +30,7 @@ export const SideBarContainer = styled.div`
         .sidebar-logo {
             display: flex;
             width: 100%;
+
             a {
                 display: flex;
                 justify-content: center;
@@ -81,6 +80,38 @@ export const SideBarContainer = styled.div`
         flex: 1;
         max-height: 290px;
     }
+
+    @media (max-width: 768px) {
+        header {
+            display: none !important;
+        }
+        main {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            justify-content: space-around;
+            align-items: center;
+            background: ${({ theme }) => theme.colors.middle};
+            z-index: 10;
+
+            ul {
+                flex-direction: row;
+                justify-content: space-between;
+                overflow-x: auto;
+                gap: 4px;
+
+                ::-webkit-scrollbar {
+                    height: 5px;
+                }
+
+                li a {
+                    padding: 12px 0px;
+                }
+            }
+        }
+
+    }
 `
 
 type HandleCollapseButtonProps = {
@@ -112,6 +143,7 @@ export const MenuItem = styled(NavLink) <HandleCollapseButtonProps>`
                 height: 100%;
                 background: ${({ theme }) => theme.colors.colorMiddle};
                 border-radius: 25px;
+                transition: all 0.2s ease-in-out;
             }
         }
 
@@ -129,6 +161,31 @@ export const MenuItem = styled(NavLink) <HandleCollapseButtonProps>`
             }
         }
     `}
+
+    @media (max-width: 768px) {
+        ${({ isBlocked }) => !isBlocked && css`
+            &:hover {
+                background: unset;
+                &::after {
+                    height: 2px;
+                    min-width: unset;
+                    max-width: unset;
+                    width: 100%;
+                }
+
+            }
+        `}
+
+        &.active {
+            &::after {
+                right: 0;
+                min-width: unset;
+                max-width: unset;
+                width: 100%;
+                height: 2px;
+            }
+        }
+    }
 
     img {
         height: 1.5rem;

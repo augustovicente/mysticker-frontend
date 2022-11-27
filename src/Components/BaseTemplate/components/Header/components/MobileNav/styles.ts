@@ -20,7 +20,7 @@ export const Container = styled.li<{isSelected?: boolean}>`
 
     img {
         max-width: 100%;
-        height: 34px;
+        width: 26px;
         object-fit: contain;
     }
 

@@ -7,6 +7,7 @@ import { useToggle } from 'hooks/useToggle';
 import { GradientOverlay } from 'Components/GradientOverlay';
 import { Link, useNavigate } from 'react-router-dom';
 import LogoPru from 'assets/imgs/logo.svg';
+import WorldBackground from '../../../../../public/assets/img/others/world.png'
 import { FormBase } from 'pages/Login/components/FormBase.styles';
 import { toast } from 'react-toastify';
 import axios from 'axios';
