@@ -6,6 +6,7 @@ import { teamsNameList } from "./mocks/teamsNameList"
 import { AlbumContainer } from "./styles"
 import { stickers } from "./mocks/stickers"
 import { Col, Row } from "antd"
+import { get_owned_tokens } from "models/User"
 
 const ownedStickers: number[] = [
     263,
@@ -20,7 +21,6 @@ export const Album = () => {
         const group = teamsIconList.filter(({ teams, teamsGroupName }) => teamsGroupName === teamsGroupSelected)
         return group[0]?.teams
     }, [teamsGroupSelected])
-    console.log(groupOfTeams)
 
     const currentTeamSelected = useMemo(() => {
         const players = stickers.filter(({ country, players }) => country.toLocaleLowerCase().replaceAll(" ", "-") === groupOfTeams[teamIndexSelected].name.toLocaleLowerCase().replaceAll(" ", "-") && players)
@@ -30,6 +30,15 @@ export const Album = () => {
     const ownedStikersAmount = useMemo(() => {
         return currentTeamSelected.players.reduce((counter, player) => ownedStickers.includes(player.id) ? counter + 1 : counter, 0)
     }, [groupOfTeams, teamIndexSelected, teamsGroupSelected])
+
+    useEffect(() => {
+        const response = async () => {
+            const test = await get_owned_tokens(currentTeamSelected.players.map(player => player.id));
+            console.log(test)
+        }
+
+        response()
+    }, [currentTeamSelected])
 
     const handleSelectNewTeamGroup = useCallback((name: string) => {
         setTeamsGroupSelected(name)
@@ -134,7 +143,7 @@ export const Album = () => {
                             <Row className="sticker-row">
                                 {currentTeamSelected?.players.map((sticker, index) => index < 6 && (
                                     <Sticker
-                                        key={index}
+                                        key={sticker.id}
                                         stickerId={sticker.id}
                                         rarity={sticker.rarity}
                                         name={sticker.name}
@@ -146,7 +155,7 @@ export const Album = () => {
                             <Row className="sticker-row">
                                 {currentTeamSelected?.players.map((sticker, index) => index >= 6 && (
                                     <Sticker
-                                        key={index}
+                                        key={sticker.id}
                                         stickerId={sticker.id}
                                         rarity={sticker.rarity}
                                         name={sticker.name}
@@ -159,7 +168,7 @@ export const Album = () => {
                             <Row className="sticker-row">
                                 {currentTeamSelected?.players.map((sticker, index) => (
                                     <Sticker
-                                        key={index}
+                                        key={sticker.id}
                                         stickerId={sticker.id}
                                         rarity={sticker.rarity}
                                         name={sticker.name}

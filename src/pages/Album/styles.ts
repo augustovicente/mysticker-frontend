@@ -564,7 +564,7 @@ export const StikerContainer = styled.div<StickerProps>`
         ?
             `
                 width: 140px;
-                height: 200px;
+                height: 192px;
 
                 @media (max-width: 1440px) {
                     width: 120px;
@@ -579,7 +579,7 @@ export const StikerContainer = styled.div<StickerProps>`
         :
             `
                 width: 140px;
-                height: 200px;
+                height: 192px;
                 border: white 3px solid;
 
                 @media (max-width: 1440px) {
@@ -624,7 +624,7 @@ export const StikerContainer = styled.div<StickerProps>`
     .player-img {
         display: flex;
         position: absolute;
-        top: 5px;
+        top: 9px;
         height: 85%;
         width: 90%;
     }
@@ -643,7 +643,18 @@ export const StikerContainer = styled.div<StickerProps>`
         display: flex;
         position: absolute;
         width: 100%;
-        height: 6.8%;
-        bottom: 11px;
+        height: 7%;
+        bottom: 7.5px;
+    }
+
+    @media (max-width: 1440px) {
+        .player-img {
+            top: 8px;
+        }
+
+        .player-base-tier {
+            height: 6.5%;
+            bottom: 8px;
+        }
     }
 `
