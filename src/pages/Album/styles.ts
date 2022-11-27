@@ -61,7 +61,12 @@ export const AlbumContainer = styled.div`
             display: flex;
             gap: 0.875rem;
             max-width: calc(100vw - 260px);
-            overflow-x: hidden;
+            padding-bottom: 0.875rem;
+            overflow-x: scroll;
+
+            &::-webkit-scrollbar {
+                height: 10px;
+            }
 
             li, .available-packages {
                 display: flex;
@@ -120,7 +125,7 @@ export const AlbumContainer = styled.div`
             }
 
             @media (max-width: 768px) {
-                max-width: calc(100vw - 80px);
+                max-width: calc(100vw - 50px);
             }
         }
     }
@@ -267,7 +272,7 @@ export const AlbumContainer = styled.div`
 
             .album-main-content {
                 padding: 0 20px 20px 20px;
-
+                margin-bottom: 90px;
                 .header {
                     justify-content: center !important;
 
@@ -281,6 +286,8 @@ export const AlbumContainer = styled.div`
 
         @media (max-width: 428px) {
             .album-main-content {
+                padding: 0;
+
                 .header {
                     .header-title {
                         .title {
