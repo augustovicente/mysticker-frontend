@@ -34,6 +34,11 @@ export const MyPackagesContainer = styled.div`
         display: flex;
     }
 
+    div.revealing-container{
+        margin: 0 auto;
+        transform: translateY(-30%);
+    }
+
     @media (max-width: 768px) {
         padding: unset;
     }
