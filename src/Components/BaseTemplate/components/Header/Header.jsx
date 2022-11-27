@@ -6,7 +6,7 @@ import { LoginButton } from './components/LoginButton';
 import { DefaultButton } from './components/DefaultButton';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from 'contexts/auth.context';
-import { Avatar, Button, Menu, Radio, Space } from 'antd';
+import { Radio, Space } from 'antd';
 import i18n from 'i18n';
 import * as S from './styles';
 import { MobileNav } from './components/MobileNav/MobileNav';
@@ -23,74 +23,6 @@ const Header = (props) => {
     const { user, signOut } = useAuth();
     const { hasContainer = true } = props;
     const location = useLocation();
-
-    useEffect(() => {
-        //Mobile Nav Hide Show
-        if ($('.mobile-menu').length) {
-
-            var mobileMenuContent = $('.menu-area .push-menu').html();
-            $('.mobile-menu .menu-box .menu-outer').append(mobileMenuContent);
-
-            //Dropdown Button
-            $('.mobile-menu li.menu-item-has-children .dropdown-btn').on('click', function () {
-                $(this).toggleClass('open');
-                $(this).prev('ul').slideToggle(500);
-            });
-
-            $('.menu-backdrop, .mobile-menu .close-btn').click(() => {
-                $('body').removeClass('mobile-menu-visible');
-            })
-
-            //Menu Toggle Btn
-            $('.mobile-nav-toggler').on('click', function () {
-                $('body').addClass('mobile-menu-visible');
-            });
-        }
-    }, []);
-
-    useEffect(() => {
-        $(".menu-tigger").on("click", function () {
-            $(".extra-info,.offcanvas-overly").addClass("active");
-            return false;
-        });
-
-        $(".menu-close,.offcanvas-overly").on("click", function () {
-            $(".extra-info,.offcanvas-overly").removeClass("active");
-
-        });
-        /*=============================================
-            =     Menu sticky & Scroll to top      =
-        =============================================*/
-        $(window).on('scroll', function () {
-            var scroll = $(window).scrollTop();
-            if (scroll < 245) {
-                $("#sticky-header").removeClass("sticky-menu");
-                $('.scroll-to-target').removeClass('open');
-                $("#header-top-fixed").removeClass("header-fixed-position");
-
-            } else {
-                $("#sticky-header").addClass("sticky-menu");
-
-                $('.scroll-to-target').addClass('open');
-                $("#header-top-fixed").addClass("header-fixed-position");
-            }
-        });
-
-
-        /*=============================================
-            =    		 Scroll Up  	         =
-        =============================================*/
-        if ($('.scroll-to-target').length) {
-            $(".scroll-to-target").on('click', function () {
-                var target = $(this).attr('data-target');
-                // animate
-                $('html, body').animate({
-                    scrollTop: $(target).offset().top
-                }, 1000);
-            });
-        }
-    }, []);
-
     const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
     const [selectedMenu, setSelectedMenu] = useState(null);
     const navigate = useNavigate();
@@ -106,8 +38,6 @@ const Header = (props) => {
         $('body').removeClass('mobile-menu-visible');
         navigate('/login');
     }
-
-
 
     const handleConnectWallet = async () => {
         setIsLoading(true);
@@ -239,6 +169,61 @@ const Header = (props) => {
             }
         },
     ];
+
+    useEffect(() => {
+        //Mobile Nav Hide Show
+        if ($('.mobile-menu').length) {
+
+            var mobileMenuContent = $('.menu-area .push-menu').html();
+            $('.mobile-menu .menu-box .menu-outer').append(mobileMenuContent);
+
+            //Dropdown Button
+            $('.mobile-menu li.menu-item-has-children .dropdown-btn').on('click', function () {
+                $(this).toggleClass('open');
+                $(this).prev('ul').slideToggle(500);
+            });
+
+            $('.menu-backdrop, .mobile-menu .close-btn').click(() => {
+                $('body').removeClass('mobile-menu-visible');
+            })
+
+            //Menu Toggle Btn
+            $('.mobile-nav-toggler').on('click', function () {
+                $('body').addClass('mobile-menu-visible');
+            });
+        }
+    }, []);
+
+    useEffect(() => {
+        const handleScroll = window.addEventListener('scroll', () => {
+            if (window.scrollY < 150) {
+                $("#sticky-header").removeClass("sticky-menu");
+                $('.scroll-to-target').removeClass('open');
+                $("#header-top-fixed").removeClass("header-fixed-position");
+            } else {
+                $("#sticky-header").addClass("sticky-menu");
+
+                $('.scroll-to-target').addClass('open');
+                $("#header-top-fixed").addClass("header-fixed-position");
+            }
+        });
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        }
+    }, [])
+
+    useEffect(() => {
+        $(".menu-tigger").on("click", function () {
+            $(".extra-info,.offcanvas-overly").addClass("active");
+            return false;
+        });
+
+        $(".menu-close,.offcanvas-overly").on("click", function () {
+            $(".extra-info,.offcanvas-overly").removeClass("active");
+
+        });
+    }, []);
 
     return (
         <header className='main-header'>

@@ -20,8 +20,6 @@ export default createGlobalStyle`
     }
 
     html {
-        width: 100%;
-        height: 100%;
         overflow-x: hidden;
     }
 
@@ -33,6 +31,10 @@ export default createGlobalStyle`
         -webkit-font-smoothing: antialiased !important;
         font-weight: 400;
         background: ${({ theme }) => theme.colors.dark};
+        width: 100%;
+    }
+    html, body, #root, .App {
+        height: 100%;
     }
 
     button, textarea, a, span {
