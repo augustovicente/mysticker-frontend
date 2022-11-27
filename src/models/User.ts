@@ -78,8 +78,7 @@ const get_owned_tokens = async (players: number[]) =>
         const addresses = [0,1,2,3,4,5,6,7,8,9,10].map(times => address)
         const tx = await nftContract.methods
             .balanceOfBatch(addresses , players)
-            .send({ from: address })
-
+            .call();
         return tx
     }
 }
