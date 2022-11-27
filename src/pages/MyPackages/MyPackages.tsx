@@ -7,6 +7,7 @@ import { Link } from "react-router-dom"
 import { getPackages, open_package } from "models/User"
 import { Skeletons } from "./components/Skeletons"
 import { toast } from "react-toastify"
+import { RevealedCards } from "./components/RevealedCards"
 
 type MyPackagesProps = {
     esmerald: number;
@@ -20,6 +21,7 @@ export const MyPackages = () => {
     const [selectedIndex, setSelectedIndex] = useState<number>(0)
     const [availablePackages, setAvailablePackages] = useState<MyPackagesProps>()
     const [isLoading, setIsLoading] = useToggle(false);
+    const [isRevealing, setIsRevealing] = useToggle(false);
 
     const onSubmitReveal = async (numberType: number) =>
     {
@@ -106,8 +108,8 @@ export const MyPackages = () => {
                         <img src="/assets/img/icons/album-icon.svg" alt="" />
                         Álbum
                     </h1>
-
-                    <ul className="desktop-cards">
+                    {isRevealing 
+                    ? (<ul className="desktop-cards">
                         {stickersMock.map(({ stars, title, type, id, numberType }, index) => selectedIndex === (id-1) ? (
                             <StickersPackageContainer key={id}>
                                 <div className="stars-package-container">
@@ -221,7 +223,12 @@ export const MyPackages = () => {
                                 <img src={type} alt="" />
                             </PackageContainer>
                         ))}
-                    </ul>
+                    </ul>)
+                    : (
+                        <div className="revealed-container">
+                            <RevealedCards revealedCards={[1,2,3,4,5,6]} />
+                        </div>
+                    )}
                 </>
             )}
         </MyPackagesContainer>
