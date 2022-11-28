@@ -13,7 +13,7 @@ import { Button } from 'antd';
 
 export const Rewards = () => {
     const [teamsGroupSelected, setTeamsGroupSelected] = useState("todos");
-    const [teamIndexSelected, setTeamSelected] = useState(0);
+    const [teamIndexSelected, setTeamIndexSelected] = useState(0);
     const prevTeamsGroupSelected = usePrevious(teamsNameList.findIndex(({ name }) => name === teamsGroupSelected));
 
     const teamsIconList = teamsList.map((team) => {
@@ -42,7 +42,7 @@ export const Rewards = () => {
             const nextGroup = teamsNameList[nextIndex]?.name
             if (nextGroup) {
                 setTeamsGroupSelected(nextGroup)
-                setTeamSelected(0)
+                setTeamIndexSelected(0)
             }
         }
         else {
@@ -50,7 +50,7 @@ export const Rewards = () => {
             const previousGroup = teamsNameList[previousIndex]?.name
             if (previousGroup) {
                 setTeamsGroupSelected(previousGroup)
-                setTeamSelected(0)
+                setTeamIndexSelected(0)
             }
         }
     }
@@ -81,6 +81,28 @@ export const Rewards = () => {
 
                 <main>
                     <aside className='left'>
+                        <div className='mobile-reward'>
+                            <div className="reward">
+                                <img src={tShirt} alt={`Camiseta`} />
+                            </div>
+
+                            <div className="description">
+                                <h1>Camiseta Pru</h1>
+                                <p>
+                                    Ao completar todas as figuras desse continente você pode resgater essa camiseta
+                                </p>
+                            </div>
+
+                            <footer className='d-flex align-items-center gap-5'>
+                                <h1>01/04</h1>
+
+                                <Button>
+                                    Resgate
+                                </Button>
+
+                            </footer>
+                        </div>
+
                         <header>
                             <div className="group">
                                 <h3>{
@@ -107,6 +129,26 @@ export const Rewards = () => {
                                     </button>
                                 </div>
                             </div>
+
+                            <div className='group-selector-mobile'>
+                                <button
+                                    onClick={() => handlePreviousOrNextTeam('previous')}
+                                    disabled={teamsGroupSelected === "todos"}
+                                >
+                                    <ArrowIcon width={20} height={20} />
+                                </button>
+
+                                <h3>{
+                                    teamsNameList.find(({ name }) => name === teamsGroupSelected)?.title
+                                }</h3>
+
+                                <button
+                                    onClick={() => handlePreviousOrNextTeam('next')}
+                                    disabled={teamsGroupSelected === "europa"}
+                                >
+                                    <ArrowIcon width={20} height={20} />
+                                </button>
+                            </div>
                         </header>
 
                         <div className='teams'>
@@ -120,7 +162,7 @@ export const Rewards = () => {
                                             exit={{ x: prevTeamsGroupSelected < teamsNameList.findIndex(({ name }) => name === teamsGroupSelected) ? -1400 : 1400 }}
                                             transition={{ duration: 0.3, ease: "easeInOut" }}
                                             className={teamIndexSelected === index ? `selected` : ""}
-                                            onClick={() => setTeamSelected(index)}
+                                            onClick={() => setTeamIndexSelected(index)}
                                         >
                                             <img src={`/assets/img/icons/team-flags/${teamsGroupSelected.toLocaleLowerCase()}/${name.toLocaleLowerCase().replaceAll(" ", "-")}.svg`} alt={`Bandeira ${name}`} />
                                             <span>

@@ -26,6 +26,7 @@ export const RewardsContainer = styled.div`
     section {
         ul {
             display: flex;
+            flex-wrap: wrap;
             gap: 12px;
             li {
                 display: flex;
@@ -64,11 +65,21 @@ export const RewardsContainer = styled.div`
             flex-direction: column;
             overflow: hidden;
 
+            .mobile-reward {
+                display: none;
+            }
+
+
             header {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 gap: 64px;
+
+                .group-selector-mobile {
+                    display: none;
+                }
+
 
                 div.group {
                     flex: 1;
@@ -168,6 +179,7 @@ export const RewardsContainer = styled.div`
                         align-items: center;
                         gap: 18px;
                         cursor: pointer;
+                        opacity: 0.4;
 
                         img {
                             display: block;
@@ -176,6 +188,7 @@ export const RewardsContainer = styled.div`
                             border-radius: 50%;
                             object-fit: contain;
                             position: relative;
+                            border: ${({ theme }) => theme.colors.middleL} 11px solid;
 
                             &::after {
                                 position: absolute;
@@ -192,6 +205,14 @@ export const RewardsContainer = styled.div`
                         span {
                             font-weight: bold;
                             color: ${({ theme }) => theme.colors.white};
+                        }
+
+                        &.selected {
+                            opacity: 1;
+
+                            img {
+                                border: ${({ theme }) => theme.colors.purple} 11px solid;
+                            }
                         }
                     }
                 }
@@ -237,9 +258,59 @@ export const RewardsContainer = styled.div`
     @media (max-width: 1100px) {
         main {
             grid-template-columns: 1fr;
+            aside.left {
+                .mobile-reward {
+                    display: flex;
+                }
+
+                .mobile-reward {
+                    flex-direction: column;
+                }
+
+                header {
+                    display: flex;
+                    justify-content: center;
+
+                    .group-selector-mobile {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        h3 {
+                            font-size: 32px;
+                            font-weight: bold;
+                            margin: 0;
+                            color: #FFFFFF;
+                            margin: 0 1rem;
+                            border-bottom: rgba(70, 148, 255, 1) 3px solid;
+                            padding-bottom: 12px;
+                        }
+
+                        button {
+                            background: transparent;
+
+                            &:nth-child(3) {
+                                transform: rotate(180deg);
+                                margin-top: .45rem;
+                            }
+                        }
+                    }
+
+                    div.group, div.selector {
+                        display: none;
+                    }
+                }
+            }
+
+            aside.right {
+                display: none;
+            }
         }
     }
 
+    @media (max-width: 768px) {
+        padding: 0px;
+    }
 `;
 
 
