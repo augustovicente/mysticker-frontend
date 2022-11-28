@@ -5,7 +5,7 @@ export const Container = styled.div`
     position: fixed;
     bottom: 0;
     left: 0;
-    z-index: 1 !important;
+    z-index: 20 !important;
     height: 30vh;
     transform: rotate(-180deg);
     width: 100%;

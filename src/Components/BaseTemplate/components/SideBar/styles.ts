@@ -136,8 +136,8 @@ export const MenuItem = styled(NavLink) <HandleCollapseButtonProps>`
             &::after {
                 content: "";
                 position: absolute;
-                min-width: 6px;
-                max-width: 6px;
+                min-width: 4px;
+                max-width: 4px;
                 top: 0;
                 right: 0;
                 height: 100%;
@@ -151,8 +151,8 @@ export const MenuItem = styled(NavLink) <HandleCollapseButtonProps>`
             &::after {
                 content: "";
                 position: absolute;
-                min-width: 6px;
-                max-width: 6px;
+                min-width: 4px;
+                max-width: 4px;
                 top: 0;
                 right: 0;
                 height: 100%;

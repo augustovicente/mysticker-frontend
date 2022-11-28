@@ -17,6 +17,7 @@ import { ConfirmEmail } from 'pages/Login/Pages/ConfirmEmail/ConfirmEmail';
 import { Challenge } from 'pages/Challenge/Challenge';
 import { Album } from 'pages/Album/Album';
 import BaseTemplate from 'Components/BaseTemplate';
+import { Rewards } from 'pages/Rewards/Rewards';
 
 
 export const Router = () => {
@@ -47,7 +48,7 @@ export const Router = () => {
                 {/* <Route> */}
                 <Route path='/' element={<Outlet />} >
                     <Route index element={<Home />} />
-                    <Route path="rewards" element={<><h2>Premios</h2></>} />
+                    <Route path="rewards" element={<Rewards />} />
                     <Route path="marketplace" element={<Marketplace />} />
                     <Route path="/my-packages" element={<MyPackages />} />
                     <Route path="/album" element={<Album />} />

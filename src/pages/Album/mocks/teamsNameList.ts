@@ -5,15 +5,15 @@ export const teamsNameList = [
     },
     {
         name: "america-norte",
-        title: "America Norte",
+        title: "América Norte",
     },
     {
         name: "america-sul",
-        title: "America Sul",
+        title: "América Sul",
     },
     {
         name: "africa",
-        title: "Africa",
+        title: "África",
     },
     {
         name: "asia",

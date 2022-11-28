@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from "react"
+import React, { useCallback, useEffect, useRef } from "react"
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from "react-router-dom"
 import { menuItems } from "./menuItems"
@@ -18,7 +18,11 @@ const SideBar = () => {
     const scrollToActiveLink = useCallback(() => {
         const activeLink = document.querySelector(".active");
         if (activeLink) {
-            activeLink.scrollIntoView({ behavior: "smooth" });
+            activeLink.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+                inline: "center"
+            });
         }
     }, [location?.pathname])
 

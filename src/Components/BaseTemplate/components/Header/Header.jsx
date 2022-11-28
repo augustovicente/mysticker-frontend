@@ -373,6 +373,7 @@ const Header = (props) => {
                                             <ul>
                                                 {menuItems.map(item => (
                                                     <MobileNav
+                                                        key={item.id}
                                                         id={item.id}
                                                         icon={item.icon}
                                                         title={item.title}
