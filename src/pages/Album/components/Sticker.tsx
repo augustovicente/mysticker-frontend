@@ -8,19 +8,14 @@ type StickerProps = {
     stickerId: number
     rarity: number
     name: string
-    country_id: number;
-    ownedStickers: string[]
+    quantity: number;
 }
 
 const pastedStickers: number[] = []
 
-export const Sticker = ({ stickerId, name, rarity, country_id, ownedStickers }: StickerProps) => {
+export const Sticker = ({ stickerId, name, rarity, quantity }: StickerProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [playerSelected, setPlayerSelected] = useState(stickerId)
-
-    const handlePasteSticker = useCallback(() => {
-        paste_stickers(country_id);
-    }, [])
 
     const showModal = () => {
         setIsModalOpen(true)
@@ -52,7 +47,7 @@ export const Sticker = ({ stickerId, name, rarity, country_id, ownedStickers }: 
                     onClick={showModal}
                     pasted={pastedStickers.includes(stickerId)}
                 >
-                    {ownedStickers.includes(stickerId.toString()) ? (
+                    {quantity >= 1 ? (
                         <>
                             <img className="player-img" src={`/copa_pruu/${stickerId}.png`} alt={name} />
                             <img className="player-tier" src={`/assets/img/icons/tier-${rarity}-icon.svg`} />
@@ -86,7 +81,7 @@ export const Sticker = ({ stickerId, name, rarity, country_id, ownedStickers }: 
                 <div
                     className="sticker"
                 >
-                    {ownedStickers.includes(playerSelected.toString()) ? (
+                    {quantity >= 1 ? (
                         <>
                             <img className="player-img" src={`/copa_pruu/${playerSelected}.png`} alt={name} />
                             <img className="player-tier" src={`/assets/img/icons/tier-${rarity}-icon.svg`} />
@@ -134,26 +129,6 @@ export const Sticker = ({ stickerId, name, rarity, country_id, ownedStickers }: 
                 </div>
 
                 <div className="paste-sell-buy-container">
-                    {!pastedStickers.includes(playerSelected) && (
-                        <button
-                            disabled={!ownedStickers.includes(playerSelected.toString())}
-                            className="paste-sell-buy-btn"
-                            onClick={() => ownedStickers.includes(playerSelected.toString()) ? handlePasteSticker : {}}
-                        >
-                            <img src="/assets/img/icons/paste-burn-green-icon.svg" />
-
-                            <p>Colar</p>
-
-                            {!ownedStickers.includes(playerSelected.toString()) ? (
-                                <span>
-                                    <img src="/src/assets/imgs/lock.svg" />
-                                </span>
-                            ) : (
-                                <span />
-                            )}
-                        </button>
-                    )}
-
                     <button className="paste-sell-buy-btn" disabled={true}>
                         <img src="/assets/img/icons/sell-green-icon.svg" />
 

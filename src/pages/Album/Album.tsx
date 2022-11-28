@@ -29,8 +29,8 @@ export const Album = () => {
     }, [groupOfTeams, teamIndexSelected, teamsGroupSelected])
 
     const ownedStikersAmount = useMemo(() => {
-        return currentTeamSelected.players.reduce((counter, player) => ownedStickers.includes(player.id.toString()) ? counter + 1 : counter, 0)
-    }, [groupOfTeams, teamIndexSelected, teamsGroupSelected])
+        return ownedStickers.reduce((counter, owned) => parseInt(owned) > 0 ? counter + 1 : counter, 0)
+    }, [ownedStickers])
 
     useEffect(() => {
         const response = async () => {
@@ -165,11 +165,10 @@ export const Album = () => {
                                 {currentTeamSelected?.players.map((sticker, index) => index < 6 && (
                                     <Sticker
                                         key={sticker.id}
-                                        ownedStickers={ownedStickers}
+                                        quantity={parseInt(ownedStickers[index])}
                                         stickerId={sticker.id}
                                         rarity={sticker.rarity}
                                         name={sticker.name}
-                                        country_id={currentTeamSelected.id}
                                     />
                                 ))}
                             </Row>
@@ -178,11 +177,10 @@ export const Album = () => {
                                 {currentTeamSelected?.players.map((sticker, index) => index >= 6 && (
                                     <Sticker
                                         key={sticker.id}
-                                        ownedStickers={ownedStickers}
+                                        quantity={parseInt(ownedStickers[index])}
                                         stickerId={sticker.id}
                                         rarity={sticker.rarity}
                                         name={sticker.name}
-                                        country_id={currentTeamSelected.id}
                                     />
                                 ))}
                             </Row>
@@ -192,11 +190,10 @@ export const Album = () => {
                                 {currentTeamSelected?.players.map((sticker, index) => (
                                     <Sticker
                                         key={sticker.id}
-                                        ownedStickers={ownedStickers}
+                                        quantity={parseInt(ownedStickers[index])}
                                         stickerId={sticker.id}
                                         rarity={sticker.rarity}
                                         name={sticker.name}
-                                        country_id={currentTeamSelected.id}
                                     />
                                 ))}
                             </Row>
