@@ -23,7 +23,7 @@ export const MyPackages = () => {
     const [isLoading, setIsLoading] = useToggle(false);
     const [isRevealing, setIsRevealing] = useToggle(false);
     const [isRevealed, setIsRevealed] = useToggle(false);
-    const [revealingGif, setRevealingGif] = useState<string>();
+    const [revealingGif, setRevealingGif] = useState<string>("/assets/gif/esmerald-multiple-package.gif");
     const [revealedCards, setRevealedCards] = useState<number[]>([]);
 
     const onSubmitReveal = async (numberType: number) =>
@@ -69,38 +69,38 @@ export const MyPackages = () => {
             case 1:
                 if(package_amount > 1)
                 {
-                    setRevealingGif('/assets/img/gif/esmerald-multiple-package.gif');
+                    setRevealingGif('/assets/gif/esmerald-multiple-package.gif');
                 }
                 else
                 {
-                    setRevealingGif('/assets/img/gif/esmerald-single-packages.gif');
+                    setRevealingGif('/assets/gif/esmerald-single-package.gif');
                 }
                 break;
             case 2:
                 if(package_amount > 1)
                 {
-                    setRevealingGif('/assets/img/gif/obsidian-multiple-package.gif');
+                    setRevealingGif('/assets/gif/obsidian-multiple-package.gif');
                 }
                 else
                 {
-                    setRevealingGif('/assets/img/gif/obsidian-single-packages.gif');
+                    setRevealingGif('/assets/gif/obsidian-single-package.gif');
                 }
                 break;
             case 3:
                 if(package_amount > 1)
                 {
-                    setRevealingGif('/assets/img/gif/diamond-multiple-package.gif');
+                    setRevealingGif('/assets/gif/diamond-multiple-package.gif');
                 }
                 else
                 {
-                    setRevealingGif('/assets/img/gif/diamond-single-packages.gif');
+                    setRevealingGif('/assets/gif/diamond-single-package.gif');
                 }
                 break;
         }
         setTimeout(() => {
             setIsRevealing(false);
             setIsRevealed(true);
-        }, 3000);
+        }, 5000);
     }
 
     const handleDecrement = useCallback(() => {
@@ -274,7 +274,10 @@ export const MyPackages = () => {
                     {isRevealed && 
                         (<div className="revealed-container">
                             <RevealedCards
-                                openMoreCards={() => setIsRevealing(false)}
+                                openMoreCards={() => {
+                                    setIsRevealing(false);
+                                    setIsRevealed(false);
+                                }}
                                 revealedCards={revealedCards}
                             />
                         </div>)
