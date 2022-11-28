@@ -45,9 +45,9 @@ export const MyPackages = () => {
             else
             {
                 try {
-                    const response:any = await open_package(numberType, count);
+                    const { data }:any = await open_package(numberType, count);
                     setIsLoading(false)
-                    setRevealedCards(response.stickers_drawed.map((card:any) => card.sticker_id));
+                    setRevealedCards(data.stickers_drawed.map((card:any) => card.id));
                     showGif(numberType, 1)
                 }
                 catch (error)
@@ -69,31 +69,31 @@ export const MyPackages = () => {
             case 1:
                 if(package_amount > 1)
                 {
-                    setRevealingGif('/assets/img/gifs/esmerald-multiple-package.gif');
+                    setRevealingGif('/assets/img/gif/esmerald-multiple-package.gif');
                 }
                 else
                 {
-                    setRevealingGif('/assets/img/gifs/esmerald-single-packages.gif');
+                    setRevealingGif('/assets/img/gif/esmerald-single-packages.gif');
                 }
                 break;
             case 2:
                 if(package_amount > 1)
                 {
-                    setRevealingGif('/assets/img/gifs/obsidian-multiple-package.gif');
+                    setRevealingGif('/assets/img/gif/obsidian-multiple-package.gif');
                 }
                 else
                 {
-                    setRevealingGif('/assets/img/gifs/obsidian-single-packages.gif');
+                    setRevealingGif('/assets/img/gif/obsidian-single-packages.gif');
                 }
                 break;
             case 3:
                 if(package_amount > 1)
                 {
-                    setRevealingGif('/assets/img/gifs/diamond-multiple-package.gif');
+                    setRevealingGif('/assets/img/gif/diamond-multiple-package.gif');
                 }
                 else
                 {
-                    setRevealingGif('/assets/img/gifs/diamond-single-packages.gif');
+                    setRevealingGif('/assets/img/gif/diamond-single-packages.gif');
                 }
                 break;
         }
@@ -142,7 +142,6 @@ export const MyPackages = () => {
 
     useEffect(() => {
         update_packages();
-        setRevealingGif('/assets/gif/diamond-single-package.gif')
     }, [])
 
     return (
