@@ -22,12 +22,14 @@ export const MyPackages = () => {
     const [availablePackages, setAvailablePackages] = useState<MyPackagesProps>()
     const [isLoading, setIsLoading] = useToggle(false);
     const [isRevealing, setIsRevealing] = useToggle(false);
+    const [isRevealed, setIsRevealed] = useToggle(false);
+    const [revealingGif, setRevealingGif] = useState<string>();
+    const [revealedCards, setRevealedCards] = useState<number[]>([]);
 
     const onSubmitReveal = async (numberType: number) =>
     {
         if(count > 0)
         {
-
             setIsLoading(true)
             const amount_available = numberType == 3
                 ? availablePackages?.diamond
@@ -43,18 +45,62 @@ export const MyPackages = () => {
             else
             {
                 try {
-                    const response = await open_package(numberType);
-                    console.log({ response });
+                    const response:any = await open_package(numberType, count);
                     setIsLoading(false)
+                    setRevealedCards(response.stickers_drawed.map((card:any) => card.sticker_id));
+                    showGif(numberType, 1)
                 }
                 catch (error)
                 {
-                    console.log({ error })
                     setIsLoading(false)
+                    toast.error("Ocorreu um erro ao revelar os pacotes");
+                    console.error(error);
                 }
                 update_packages();
             }
         }
+    }
+
+    const showGif = (package_type: number, package_amount: number) =>
+    {
+        setIsRevealing(true);
+        switch (package_type)
+        {
+            case 1:
+                if(package_amount > 1)
+                {
+                    setRevealingGif('/assets/img/gifs/esmerald-multiple-package.gif');
+                }
+                else
+                {
+                    setRevealingGif('/assets/img/gifs/esmerald-single-packages.gif');
+                }
+                break;
+            case 2:
+                if(package_amount > 1)
+                {
+                    setRevealingGif('/assets/img/gifs/obsidian-multiple-package.gif');
+                }
+                else
+                {
+                    setRevealingGif('/assets/img/gifs/obsidian-single-packages.gif');
+                }
+                break;
+            case 3:
+                if(package_amount > 1)
+                {
+                    setRevealingGif('/assets/img/gifs/diamond-multiple-package.gif');
+                }
+                else
+                {
+                    setRevealingGif('/assets/img/gifs/diamond-single-packages.gif');
+                }
+                break;
+        }
+        setTimeout(() => {
+            setIsRevealing(false);
+            setIsRevealed(true);
+        }, 3000);
     }
 
     const handleDecrement = useCallback(() => {
@@ -96,6 +142,7 @@ export const MyPackages = () => {
 
     useEffect(() => {
         update_packages();
+        setRevealingGif('/assets/gif/diamond-single-package.gif')
     }, [])
 
     return (
@@ -108,127 +155,136 @@ export const MyPackages = () => {
                         <img src="/assets/img/icons/album-icon.svg" alt="" />
                         Álbum
                     </h1>
-                    {isRevealing 
-                    ? (<ul className="desktop-cards">
-                        {stickersMock.map(({ stars, title, type, id, numberType }, index) => selectedIndex === (id-1) ? (
-                            <StickersPackageContainer key={id}>
-                                <div className="stars-package-container">
-                                    <div className="stars-container">
-                                        <img src={stars} alt="" />
+                    {!isRevealing && !isRevealed &&
+                        (<ul className="desktop-cards">
+                            {stickersMock.map(({ stars, title, type, id, numberType }, index) => selectedIndex === (id-1) ? (
+                                <StickersPackageContainer key={id}>
+                                    <div className="stars-package-container">
+                                        <div className="stars-container">
+                                            <img src={stars} alt="" />
+                                        </div>
+                                        <div className="package-container">
+                                            <button
+                                                className="prev-package"
+                                                onClick={prev}
+                                            >
+                                                <img src="/assets/img/icons/arrow-left-black.svg" alt="" />
+                                            </button>
+                                            <img src={type} alt="" />
+                                            <button
+                                                className="next-package"
+                                                onClick={next}
+                                            >
+                                                <img src="/assets/img/icons/arrow-right-black.svg" alt="" />
+                                            </button>
+                                        </div>
+
+                                        <div className="available-packages">
+                                            <span>
+                                                {id == 3
+                                                    ? availablePackages?.diamond
+                                                    : id == 2
+                                                        ? availablePackages?.obsidian
+                                                        : availablePackages?.esmerald
+                                                }
+                                            </span>
+                                            <p>
+                                                pacotinhos <br />
+                                                disponiveis
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div className="package-container">
+
+                                    <div className="quantity-counter-container">
                                         <button
-                                            className="prev-package"
-                                            onClick={prev}
+                                            className="min-max-btn"
                                         >
-                                            <img src="/assets/img/icons/arrow-left-black.svg" alt="" />
+                                            min.
                                         </button>
-                                        <img src={type} alt="" />
+                                        <div className="quantity-counter">
+                                            <button
+                                                className="counter-decrement"
+                                                type="button"
+                                                onClick={handleDecrement}
+                                            >
+                                                -
+                                            </button>
+                                            <input
+                                                type="number"
+                                                name="counter"
+                                                id="counter"
+                                                value={count}
+                                                max={id == 3
+                                                    ? availablePackages?.diamond
+                                                    : id == 2
+                                                        ? availablePackages?.obsidian
+                                                        : availablePackages?.esmerald
+                                                }
+                                            />
+                                            <button
+                                                className="counter-increment"
+                                                type="button"
+                                                onClick={handleIncrement}
+                                            >
+                                                +
+                                            </button>
+                                        </div>
                                         <button
-                                            className="next-package"
-                                            onClick={next}
+                                            className="min-max-btn"
                                         >
-                                            <img src="/assets/img/icons/arrow-right-black.svg" alt="" />
+                                            max.
                                         </button>
                                     </div>
 
-                                    <div className="available-packages">
-                                        <span>
-                                            {id == 3
-                                                ? availablePackages?.diamond
-                                                : id == 2
-                                                    ? availablePackages?.obsidian
-                                                    : availablePackages?.esmerald
-                                            }
-                                        </span>
-                                        <p>
-                                            pacotinhos <br />
-                                            disponiveis
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="quantity-counter-container">
-                                    <button
-                                        className="min-max-btn"
-                                    >
-                                        min.
-                                    </button>
-                                    <div className="quantity-counter">
+                                    <div className="reveal-stickers-container">
                                         <button
-                                            className="counter-decrement"
-                                            type="button"
-                                            onClick={handleDecrement}
+                                            className="reveal-btn"
+                                            onClick={() => onSubmitReveal(numberType)}
                                         >
-                                            -
+                                            Revelar figurinhas
                                         </button>
-                                        <input
-                                            type="number"
-                                            name="counter"
-                                            id="counter"
-                                            value={count}
-                                            max={id == 3
-                                                ? availablePackages?.diamond
-                                                : id == 2
-                                                    ? availablePackages?.obsidian
-                                                    : availablePackages?.esmerald
-                                            }
-                                        />
-                                        <button
-                                            className="counter-increment"
-                                            type="button"
-                                            onClick={handleIncrement}
+
+                                        <Link
+                                            className="buy-more-btn"
+                                            to="/marketplace"
                                         >
-                                            +
-                                        </button>
+                                            <img src="/assets/img/icons/market-icon.svg" alt="" />
+
+                                            <p>Comprar + Pacotinhos</p>
+                                        </Link>
+
+                                        <div className="buy-with-pix">
+                                            <img src="/assets/img/icons/pix-icon.svg" alt="" />
+
+                                            <p>Compre por PIX</p>
+                                        </div>
                                     </div>
-                                    <button
-                                        className="min-max-btn"
-                                    >
-                                        max.
-                                    </button>
-                                </div>
-
-                                <div className="reveal-stickers-container">
-                                    <button
-                                        className="reveal-btn"
-                                        onClick={() => onSubmitReveal(numberType)}
-                                    >
-                                        Revelar figurinhas
-                                    </button>
-
-                                    <Link
-                                        className="buy-more-btn"
-                                        to="/marketplace"
-                                    >
-                                        <img src="/assets/img/icons/market-icon.svg" alt="" />
-
-                                        <p>Comprar + Pacotinhos</p>
-                                    </Link>
-
-                                    <div className="buy-with-pix">
-                                        <img src="/assets/img/icons/pix-icon.svg" alt="" />
-
-                                        <p>Compre por PIX</p>
-                                    </div>
-                                </div>
-                            </StickersPackageContainer>
-                        ) : (
-                            <PackageContainer
-                                key={id}
-                                whileHover={{ scale: 1.2 }}
-                                transition={{ duration: 0.2 }}
-                                onClick={() => setSelectedIndex(id - 1)}
-                            >
-                                <img src={type} alt="" />
-                            </PackageContainer>
-                        ))}
-                    </ul>)
-                    : (
-                        <div className="revealed-container">
-                            <RevealedCards revealedCards={[1,2,3,4,5,6]} />
-                        </div>
-                    )}
+                                </StickersPackageContainer>
+                            ) : (
+                                <PackageContainer
+                                    key={id}
+                                    whileHover={{ scale: 1.2 }}
+                                    transition={{ duration: 0.2 }}
+                                    onClick={() => setSelectedIndex(id - 1)}
+                                >
+                                    <img src={type} alt="" />
+                                </PackageContainer>
+                            ))}
+                        </ul>)
+                    }
+                    {isRevealed && 
+                        (<div className="revealed-container">
+                            <RevealedCards
+                                openMoreCards={() => setIsRevealing(false)}
+                                revealedCards={revealedCards}
+                            />
+                        </div>)
+                    }
+                    {isRevealing &&
+                        (<div className="revealing-container">
+                            <img src={revealingGif} alt="" />
+                        </div>)
+                    }
                 </>
             )}
         </MyPackagesContainer>

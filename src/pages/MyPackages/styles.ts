@@ -7,6 +7,7 @@ export const MyPackagesContainer = styled.div`
     padding-bottom: 94px;
     display: grid;
     padding: 0 80px 80px 80px;
+    overflow: hidden;
 
     .my-package-title {
         display: flex;
@@ -31,6 +32,11 @@ export const MyPackagesContainer = styled.div`
     div.revealed-container{
         width: 100%;
         display: flex;
+    }
+
+    div.revealing-container{
+        margin: 0 auto;
+        transform: translateY(-30%);
     }
 
     @media (max-width: 768px) {

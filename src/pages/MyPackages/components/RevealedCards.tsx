@@ -1,11 +1,13 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { RevealedStickersContainer } from "./styles";
 
 type RevealedCardsProps = {
     revealedCards: number[];
+    openMoreCards: () => void;
 }
 
-export const RevealedCards = ({revealedCards}:RevealedCardsProps) =>
+export const RevealedCards = ({revealedCards, openMoreCards}:RevealedCardsProps) =>
 {
     const [focusedCard, setFocusedCard] = useState<number>(0);
 
@@ -27,23 +29,22 @@ export const RevealedCards = ({revealedCards}:RevealedCardsProps) =>
 
     return <RevealedStickersContainer>
         <div className="revealed-cards">
-            {revealedCards.map((card, index) => (
-                <div 
-                    className={'revealed-card '+((index == focusedCard)?'focused':'')}
-                    key={'revealed-card-'+index}
-                    style={{
-                        marginLeft: (index == focusedCard)
-                            ? (index == revealedCards.length - 1)
-                                ? '-5rem'
-                                :'6rem'
-                            : (index < focusedCard)
-                                ?'-10rem'
-                                :'2rem',
-                    }}
-                >
-                    <img src={`/copa_pruu/${card}.png`} alt="" />
-                </div>
-            ))}
+            <div
+                className="cards-scroll"
+                style={{
+                    transform: `translateX(-${focusedCard*10.5}rem)`
+                }}
+            >
+                {revealedCards.map((card, index) => (
+                    <div 
+                        className={'revealed-card '+((index == focusedCard)?'focused':'')}
+                        key={'revealed-card-'+index}
+                        onClick={() => setFocusedCard(index)}
+                    >
+                        <img src={`/copa_pruu/${card}.png`} alt="" />
+                    </div>
+                ))}
+            </div>
         </div>
         <div className="footer-btns">
             <div className="arrows-container">
@@ -62,18 +63,18 @@ export const RevealedCards = ({revealedCards}:RevealedCardsProps) =>
                 </button>
             </div>
             <div className="action-buttons">
-                <button>
+                <button onClick={openMoreCards}>
                     <img src="/assets/img/icons/package-white.svg" alt="" />
                     <span>Abrir + Pacotinho</span>
                 </button>
-                <button>
+                <Link to={'/album'}>
                     <img src="/assets/img/icons/album-icon.svg" alt="" />
                     <span>Ir para o album</span>
-                </button>
-                <button>
+                </Link>
+                <Link to={'/marketplace'}>
                     <img src="/assets/img/icons/market-icon.svg" alt="" />
                     <span>Comprar + Pacotinho</span>
-                </button>
+                </Link>
             </div>
         </div>
     </RevealedStickersContainer>
