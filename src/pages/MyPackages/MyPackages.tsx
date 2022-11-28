@@ -23,7 +23,7 @@ export const MyPackages = () => {
     const [isLoading, setIsLoading] = useToggle(false);
     const [isRevealing, setIsRevealing] = useToggle(false);
     const [isRevealed, setIsRevealed] = useToggle(false);
-    const [revealingGif, setRevealingGif] = useState<string>();
+    const [revealingGif, setRevealingGif] = useState<string>("/assets/gif/esmerald-multiple-package.gif");
     const [revealedCards, setRevealedCards] = useState<number[]>([]);
 
     const onSubmitReveal = async (numberType: number) =>
@@ -45,9 +45,9 @@ export const MyPackages = () => {
             else
             {
                 try {
-                    const response:any = await open_package(numberType, count);
+                    const { data }:any = await open_package(numberType, count);
                     setIsLoading(false)
-                    setRevealedCards(response.stickers_drawed.map((card:any) => card.sticker_id));
+                    setRevealedCards(data.stickers_drawed.map((card:any) => card.id));
                     showGif(numberType, 1)
                 }
                 catch (error)
@@ -69,38 +69,38 @@ export const MyPackages = () => {
             case 1:
                 if(package_amount > 1)
                 {
-                    setRevealingGif('/assets/img/gifs/esmerald-multiple-package.gif');
+                    setRevealingGif('/assets/gif/esmerald-multiple-package.gif');
                 }
                 else
                 {
-                    setRevealingGif('/assets/img/gifs/esmerald-single-packages.gif');
+                    setRevealingGif('/assets/gif/esmerald-single-package.gif');
                 }
                 break;
             case 2:
                 if(package_amount > 1)
                 {
-                    setRevealingGif('/assets/img/gifs/obsidian-multiple-package.gif');
+                    setRevealingGif('/assets/gif/obsidian-multiple-package.gif');
                 }
                 else
                 {
-                    setRevealingGif('/assets/img/gifs/obsidian-single-packages.gif');
+                    setRevealingGif('/assets/gif/obsidian-single-package.gif');
                 }
                 break;
             case 3:
                 if(package_amount > 1)
                 {
-                    setRevealingGif('/assets/img/gifs/diamond-multiple-package.gif');
+                    setRevealingGif('/assets/gif/diamond-multiple-package.gif');
                 }
                 else
                 {
-                    setRevealingGif('/assets/img/gifs/diamond-single-packages.gif');
+                    setRevealingGif('/assets/gif/diamond-single-package.gif');
                 }
                 break;
         }
         setTimeout(() => {
             setIsRevealing(false);
             setIsRevealed(true);
-        }, 3000);
+        }, 5000);
     }
 
     const handleDecrement = useCallback(() => {
@@ -142,7 +142,6 @@ export const MyPackages = () => {
 
     useEffect(() => {
         update_packages();
-        setRevealingGif('/assets/gif/diamond-single-package.gif')
     }, [])
 
     return (
@@ -275,7 +274,10 @@ export const MyPackages = () => {
                     {isRevealed && 
                         (<div className="revealed-container">
                             <RevealedCards
-                                openMoreCards={() => setIsRevealing(false)}
+                                openMoreCards={() => {
+                                    setIsRevealing(false);
+                                    setIsRevealed(false);
+                                }}
                                 revealedCards={revealedCards}
                             />
                         </div>)

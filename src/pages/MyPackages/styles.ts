@@ -41,6 +41,7 @@ export const MyPackagesContainer = styled.div`
 
     @media (max-width: 768px) {
         padding: unset;
+        margin-bottom: 5rem;
     }
 `
 
@@ -49,7 +50,7 @@ export const StickersPackageContainer = styled.li`
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
-    max-height: 640px;
+    max-height: 100vh;
     width: 100%;
     max-width: 282px;
     border-radius: 30px;
