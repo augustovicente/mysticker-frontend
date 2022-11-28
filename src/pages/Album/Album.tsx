@@ -7,15 +7,16 @@ import { AlbumContainer } from "./styles"
 import { stickers } from "./mocks/stickers"
 import { Col, Row } from "antd"
 import { get_owned_tokens } from "models/User"
-
-const ownedStickers: number[] = [
-    263,
-    262
-]
+import axios from "axios"
+import { toast } from "react-toastify"
+import { AlbumSkeletons } from "./components/Skeletons/Skeletons"
 
 export const Album = () => {
     const [teamsGroupSelected, setTeamsGroupSelected] = useState("todos")
     const [teamIndexSelected, setTeamSelected] = useState(0)
+    const [ownedStickers, setOwnedStickers] = useState<string[]>([])
+    const [isLoading, setIsLoading] = useState(true)
+    const [skeletonModalIsOpen, setSkeletonModalIsOpen] = useState(false)
 
     const groupOfTeams = useMemo(() => {
         const group = teamsIconList.filter(({ teams, teamsGroupName }) => teamsGroupName === teamsGroupSelected)
@@ -28,13 +29,29 @@ export const Album = () => {
     }, [groupOfTeams, teamIndexSelected, teamsGroupSelected])
 
     const ownedStikersAmount = useMemo(() => {
-        return currentTeamSelected.players.reduce((counter, player) => ownedStickers.includes(player.id) ? counter + 1 : counter, 0)
+        return currentTeamSelected.players.reduce((counter, player) => ownedStickers.includes(player.id.toString()) ? counter + 1 : counter, 0)
     }, [groupOfTeams, teamIndexSelected, teamsGroupSelected])
 
     useEffect(() => {
         const response = async () => {
-            const test = await get_owned_tokens(currentTeamSelected.players.map(player => player.id));
-            console.log(test)
+            setIsLoading(true)
+            try {
+                const response = await get_owned_tokens(currentTeamSelected.players.map(player => player.id));
+                setOwnedStickers(response)
+                setIsLoading(false)
+            } catch (error) {
+                setSkeletonModalIsOpen(true)
+                if (axios.isAxiosError(error)) {
+                    if (error.response?.status === 405) {
+                        return toast.error(error?.response?.data?.message);
+                    }
+
+                    return toast.error("Erro inesperado.");
+                } else {
+                    console.log('unexpected error: ', error);
+                    return toast.error("Conecte-se a rede Goerli");
+                }
+            }
         }
 
         response()
@@ -56,6 +73,10 @@ export const Album = () => {
             setTeamSelected(teamIndexSelected - 1)
         }
     }, [teamIndexSelected, groupOfTeams])
+
+    if(isLoading) {
+        return <AlbumSkeletons modalIsOpen={skeletonModalIsOpen} />
+    }
 
     return (
         <AlbumContainer>
@@ -144,6 +165,7 @@ export const Album = () => {
                                 {currentTeamSelected?.players.map((sticker, index) => index < 6 && (
                                     <Sticker
                                         key={sticker.id}
+                                        ownedStickers={ownedStickers}
                                         stickerId={sticker.id}
                                         rarity={sticker.rarity}
                                         name={sticker.name}
@@ -156,6 +178,7 @@ export const Album = () => {
                                 {currentTeamSelected?.players.map((sticker, index) => index >= 6 && (
                                     <Sticker
                                         key={sticker.id}
+                                        ownedStickers={ownedStickers}
                                         stickerId={sticker.id}
                                         rarity={sticker.rarity}
                                         name={sticker.name}
@@ -169,6 +192,7 @@ export const Album = () => {
                                 {currentTeamSelected?.players.map((sticker, index) => (
                                     <Sticker
                                         key={sticker.id}
+                                        ownedStickers={ownedStickers}
                                         stickerId={sticker.id}
                                         rarity={sticker.rarity}
                                         name={sticker.name}

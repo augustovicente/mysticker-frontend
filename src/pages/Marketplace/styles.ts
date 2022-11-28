@@ -47,7 +47,6 @@ export const MarketplaceContainer = styled.div`
         svg {
             margin-left: -2px;
         }
-
     }
 
     .marketplace-title {
