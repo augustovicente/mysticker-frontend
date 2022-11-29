@@ -36,7 +36,7 @@ export const MyPackages = () => {
                 : numberType == 2
                     ? availablePackages?.obsidian
                     : availablePackages?.esmerald;
-    
+
             if (amount_available && count > amount_available)
             {
                 setIsLoading(false)
@@ -120,12 +120,14 @@ export const MyPackages = () => {
     const next = useCallback(() => {
         if (selectedIndex < stickersMock.length - 1) {
             setSelectedIndex(selectedIndex + 1)
+            setCount(0)
         }
     }, [selectedIndex])
 
     const prev = useCallback(() => {
         if (selectedIndex > 0) {
             setSelectedIndex(selectedIndex - 1)
+            setCount(0)
         }
     }, [selectedIndex])
 
@@ -264,14 +266,17 @@ export const MyPackages = () => {
                                     key={id}
                                     whileHover={{ scale: 1.2 }}
                                     transition={{ duration: 0.2 }}
-                                    onClick={() => setSelectedIndex(id - 1)}
+                                    onClick={() => {
+                                        setSelectedIndex(id - 1)
+                                        setCount(0)
+                                    }}
                                 >
                                     <img src={type} alt="" />
                                 </PackageContainer>
                             ))}
                         </ul>)
                     }
-                    {isRevealed && 
+                    {isRevealed &&
                         (<div className="revealed-container">
                             <RevealedCards
                                 openMoreCards={() => {

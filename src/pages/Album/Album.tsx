@@ -10,6 +10,7 @@ import { get_owned_tokens } from "models/User"
 import axios from "axios"
 import { toast } from "react-toastify"
 import { AlbumSkeletons } from "./components/Skeletons/Skeletons"
+import { useAuth } from "contexts/auth.context"
 
 export const Album = () => {
     const [teamsGroupSelected, setTeamsGroupSelected] = useState("todos")
@@ -17,6 +18,7 @@ export const Album = () => {
     const [ownedStickers, setOwnedStickers] = useState<string[]>([])
     const [isLoading, setIsLoading] = useState(true)
     const [skeletonModalIsOpen, setSkeletonModalIsOpen] = useState(false)
+    const { user } = useAuth()
 
     const groupOfTeams = useMemo(() => {
         const group = teamsIconList.filter(({ teams, teamsGroupName }) => teamsGroupName === teamsGroupSelected)
@@ -35,21 +37,27 @@ export const Album = () => {
     useEffect(() => {
         const response = async () => {
             setIsLoading(true)
-            try {
-                const response = await get_owned_tokens(currentTeamSelected.players.map(player => player.id));
-                setOwnedStickers(response)
-                setIsLoading(false)
-            } catch (error) {
-                setSkeletonModalIsOpen(true)
-                if (axios.isAxiosError(error)) {
-                    if (error.response?.status === 405) {
-                        return toast.error(error?.response?.data?.message);
-                    }
 
-                    return toast.error("Erro inesperado.");
-                } else {
-                    console.log('unexpected error: ', error);
-                    return toast.error("Conecte-se a rede Goerli");
+            if(!user) {
+                setOwnedStickers(['0','0','0','0','0','0','0','0','0','0','0'])
+                setIsLoading(false)
+            } else {
+                try {
+                    const response = await get_owned_tokens(currentTeamSelected.players.map(player => player.id));
+                    setOwnedStickers(response)
+                    setIsLoading(false)
+                } catch (error) {
+                    setSkeletonModalIsOpen(true)
+                    if (axios.isAxiosError(error)) {
+                        if (error.response?.status === 405) {
+                            return toast.error(error?.response?.data?.message);
+                        }
+
+                        return toast.error("Erro inesperado.");
+                    } else {
+                        console.log('unexpected error: ', error);
+                        return toast.error("Conecte-se a rede Goerli");
+                    }
                 }
             }
         }
