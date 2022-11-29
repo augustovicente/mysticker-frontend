@@ -12,7 +12,7 @@ export const stickersMock = [
             silver: 0.125,
             gold: 0.025
         },
-        price: 0.001,
+        price: 1,
         numberType: 1,
     },
     {
@@ -28,7 +28,7 @@ export const stickersMock = [
             silver: 0.175,
             gold: 0.05
         },
-        price: 0.005,
+        price: 5,
         numberType: 2,
 
     },
@@ -45,7 +45,7 @@ export const stickersMock = [
             silver: 0.225,
             gold: 0.075
         },
-        price: 0.01,
+        price: 10,
         numberType: 3,
     },
 ]

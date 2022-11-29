@@ -28,7 +28,7 @@ export const Marketplace = () => {
     }
 
     useEffect(() => {
-        axios.get('https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=BRL')
+        axios.get('https://min-api.cryptocompare.com/data/price?fsym=MATIC&tsyms=BRL')
             .then(({ data }) => {
                 setExchangeRate(data.BRL);
             })

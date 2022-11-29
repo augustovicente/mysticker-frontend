@@ -169,7 +169,7 @@ export const StickerPackage = ({
                         </button>
                     </div>
                     <div className="quantity">
-                        <h4>{price.toString().replace('.',',')} ETH</h4>
+                        <h4>{price.toString().replace('.',',')} MATIC</h4>
                         <p>
                             {((+exchangeRate) * (+price)).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                         </p>
