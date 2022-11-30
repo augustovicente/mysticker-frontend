@@ -9,12 +9,15 @@ import tShirt from 'assets/imgs/shirt-reward.png';
 import { AnimatePresence } from 'framer-motion';
 import { motion } from 'framer-motion'
 import { usePrevious } from 'hooks/usePrevious';
-import { Button } from 'antd';
+import { Button, Carousel, Modal, Segmented, Tabs } from 'antd';
+import { useAuth } from 'contexts/auth.context';
+import { Link } from 'react-router-dom';
 
 export const Rewards = () => {
     const [teamsGroupSelected, setTeamsGroupSelected] = useState("todos");
     const [teamIndexSelected, setTeamIndexSelected] = useState(0);
     const prevTeamsGroupSelected = usePrevious(teamsNameList.findIndex(({ name }) => name === teamsGroupSelected));
+    const { user } = useAuth();
 
     const teamsIconList = teamsList.map((team) => {
         team.teams.sort((a, b) => {
@@ -55,6 +58,20 @@ export const Rewards = () => {
         }
     }
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+
     return (
         <S.RewardsContainer>
             <>
@@ -81,28 +98,6 @@ export const Rewards = () => {
 
                 <main>
                     <aside className='left'>
-                        <div className='mobile-reward'>
-                            <div className="reward">
-                                <img src={tShirt} alt={`Camiseta`} />
-                            </div>
-
-                            <div className="description">
-                                <h1>Camiseta Pru</h1>
-                                <p>
-                                    Ao completar todas as figuras desse continente você pode resgater essa camiseta
-                                </p>
-                            </div>
-
-                            <footer className='d-flex align-items-center gap-5'>
-                                <h1>01/04</h1>
-
-                                <Button>
-                                    Resgate
-                                </Button>
-
-                            </footer>
-                        </div>
-
                         <header>
                             <div className="group">
                                 <h3>{
@@ -177,28 +172,143 @@ export const Rewards = () => {
 
                     <aside className="right">
                         <div className="reward">
-                            <img src={tShirt} alt={`Camiseta`} />
+                            <Carousel
+                                slidesToScroll={1}
+                                slidesToShow={1}
+                                draggable
+                                afterChange={() => { }}
+                            >
+                                <div>
+                                    <img src={tShirt} alt={`Camiseta`} />
+                                </div>
+                                <div>
+                                    <img src={tShirt} alt={`Camiseta`} />
+                                </div>
+                                <div>
+                                    <img src={tShirt} alt={`Camiseta`} />
+                                </div>
+                            </Carousel>
                         </div>
 
                         <div className="description">
-                            <h1>Camiseta Pru</h1>
+                            <h3>Camiseta Pru</h3>
                             <p>
-                                Ao completar todas as figuras desse continente você pode resgater essa camiseta
+                                Ao completar todas as figuras desse continente você pode resgatar essa camiseta
                             </p>
                         </div>
 
-                        <footer className='d-flex align-items-center gap-5'>
-                            <h1>01/04</h1>
+                        <footer className='d-flex align-items-center gap-3'>
+                            <h3>01<strong>/04</strong></h3>
 
-                            <Button>
-                                Resgate
-                            </Button>
-
+                            <button onClick={() => setIsModalOpen(true)}>
+                                <span>
+                                    Resgate
+                                </span>
+                            </button>
                         </footer>
                     </aside>
 
                 </main>
             </>
+
+            <S.RewardModal
+                centered
+                width={940}
+                open={isModalOpen}
+                onCancel={() => setIsModalOpen(false)}
+            >
+                <S.RewardModalContainer>
+                    <section className="gift">
+                        <h3>Resgate {'\n'}de Prêmios
+                            <img className='gift-icon' src="/assets/img/icons/gifts-icon.svg" alt="" />
+                        </h3>
+                        <img src={tShirt} alt={`Camiseta`} />
+                    </section>
+
+                    <section className='confirm-address'>
+                        <h3>Confirme os seus dados</h3>
+                        <p>Me confirme o seus dados para que a gente consiga te enviar o mais rápido possivel.</p>
+
+                        <div className="fake-form">
+                            <div className="form">
+                                <div>
+                                    <label>Nome:</label>
+                                    <span>{user?.name}</span>
+                                </div>
+                            </div>
+
+                            <div className="second-row form">
+                                <div>
+                                    <label>Telefone:</label>
+                                    <span>{user?.full_number}</span>
+                                </div>
+
+                                <div>
+                                    <label>CPF:</label>
+                                    <span>{user?.cpf}</span>
+                                </div>
+                            </div>
+
+                            <div className="third-row form mt-3">
+                                <div>
+                                    <label>CEP:</label>
+                                    <span>{user?.full_number}</span>
+
+                                    <label className='ms-2'>UF:</label>
+                                    <span>{user?.full_number}</span>
+                                </div>
+
+                                <div>
+                                    <label>Cidade:</label>
+                                    <span>{user?.cpf}</span>
+                                </div>
+                            </div>
+
+                            <div className="fourth-row form">
+                                <div>
+                                    <label>Endereço:</label>
+                                    <span>{user?.full_number}</span>
+                                </div>
+
+                                <div>
+                                    <label>Nº:</label>
+                                    <span>{user?.cpf}</span>
+                                </div>
+                            </div>
+
+                            <div className="fifth-row form mt-3">
+                                <div>
+                                    <label>Bairro:</label>
+                                    <span>{user?.full_number}</span>
+                                </div>
+
+                                <div>
+                                    <label>Complemento:</label>
+                                    <span>{user?.full_number}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <footer>
+                            <span>Tudo certo quero resgatar</span>
+
+                            <div className="footer-buttons">
+                                <button onClick={() => setIsModalOpen(false)}>
+                                    Confirmar
+                                </button>
+
+                                <button onClick={() => setIsModalOpen(false)}>
+                                    <Link to='/profile'>
+                                        Editar Dados
+                                    </Link>
+                                </button>
+                            </div>
+                        </footer>
+
+                    </section>
+
+                </S.RewardModalContainer>
+            </S.RewardModal>
 
             <GradientOverlay />
         </S.RewardsContainer>
