@@ -165,11 +165,11 @@ export const Album = () => {
 
                         <div className="header-title">
                             <div className="title">
-                                <button onClick={handlePreviewTeam}>
+                                <button onClick={handlePreviewTeam} className={'next'}>
                                     <img src="/assets/img/icons/arrow-left-white.svg" alt="" />
                                 </button>
                                 <span>{groupOfTeams[teamIndexSelected]?.name}</span>
-                                <button onClick={handleNextTeam}>
+                                <button onClick={handleNextTeam}  className={'prev'}>
                                     <img src="/assets/img/icons/arrow-right-white.svg" alt="" />
                                 </button>
                             </div>

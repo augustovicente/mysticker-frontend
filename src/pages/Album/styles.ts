@@ -170,6 +170,8 @@ export const AlbumContainer = styled.div`
                 button {
                     background: transparent;
                     color: white;
+                    padding: .5rem 1.5rem;
+                    display: flex;
                 }
 
                 .header-counter {
@@ -197,7 +199,7 @@ export const AlbumContainer = styled.div`
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
-                        padding: 11px 27px;
+                        padding: 11px 10px;
                         border-radius: 12px;
                         height: 50px;
                         min-width: 329px;
