@@ -64,12 +64,16 @@ export const AlbumContainer = styled.div`
             max-width: calc(100vw - 260px);
             padding-bottom: 0.875rem;
             overflow-x: scroll;
+            overflow-y: visible;
+            min-height: 10rem;
+            height: fit-content;
 
             &::-webkit-scrollbar {
                 height: 10px;
             }
 
             li, .available-packages {
+                margin: auto 0;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
@@ -77,6 +81,8 @@ export const AlbumContainer = styled.div`
                 min-width: 66px;
                 width: 66px;
                 min-height: 92.47px;
+                max-height: 92.47px;
+                transition: all 0.5s ease;
                 background: ${props => props.theme.colors.middleL};
                 border-radius: 10px;
                 font-size: .5rem;
@@ -86,8 +92,9 @@ export const AlbumContainer = styled.div`
                 text-align: center;
                 cursor: pointer;
 
-                &.selected {
+                &.selected-team {
                     background: ${props => props.theme.colors.colorMiddle};
+                    transform: scale(1.2);
                 }
 
                 img {

@@ -38,7 +38,7 @@ export const Album = () => {
 
     useEffect(() => {
         const response = async () => {
-            setIsLoading(true)
+            // setIsLoading(true)
 
             if(!user) {
                 setOwnedStickers(['1','1','1','0','0','0','0','0','0','0','0'])
@@ -66,6 +66,21 @@ export const Album = () => {
 
         response()
     }, [currentTeamSelected])
+
+    const scrollToActiveLink = useCallback(() => {
+        const activeLink = document.querySelector(".selected-team");
+        if (activeLink) {
+            activeLink.scrollIntoView({
+                behavior: "smooth",
+                block: "nearest",
+                inline: "center",
+            });
+        }
+    }, [teamIndexSelected])
+
+    useEffect(() => {
+        scrollToActiveLink();
+    }, [teamIndexSelected]);
 
     const handleSelectNewTeamGroup = (name: string) => {
         setTeamsGroupSelected(name)
@@ -119,7 +134,7 @@ export const Album = () => {
                     {groupOfTeams.map(({ name }, index) => (
                         <li
                             key={index}
-                            className={teamIndexSelected === index ? `selected` : ""}
+                            className={teamIndexSelected === index ? `selected-team` : ""}
                             onClick={() => setTeamSelected(index)}
                         >
                             <img src={`/assets/img/icons/team-flags/${teamsGroupSelected.toLowerCase()}/${name.toLowerCase().replaceAll(" ", "-")}.svg`} alt="" />
