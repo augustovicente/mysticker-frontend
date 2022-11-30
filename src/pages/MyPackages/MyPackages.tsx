@@ -21,15 +21,13 @@ export const MyPackages = () => {
     const [selectedIndex, setSelectedIndex] = useState<number>(0)
     const [availablePackages, setAvailablePackages] = useState<MyPackagesProps>()
     const [isLoading, setIsLoading] = useToggle(false);
-    const [isRevealing, setIsRevealing] = useToggle(false);
+    const [isRevealing, setIsRevealing] = useToggle(true);
     const [isRevealed, setIsRevealed] = useToggle(false);
     const [revealingGif, setRevealingGif] = useState<string>("/assets/gif/esmerald-multiple-package.gif");
     const [revealedCards, setRevealedCards] = useState<number[]>([]);
 
-    const onSubmitReveal = async (numberType: number) =>
-    {
-        if(count > 0)
-        {
+    const onSubmitReveal = async (numberType: number) => {
+        if (count > 0) {
             setIsLoading(true)
             const amount_available = numberType == 3
                 ? availablePackages?.diamond
@@ -37,21 +35,18 @@ export const MyPackages = () => {
                     ? availablePackages?.obsidian
                     : availablePackages?.esmerald;
 
-            if (amount_available && count > amount_available)
-            {
+            if (amount_available && count > amount_available) {
                 setIsLoading(false)
                 return toast.error("Você não possui pacotes suficientes para revelar");
             }
-            else
-            {
+            else {
                 try {
-                    const { data }:any = await open_package(numberType, count);
+                    const { data }: any = await open_package(numberType, count);
                     setIsLoading(false)
-                    setRevealedCards(data.stickers_drawed.map((card:any) => card.id));
+                    setRevealedCards(data.stickers_drawed.map((card: any) => card.id));
                     showGif(numberType, 1)
                 }
-                catch (error)
-                {
+                catch (error) {
                     setIsLoading(false)
                     toast.error("Ocorreu um erro ao revelar os pacotes");
                     console.error(error);
@@ -61,38 +56,30 @@ export const MyPackages = () => {
         }
     }
 
-    const showGif = (package_type: number, package_amount: number) =>
-    {
+    const showGif = (package_type: number, package_amount: number) => {
         setIsRevealing(true);
-        switch (package_type)
-        {
+        switch (package_type) {
             case 1:
-                if(package_amount > 1)
-                {
+                if (package_amount > 1) {
                     setRevealingGif('/assets/gif/esmerald-multiple-package.gif');
                 }
-                else
-                {
+                else {
                     setRevealingGif('/assets/gif/esmerald-single-package.gif');
                 }
                 break;
             case 2:
-                if(package_amount > 1)
-                {
+                if (package_amount > 1) {
                     setRevealingGif('/assets/gif/obsidian-multiple-package.gif');
                 }
-                else
-                {
+                else {
                     setRevealingGif('/assets/gif/obsidian-single-package.gif');
                 }
                 break;
             case 3:
-                if(package_amount > 1)
-                {
+                if (package_amount > 1) {
                     setRevealingGif('/assets/gif/diamond-multiple-package.gif');
                 }
-                else
-                {
+                else {
                     setRevealingGif('/assets/gif/diamond-single-package.gif');
                 }
                 break;
@@ -109,10 +96,8 @@ export const MyPackages = () => {
         }
     }, [count]);
 
-    const handleIncrement = useCallback(() =>
-    {
-        if(count < 5)
-        {
+    const handleIncrement = useCallback(() => {
+        if (count < 5) {
             setCount(count + 1);
         }
     }, [count]);
@@ -131,9 +116,8 @@ export const MyPackages = () => {
         }
     }, [selectedIndex])
 
-    const update_packages = async () =>
-    {
-        getPackages().then((response:any) => {
+    const update_packages = async () => {
+        getPackages().then((response: any) => {
             setAvailablePackages({
                 esmerald: response[0],
                 obsidian: response[1],
@@ -158,7 +142,7 @@ export const MyPackages = () => {
                     </h1>
                     {!isRevealing && !isRevealed &&
                         (<ul className="desktop-cards">
-                            {stickersMock.map(({ stars, title, type, id, numberType }, index) => selectedIndex === (id-1) ? (
+                            {stickersMock.map(({ stars, title, type, id, numberType }, index) => selectedIndex === (id - 1) ? (
                                 <StickersPackageContainer key={id}>
                                     <div className="stars-package-container">
                                         <div className="stars-container">
@@ -288,9 +272,21 @@ export const MyPackages = () => {
                         </div>)
                     }
                     {isRevealing &&
-                        (<div className="revealing-container">
-                            <img src={revealingGif} alt="" />
-                        </div>)
+                        (<>
+                            <div className="revealing-message-container">
+                                <div className="revealing-message">
+                                    <h4>Revelando!</h4>
+                                    <p>Aguarde um instante...</p>
+
+                                    <img className="revealing-spin" src="/assets/img/favicon.png" alt="" />
+                                </div>
+                            </div>
+
+                            <div className="revealing-container">
+                                <img src={revealingGif} alt="" />
+                            </div>
+                        </>)
+
                     }
                 </>
             )}

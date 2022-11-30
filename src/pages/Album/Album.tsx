@@ -20,13 +20,15 @@ export const Album = () => {
     const [skeletonModalIsOpen, setSkeletonModalIsOpen] = useState(false)
     const { user } = useAuth()
 
+    const [focusedCard, setFocusedCard] = useState<number>(0);
+
     const groupOfTeams = useMemo(() => {
         const group = teamsIconList.filter(({ teams, teamsGroupName }) => teamsGroupName === teamsGroupSelected)
         return group[0]?.teams
     }, [teamsGroupSelected])
 
     const currentTeamSelected = useMemo(() => {
-        const players = stickers.filter(({ country, players }) => country.toLocaleLowerCase().replaceAll(" ", "-") === groupOfTeams[teamIndexSelected].name.toLocaleLowerCase().replaceAll(" ", "-") && players)
+        const players = stickers.filter(({ country, players }) => country.toLocaleLowerCase().replaceAll(" ", "-") === groupOfTeams[teamIndexSelected].name.toLowerCase().replaceAll(" ", "-") && players)
         return players[0]
     }, [groupOfTeams, teamIndexSelected, teamsGroupSelected])
 
@@ -39,7 +41,7 @@ export const Album = () => {
             setIsLoading(true)
 
             if(!user) {
-                setOwnedStickers(['0','0','0','0','0','0','0','0','0','0','0'])
+                setOwnedStickers(['1','1','1','0','0','0','0','0','0','0','0'])
                 setIsLoading(false)
             } else {
                 try {
@@ -65,10 +67,10 @@ export const Album = () => {
         response()
     }, [currentTeamSelected])
 
-    const handleSelectNewTeamGroup = useCallback((name: string) => {
+    const handleSelectNewTeamGroup = (name: string) => {
         setTeamsGroupSelected(name)
         setTeamSelected(0)
-    }, [])
+    }
 
     const handleNextTeam = useCallback(() => {
         if (teamIndexSelected < groupOfTeams.length - 1) {
@@ -120,7 +122,7 @@ export const Album = () => {
                             className={teamIndexSelected === index ? `selected` : ""}
                             onClick={() => setTeamSelected(index)}
                         >
-                            <img src={`/assets/img/icons/team-flags/${teamsGroupSelected.toLocaleLowerCase()}/${name.toLocaleLowerCase().replaceAll(" ", "-")}.svg`} alt="" />
+                            <img src={`/assets/img/icons/team-flags/${teamsGroupSelected.toLowerCase()}/${name.toLowerCase().replaceAll(" ", "-")}.svg`} alt="" />
                             {name}
                         </li>
                     ))}
@@ -173,7 +175,8 @@ export const Album = () => {
                                 {currentTeamSelected?.players.map((sticker, index) => index < 6 && (
                                     <Sticker
                                         key={sticker.id}
-                                        quantity={parseInt(ownedStickers[index])}
+                                        index={index}
+                                        ownedStickers={ownedStickers}
                                         stickerId={sticker.id}
                                         rarity={sticker.rarity}
                                         name={sticker.name}
@@ -185,7 +188,8 @@ export const Album = () => {
                                 {currentTeamSelected?.players.map((sticker, index) => index >= 6 && (
                                     <Sticker
                                         key={sticker.id}
-                                        quantity={parseInt(ownedStickers[index])}
+                                        index={index}
+                                        ownedStickers={ownedStickers}
                                         stickerId={sticker.id}
                                         rarity={sticker.rarity}
                                         name={sticker.name}
@@ -198,7 +202,8 @@ export const Album = () => {
                                 {currentTeamSelected?.players.map((sticker, index) => (
                                     <Sticker
                                         key={sticker.id}
-                                        quantity={parseInt(ownedStickers[index])}
+                                        index={index}
+                                        ownedStickers={ownedStickers}
                                         stickerId={sticker.id}
                                         rarity={sticker.rarity}
                                         name={sticker.name}

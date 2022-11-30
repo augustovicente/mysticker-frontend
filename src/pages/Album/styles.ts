@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import { Col, Modal } from 'antd'
+import { motion } from "framer-motion";
 
 type StickerProps = {
     pasted: boolean;
@@ -368,6 +369,12 @@ export const AlbumModal = styled(Modal)`
                     top: 9.5px;
                     height: 88%;
                     width: 93%;
+
+                    &.loading {
+                        background: red;
+                        width: 30vw;
+                        height: 30vw;
+                    }
                 }
 
                 .player-tier {
@@ -554,7 +561,7 @@ export const AlbumModal = styled(Modal)`
     }
 `
 
-export const StikerContainer = styled.div<StickerProps>`
+export const StikerContainer = styled(motion.div)<StickerProps>`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -564,7 +571,7 @@ export const StikerContainer = styled.div<StickerProps>`
         ?
             `
                 width: 140px;
-                height: 192px;
+                height: 188px;
 
                 @media (max-width: 1440px) {
                     width: 120px;
@@ -579,7 +586,7 @@ export const StikerContainer = styled.div<StickerProps>`
         :
             `
                 width: 140px;
-                height: 192px;
+                height: 188px;
                 border: white 3px solid;
 
                 @media (max-width: 1440px) {
@@ -624,9 +631,9 @@ export const StikerContainer = styled.div<StickerProps>`
     .player-img {
         display: flex;
         position: absolute;
-        top: 9px;
-        height: 85%;
-        width: 90%;
+        top: 24%;
+        object-fit: contain;
+        scale: 2;
     }
 
     .player-tier {
@@ -635,7 +642,7 @@ export const StikerContainer = styled.div<StickerProps>`
         height: 42.91px;
         width: 27.71px;
         bottom: -15px;
-        right: 3px;
+        right: 0px;
         z-index: 2;
     }
 
@@ -643,8 +650,8 @@ export const StikerContainer = styled.div<StickerProps>`
         display: flex;
         position: absolute;
         width: 100%;
-        height: 7%;
-        bottom: 7.5px;
+        height: 7.5%;
+        bottom: 6px;
     }
 
     @media (max-width: 1440px) {

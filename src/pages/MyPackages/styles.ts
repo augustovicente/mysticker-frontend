@@ -8,6 +8,7 @@ export const MyPackagesContainer = styled.div`
     display: grid;
     padding: 0 80px 80px 80px;
     overflow: hidden;
+    position: relative;
 
     .my-package-title {
         display: flex;
@@ -32,6 +33,80 @@ export const MyPackagesContainer = styled.div`
     div.revealed-container{
         width: 100%;
         display: flex;
+    }
+
+    @keyframes show {
+        0% {
+            opacity: 0;
+        }
+        94% {
+            opacity: 0;
+        }
+        96% {
+            opacity: 0.4;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes rotation {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(369deg);
+        }
+    }
+
+    div.revealing-message-container {
+        display: flex;
+        position: absolute;
+        justify-self: center;
+        top: 20%;
+        z-index: 99;
+        background-color: ${({theme}) => theme.colors.geenDark};
+        color: white;
+        text-align: center;
+        padding: 22px;
+        border-radius: 14px;
+
+        /* animation-name: show;
+        animation-duration: 4s; */
+
+        * {
+            margin: 0;
+        }
+
+        .revealing-message {
+            display: flex;
+            position: relative;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border: 3px solid white;
+            border-radius: 14px;
+            padding: 22px 44px;
+
+            .revealing-spin {
+                position: absolute;
+                bottom: -12px;
+                animation-name: rotation;
+                animation-duration: .6s;
+                animation-iteration-count: infinite;
+            }
+
+            h4 {
+                font-size: 3rem;
+                color: ${({theme}) => theme.colors.colorMiddle};
+            }
+
+            p {
+                color: white;
+                font-size: 1rem;
+                margin-bottom: 32px;
+            }
+        }
     }
 
     div.revealing-container{
