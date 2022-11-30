@@ -45,6 +45,22 @@ export default createGlobalStyle`
         color: white;
     }
 
+    .slick-dots-bottom {
+        display: flex !important;
+        gap: 18px !important;
+        li {
+            &.slick-active {
+                width: 16px !important;
+            }
+
+            button {
+                height: 10px !important;
+                min-width: 32px;
+                border-radius: 25px !important;
+            }
+        }
+    }
+
     @media (max-width: 767px) {
         html {
             font-size: 0.875rem;

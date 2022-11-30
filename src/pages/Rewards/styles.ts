@@ -1,10 +1,12 @@
-import styled, { keyframes } from 'styled-components';
+import { Modal } from 'antd';
+import styled from 'styled-components';
 
 export const RewardsContainer = styled.div`
     margin-top: 8rem;
     display: grid;
     gap: 54px;
     padding: 0 80px 80px 80px;
+    overflow: hidden;
 
     header {
         display: flex;
@@ -220,10 +222,6 @@ export const RewardsContainer = styled.div`
         }
 
         aside.right {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            align-items: center;
             border-radius: 20px;
             background: ${({ theme }) => theme.colors.dark};
             position: relative;
@@ -243,14 +241,63 @@ export const RewardsContainer = styled.div`
             }
 
             div.reward {
-                margin-top: 44px;
+                user-select: none;
+                img {
+                    cursor: grab;
+                    width: 100%;
+                    display: block;
+                    object-fit: contain;
+                    margin: 44px 0;
+                }
+
+                .slick-dots .slick-dots-bottom {
+                    li {
+                        button {
+                            height: 90px !important;
+                        }
+                    }
+                }
             }
 
-            h1 {
-                font-size: ${({ theme }) => theme.fontSizes.heading3};
-                color: ${({ theme }) => theme.colors.white};
-                margin: 0;
-                text-align: left;
+            div.description {
+                margin: 24px 0;
+                border-bottom: 2px solid #40386E;
+                p {
+                    line-height: 140%;
+                }
+
+                h3 {
+                    color: ${({ theme }) => theme.colors.white};
+                    font-size: ${({ theme }) => theme.fontSizes.heading3};
+                }
+            }
+
+            footer {
+                display: flex;
+                align-items: center;
+                h3 {
+                    font-size: ${({ theme }) => theme.fontSizes.heading1};
+                    color: ${({ theme }) => theme.colors.white};
+                    text-align: left;
+                    color: ${({ theme }) => theme.colors.greenNeon};
+
+                    strong {
+                        font-size: ${({ theme }) => theme.fontSizes.heading4};
+                    }
+                }
+
+                button {
+                    flex: 1;
+                    padding: 18px 6px;
+                    background: ${({ theme }) => theme.colors.greenNeon};
+                    border-radius: 12px;
+                    font-weight: 900;
+                    font-size: ${({ theme }) => theme.fontSizes.lg};
+
+                    &:hover {
+                        filter: brightness(0.8);
+                    }
+                }
             }
         }
     }
@@ -259,14 +306,7 @@ export const RewardsContainer = styled.div`
         main {
             grid-template-columns: 1fr;
             aside.left {
-                .mobile-reward {
-                    display: flex;
-                }
-
-                .mobile-reward {
-                    flex-direction: column;
-                }
-
+                order: 1;
                 header {
                     display: flex;
                     justify-content: center;
@@ -303,7 +343,52 @@ export const RewardsContainer = styled.div`
             }
 
             aside.right {
-                display: none;
+                background: linear-gradient(80deg, #30E584 0%, #93FE58 96.88%, #97FF57 100%);
+                box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
+                border-radius: 30px;
+                img {
+                    height: 144px;
+                }
+
+                .reward {
+                    .slick-dots-bottom {
+                        gap: 8px !important;
+                        li {
+                            button {
+                                background-color: ${({ theme }) => theme.colors.dark} !important;
+                                min-width: 24px;
+                            }
+                        }
+                    }
+                }
+
+                div.description {
+                    h3 {
+                        color: ${({ theme }) => theme.colors.middle};
+                    }
+
+                    p {
+                        color: ${({ theme }) => theme.colors.light};
+                    }
+                }
+
+                footer {
+                    h3 {
+                        color: ${({ theme }) => theme.colors.dark};
+                    }
+
+                    button {
+                        background: ${({ theme }) => theme.colors.middle};
+                        padding: 12px;
+
+                        span {
+                            color: ${({ theme }) => theme.colors.white};
+                            background: linear-gradient(80deg, #30E584 0%, #93FE58 96.88%, #97FF57 100%);
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                        }
+                    }
+                }
             }
         }
     }
@@ -313,4 +398,165 @@ export const RewardsContainer = styled.div`
     }
 `;
 
+export const RewardModal = styled(Modal)`
+    .ant-modal-content {
+        border: 2px rgba(255, 255, 255, .3) solid;
+        border: 0;
+        background: transparent;
+        padding: 0;
 
+        .ant-modal-close {
+            outline: 2px solid ${({ theme }) => theme.colors.colorLight};
+            border-radius: 50%;
+            height: 28px;
+            width: 28px;
+
+            span.ant-modal-close-icon {
+            }
+
+            svg {
+                width: 16px;
+                margin-top: -7px;
+                color: ${({ theme }) => theme.colors.colorLight};
+            }
+        }
+
+        .ant-modal-footer {
+            display: none;
+        }
+    }
+`
+
+export const RewardModalContainer = styled.div`
+    display: flex;
+
+    section.gift {
+        background: ${({ theme }) => theme.colors.greenNeon};
+        padding: 44px 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 24px;
+        border-radius: 8px 0 0 8px;
+
+        img.gift-icon {
+            position: absolute;
+            height: 54px;
+            top: 0;
+            right: -54px;
+        }
+
+        h3 {
+            white-space: pre;
+            font-size: ${({ theme }) => theme.fontSizes.heading3};
+            font-weight: 800;
+            position: relative;
+        }
+
+        img {
+            display: block;
+            object-fit: contain;
+            height: 290px;
+            width: 100%;
+        }
+
+    }
+
+    section.confirm-address {
+        padding: 44px;
+        background: ${({ theme }) => theme.colors.dark};
+        border: 2px solid ${({ theme }) => theme.colors.greenNeon};
+        display: flex;
+        flex-direction: column;
+        border-radius: 0 8px 8px 0;
+
+        h3 {
+            font-size: ${({ theme }) => theme.fontSizes.heading4};
+            color: ${({ theme }) => theme.colors.white};
+        }
+        p {
+            max-width: 70%;
+            line-height: 140%;
+        }
+
+        div.fake-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            color: ${({ theme }) => theme.colors.white};
+            margin-top: 32px;
+            overflow: hidden;
+
+            label {
+                font-size: ${({ theme }) => theme.fontSizes.md};
+                color: ${({ theme }) => theme.colors.colorLight};
+            }
+
+            div.form {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                justify-content: space-between;
+
+                div {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                }
+
+                span {
+                    line-height: 150%;
+                    font-size: ${({ theme }) => theme.fontSizes.md};
+                    font-family: 'Nunito', sans-serif;
+                }
+            }
+        }
+    }
+
+    footer {
+        margin-top: 44px;
+        span {
+            font-size: ${({ theme }) => theme.fontSizes.sm};
+            color: ${({ theme }) => theme.colors.white};
+        }
+
+        div.footer-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+            margin-top: 8px;
+
+            button {
+                width: 100%;
+                background: ${({ theme }) => theme.colors.greenNeon};
+                color: ${({ theme }) => theme.colors.dark};
+                font-weight: bold;
+                font-size: ${({ theme }) => theme.fontSizes.md};
+                padding: 6px 6px;
+                border-radius: 8px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                a {
+                    text-decoration: none;
+                    height: 100%;
+                    width: 100%;
+                    color: inherit;
+                }
+
+                &:nth-child(2) {
+                    background: transparent;
+                    color: ${({ theme }) => theme.colors.white};
+                    outline: 2px solid ${({ theme }) => theme.colors.colorMiddle};
+                }
+
+                &:hover {
+                    filter: brightness(0.8);
+                }
+            }
+        }
+    }
+
+`;

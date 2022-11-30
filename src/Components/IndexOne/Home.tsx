@@ -1,4 +1,3 @@
-import React, { DetailedHTMLProps, HTMLAttributes } from 'react';
 import { useWindowSize } from 'hooks/useWindowSize';
 import StickersImg from 'assets/imgs/home-stickers.png';
 import StickerCupImg from 'assets/imgs/sticker-cup.png';
@@ -16,7 +15,6 @@ import { ReactComponent as WhitepaperIcon} from 'assets/imgs/whitepaper-icon.svg
 import Slider from 'react-slick';
 import { CardBenefit, CardBenefitProps } from 'Components/CardBenefit';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from 'contexts/auth.context';
 import { Link } from 'react-router-dom';
 
 const developers = [
