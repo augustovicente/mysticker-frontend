@@ -14,6 +14,7 @@ import { useAuth } from "contexts/auth.context"
 import { WalletErrorModal } from "./components/Skeletons/styles"
 import { ReactComponent as HomeIcon } from "../../assets/imgs/home.svg"
 import { orderBy } from "lodash"
+import { useScrollToElement } from "hooks/useScrollToElement"
 
 export const Album = () => {
     const [teamsGroupSelected, setTeamsGroupSelected] = useState("todos")
@@ -93,6 +94,7 @@ export const Album = () => {
     useEffect(() => {
         scrollToActiveLink()
     }, [teamIndexSelected])
+    useScrollToElement(".selected-team", teamIndexSelected)
 
     const handleSelectNewTeamGroup = (name: string) => {
         setTeamsGroupSelected(name)

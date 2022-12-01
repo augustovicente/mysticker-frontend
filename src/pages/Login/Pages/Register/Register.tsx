@@ -191,13 +191,13 @@ export const Register = () =>
                 <FormBase noValidate>
                     <header>
                         <h1>
-                            {t('signup.email_sended.title')}
+                            {t('signup.email_validation.title')}
                         </h1>
                     </header>
 
                     <div className='message-email'>
                         <strong>
-                            {t('signup.email_sended.subtitle')}
+                            {t('signup.email_validation.subtitle')}
                         </strong>
 
                         <img src={SendImg} alt="Logo copa pru" />

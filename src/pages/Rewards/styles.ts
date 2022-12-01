@@ -26,9 +26,15 @@ export const RewardsContainer = styled.div`
     }
 
     section {
+        overflow-x: auto;
+        padding: 12px 0;
+
+        &::-webkit-scrollbar {
+            height: 8px !important;
+        }
+
         ul {
             display: flex;
-            flex-wrap: wrap;
             gap: 12px;
             li {
                 display: flex;
@@ -36,17 +42,18 @@ export const RewardsContainer = styled.div`
                 align-items: center;
                 color: white;
                 padding: 5px 16px;
+                min-width: fit-content;
                 background: ${({ theme }) => theme.colors.middle};
-                border-radius: 32px;
+                border-radius: 25px;
                 cursor: pointer;
-                transition: all 0.4s ease-in-out;
+                transition: all 0.3s ease-in-out;
                 font-weight: bold;
 
                 &:hover {
                     background: ${({ theme }) => theme.colors.colorMiddle};
                 }
 
-                &.selected {
+                &#selected-group {
                     background: ${({ theme }) => theme.colors.colorMiddle};
                 }
             }
@@ -58,7 +65,12 @@ export const RewardsContainer = styled.div`
         border-radius: 12px;
         padding: 30px;
         display: grid;
-        grid-template-columns: 1fr 340px;
+        grid-template-columns: 1fr;
+
+        &:has(.right) {
+            grid-template-columns: 1fr 340px;
+        }
+
         gap: 64px;
         overflow: hidden;
 
@@ -70,7 +82,6 @@ export const RewardsContainer = styled.div`
             .mobile-reward {
                 display: none;
             }
-
 
             header {
                 display: flex;
@@ -110,7 +121,7 @@ export const RewardsContainer = styled.div`
                     background: ${({ theme }) => theme.colors.green};
                     border-radius: 4px;
                     height: 100%;
-                    padding: 12px;
+                    padding: 10px;
                     z-index: 0;
 
                     div.box-buttons {
@@ -123,7 +134,7 @@ export const RewardsContainer = styled.div`
                         height: 100%;
                         border-radius: 4px;
                         position: relative;
-                        gap: 24px;
+                        gap: 18px;
 
                         div.divider {
                             position: absolute;
@@ -155,6 +166,10 @@ export const RewardsContainer = styled.div`
                             align-items: center;
                             height: 100%;
 
+                            &:disabled {
+                                opacity: 0.3;
+                            }
+
                             &:nth-child(3) {
                                 svg {
                                     transform: rotate(180deg);
@@ -181,7 +196,7 @@ export const RewardsContainer = styled.div`
                         align-items: center;
                         gap: 18px;
                         cursor: pointer;
-                        opacity: 0.4;
+                        opacity: 0.5;
 
                         img {
                             display: block;
@@ -209,7 +224,7 @@ export const RewardsContainer = styled.div`
                             color: ${({ theme }) => theme.colors.white};
                         }
 
-                        &.selected {
+                        &.completed {
                             opacity: 1;
 
                             img {
@@ -245,9 +260,11 @@ export const RewardsContainer = styled.div`
                 img {
                     cursor: grab;
                     width: 100%;
+                    min-height: 264px;
+                    /* max-height: 300px; */
                     display: block;
                     object-fit: contain;
-                    margin: 44px 0;
+                    margin-bottom: 32px;
                 }
 
                 .slick-dots .slick-dots-bottom {
@@ -294,8 +311,13 @@ export const RewardsContainer = styled.div`
                     font-weight: 900;
                     font-size: ${({ theme }) => theme.fontSizes.lg};
 
-                    &:hover {
+                    &:disabled {
+                        opacity: 0.8;
+                    }
+
+                    &:hover:not(:disabled) {
                         filter: brightness(0.8);
+                        cursor: pointer;
                     }
                 }
             }
@@ -304,7 +326,7 @@ export const RewardsContainer = styled.div`
 
     @media (max-width: 1100px) {
         main {
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr !important;
             aside.left {
                 order: 1;
                 header {
@@ -404,6 +426,8 @@ export const RewardModal = styled(Modal)`
         border: 0;
         background: transparent;
         padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 
         .ant-modal-close {
             outline: 2px solid ${({ theme }) => theme.colors.colorLight};
@@ -425,10 +449,12 @@ export const RewardModal = styled(Modal)`
             display: none;
         }
     }
+
 `
 
 export const RewardModalContainer = styled.div`
-    display: flex;
+    display: grid;
+    grid-template-columns: 390px 1fr;
 
     section.gift {
         background: ${({ theme }) => theme.colors.greenNeon};
@@ -469,6 +495,7 @@ export const RewardModalContainer = styled.div`
         display: flex;
         flex-direction: column;
         border-radius: 0 8px 8px 0;
+        flex: 1;
 
         h3 {
             font-size: ${({ theme }) => theme.fontSizes.heading4};
@@ -557,6 +584,10 @@ export const RewardModalContainer = styled.div`
                 }
             }
         }
+    }
+
+    @media (max-width: 940px) {
+        grid-template-columns: 1fr;
     }
 
 `;
