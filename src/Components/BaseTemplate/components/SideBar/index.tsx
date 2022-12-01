@@ -20,7 +20,7 @@ const SideBar = () => {
         if (activeLink) {
             activeLink.scrollIntoView({
                 behavior: "smooth",
-                block: "center",
+                block: "nearest",
                 inline: "center"
             });
         }

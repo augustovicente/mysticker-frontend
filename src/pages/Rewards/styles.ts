@@ -37,9 +37,9 @@ export const RewardsContainer = styled.div`
                 color: white;
                 padding: 5px 16px;
                 background: ${({ theme }) => theme.colors.middle};
-                border-radius: 32px;
+                border-radius: 25px;
                 cursor: pointer;
-                transition: all 0.4s ease-in-out;
+                transition: all 0.3s ease-in-out;
                 font-weight: bold;
 
                 &:hover {
@@ -110,7 +110,7 @@ export const RewardsContainer = styled.div`
                     background: ${({ theme }) => theme.colors.green};
                     border-radius: 4px;
                     height: 100%;
-                    padding: 12px;
+                    padding: 10px;
                     z-index: 0;
 
                     div.box-buttons {
@@ -123,7 +123,7 @@ export const RewardsContainer = styled.div`
                         height: 100%;
                         border-radius: 4px;
                         position: relative;
-                        gap: 24px;
+                        gap: 18px;
 
                         div.divider {
                             position: absolute;
@@ -155,6 +155,10 @@ export const RewardsContainer = styled.div`
                             align-items: center;
                             height: 100%;
 
+                            &:disabled {
+                                opacity: 0.3;
+                            }
+
                             &:nth-child(3) {
                                 svg {
                                     transform: rotate(180deg);
@@ -181,7 +185,7 @@ export const RewardsContainer = styled.div`
                         align-items: center;
                         gap: 18px;
                         cursor: pointer;
-                        opacity: 0.4;
+                        opacity: 0.5;
 
                         img {
                             display: block;

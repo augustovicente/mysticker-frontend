@@ -105,6 +105,10 @@ export const SideBarContainer = styled.div`
                     height: 5px;
                 }
 
+                li {
+                    min-width: 64px;
+                }
+
                 li a {
                     padding: 12px 0px;
                 }

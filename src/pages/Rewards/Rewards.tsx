@@ -83,7 +83,7 @@ export const Rewards = () => {
                 </header>
 
                 <section>
-                    <ul className="teams-name-list">
+                    <ul>
                         {teamsNameList.map((team) => (
                             <li
                                 key={team.name}
