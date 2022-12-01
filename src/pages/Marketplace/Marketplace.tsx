@@ -14,7 +14,6 @@ import axios from "axios";
 export const Marketplace = () => {
     const { user } = useAuth()
 
-    const [currentStep, setCurrentStep] = useState<number>(0)
     const [exchangeRate, setExchangeRate] = useState<number>(0)
     const [stickerStatsModalIsOpen, setStickerStatsModalIsOpen] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useToggle()
@@ -74,7 +73,7 @@ export const Marketplace = () => {
                     </ul>
                     <Carousel
                         showStatus={false}
-                        selectedItem={currentStep}
+                        selectedItem={0}
                     >
                         {stickersMock.map((props, index) => (
                             <StickerPackage
