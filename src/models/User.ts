@@ -20,14 +20,21 @@ const buy_package = async (package_type: number, amount: number, price: number) 
             from: accounts[0],
             value: web3.utils.toWei(price.toString(), 'ether')
         })
-        .on('transactionHash', (hash: any) => {
+        .on('transactionHash', (hash: any) =>
+        {
             if(count_feedback === 0)
             {
-                toast.success(
-                    `Transação enviada com sucesso! Aguarde a confirmação da transação.`,
-                    { autoClose: false }
-                );
-                count_feedback++;
+                api.post('buy-package', {
+                    hash,
+                    wallet: accounts[0],
+                }).finally(() =>
+                {
+                    toast.success(
+                        `Transação enviada com sucesso! Aguarde a confirmação da transação.`,
+                        { autoClose: false }
+                    );
+                    count_feedback++;
+                });
             }
         });
 
