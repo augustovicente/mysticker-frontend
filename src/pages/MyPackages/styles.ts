@@ -71,8 +71,8 @@ export const MyPackagesContainer = styled.div`
         padding: 22px;
         border-radius: 14px;
 
-        /* animation-name: show;
-        animation-duration: 4s; */
+        animation-name: show;
+        animation-duration: 4s;
 
         * {
             margin: 0;

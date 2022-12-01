@@ -5,32 +5,37 @@ import { teamsIconList } from "./mocks/teamsIconList"
 import { teamsNameList } from "./mocks/teamsNameList"
 import { AlbumContainer } from "./styles"
 import { stickers } from "./mocks/stickers"
-import { Col, Row } from "antd"
-import { get_owned_tokens } from "models/User"
+import { Row } from "antd"
+import { getPackages, get_owned_tokens } from "models/User"
 import axios from "axios"
 import { toast } from "react-toastify"
 import { AlbumSkeletons } from "./components/Skeletons/Skeletons"
 import { useAuth } from "contexts/auth.context"
+import { WalletErrorModal } from "./components/Skeletons/styles"
+import { ReactComponent as HomeIcon } from "../../assets/imgs/home.svg"
+import { orderBy } from "lodash"
 
 export const Album = () => {
     const [teamsGroupSelected, setTeamsGroupSelected] = useState("todos")
     const [teamIndexSelected, setTeamSelected] = useState(0)
-    const [ownedStickers, setOwnedStickers] = useState<string[]>([])
+    const [ownedStickers, setOwnedStickers] = useState<string[]>(['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'])
     const [isLoading, setIsLoading] = useState(true)
-    const [skeletonModalIsOpen, setSkeletonModalIsOpen] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [availablePackages, setAvailablePackages] = useState<number>(0)
+    const [players, setPlayers] = useState<{ id: number; name: string; rarity: number; }[]>([])
     const { user } = useAuth()
-
-    const [focusedCard, setFocusedCard] = useState<number>(0);
 
     const groupOfTeams = useMemo(() => {
         const group = teamsIconList.filter(({ teams, teamsGroupName }) => teamsGroupName === teamsGroupSelected)
-        return group[0]?.teams
+        return orderBy(group[0]?.teams, "name", "asc")
     }, [teamsGroupSelected])
 
     const currentTeamSelected = useMemo(() => {
-        const players = stickers.filter(({ country, players }) => country.toLocaleLowerCase().replaceAll(" ", "-") === groupOfTeams[teamIndexSelected].name.toLowerCase().replaceAll(" ", "-") && players)
-        return players[0]
+        const team = stickers.filter(({ country, players }) => country.toLocaleLowerCase().replaceAll(" ", "-") === groupOfTeams[teamIndexSelected].name.toLowerCase().replaceAll(" ", "-") && players)
+        setPlayers(orderBy(team[0].players, "rarity", "asc"))
+        return team[0]
     }, [groupOfTeams, teamIndexSelected, teamsGroupSelected])
+    console.log(currentTeamSelected)
 
     const ownedStikersAmount = useMemo(() => {
         return ownedStickers.reduce((counter, owned) => parseInt(owned) > 0 ? counter + 1 : counter, 0)
@@ -38,27 +43,26 @@ export const Album = () => {
 
     useEffect(() => {
         const response = async () => {
-            // setIsLoading(true)
+            setIsLoading(true)
 
-            if(!user) {
-                setOwnedStickers(['1','1','1','0','0','0','0','0','0','0','0'])
+            if (!user) {
                 setIsLoading(false)
             } else {
                 try {
-                    const response = await get_owned_tokens(currentTeamSelected.players.map(player => player.id));
+                    const response = await get_owned_tokens(currentTeamSelected.players.map(player => player.id))
                     setOwnedStickers(response)
                     setIsLoading(false)
                 } catch (error) {
-                    setSkeletonModalIsOpen(true)
+                    setIsModalOpen(true)
                     if (axios.isAxiosError(error)) {
                         if (error.response?.status === 405) {
-                            return toast.error(error?.response?.data?.message);
+                            return toast.error(error?.response?.data?.message)
                         }
 
-                        return toast.error("Erro inesperado.");
+                        return toast.error("Erro inesperado.")
                     } else {
-                        console.log('unexpected error: ', error);
-                        return toast.error("Conecte-se a rede Goerli");
+                        console.log('unexpected error: ', error)
+                        return toast.error("Conecte-se a rede Goerli")
                     }
                 }
             }
@@ -67,20 +71,28 @@ export const Album = () => {
         response()
     }, [currentTeamSelected])
 
+    const handleOk = () => {
+        setIsModalOpen(false)
+    }
+
+    const handleCancel = () => {
+        setIsModalOpen(false)
+    }
+
     const scrollToActiveLink = useCallback(() => {
-        const activeLink = document.querySelector(".selected-team");
+        const activeLink = document.querySelector(".selected-team")
         if (activeLink) {
             activeLink.scrollIntoView({
                 behavior: "smooth",
                 block: "nearest",
                 inline: "center",
-            });
+            })
         }
     }, [teamIndexSelected])
 
     useEffect(() => {
-        scrollToActiveLink();
-    }, [teamIndexSelected]);
+        scrollToActiveLink()
+    }, [teamIndexSelected])
 
     const handleSelectNewTeamGroup = (name: string) => {
         setTeamsGroupSelected(name)
@@ -99,9 +111,15 @@ export const Album = () => {
         }
     }, [teamIndexSelected, groupOfTeams])
 
-    if(isLoading) {
-        return <AlbumSkeletons modalIsOpen={skeletonModalIsOpen} />
+    const update_packages = async () => {
+        getPackages().then((response: any) => {
+            setAvailablePackages(parseInt(response[0]) + parseInt(response[1]) + parseInt(response[2]))
+        })
     }
+
+    useEffect(() => {
+        update_packages()
+    }, [])
 
     return (
         <AlbumContainer>
@@ -124,13 +142,15 @@ export const Album = () => {
                 </ul>
 
                 <ul className="team-icons-list">
-                    <Link className="available-packages" to="/my-packages">
-                        <p>
-                            +
-                            <span>3</span>
-                        </p>
-                        Pacotinho Disponivel
-                    </Link>
+                    {user && availablePackages > 0 && (
+                        <Link className={`available-packages ${availablePackages > 9 && "two"}`} to={user ? "/my-packages" : ""}>
+                            <p>
+                                +
+                                <span>{availablePackages}</span>
+                            </p>
+                            Pacotinho Disponivel
+                        </Link>
+                    )}
                     {groupOfTeams.map(({ name }, index) => (
                         <li
                             key={index}
@@ -169,7 +189,7 @@ export const Album = () => {
                                     <img src="/assets/img/icons/arrow-left-white.svg" alt="" />
                                 </button>
                                 <span>{groupOfTeams[teamIndexSelected]?.name}</span>
-                                <button onClick={handleNextTeam}  className={'prev'}>
+                                <button onClick={handleNextTeam} className={'prev'}>
                                     <img src="/assets/img/icons/arrow-right-white.svg" alt="" />
                                 </button>
                             </div>
@@ -187,48 +207,76 @@ export const Album = () => {
                     <div className="sticker-container">
                         <div className="sticker-content-desktop">
                             <Row className="sticker-row">
-                                {currentTeamSelected?.players.map((sticker, index) => index < 6 && (
-                                    <Sticker
-                                        key={sticker.id}
-                                        index={index}
-                                        ownedStickers={ownedStickers}
-                                        stickerId={sticker.id}
-                                        rarity={sticker.rarity}
-                                        name={sticker.name}
-                                    />
+                                {players.map((sticker, index) => index < 6 && (
+                                    <>
+                                        {isLoading ? (
+                                            <AlbumSkeletons />
+                                        ) : (
+                                            <Sticker
+                                                key={sticker.id}
+                                                index={index}
+                                                ownedStickers={ownedStickers}
+                                                stickerId={sticker.id}
+                                                rarity={sticker.rarity}
+                                                name={sticker.name}
+                                            />
+                                        )}
+                                    </>
                                 ))}
                             </Row>
 
                             <Row className="sticker-row">
-                                {currentTeamSelected?.players.map((sticker, index) => index >= 6 && (
-                                    <Sticker
-                                        key={sticker.id}
-                                        index={index}
-                                        ownedStickers={ownedStickers}
-                                        stickerId={sticker.id}
-                                        rarity={sticker.rarity}
-                                        name={sticker.name}
-                                    />
+                                {players.map((sticker, index) => index >= 6 && (
+                                    <>
+                                        {isLoading ? (
+                                            <AlbumSkeletons />
+                                        ) : (
+                                            <Sticker
+                                                key={sticker.id}
+                                                index={index}
+                                                ownedStickers={ownedStickers}
+                                                stickerId={sticker.id}
+                                                rarity={sticker.rarity}
+                                                name={sticker.name}
+                                            />
+                                        )}
+                                    </>
                                 ))}
                             </Row>
                         </div>
                         <div className="sticker-content-mobile">
                             <Row className="sticker-row">
-                                {currentTeamSelected?.players.map((sticker, index) => (
-                                    <Sticker
-                                        key={sticker.id}
-                                        index={index}
-                                        ownedStickers={ownedStickers}
-                                        stickerId={sticker.id}
-                                        rarity={sticker.rarity}
-                                        name={sticker.name}
-                                    />
+                                {players.map((sticker, index) => (
+                                    <>
+                                        {isLoading ? (
+                                            <AlbumSkeletons />
+                                        ) : (
+                                            <Sticker
+                                                key={sticker.id}
+                                                index={index}
+                                                ownedStickers={ownedStickers}
+                                                stickerId={sticker.id}
+                                                rarity={sticker.rarity}
+                                                name={sticker.name}
+                                            />
+                                        )}
+                                    </>
                                 ))}
                             </Row>
                         </div>
                     </div>
                 </div>
             </main>
+
+            <WalletErrorModal title="" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                <h1><span style={{ color: "#6345EE", fontWeight: "bold" }}>Rede</span> incorreta!</h1>
+                <p>Conecte sua carteira digital a rede <span style={{ color: "#6345EE", fontWeight: "bold" }}>Goerli.</span></p>
+                <a href="/album">
+                    <HomeIcon />
+
+                    Recarregar a página
+                </a>
+            </WalletErrorModal>
         </AlbumContainer>
     )
 }
