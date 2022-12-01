@@ -8,7 +8,7 @@ import { ReactComponent as HomeIcon } from "../../../../assets/imgs/home.svg";
 export const AlbumSkeletons = ({ modalIsOpen }: { modalIsOpen: boolean }) => {
     const [isModalOpen, setIsModalOpen] = useState(false)
 
-    useEffect(() => {
+    useEffect(() => {        
         setIsModalOpen(modalIsOpen)
     }, [modalIsOpen])
 
