@@ -9,13 +9,17 @@ import tShirt from 'assets/imgs/shirt-reward.png';
 import { AnimatePresence } from 'framer-motion';
 import { motion } from 'framer-motion'
 import { usePrevious } from 'hooks/usePrevious';
-import { Button, Carousel, Modal, Segmented, Tabs } from 'antd';
+import { Button, Carousel } from 'antd';
 import { useAuth } from 'contexts/auth.context';
 import { Link } from 'react-router-dom';
+import { get_owned_tokens } from 'models/User';
+import { stickers } from 'assets/stickers';
+import { useScrollToElement } from 'hooks/useScrollToElement';
 
 export const Rewards = () => {
     const [teamsGroupSelected, setTeamsGroupSelected] = useState("todos");
     const [teamIndexSelected, setTeamIndexSelected] = useState(0);
+    const [ownedStickers, setOwnedStickers] = useState<string[]>([]);
     const prevTeamsGroupSelected = usePrevious(teamsNameList.findIndex(({ name }) => name === teamsGroupSelected));
     const { user } = useAuth();
 
@@ -31,6 +35,8 @@ export const Rewards = () => {
         });
         return team;
     });
+
+    // console.log('teamsGroupSelected', teamsGroupSelected)
 
     const groupOfTeams = useMemo(() => {
         const group = teamsIconList.filter(({ teams, teamsGroupName }) => teamsGroupName === teamsGroupSelected)
@@ -72,8 +78,28 @@ export const Rewards = () => {
         setIsModalOpen(false);
     };
 
+    const currentTeamSelected = useMemo(() => {
+        const players = stickers.filter(({ country, players }) => country.toLocaleLowerCase().replaceAll(" ", "-") === groupOfTeams[teamIndexSelected].name.toLowerCase().replaceAll(" ", "-") && players)
+        return players[0]
+    }, [groupOfTeams, teamIndexSelected, teamsGroupSelected]);
+
+    const ownedStikersAmount = useMemo(() => {
+        return ownedStickers.reduce((counter, owned) => parseInt(owned) > 0 ? counter + 1 : counter, 0)
+    }, [ownedStickers]);
+
+    useEffect(() => {
+        (async () => {
+            setOwnedStickers(['1', '1', '1', '0', '0', '0', '0', '0', '0', '0', '0'])
+            // const response = await get_owned_tokens(currentTeamSelected.players.map(player => player.id));
+
+        }
+        )();
+    }, [])
+
+    useScrollToElement('#selected-group', teamsGroupSelected)
+
     return (
-        <S.RewardsContainer>
+        <S.RewardsContainer isAllSelected={teamsGroupSelected === 'todos'}>
             <>
                 <header>
                     <div className='title'>
@@ -88,7 +114,7 @@ export const Rewards = () => {
                             <li
                                 key={team.name}
                                 onClick={() => setTeamsGroupSelected(team.name)}
-                                className={team.name === teamsGroupSelected ? `selected` : ""}
+                                id={team.name === teamsGroupSelected ? `selected-group` : ""}
                             >
                                 {team.title}
                             </li>
@@ -170,44 +196,53 @@ export const Rewards = () => {
                         </div>
                     </aside>
 
-                    <aside className="right">
-                        <div className="reward">
-                            <Carousel
-                                slidesToScroll={1}
-                                slidesToShow={1}
-                                draggable
-                                afterChange={() => { }}
+                    <AnimatePresence>
+                        {teamsGroupSelected !== 'todos' ? (
+                            <motion.aside
+                                className="right"
+                                initial={{ x: 1400 }}
+                                animate={{ x: 0 }}
+                                exit={{ x: 1400 }}
+                                transition={{ duration: 0.3, ease: "easeInOut" }}
                             >
-                                <div>
-                                    <img src={tShirt} alt={`Camiseta`} />
+                                <div className="reward">
+                                    <Carousel
+                                        slidesToScroll={1}
+                                        slidesToShow={1}
+                                        draggable
+                                        afterChange={() => { }}
+                                    >
+                                        <div>
+                                            <img src={tShirt} alt={`Camiseta`} />
+                                        </div>
+                                        <div>
+                                            <img src={tShirt} alt={`Camiseta`} />
+                                        </div>
+                                        <div>
+                                            <img src={tShirt} alt={`Camiseta`} />
+                                        </div>
+                                    </Carousel>
                                 </div>
-                                <div>
-                                    <img src={tShirt} alt={`Camiseta`} />
+
+                                <div className="description">
+                                    <h3>Camiseta Pru</h3>
+                                    <p>
+                                        Ao completar todas as figuras desse continente você pode resgatar essa camiseta
+                                    </p>
                                 </div>
-                                <div>
-                                    <img src={tShirt} alt={`Camiseta`} />
-                                </div>
-                            </Carousel>
-                        </div>
 
-                        <div className="description">
-                            <h3>Camiseta Pru</h3>
-                            <p>
-                                Ao completar todas as figuras desse continente você pode resgatar essa camiseta
-                            </p>
-                        </div>
+                                <footer className='d-flex align-items-center gap-3'>
+                                    <h3>01<strong>/04</strong></h3>
 
-                        <footer className='d-flex align-items-center gap-3'>
-                            <h3>01<strong>/04</strong></h3>
-
-                            <button onClick={() => setIsModalOpen(true)}>
-                                <span>
-                                    Resgate
-                                </span>
-                            </button>
-                        </footer>
-                    </aside>
-
+                                    <button onClick={() => setIsModalOpen(true)}>
+                                        <span>
+                                            Resgate
+                                        </span>
+                                    </button>
+                                </footer>
+                            </motion.aside>
+                        ) : null}
+                    </AnimatePresence>
                 </main>
             </>
 

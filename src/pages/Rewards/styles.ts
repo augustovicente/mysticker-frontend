@@ -1,7 +1,7 @@
 import { Modal } from 'antd';
 import styled from 'styled-components';
 
-export const RewardsContainer = styled.div`
+export const RewardsContainer = styled.div<{isAllSelected?: boolean}>`
     margin-top: 8rem;
     display: grid;
     gap: 54px;
@@ -26,9 +26,15 @@ export const RewardsContainer = styled.div`
     }
 
     section {
+        overflow-x: auto;
+        padding: 12px 0;
+
+        &::-webkit-scrollbar {
+            height: 8px !important;
+        }
+
         ul {
             display: flex;
-            flex-wrap: wrap;
             gap: 12px;
             li {
                 display: flex;
@@ -36,6 +42,7 @@ export const RewardsContainer = styled.div`
                 align-items: center;
                 color: white;
                 padding: 5px 16px;
+                min-width: fit-content;
                 background: ${({ theme }) => theme.colors.middle};
                 border-radius: 25px;
                 cursor: pointer;
@@ -46,7 +53,7 @@ export const RewardsContainer = styled.div`
                     background: ${({ theme }) => theme.colors.colorMiddle};
                 }
 
-                &.selected {
+                &#selected-group {
                     background: ${({ theme }) => theme.colors.colorMiddle};
                 }
             }
@@ -58,7 +65,12 @@ export const RewardsContainer = styled.div`
         border-radius: 12px;
         padding: 30px;
         display: grid;
-        grid-template-columns: 1fr 340px;
+        grid-template-columns: 1fr;
+
+        &:has(.right) {
+            grid-template-columns: 1fr 340px;
+        }
+
         gap: 64px;
         overflow: hidden;
 
@@ -70,7 +82,6 @@ export const RewardsContainer = styled.div`
             .mobile-reward {
                 display: none;
             }
-
 
             header {
                 display: flex;
@@ -308,7 +319,7 @@ export const RewardsContainer = styled.div`
 
     @media (max-width: 1100px) {
         main {
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr !important;
             aside.left {
                 order: 1;
                 header {

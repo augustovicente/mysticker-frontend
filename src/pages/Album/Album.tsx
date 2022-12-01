@@ -11,6 +11,7 @@ import axios from "axios"
 import { toast } from "react-toastify"
 import { AlbumSkeletons } from "./components/Skeletons/Skeletons"
 import { useAuth } from "contexts/auth.context"
+import { useScrollToElement } from "hooks/useScrollToElement"
 
 export const Album = () => {
     const [teamsGroupSelected, setTeamsGroupSelected] = useState("todos")
@@ -67,20 +68,7 @@ export const Album = () => {
         response()
     }, [currentTeamSelected])
 
-    const scrollToActiveLink = useCallback(() => {
-        const activeLink = document.querySelector(".selected-team");
-        if (activeLink) {
-            activeLink.scrollIntoView({
-                behavior: "smooth",
-                block: "nearest",
-                inline: "center",
-            });
-        }
-    }, [teamIndexSelected])
-
-    useEffect(() => {
-        scrollToActiveLink();
-    }, [teamIndexSelected]);
+    useScrollToElement(".selected-team", teamIndexSelected)
 
     const handleSelectNewTeamGroup = (name: string) => {
         setTeamsGroupSelected(name)

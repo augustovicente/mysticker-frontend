@@ -5,31 +5,18 @@ import { menuItems } from "./menuItems"
 import { MenuItem, SideBarContainer } from "./styles"
 import LockIcon from "assets/imgs/lock.svg"
 import { useAuth } from "contexts/auth.context";
+import { useScrollToElement } from "hooks/useScrollToElement";
 
 const SideBar = () => {
     const { t } = useTranslation();
     const { user } = useAuth();
     const location = useLocation();
 
+    useScrollToElement('.active', location?.pathname)
+
     const navLinks = user
         ? menuItems
         : menuItems.filter(item => !item.isAuthenticatedRoute);
-
-    const scrollToActiveLink = useCallback(() => {
-        const activeLink = document.querySelector(".active");
-        if (activeLink) {
-            activeLink.scrollIntoView({
-                behavior: "smooth",
-                block: "nearest",
-                inline: "center"
-            });
-        }
-    }, [location?.pathname])
-
-    useEffect(() => {
-        scrollToActiveLink();
-    }, [location?.pathname]);
-
 
     return (
         <SideBarContainer>
