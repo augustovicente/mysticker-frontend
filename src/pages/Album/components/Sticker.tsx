@@ -1,6 +1,5 @@
 import { Col, Row } from "antd"
-import { paste_stickers } from "models/User"
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { AlbumModal, StikerContainer } from "../styles"
 
@@ -8,14 +7,16 @@ type StickerProps = {
     stickerId: number
     rarity: number
     name: string
-    quantity: number;
+    ownedStickers: string[];
+    index: number;
 }
 
 const pastedStickers: number[] = []
 
-export const Sticker = ({ stickerId, name, rarity, quantity }: StickerProps) => {
+export const Sticker = ({ stickerId, name, rarity, ownedStickers, index }: StickerProps) => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [playerSelected, setPlayerSelected] = useState(stickerId)
+    const [currentIndex, setCurrentIndex] = useState(index)
 
     const showModal = () => {
         setIsModalOpen(true)
@@ -32,24 +33,29 @@ export const Sticker = ({ stickerId, name, rarity, quantity }: StickerProps) => 
     const handleNextPlayer = useCallback(() => {
         if (playerSelected > 1) {
             setPlayerSelected(playerSelected - 1)
+            setCurrentIndex(currentIndex + 1)
         }
     }, [playerSelected])
 
     const handlePreviewPlayer = useCallback(() => {
         setPlayerSelected(playerSelected + 1)
+        setCurrentIndex(currentIndex - 1)
     }, [playerSelected])
 
     return (
         <>
             <Col xxl={6} xl={5} md={4} sm={5}>
                 <StikerContainer
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 1 }}
                     className="sticker"
                     onClick={showModal}
                     pasted={pastedStickers.includes(stickerId)}
                 >
-                    {quantity >= 1 ? (
+                    {parseInt(ownedStickers[index]) >= 1 ? (
                         <>
-                            <img className="player-img" src={`/copa_pruu/${stickerId}.png`} alt={name} />
+                            <img className={`player-img`} src={`/copa_pruu/${stickerId}.png`} alt={name} />
                             <img className="player-tier" src={`/assets/img/icons/tier-${rarity}-icon.svg`} />
                             <img className="player-base-tier" src={`/assets/img/icons/tier-base-${rarity}-icon.svg`} />
                         </>
@@ -81,7 +87,7 @@ export const Sticker = ({ stickerId, name, rarity, quantity }: StickerProps) => 
                 <div
                     className="sticker"
                 >
-                    {quantity >= 1 ? (
+                    {parseInt(ownedStickers[currentIndex]) >= 1 ? (
                         <>
                             <img className="player-img" src={`/copa_pruu/${playerSelected}.png`} alt={name} />
                             <img className="player-tier" src={`/assets/img/icons/tier-${rarity}-icon.svg`} />
@@ -100,7 +106,13 @@ export const Sticker = ({ stickerId, name, rarity, quantity }: StickerProps) => 
                 <div className="rarity-number">
                     <div className="rarity">
                         Raridade
-                        <span>ouro</span>
+                        <span>
+                            {
+                                rarity === 3 && "BRONZE" ||
+                                rarity === 2 && "PRATA" ||
+                                rarity === 1 && "OURO"
+                            }
+                        </span>
                     </div>
 
                     <span>{`#0${playerSelected}`}</span>
