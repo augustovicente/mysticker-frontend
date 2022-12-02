@@ -177,12 +177,6 @@ const Header = (props) => {
             var mobileMenuContent = $('.menu-area .push-menu').html();
             $('.mobile-menu .menu-box .menu-outer').append(mobileMenuContent);
 
-            //Dropdown Button
-            $('.mobile-menu li.menu-item-has-children .dropdown-btn').on('click', function () {
-                $(this).toggleClass('open');
-                $(this).prev('ul').slideToggle(500);
-            });
-
             $('.menu-backdrop, .mobile-menu .close-btn').click(() => {
                 $('body').removeClass('mobile-menu-visible');
             })
@@ -211,7 +205,26 @@ const Header = (props) => {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         }
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        // $("#sticky-header")
+        // if path is / and don't have user set max-width to 1290px else max-width: calc(100vw - 260px);
+        if (location.pathname === '/') {
+            // $("#sticky-header").css('max-width', '1290px');
+
+            // if window width is less than 991px set max-width to 70vw
+
+            // $("#sticky-header").css('width', '100%');
+            // add class .container
+            // $("#sticky-header").addClass('container');
+        } else {
+            // $("#sticky-header").css('max-width', 'calc(100vw - 260px)');
+        }
+
+
+    }, [location?.pathname])
+
 
     useEffect(() => {
         $(".menu-tigger").on("click", function () {
@@ -221,14 +234,13 @@ const Header = (props) => {
 
         $(".menu-close,.offcanvas-overly").on("click", function () {
             $(".extra-info,.offcanvas-overly").removeClass("active");
-
         });
     }, []);
 
     return (
         <header className='main-header'>
-            <div id='sticky-header' className="menu-area ">
-                <div className={location.pathname === '/' ? 'container' : 'container-fluid'}>
+            <div id='sticky-header' className="menu-area">
+                <div className='container-fluid'>
                     <div className="row">
                         <div className="col-12 p-0">
                             <div className="mobile-nav-toggler"><i className="fas fa-bars" /></div>

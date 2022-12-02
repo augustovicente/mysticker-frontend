@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const RewardsContainer = styled.div`
     margin-top: 8rem;
     display: grid;
-    gap: 54px;
+    gap: 32px;
     padding: 0 80px 80px 80px;
     overflow: hidden;
 
@@ -261,10 +261,61 @@ export const RewardsContainer = styled.div`
                     cursor: grab;
                     width: 100%;
                     min-height: 264px;
-                    /* max-height: 300px; */
                     display: block;
                     object-fit: contain;
                     margin-bottom: 32px;
+                }
+
+                &.tracking {
+                    user-select: none;
+                    pointer-events: none;
+                    position: relative;
+
+                    img {
+                        margin-bottom: 0;
+                        opacity: 0.5;
+                        user-select: none;
+                        pointer-events: none;
+                    }
+
+                    .redeem-info {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        flex-direction: column;
+                        z-index: 2;
+
+                        span {
+                            font-weight: bold;
+                            font-size: ${({ theme }) => theme.fontSizes.lg};
+                            color: ${({ theme }) => theme.colors.white};
+                            text-align: center;
+                            width: fit-content;
+                            white-space: pre;
+                            padding: 12px;
+                            position: relative;
+
+                            &::before {
+                                content: "";
+                                position: absolute;
+                                inset: 0;
+                                border-radius: 12px;
+                                padding: 2px;
+                                background: ${({ theme }) => theme.gradients.blueGreen};
+                                -webkit-mask:
+                                    linear-gradient(#fff 0 0) content-box,
+                                    linear-gradient(#fff 0 0);
+                                -webkit-mask-composite: xor;
+                                        mask-composite: exclude;
+                            }
+                        }
+                    }
+
                 }
 
                 .slick-dots .slick-dots-bottom {
@@ -304,12 +355,18 @@ export const RewardsContainer = styled.div`
                 }
 
                 button {
-                    flex: 1;
-                    padding: 18px 6px;
+                    padding: 14px 18px;
                     background: ${({ theme }) => theme.colors.greenNeon};
                     border-radius: 12px;
                     font-weight: 900;
                     font-size: ${({ theme }) => theme.fontSizes.lg};
+                    margin-left: auto;
+                    min-width: 132px;
+
+                    &.tracking {
+                        background: ${({ theme }) => theme.colors.green};
+                        flex: 1;
+                    }
 
                     &:disabled {
                         opacity: 0.8;
@@ -350,10 +407,10 @@ export const RewardsContainer = styled.div`
 
                         button {
                             background: transparent;
+                            padding: 12px;
 
                             &:nth-child(3) {
                                 transform: rotate(180deg);
-                                margin-top: .45rem;
                             }
                         }
                     }
@@ -402,6 +459,7 @@ export const RewardsContainer = styled.div`
                     button {
                         background: ${({ theme }) => theme.colors.middle};
                         padding: 12px;
+                        width: fit-content;
 
                         span {
                             color: ${({ theme }) => theme.colors.white};
@@ -428,6 +486,16 @@ export const RewardModal = styled(Modal)`
         padding: 0;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+        &:has(section.status-redeem) {
+            .ant-modal-close {
+                outline-color: ${({ theme }) => theme.colors.dark};
+
+                svg {
+                    color: ${({ theme }) => theme.colors.dark};
+                }
+            }
+        }
 
         .ant-modal-close {
             outline: 2px solid ${({ theme }) => theme.colors.colorLight};
@@ -488,6 +556,22 @@ export const RewardModalContainer = styled.div`
 
     }
 
+    section.gift-status {
+        background: ${({ theme }) => theme.colors.greenNeon};
+        padding: 44px 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 24px;
+        border-radius: 12px 0 0 12px;
+
+        img {
+            padding: 32px;
+            border: 1px solid ${({ theme }) => theme.colors.middle};
+            border-radius: 12px;
+        }
+    }
+
     section.confirm-address {
         padding: 44px;
         background: ${({ theme }) => theme.colors.dark};
@@ -525,16 +609,99 @@ export const RewardModalContainer = styled.div`
                 gap: 12px;
                 justify-content: space-between;
 
-                div {
-                    display: flex;
-                    align-items: center;
-                    gap: 12px;
-                }
-
                 span {
                     line-height: 150%;
                     font-size: ${({ theme }) => theme.fontSizes.md};
                     font-family: 'Nunito', sans-serif;
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+
+    section.status-redeem {
+        padding: 44px;
+        padding-left: 12px;
+        background: ${({ theme }) => theme.colors.greenNeon};
+        border: 2px solid ${({ theme }) => theme.colors.greenNeon};
+        display: flex;
+        flex-direction: column;
+        border-radius: 0 12px 12px 0;
+
+        h3 {
+            font-size: ${({ theme }) => theme.fontSizes.heading4};
+            color: ${({ theme }) => theme.colors.dark};
+            white-space: pre;
+        }
+        p {
+            color: ${({ theme }) => theme.colors.dark};
+        }
+
+        div.status {
+            padding: 8px 12px;
+            background: linear-gradient(270deg, #4694FF 0%, #B53BFE 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            position: relative;
+            width: fit-content;
+
+            &::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                border-radius: 8px;
+                padding: 2px;
+                background: linear-gradient(270deg, #4694FF 0%, #B53BFE 100%);
+                -webkit-mask:
+                    linear-gradient(#fff 0 0) content-box,
+                    linear-gradient(#fff 0 0);
+                -webkit-mask-composite: xor;
+                mask-composite: exclude;
+            }
+
+            &.sent {
+                background: ${({ theme }) => theme.gradients.blueGreen};
+                border-radius: 8px;
+
+                span {
+                    -webkit-text-fill-color: ${({ theme }) => theme.colors.white};
+                    text-fill-color: transparent;
+                    font-weight: bold;
+                }
+
+                &::before {
+                    background: unset;
+                }
+            }
+
+            span {
+                font-style: italic !important;
+            }
+        }
+
+        footer {
+            display: flex;
+            flex-direction: column;
+            margin-top: 32px;
+            gap: 12px;
+
+            div {
+                display: flex;
+                gap: 12px;
+            }
+            span {
+                white-space: pre;
+                font-size: ${({ theme }) => theme.fontSizes.sm};
+                color: ${({ theme }) => theme.colors.dark};
+                font-weight: 500;
+                line-height: 120%;
+            }
+
+            svg.gift-icon {
+                path {
+                    fill: #4694FF;
                 }
             }
         }
@@ -565,6 +732,8 @@ export const RewardModalContainer = styled.div`
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                min-height: 44px;
+                max-height: 44px;
 
                 a {
                     text-decoration: none;

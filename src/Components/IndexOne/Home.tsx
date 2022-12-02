@@ -130,7 +130,7 @@ const Home = () => {
                 <div className="banner-area">
                     <div className="container">
                         <div className="row flex-column-reverse flex-lg-row">
-                            <div className="col-lg-5 col-md-8">
+                            <div className="col-lg-6 col-md-8">
                                 <div className="banner-content">
                                     <h1 className="title">
                                         {t('home.section_1.title')}
@@ -148,7 +148,7 @@ const Home = () => {
                                 </div>
                             </div>
 
-                            <div className="col-lg-7 col-md-8">
+                            <div className="col-lg-6 col-md-8">
                                 <img className='banner-stickers' loading="lazy" src={StickersImg} alt="3 figurinhas da copa pru" />
                             </div>
                         </div>
@@ -183,9 +183,9 @@ const Home = () => {
                                     {t('home.section_2.subtitle')}
                                 </p>
 
-                                <a href="#" className="banner-btn">
+                                <Link to="/marketplace" className="banner-btn">
                                     {t('home.section_2.button')}
-                                </a>
+                                </Link>
                             </div>
                         </div>
 
@@ -238,9 +238,9 @@ const Home = () => {
                             <img src={BusterImg} loading="lazy" alt="Pacote de figurinha" />
 
                             <button className='pick-sticker'>
-                                <a href="/">
+                                <Link to="/marketplace">
                                     {t('home.section_4.button')}
-                                </a>
+                                </Link>
                             </button>
 
                             <img src={BootImg} loading="lazy" className="boot" alt="Pacote de figurinha" />
@@ -374,7 +374,7 @@ const Home = () => {
                     <img className='me-5' src={GolImg} alt="Imagem de um gol de futebol" />
 
                     <button className='pick-sticker'>
-                        <Link to="/">
+                        <Link to="/marketplace">
                             {t('home.section_7.button')}
                         </Link>
                     </button>

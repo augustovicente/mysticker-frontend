@@ -33,6 +33,11 @@ const BaseTemplateMain = styled.main`
     background: url('assets/img/others/world.png') no-repeat center/contain;
     border-top-left-radius: 0px;
 
+    &:has(main#home-mysticker) {
+        background: unset;
+        padding: 0;
+    }
+
     @media (max-width: 768px) {
         padding: 0 22px 98px 22px;
     }
