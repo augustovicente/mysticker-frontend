@@ -90,11 +90,29 @@ const get_owned_tokens = async (players: number[]) =>
     }
 }
 
+const get_owned_teams = async (sticker_ids: number[]) =>
+{
+    const { 0: address } = await connect();
+    const nftContract = await get_contract();
+
+    if(address && nftContract && sticker_ids.length)
+    {
+        const tx = await nftContract.methods
+            .balanceOfBatch(
+                sticker_ids.map(() => address),
+                sticker_ids
+            )
+            .call();
+        return tx
+    }
+}
+
 export {
     getPackages,
     buy_package,
     open_package,
     paste_stickers,
     connect_wallet,
-    get_owned_tokens
+    get_owned_tokens,
+    get_owned_teams
 }

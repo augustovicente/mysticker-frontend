@@ -234,7 +234,7 @@ const Header = (props) => {
                             <div className="mobile-nav-toggler"><i className="fas fa-bars" /></div>
                             <div className="menu-wrap main-menu">
                                 <nav className="menu-nav py-lg-3 py-md-2">
-                                    <div className="logo d-block d-lg-none">
+                                    <div className="logo d-block">
                                         <Link to="/">
                                             <img
                                                 src="/assets/img/logo/logo-header.svg"

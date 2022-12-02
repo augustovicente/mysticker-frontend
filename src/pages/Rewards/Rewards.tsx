@@ -12,7 +12,7 @@ import { usePrevious } from 'hooks/usePrevious';
 import { Button, Carousel } from 'antd';
 import { useAuth } from 'contexts/auth.context';
 import { Link } from 'react-router-dom';
-import { get_owned_tokens } from 'models/User';
+import { get_owned_teams, get_owned_tokens } from 'models/User';
 import { stickers } from 'assets/stickers';
 import { useScrollToElement } from 'hooks/useScrollToElement';
 
@@ -24,79 +24,8 @@ type prizeProps = {
     description?: string;
     hasRedeem?: boolean;
     totalTeams?: number;
-    completedTeams: string[];
     teamGroup: 'america-norte' | 'america-sul' | 'europa' | 'asia' | 'africa' | 'todos';
 }
-
-const stickersTest = [
-    '97',
-    '98',
-    '99',
-    '100',
-    '101',
-    '102',
-    '103',
-    '104',
-    '105',
-    '106',
-    '107',
-    '361',
-    '362',
-    '363',
-    '364',
-    '365',
-    '366',
-    '367',
-    '368',
-    '369',
-    '370',
-    '371',
-    '13',
-    '14',
-    '15',
-    '16',
-    '17',
-    '18',
-    '19',
-    '20',
-    '21',
-    '22',
-    '23',
-    '289',
-    '290',
-    '291',
-    '292',
-    '293',
-    '294',
-    '295',
-    '296',
-    '297',
-    '298',
-    '299',
-    '157',
-    '158',
-    '159',
-    '160',
-    '161',
-    '162',
-    '163',
-    '164',
-    '165',
-    '166',
-    '167',
-    '217',
-    '218',
-    '219',
-    '220',
-    '221',
-    '222',
-    '223',
-    '224',
-    '225',
-    '226',
-    '227',
-]
-
 
 const prizes: prizeProps[] = [
     {
@@ -170,7 +99,6 @@ const prizes: prizeProps[] = [
 export const Rewards = () => {
     const [teamsGroupSelected, setTeamsGroupSelected] = useState("todos");
     const [rewardStatus, setRewardStatus] = useState<prizeProps[]>(prizes);
-    const [ownedStickers, setOwnedStickers] = useState<string[]>(stickersTest);
     const prevTeamsGroupSelected = usePrevious(teamsNameList.findIndex(({ name }) => name === teamsGroupSelected));
     const { user } = useAuth();
 
@@ -214,7 +142,6 @@ export const Rewards = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     useScrollToElement('#selected-group', teamsGroupSelected);
 
-
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -232,35 +159,39 @@ export const Rewards = () => {
         return prize
     }, [teamsGroupSelected, rewardStatus]);
 
-    const getTotalCompletedByTeam = useCallback(() => {
-        groupOfTeams?.map(team => {
-            const stickerTeams = stickers.find(sticker => sticker.country === team.name.toUpperCase());
+    const [ownedTeams, setOwnedTeams] = useState<string[]>([])
 
-            // Caso usuário possua todos os stickers do time, adiciona o time na lista de times completos
-            if (stickerTeams?.players.every(sticker => ownedStickers.includes(String(sticker.id)))) {
-                const theReward = rewardStatus.find(({ teamGroup }) => teamGroup === teamsGroupSelected);
+    const getTotalCompletedByTeam = useCallback(async () => {
+        const teams = groupOfTeams.map(team => {
+            return stickers.find(sticker => sticker.country === team.name.toUpperCase())
+        });
 
-                if (theReward && !theReward?.completedTeams.includes(team.name)) {
-                    setRewardStatus(prevState => {
-                        const newPrize = prevState.map(prize => {
-                            if (prize.teamGroup === teamsGroupSelected.toLocaleLowerCase().replaceAll(' ', '-')) {
-                                return {
-                                    ...prize,
-                                    completedTeams: [...prize.completedTeams, team.name]
-                                }
-                            }
-                            return prize
-                        })
-                        return newPrize
-                    })
-                }
+        const ownedTeams = await get_owned_teams(teams.map(team => team?.id!)) // this return array of '1' or '0'
+
+        const ownedTeamsBoolean = ownedTeams.map((owned: string, index: number) => {
+            return {
+                team: teams[index]?.country,
+                owned: owned === '1'
             }
-        })
+        });
+
+        setOwnedTeams(ownedTeamsBoolean.filter(({ owned }) => owned === true).map(({ team }) => team!))
     }, [teamsGroupSelected])
 
     useEffect(() => {
         getTotalCompletedByTeam();
     }, [teamsGroupSelected])
+
+
+    // useEffect(() => {
+    //     (async () => {
+    //         const opa = await get_owned_teams([384])
+
+    //         console.log('opa', opa)
+
+    //     }
+    //     )();
+    // }, [])
 
     return (
         <S.RewardsContainer>
@@ -346,7 +277,7 @@ export const Rewards = () => {
                                             animate={{ x: 0 }}
                                             exit={{ x: prevTeamsGroupSelected < teamsNameList.findIndex(({ name }) => name === teamsGroupSelected) ? -1400 : 1400 }}
                                             transition={{ duration: 0.3, ease: "easeInOut" }}
-                                            className={currentPrize?.completedTeams.includes(name) ? 'completed' : ''}
+                                            className={ownedTeams.includes(name.toUpperCase()) ? 'completed' : ''}
                                         >
                                             <img src={`/assets/img/icons/team-flags/${teamsGroupSelected.toLocaleLowerCase()}/${name.toLocaleLowerCase().replaceAll(" ", "-")}.svg`} alt={`Bandeira ${name}`} />
                                             <span>
@@ -385,11 +316,11 @@ export const Rewards = () => {
                             </div>
 
                             <footer className='d-flex align-items-center gap-3'>
-                                <h3>{currentPrize.completedTeams.length}<strong>/{currentPrize?.totalTeams}</strong></h3>
+                                <h3>{ownedTeams.length}<strong>/{currentPrize?.totalTeams}</strong></h3>
 
                                 <button
                                     onClick={() => setIsModalOpen(true)}
-                                    disabled={currentPrize.completedTeams.length !== currentPrize?.totalTeams}
+                                    disabled={ownedTeams.length !== currentPrize?.totalTeams}
                                     >
                                     <span>
                                         Resgate
