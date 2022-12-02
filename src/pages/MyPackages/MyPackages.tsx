@@ -21,7 +21,7 @@ export const MyPackages = () => {
     const [selectedIndex, setSelectedIndex] = useState<number>(0)
     const [availablePackages, setAvailablePackages] = useState<MyPackagesProps>()
     const [isLoading, setIsLoading] = useToggle(false);
-    const [isRevealing, setIsRevealing] = useToggle(true);
+    const [isRevealing, setIsRevealing] = useToggle(false);
     const [isRevealed, setIsRevealed] = useToggle(false);
     const [revealingGif, setRevealingGif] = useState<string>("/assets/gif/esmerald-multiple-package.gif");
     const [revealedCards, setRevealedCards] = useState<number[]>([]);

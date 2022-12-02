@@ -88,13 +88,14 @@ export const AlbumContainer = styled.div`
                 font-size: .5rem;
                 font-weight: bold;
                 color: white;
-                padding: 0.5rem 0.375rem;
+                padding: 0 0.375rem 0.5rem 0.375rem;
                 text-align: center;
                 cursor: pointer;
 
                 &.selected-team {
                     background: ${props => props.theme.colors.colorMiddle};
                     transform: scale(1.2);
+                    margin: auto .5rem;
                 }
 
                 img {
@@ -129,7 +130,14 @@ export const AlbumContainer = styled.div`
                         width: 34px;
                     }
                 }
-
+                &.two {
+                    p {
+                        span {
+                            letter-spacing: -.15rem;
+                            font-size: 2rem;
+                        }
+                    }
+                }
             }
 
             @media (max-width: 768px) {
@@ -403,6 +411,34 @@ export const AlbumModal = styled(Modal)`
                     height: 20px;
                     bottom: 6.5px;
                 }
+
+                .extra-stickers {
+                    display: flex;
+                    position: absolute;
+                    object-fit: contain;
+                    width: 55px;
+                    left: -12%;
+                    top: -25%;
+
+                    h1 {
+                        position: absolute;
+                        bottom: 37%;
+                        left: 31%;
+                        color: white;
+                        font-weight: bold;
+                        font-size: 1.25rem;
+                        height: 20px;
+                        width: 20px;
+                    }
+
+                    &.two {
+                        h1 {
+                            font-size: .975rem;
+                            bottom: 39%;
+                            left: 27%;
+                        }
+                    }
+                }
             }
 
             .rarity-number {
@@ -584,12 +620,12 @@ export const StikerContainer = styled(motion.div)<StickerProps>`
 
                 @media (max-width: 1440px) {
                     width: 120px;
-                    height: 180px;
+                    height: 155px;
                 }
 
                 @media (max-width: 578px) {
                     width: 95px;
-                    height: 138px;
+                    height: 124px;
                 }
             `
         :
@@ -600,12 +636,12 @@ export const StikerContainer = styled(motion.div)<StickerProps>`
 
                 @media (max-width: 1440px) {
                     width: 120px;
-                    height: 180px;
+                    height: 155px;
                 }
 
                 @media (max-width: 578px) {
                     width: 95px;
-                    height: 138px;
+                    height: 124px;
                 }
             `
     }
@@ -663,14 +699,80 @@ export const StikerContainer = styled(motion.div)<StickerProps>`
         bottom: 6px;
     }
 
+    .extra-stickers {
+        display: flex;
+        position: absolute;
+        object-fit: contain;
+        width: 55px;
+        left: -20%;
+        top: -20%;
+
+        h1 {
+            position: absolute;
+            bottom: 34%;
+            left: 30%;
+            color: white;
+            font-weight: bold;
+            font-size: 1.25rem;
+            height: 20px;
+            width: 20px;
+        }
+
+        &.two {
+            h1 {
+                font-size: .975rem;
+                bottom: 28%;
+                left: 27%;
+            }
+        }
+    }
+
     @media (max-width: 1440px) {
         .player-img {
-            top: 8px;
+            top: 30px;
+            scale: 1.67;
         }
 
         .player-base-tier {
-            height: 6.5%;
-            bottom: 8px;
+            height: 7.6%;
+            bottom: 3px;
+        }
+
+        .extra-stickers {
+            width: 45px;
+
+            h1 {
+                font-size: 1rem;
+                bottom: 28%;
+            }
+
+            &.two {
+                h1 {
+                    font-size: .75rem;
+                    bottom: 25%;
+                    left: 27%;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 578px) {
+        .player-img {
+            top: 15px;
+            scale: 1.3;
+        }
+
+        .player-base-tier {
+            height: 7.3%;
+            bottom: 4px;
+        }
+
+        .extra-stickers {
+            width: 45px;
+
+            h1 {
+                bottom: 28%;
+            }
         }
     }
 `

@@ -9,7 +9,7 @@ export const AlbumStickersContainer = styled.div`
     border-radius: 1.125rem;
 `
 
-export const SkeletonAlbumModal = styled(Modal)`
+export const WalletErrorModal = styled(Modal)`
     top: 40vh;
     width: 30% !important;
     border: 2px rgba(255, 255, 255, .3) solid;
