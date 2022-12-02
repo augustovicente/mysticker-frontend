@@ -14,9 +14,11 @@ const buy_package = async (package_type: number, amount: number, price: number) 
     const nftContract = await get_contract();
     let count_feedback = 0;
     const accounts = await connect();
+    const gasPrice = await web3.eth.getGasPrice()
     const tx = await nftContract.methods
         .buyPackage(package_type, amount)
         .send({
+            gasPrice: gasPrice,
             from: accounts[0],
             value: web3.utils.toWei(price.toString(), 'ether')
         })
