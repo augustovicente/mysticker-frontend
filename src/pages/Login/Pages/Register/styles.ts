@@ -7,7 +7,8 @@ export const Container = styled.div`
     padding: 0 24px;
     height: fit-content;
     overflow: hidden;
-    background: url('/assets/img/others/world.png') no-repeat center/cover;
+    position: relative;
+    z-index: -1;
 
     &.sended {
         height: 100vh;

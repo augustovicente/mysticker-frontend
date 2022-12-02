@@ -21,7 +21,7 @@ const BaseTemplateMainContent = styled.div`
     display: flex;
     width: 100%;
     flex-direction: column;
-    margin-left: 94px;
+    margin-left: 84px;
 
     @media (max-width: 768px) {
         margin-left: 0;

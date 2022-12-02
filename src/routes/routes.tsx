@@ -1,7 +1,5 @@
 import React from 'react';
 import { NotFoundPage } from 'pages/404/404';
-import { IndexAuth } from 'pages/Auth';
-import { Hall } from 'pages/Auth/Hall/Hall';
 import { Marketplace } from 'pages/Marketplace/Marketplace';
 import { Profile } from 'pages/Profile/Profile';
 import { Outlet, Route, Routes } from 'react-router-dom';
@@ -14,7 +12,6 @@ import { MyPackages } from 'pages/MyPackages/MyPackages';
 import { NewPassword } from 'pages/Login/Pages/NewPassword/NewPassword';
 import { ResetPassword } from 'pages/Profile/pages/ResetPassword/ResetPassword';
 import { ConfirmEmail } from 'pages/Login/Pages/ConfirmEmail/ConfirmEmail';
-import { Challenge } from 'pages/Challenge/Challenge';
 import { Album } from 'pages/Album/Album';
 import BaseTemplate from 'Components/BaseTemplate';
 import { Prizes } from 'pages/Prizes/Prizes';
@@ -27,15 +24,15 @@ export const Router = () => {
         return (
             <Routes location={location} key={location.pathname}>
                 <Route path="/" element={<Home />} />
-                <Route path="login" element={<Login />} />
+                <Route path="login" element={<BaseTemplate footer={false}><Login /></BaseTemplate>} />
                 <Route path="forgot-password" element={<ForgotPassword />} />
                 <Route path="reset-pwd/:code" element={<NewPassword />} />
                 <Route path="validation/:code" element={<ConfirmEmail />} />
-                <Route path="register" element={<Register />} />
-                <Route path="r/:affiliate_code" element={<Register />} />
+                <Route path="register" element={<BaseTemplate footer={false}><Register /></BaseTemplate>} />
+                <Route path="r/:affiliate_code" element={<BaseTemplate footer={false}><Register /></BaseTemplate>} />
                 <Route path="/marketplace" element={<BaseTemplate footer={false}><Marketplace /></BaseTemplate>} />
                 <Route path="/album" element={<BaseTemplate footer={false}><Album /></BaseTemplate>} />
-                <Route path="prizes" element={<BaseTemplate footer={false}><Prizes /></BaseTemplate>} />
+                <Route path="/prizes" element={<BaseTemplate footer={false}><Prizes /></BaseTemplate>} />
 
 
                 <Route path="*" element={<NotFoundPage />} />
@@ -49,7 +46,7 @@ export const Router = () => {
                 {/* <Route> */}
                 <Route path='/' element={<Outlet />} >
                     <Route index element={<Home />} />
-                    <Route path="prizes" element={<Prizes />} />
+                    <Route path="/prizes" element={<Prizes />} />
                     <Route path="marketplace" element={<Marketplace />} />
                     <Route path="/my-packages" element={<MyPackages />} />
                     <Route path="/album" element={<Album />} />
