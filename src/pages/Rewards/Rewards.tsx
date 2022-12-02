@@ -16,10 +16,161 @@ import { get_owned_tokens } from 'models/User';
 import { stickers } from 'assets/stickers';
 import { useScrollToElement } from 'hooks/useScrollToElement';
 
+type prizeProps = {
+    type: 1 | 2 | 3 | 4 | 5 | 6;
+    size?: number;
+    images?: string[];
+    title?: string;
+    description?: string;
+    hasRedeem?: boolean;
+    totalTeams?: number;
+    completedTeams: string[];
+    teamGroup: 'america-norte' | 'america-sul' | 'europa' | 'asia' | 'africa' | 'todos';
+}
+
+const stickersTest = [
+    '97',
+    '98',
+    '99',
+    '100',
+    '101',
+    '102',
+    '103',
+    '104',
+    '105',
+    '106',
+    '107',
+    '361',
+    '362',
+    '363',
+    '364',
+    '365',
+    '366',
+    '367',
+    '368',
+    '369',
+    '370',
+    '371',
+    '13',
+    '14',
+    '15',
+    '16',
+    '17',
+    '18',
+    '19',
+    '20',
+    '21',
+    '22',
+    '23',
+    '289',
+    '290',
+    '291',
+    '292',
+    '293',
+    '294',
+    '295',
+    '296',
+    '297',
+    '298',
+    '299',
+    '157',
+    '158',
+    '159',
+    '160',
+    '161',
+    '162',
+    '163',
+    '164',
+    '165',
+    '166',
+    '167',
+    '217',
+    '218',
+    '219',
+    '220',
+    '221',
+    '222',
+    '223',
+    '224',
+    '225',
+    '226',
+    '227',
+]
+
+
+const prizes: prizeProps[] = [
+    {
+        type: 1,
+        size: 1,
+        images: ['/prizes/america-norte.png'],
+        title: 'Boné 5pruu',
+        description: 'Ao completar todas as figuras desse continente você pode resgatar este boné',
+        hasRedeem: false,
+        totalTeams: teamsList.find(team => team.teamsGroupName === 'america-norte')?.teams.length ?? 0,
+        completedTeams: [],
+        teamGroup: 'todos',
+    },
+    {
+        type: 2,
+        size: 1,
+        images: ['/prizes/america-norte.png'],
+        title: 'Boné 5pruu',
+        description: 'Ao completar todas as figuras desse continente você pode resgatar este boné',
+        hasRedeem: false,
+        totalTeams: teamsList.find(team => team.teamsGroupName === 'america-norte')?.teams.length ?? 0,
+        completedTeams: [],
+        teamGroup: 'america-norte',
+    },
+    {
+        type: 3,
+        size: 1,
+        images: ['/prizes/america-sul1.png', '/prizes/america-sul2.png'],
+        title: 'Camiseta Preta Copacapruu',
+        description: 'Ao completar todas as figuras desse continente você pode resgatar esta camiseta',
+        hasRedeem: false,
+        totalTeams: teamsList.find(team => team.teamsGroupName === 'america-sul')?.teams.length ?? 0,
+        completedTeams: [],
+        teamGroup: 'america-sul',
+    },
+    {
+        type: 4,
+        size: 1,
+        images: ['/prizes/africa.png'],
+        title: 'Bucket Pruu',
+        description: 'Ao completar todas as figuras desse continente você pode resgatar este bucket',
+        hasRedeem: false,
+        totalTeams: teamsList.find(team => team.teamsGroupName === 'africa')?.teams.length ?? 0,
+        completedTeams: [],
+        teamGroup: 'africa'
+    },
+    {
+        type: 5,
+        size: 1,
+        images: ['/prizes/asia1.png', '/prizes/asia2.png'],
+        title: 'Camiseta Branca Off White',
+        description: 'Ao completar todas as figuras desse continente você pode resgatar esta camiseta',
+        hasRedeem: false,
+        totalTeams: teamsList.find(team => team.teamsGroupName === 'asia')?.teams.length ?? 0,
+        completedTeams: [],
+        teamGroup: 'asia'
+    },
+    {
+        type: 6,
+        size: 1,
+        images: ['/prizes/europa1.png', '/prizes/europa2.png'],
+        title: 'Moletom Segue o Baile',
+        description: 'Ao completar todas as figuras desse continente você pode resgatar este moletom',
+        hasRedeem: false,
+        totalTeams: teamsList.find(team => team.teamsGroupName === 'europa')?.teams.length ?? 0,
+        completedTeams: [],
+        teamGroup: 'europa'
+    }
+]
+
 export const Rewards = () => {
     const [teamsGroupSelected, setTeamsGroupSelected] = useState("todos");
-    const [teamIndexSelected, setTeamIndexSelected] = useState(0);
-    const [ownedStickers, setOwnedStickers] = useState<string[]>([]);
+    const [rewardStatus, setRewardStatus] = useState<prizeProps[]>(prizes);
+    const [ownedStickers, setOwnedStickers] = useState<string[]>(stickersTest);
     const prevTeamsGroupSelected = usePrevious(teamsNameList.findIndex(({ name }) => name === teamsGroupSelected));
     const { user } = useAuth();
 
@@ -36,8 +187,6 @@ export const Rewards = () => {
         return team;
     });
 
-    // console.log('teamsGroupSelected', teamsGroupSelected)
-
     const groupOfTeams = useMemo(() => {
         const group = teamsIconList.filter(({ teams, teamsGroupName }) => teamsGroupName === teamsGroupSelected)
         return group[0]?.teams
@@ -51,7 +200,6 @@ export const Rewards = () => {
             const nextGroup = teamsNameList[nextIndex]?.name
             if (nextGroup) {
                 setTeamsGroupSelected(nextGroup)
-                setTeamIndexSelected(0)
             }
         }
         else {
@@ -59,12 +207,13 @@ export const Rewards = () => {
             const previousGroup = teamsNameList[previousIndex]?.name
             if (previousGroup) {
                 setTeamsGroupSelected(previousGroup)
-                setTeamIndexSelected(0)
             }
         }
     }
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+    useScrollToElement('#selected-group', teamsGroupSelected);
+
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -78,28 +227,43 @@ export const Rewards = () => {
         setIsModalOpen(false);
     };
 
-    const currentTeamSelected = useMemo(() => {
-        const players = stickers.filter(({ country, players }) => country.toLocaleLowerCase().replaceAll(" ", "-") === groupOfTeams[teamIndexSelected].name.toLowerCase().replaceAll(" ", "-") && players)
-        return players[0]
-    }, [groupOfTeams, teamIndexSelected, teamsGroupSelected]);
+    const currentPrize = useMemo(() => {
+        const prize = rewardStatus.find(({ teamGroup }) => teamGroup === teamsGroupSelected)
+        return prize
+    }, [teamsGroupSelected, rewardStatus]);
 
-    const ownedStikersAmount = useMemo(() => {
-        return ownedStickers.reduce((counter, owned) => parseInt(owned) > 0 ? counter + 1 : counter, 0)
-    }, [ownedStickers]);
+    const getTotalCompletedByTeam = useCallback(() => {
+        groupOfTeams?.map(team => {
+            const stickerTeams = stickers.find(sticker => sticker.country === team.name.toUpperCase());
+
+            // Caso usuário possua todos os stickers do time, adiciona o time na lista de times completos
+            if (stickerTeams?.players.every(sticker => ownedStickers.includes(String(sticker.id)))) {
+                const theReward = rewardStatus.find(({ teamGroup }) => teamGroup === teamsGroupSelected);
+
+                if (theReward && !theReward?.completedTeams.includes(team.name)) {
+                    setRewardStatus(prevState => {
+                        const newPrize = prevState.map(prize => {
+                            if (prize.teamGroup === teamsGroupSelected.toLocaleLowerCase().replaceAll(' ', '-')) {
+                                return {
+                                    ...prize,
+                                    completedTeams: [...prize.completedTeams, team.name]
+                                }
+                            }
+                            return prize
+                        })
+                        return newPrize
+                    })
+                }
+            }
+        })
+    }, [teamsGroupSelected])
 
     useEffect(() => {
-        (async () => {
-            setOwnedStickers(['1', '1', '1', '0', '0', '0', '0', '0', '0', '0', '0'])
-            // const response = await get_owned_tokens(currentTeamSelected.players.map(player => player.id));
-
-        }
-        )();
-    }, [])
-
-    useScrollToElement('#selected-group', teamsGroupSelected)
+        getTotalCompletedByTeam();
+    }, [teamsGroupSelected])
 
     return (
-        <S.RewardsContainer isAllSelected={teamsGroupSelected === 'todos'}>
+        <S.RewardsContainer>
             <>
                 <header>
                     <div className='title'>
@@ -182,8 +346,7 @@ export const Rewards = () => {
                                             animate={{ x: 0 }}
                                             exit={{ x: prevTeamsGroupSelected < teamsNameList.findIndex(({ name }) => name === teamsGroupSelected) ? -1400 : 1400 }}
                                             transition={{ duration: 0.3, ease: "easeInOut" }}
-                                            className={teamIndexSelected === index ? `selected` : ""}
-                                            onClick={() => setTeamIndexSelected(index)}
+                                            className={currentPrize?.completedTeams.includes(name) ? 'completed' : ''}
                                         >
                                             <img src={`/assets/img/icons/team-flags/${teamsGroupSelected.toLocaleLowerCase()}/${name.toLocaleLowerCase().replaceAll(" ", "-")}.svg`} alt={`Bandeira ${name}`} />
                                             <span>
@@ -196,59 +359,51 @@ export const Rewards = () => {
                         </div>
                     </aside>
 
-                    <AnimatePresence>
-                        {teamsGroupSelected !== 'todos' ? (
-                            <motion.aside
-                                className="right"
-                                initial={{ x: 1400 }}
-                                animate={{ x: 0 }}
-                                exit={{ x: 1400 }}
-                                transition={{ duration: 0.3, ease: "easeInOut" }}
-                            >
-                                <div className="reward">
-                                    <Carousel
-                                        slidesToScroll={1}
-                                        slidesToShow={1}
-                                        draggable
-                                        afterChange={() => { }}
+                    {teamsGroupSelected !== 'todos' && currentPrize?.title && (
+                        <aside
+                            key={currentPrize?.type}
+                            className="right"
+                        >
+                            <div className="reward">
+                                <Carousel
+                                    slidesToScroll={1}
+                                    slidesToShow={1}
+                                    draggable
+                                    afterChange={() => { }}
+                                >
+                                    {currentPrize?.images?.map((image, index) => (
+                                        <div key={index}>
+                                            <img src={image} alt="" />
+                                        </div>
+                                    ))}
+                                </Carousel>
+                            </div>
+
+                            <div className="description">
+                                <h3>{currentPrize?.title}</h3>
+                                <p>{currentPrize?.description}</p>
+                            </div>
+
+                            <footer className='d-flex align-items-center gap-3'>
+                                <h3>{currentPrize.completedTeams.length}<strong>/{currentPrize?.totalTeams}</strong></h3>
+
+                                <button
+                                    onClick={() => setIsModalOpen(true)}
+                                    disabled={currentPrize.completedTeams.length !== currentPrize?.totalTeams}
                                     >
-                                        <div>
-                                            <img src={tShirt} alt={`Camiseta`} />
-                                        </div>
-                                        <div>
-                                            <img src={tShirt} alt={`Camiseta`} />
-                                        </div>
-                                        <div>
-                                            <img src={tShirt} alt={`Camiseta`} />
-                                        </div>
-                                    </Carousel>
-                                </div>
-
-                                <div className="description">
-                                    <h3>Camiseta Pru</h3>
-                                    <p>
-                                        Ao completar todas as figuras desse continente você pode resgatar essa camiseta
-                                    </p>
-                                </div>
-
-                                <footer className='d-flex align-items-center gap-3'>
-                                    <h3>01<strong>/04</strong></h3>
-
-                                    <button onClick={() => setIsModalOpen(true)}>
-                                        <span>
-                                            Resgate
-                                        </span>
-                                    </button>
-                                </footer>
-                            </motion.aside>
-                        ) : null}
-                    </AnimatePresence>
+                                    <span>
+                                        Resgate
+                                    </span>
+                                </button>
+                            </footer>
+                        </aside>
+                    )}
                 </main>
             </>
 
             <S.RewardModal
                 centered
-                width={940}
+                width={980}
                 open={isModalOpen}
                 onCancel={() => setIsModalOpen(false)}
             >
@@ -257,7 +412,7 @@ export const Rewards = () => {
                         <h3>Resgate {'\n'}de Prêmios
                             <img className='gift-icon' src="/assets/img/icons/gifts-icon.svg" alt="" />
                         </h3>
-                        <img src={tShirt} alt={`Camiseta`} />
+                        <img src={currentPrize?.images![0]} alt={`Camiseta`} />
                     </section>
 
                     <section className='confirm-address'>

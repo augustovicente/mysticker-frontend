@@ -1,7 +1,7 @@
 import { Modal } from 'antd';
 import styled from 'styled-components';
 
-export const RewardsContainer = styled.div<{isAllSelected?: boolean}>`
+export const RewardsContainer = styled.div`
     margin-top: 8rem;
     display: grid;
     gap: 54px;
@@ -224,7 +224,7 @@ export const RewardsContainer = styled.div<{isAllSelected?: boolean}>`
                             color: ${({ theme }) => theme.colors.white};
                         }
 
-                        &.selected {
+                        &.completed {
                             opacity: 1;
 
                             img {
@@ -260,9 +260,11 @@ export const RewardsContainer = styled.div<{isAllSelected?: boolean}>`
                 img {
                     cursor: grab;
                     width: 100%;
+                    min-height: 264px;
+                    /* max-height: 300px; */
                     display: block;
                     object-fit: contain;
-                    margin: 44px 0;
+                    margin-bottom: 32px;
                 }
 
                 .slick-dots .slick-dots-bottom {
@@ -309,8 +311,13 @@ export const RewardsContainer = styled.div<{isAllSelected?: boolean}>`
                     font-weight: 900;
                     font-size: ${({ theme }) => theme.fontSizes.lg};
 
-                    &:hover {
+                    &:disabled {
+                        opacity: 0.8;
+                    }
+
+                    &:hover:not(:disabled) {
                         filter: brightness(0.8);
+                        cursor: pointer;
                     }
                 }
             }
@@ -419,6 +426,8 @@ export const RewardModal = styled(Modal)`
         border: 0;
         background: transparent;
         padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 
         .ant-modal-close {
             outline: 2px solid ${({ theme }) => theme.colors.colorLight};
@@ -440,10 +449,12 @@ export const RewardModal = styled(Modal)`
             display: none;
         }
     }
+
 `
 
 export const RewardModalContainer = styled.div`
-    display: flex;
+    display: grid;
+    grid-template-columns: 390px 1fr;
 
     section.gift {
         background: ${({ theme }) => theme.colors.greenNeon};
@@ -484,6 +495,7 @@ export const RewardModalContainer = styled.div`
         display: flex;
         flex-direction: column;
         border-radius: 0 8px 8px 0;
+        flex: 1;
 
         h3 {
             font-size: ${({ theme }) => theme.fontSizes.heading4};
@@ -572,6 +584,10 @@ export const RewardModalContainer = styled.div`
                 }
             }
         }
+    }
+
+    @media (max-width: 940px) {
+        grid-template-columns: 1fr;
     }
 
 `;
