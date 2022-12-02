@@ -17,7 +17,7 @@ import { ConfirmEmail } from 'pages/Login/Pages/ConfirmEmail/ConfirmEmail';
 import { Challenge } from 'pages/Challenge/Challenge';
 import { Album } from 'pages/Album/Album';
 import BaseTemplate from 'Components/BaseTemplate';
-import { Rewards } from 'pages/Rewards/Rewards';
+import { Prizes } from 'pages/Prizes/Prizes';
 
 
 export const Router = () => {
@@ -35,7 +35,7 @@ export const Router = () => {
                 <Route path="r/:affiliate_code" element={<Register />} />
                 <Route path="/marketplace" element={<BaseTemplate footer={false}><Marketplace /></BaseTemplate>} />
                 <Route path="/album" element={<BaseTemplate footer={false}><Album /></BaseTemplate>} />
-                <Route path="rewards" element={<BaseTemplate footer={false}><h2>Premios</h2></BaseTemplate>} />
+                <Route path="prizes" element={<BaseTemplate footer={false}><Prizes /></BaseTemplate>} />
 
 
                 <Route path="*" element={<NotFoundPage />} />
@@ -49,7 +49,7 @@ export const Router = () => {
                 {/* <Route> */}
                 <Route path='/' element={<Outlet />} >
                     <Route index element={<Home />} />
-                    <Route path="rewards" element={<Rewards />} />
+                    <Route path="prizes" element={<Prizes />} />
                     <Route path="marketplace" element={<Marketplace />} />
                     <Route path="/my-packages" element={<MyPackages />} />
                     <Route path="/album" element={<Album />} />

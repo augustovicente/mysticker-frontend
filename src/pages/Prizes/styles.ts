@@ -431,6 +431,16 @@ export const RewardModal = styled(Modal)`
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 
+        &:has(section.status-redeem) {
+            .ant-modal-close {
+                outline-color: ${({ theme }) => theme.colors.dark};
+
+                svg {
+                    color: ${({ theme }) => theme.colors.dark};
+                }
+            }
+        }
+
         .ant-modal-close {
             outline: 2px solid ${({ theme }) => theme.colors.colorLight};
             border-radius: 50%;
@@ -490,6 +500,22 @@ export const RewardModalContainer = styled.div`
 
     }
 
+    section.gift-status {
+        background: ${({ theme }) => theme.colors.greenNeon};
+        padding: 44px 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 24px;
+        border-radius: 12px 0 0 12px;
+
+        img {
+            padding: 32px;
+            border: 1px solid ${({ theme }) => theme.colors.middle};
+            border-radius: 12px;
+        }
+    }
+
     section.confirm-address {
         padding: 44px;
         background: ${({ theme }) => theme.colors.dark};
@@ -532,6 +558,94 @@ export const RewardModalContainer = styled.div`
                     font-size: ${({ theme }) => theme.fontSizes.md};
                     font-family: 'Nunito', sans-serif;
                     margin-left: 10px;
+                }
+            }
+        }
+    }
+
+    section.status-redeem {
+        padding: 44px;
+        padding-left: 12px;
+        background: ${({ theme }) => theme.colors.greenNeon};
+        border: 2px solid ${({ theme }) => theme.colors.greenNeon};
+        display: flex;
+        flex-direction: column;
+        border-radius: 0 12px 12px 0;
+
+        h3 {
+            font-size: ${({ theme }) => theme.fontSizes.heading4};
+            color: ${({ theme }) => theme.colors.dark};
+            white-space: pre;
+        }
+        p {
+            color: ${({ theme }) => theme.colors.dark};
+        }
+
+        div.status {
+            padding: 8px 12px;
+            background: linear-gradient(270deg, #4694FF 0%, #B53BFE 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            position: relative;
+            width: fit-content;
+
+            &::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                border-radius: 8px;
+                padding: 2px;
+                background: linear-gradient(270deg, #4694FF 0%, #B53BFE 100%);
+                -webkit-mask:
+                    linear-gradient(#fff 0 0) content-box,
+                    linear-gradient(#fff 0 0);
+                -webkit-mask-composite: xor;
+                mask-composite: exclude;
+            }
+
+            &.sent {
+                background: ${({ theme }) => theme.gradients.blueGreen};
+                border-radius: 8px;
+
+                span {
+                    -webkit-text-fill-color: ${({ theme }) => theme.colors.white};
+                    text-fill-color: transparent;
+                    font-weight: bold;
+                }
+
+                &::before {
+                    background: unset;
+                }
+            }
+
+            span {
+                font-style: italic !important;
+            }
+        }
+
+        footer {
+            display: flex;
+            flex-direction: column;
+            margin-top: 32px;
+            gap: 12px;
+
+            div {
+                display: flex;
+                gap: 12px;
+            }
+            span {
+                white-space: pre;
+                font-size: ${({ theme }) => theme.fontSizes.sm};
+                color: ${({ theme }) => theme.colors.dark};
+                font-weight: 500;
+                line-height: 120%;
+            }
+
+            svg.gift-icon {
+                path {
+                    fill: #4694FF;
                 }
             }
         }
