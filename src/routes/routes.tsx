@@ -35,7 +35,7 @@ export const Router = () => {
                 <Route path="r/:affiliate_code" element={<Register />} />
                 <Route path="/marketplace" element={<BaseTemplate footer={false}><Marketplace /></BaseTemplate>} />
                 <Route path="/album" element={<BaseTemplate footer={false}><Album /></BaseTemplate>} />
-                <Route path="rewards" element={<BaseTemplate footer={false}><h2>Premios</h2></BaseTemplate>} />
+                <Route path="rewards" element={<BaseTemplate footer={false}><Rewards /></BaseTemplate>} />
 
 
                 <Route path="*" element={<NotFoundPage />} />
