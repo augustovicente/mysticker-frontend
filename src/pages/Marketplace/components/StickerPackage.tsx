@@ -49,16 +49,16 @@ export const StickerPackage = ({
                 switch (package_type)
                 {
                     case 1:
-                        // price = 1;
-                        price = 0.001;
+                        price = 1;
+                        // price = 0.001;
                         break;
                     case 2:
-                        // price = 5;
-                        price = 0.005;
+                        price = 5;
+                        // price = 0.005;
                         break;
                     case 3:
-                        // price = 10;
-                        price = 0.01;
+                        price = 10;
+                        // price = 0.01;
                         break;
                 }
 

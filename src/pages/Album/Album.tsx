@@ -63,7 +63,7 @@ export const Album = () => {
                         return toast.error("Erro inesperado.")
                     } else {
                         console.log('unexpected error: ', error)
-                        return toast.error("Conecte-se a rede Goerli")
+                        return toast.error("Conecte-se a rede Polygon")
                     }
                 }
             }
