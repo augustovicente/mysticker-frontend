@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const RewardsContainer = styled.div`
     margin-top: 8rem;
     display: grid;
-    gap: 54px;
+    gap: 32px;
     padding: 0 80px 80px 80px;
     overflow: hidden;
 
@@ -261,10 +261,61 @@ export const RewardsContainer = styled.div`
                     cursor: grab;
                     width: 100%;
                     min-height: 264px;
-                    /* max-height: 300px; */
                     display: block;
                     object-fit: contain;
                     margin-bottom: 32px;
+                }
+
+                &.tracking {
+                    user-select: none;
+                    pointer-events: none;
+                    position: relative;
+
+                    img {
+                        margin-bottom: 0;
+                        opacity: 0.5;
+                        user-select: none;
+                        pointer-events: none;
+                    }
+
+                    .redeem-info {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        flex-direction: column;
+                        z-index: 2;
+
+                        span {
+                            font-weight: bold;
+                            font-size: ${({ theme }) => theme.fontSizes.lg};
+                            color: ${({ theme }) => theme.colors.white};
+                            text-align: center;
+                            width: fit-content;
+                            white-space: pre;
+                            padding: 12px;
+                            position: relative;
+
+                            &::before {
+                                content: "";
+                                position: absolute;
+                                inset: 0;
+                                border-radius: 12px;
+                                padding: 2px;
+                                background: ${({ theme }) => theme.gradients.blueGreen};
+                                -webkit-mask:
+                                    linear-gradient(#fff 0 0) content-box,
+                                    linear-gradient(#fff 0 0);
+                                -webkit-mask-composite: xor;
+                                        mask-composite: exclude;
+                            }
+                        }
+                    }
+
                 }
 
                 .slick-dots .slick-dots-bottom {
@@ -311,6 +362,11 @@ export const RewardsContainer = styled.div`
                     font-size: ${({ theme }) => theme.fontSizes.lg};
                     margin-left: auto;
                     min-width: 132px;
+
+                    &.tracking {
+                        background: ${({ theme }) => theme.colors.green};
+                        flex: 1;
+                    }
 
                     &:disabled {
                         opacity: 0.8;

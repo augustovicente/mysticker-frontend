@@ -17,7 +17,7 @@ export const ModalContentHasRedeem = () => {
 
     return (
         <>
-            {currentPrize?.redeemStatus === 1 || currentPrize?.redeemStatus === 2 && (
+            {currentPrize?.redeemStatus > 0 && (
                 <>
                     <section className="gift-status">
                         <img src={currentPrize?.images![0]} alt={`Camiseta`} />
@@ -75,8 +75,6 @@ export const ModalContentHasRedeem = () => {
                             <img className='gift-icon' src="/assets/img/icons/gifts-icon.svg" alt="" />
                         </h3>
                         <img src={currentPrize?.images![0]} alt={`Camiseta`} />
-
-                        <h1>{currentPrize?.redeemStatus}</h1>
                     </section>
 
                     <section className='confirm-address'>

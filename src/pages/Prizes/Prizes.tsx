@@ -209,7 +209,6 @@ export const Prizes = () => {
         return () => controller.abort();
     }, []);
 
-
     // Verificando se prêmio já foi resgatado
     useEffect(() => {
         if (currentPrize?.type === 1) return;
@@ -383,12 +382,12 @@ export const Prizes = () => {
                             key={currentPrize?.type}
                             className="right"
                         >
-                            <div className="reward">
+                            <div className={currentPrize?.redeemStatus !== 0 ? 'reward tracking' : 'reward'}>
                                 <Carousel
                                     slidesToScroll={1}
                                     slidesToShow={1}
-                                    draggable
-                                    afterChange={() => { }}
+                                    draggable={currentPrize?.redeemStatus === 0}
+                                    dots={currentPrize?.redeemStatus === 0}
                                 >
                                     {currentPrize?.images?.map((image, index) => (
                                         <div key={index}>
@@ -396,6 +395,12 @@ export const Prizes = () => {
                                         </div>
                                     ))}
                                 </Carousel>
+
+                                {currentPrize?.redeemStatus > 0 && (
+                                    <div className="redeem-info">
+                                        <span>PRÊMIO{"\n"}RESGATADO</span>
+                                    </div>
+                                )}
                             </div>
 
                             <div className="description">
@@ -404,14 +409,17 @@ export const Prizes = () => {
                             </div>
 
                             <footer>
-                                <h3>{ownedTeams.length}<strong>/{currentPrize?.totalTeams}</strong></h3>
+                                {!currentPrize?.redeemStatus && (
+                                    <h3>{ownedTeams.length}<strong>/{currentPrize?.totalTeams}</strong></h3>
+                                )}
 
                                 <button
                                     onClick={ownedTeams.length === currentPrize?.totalTeams ? () => setIsModalOpen(true) : () => { }}
                                     disabled={ownedTeams.length !== currentPrize?.totalTeams}
+                                    className={currentPrize?.redeemStatus !== 0 ? 'tracking' : ''}
                                 >
                                     <span>
-                                        Resgate
+                                        {currentPrize?.redeemStatus === 0 ? 'Resgate' : 'Acompanhar envio'}
                                     </span>
                                 </button>
                             </footer>
@@ -441,19 +449,7 @@ export const Prizes = () => {
                             user
                         }}
                     >
-
                         <ModalContentHasRedeem />
-
-                        {/* {(() => {
-                            switch (currentPrize?.redeemStatus) {
-                                case 1:
-                                    // return <RedeemStatus1 />
-                                case 2:
-                                    // return <RedeemStatus2 />
-                                default:
-                                    return <ModalContentHasRedeem />
-                            }
-                        })()} */}
                     </ContextModal.Provider>
                 </S.RewardModalContainer>
             </S.RewardModal>
@@ -462,11 +458,3 @@ export const Prizes = () => {
         </S.RewardsContainer>
     )
 }
-
-
-
-// export const RedeemSuccess = () => {
-//     return (
-//         <S.RedeemSuccessContainer>
-//     )
-// }
