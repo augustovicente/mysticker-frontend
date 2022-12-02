@@ -214,7 +214,6 @@ export const Rewards = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     useScrollToElement('#selected-group', teamsGroupSelected);
 
-
     const showModal = () => {
         setIsModalOpen(true);
     };
