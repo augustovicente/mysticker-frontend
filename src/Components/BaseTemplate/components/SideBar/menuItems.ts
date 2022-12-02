@@ -31,7 +31,7 @@ export const menuItems = [
         link: "/challenges",
         icon: "/assets/img/icons/challenge-icon.svg",
         isAuthenticatedRoute: false,
-        blocked: true
+        blocked: false
     },
     {
         title: "profile",

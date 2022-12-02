@@ -32,10 +32,10 @@ export const Router = () => {
                 <Route path="reset-pwd/:code" element={<NewPassword />} />
                 <Route path="validation/:code" element={<ConfirmEmail />} />
                 <Route path="register" element={<Register />} />
-                <Route path="/marketplace" element={<BaseTemplate footer={false}><Marketplace /></BaseTemplate>} />
-                <Route path="/album" element={<BaseTemplate footer={false}><Album /></BaseTemplate>} />
-                <Route path="rewards" element={<BaseTemplate footer={false}><h2>Premios</h2></BaseTemplate>} />
-
+                <Route path="marketplace" element={<BaseTemplate footer={false}><Marketplace /></BaseTemplate>} />
+                <Route path="album" element={<BaseTemplate footer={false}><Album /></BaseTemplate>} />
+                <Route path="rewards" element={<BaseTemplate footer={false}><Rewards /></BaseTemplate>} />
+                <Route path='challenges' element={<BaseTemplate footer={false}><Challenge /></BaseTemplate>} />
 
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
@@ -50,10 +50,10 @@ export const Router = () => {
                     <Route index element={<Home />} />
                     <Route path="rewards" element={<Rewards />} />
                     <Route path="marketplace" element={<Marketplace />} />
-                    <Route path="/my-packages" element={<MyPackages />} />
-                    <Route path="/album" element={<Album />} />
+                    <Route path="my-packages" element={<MyPackages />} />
+                    <Route path="album" element={<Album />} />
                     {/* <Route path="events" element={<><h2>Eventos</h2></>} /> */}
-                    {/* <Route path='challenges' element={<Challenge />} /> */}
+                    <Route path='challenges' element={<Challenge />} />
 
                     <Route path="profile" element={(
                         <Outlet />

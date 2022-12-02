@@ -2,6 +2,9 @@ import * as S from './styles';
 import { ReactComponent as ChallengeIcon } from '../../../public/assets/img/icons/challenge-icon.svg';
 import { ChallengeCard } from 'pages/Challenge/Components/ChallengeCard/ChallengeCard';
 
+import { challengeMock } from './mock/challenge';
+import { Row } from 'antd';
+
 export const Challenge = () => {
     return (
         <S.Container>
@@ -19,11 +22,26 @@ export const Challenge = () => {
             </header>
 
             <section>
-                {new Array(3).fill('').map((_, index) => (
-                    <ChallengeCard />
-                ))}
+                <main>
+                    <Row className='challenge-list'>
+                        {challengeMock.map(({ title, link, headerImage, text, mainTopIcon, bg, redeemComponent, invitedFriends, buyedPackages, completeAlbum }, index) => (
+                            <ChallengeCard
+                                key={index}
+                                bg={bg}
+                                title={title}
+                                link={link}
+                                headerImage={headerImage}
+                                mainTopIcon={mainTopIcon}
+                                text={text}
+                                redeemComponent={redeemComponent}
+                                invitedFriends={invitedFriends}
+                                buyedPackages={buyedPackages}
+                                completeAlbum={completeAlbum}
+                            />
+                        ))}
+                    </Row>
+                </main>
             </section>
-
         </S.Container>
     )
 }
