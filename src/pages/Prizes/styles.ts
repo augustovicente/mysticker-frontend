@@ -407,10 +407,10 @@ export const RewardsContainer = styled.div`
 
                         button {
                             background: transparent;
+                            padding: 12px;
 
                             &:nth-child(3) {
                                 transform: rotate(180deg);
-                                margin-top: .45rem;
                             }
                         }
                     }

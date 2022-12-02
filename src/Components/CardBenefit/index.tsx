@@ -16,9 +16,10 @@ export const CardBenefit = ({ title, description, image, order, ...rest }: CardB
                 <span>{order}º</span>
             </div>
 
-            <h6 className="title">{title}</h6>
-
-            {description}
+            <h6 className="title">
+                {title}<br/> <br />
+                {description}
+            </h6>
         </div>
     )
 }
