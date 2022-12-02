@@ -32,6 +32,7 @@ export const Router = () => {
                 <Route path="reset-pwd/:code" element={<NewPassword />} />
                 <Route path="validation/:code" element={<ConfirmEmail />} />
                 <Route path="register" element={<Register />} />
+                <Route path="r/:affiliate_code" element={<Register />} />
                 <Route path="/marketplace" element={<BaseTemplate footer={false}><Marketplace /></BaseTemplate>} />
                 <Route path="/album" element={<BaseTemplate footer={false}><Album /></BaseTemplate>} />
                 <Route path="rewards" element={<BaseTemplate footer={false}><h2>Premios</h2></BaseTemplate>} />

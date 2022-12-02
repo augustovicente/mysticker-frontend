@@ -5,9 +5,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as S from './styles';
 import { useToggle } from 'hooks/useToggle';
 import { GradientOverlay } from 'Components/GradientOverlay';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import LogoPru from 'assets/imgs/logo.svg';
-import WorldBackground from '../../../../../public/assets/img/others/world.png'
 import { FormBase } from 'pages/Login/components/FormBase.styles';
 import { toast } from 'react-toastify';
 import axios from 'axios';
@@ -57,6 +56,9 @@ export const Register = () =>
     const [isLoading, setIsLoading] = useToggle(false);
     const [isEmailSended, setIsEmailSended] = useState(false);
 
+    const params = useParams();
+    const affiliate_code = params?.affiliate_code || '';
+
     const onSubmit: SubmitHandler<formType> = async (formValues) => {
         if (!formValues.therms) {
             return toast.info(t('signup.errors.terms_of_use') || '');
@@ -69,6 +71,7 @@ export const Register = () =>
                 name: formValues.name,
                 email: formValues.email,
                 password: formValues.password,
+                ...(affiliate_code && { affiliate_code })
             });
 
             setIsLoading(false);
@@ -77,6 +80,13 @@ export const Register = () =>
             setIsLoading(false);
 
             if (axios.isAxiosError(error)) {
+                console.log('error?.response?.message', error?.response?.data)
+                if (error?.response?.data?.message === 'Affiliated code not found') {
+                    return toast.error(`
+                        Código de afiliado inválido.
+                    `);
+                }
+
                 if (error?.response?.status === 422) {
                     return toast.error(t('signup.errors.email_used') || '');
                 } else {
@@ -87,6 +97,7 @@ export const Register = () =>
             }
         }
     };
+
 
     return (
         <S.Container className={isEmailSended ? 'sended' : 'test'}>
