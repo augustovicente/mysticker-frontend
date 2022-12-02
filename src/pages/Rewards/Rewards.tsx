@@ -12,9 +12,16 @@ import { usePrevious } from 'hooks/usePrevious';
 import { Button, Carousel } from 'antd';
 import { useAuth } from 'contexts/auth.context';
 import { Link } from 'react-router-dom';
-import { get_owned_teams, get_owned_tokens } from 'models/User';
+import { connect_wallet, get_owned_teams, get_owned_tokens } from 'models/User';
 import { stickers } from 'assets/stickers';
 import { useScrollToElement } from 'hooks/useScrollToElement';
+import axios from 'axios';
+import { dataCEP } from 'pages/Profile/Profile';
+import { cepFormatter, cpfFormatter, phoneFormatter } from 'utils/helpers'
+import { toast } from 'react-toastify';
+import { useToggle } from 'hooks/useToggle';
+import { api } from 'services/api';
+import { connect } from 'services/web3';
 
 type prizeProps = {
     type: 1 | 2 | 3 | 4 | 5 | 6;
@@ -36,7 +43,6 @@ const prizes: prizeProps[] = [
         description: 'Ao completar todas as figuras desse continente você pode resgatar este boné',
         hasRedeem: false,
         totalTeams: teamsList.find(team => team.teamsGroupName === 'america-norte')?.teams.length ?? 0,
-        completedTeams: [],
         teamGroup: 'todos',
     },
     {
@@ -47,7 +53,6 @@ const prizes: prizeProps[] = [
         description: 'Ao completar todas as figuras desse continente você pode resgatar este boné',
         hasRedeem: false,
         totalTeams: teamsList.find(team => team.teamsGroupName === 'america-norte')?.teams.length ?? 0,
-        completedTeams: [],
         teamGroup: 'america-norte',
     },
     {
@@ -58,7 +63,6 @@ const prizes: prizeProps[] = [
         description: 'Ao completar todas as figuras desse continente você pode resgatar esta camiseta',
         hasRedeem: false,
         totalTeams: teamsList.find(team => team.teamsGroupName === 'america-sul')?.teams.length ?? 0,
-        completedTeams: [],
         teamGroup: 'america-sul',
     },
     {
@@ -69,7 +73,6 @@ const prizes: prizeProps[] = [
         description: 'Ao completar todas as figuras desse continente você pode resgatar este bucket',
         hasRedeem: false,
         totalTeams: teamsList.find(team => team.teamsGroupName === 'africa')?.teams.length ?? 0,
-        completedTeams: [],
         teamGroup: 'africa'
     },
     {
@@ -80,7 +83,6 @@ const prizes: prizeProps[] = [
         description: 'Ao completar todas as figuras desse continente você pode resgatar esta camiseta',
         hasRedeem: false,
         totalTeams: teamsList.find(team => team.teamsGroupName === 'asia')?.teams.length ?? 0,
-        completedTeams: [],
         teamGroup: 'asia'
     },
     {
@@ -91,7 +93,6 @@ const prizes: prizeProps[] = [
         description: 'Ao completar todas as figuras desse continente você pode resgatar este moletom',
         hasRedeem: false,
         totalTeams: teamsList.find(team => team.teamsGroupName === 'europa')?.teams.length ?? 0,
-        completedTeams: [],
         teamGroup: 'europa'
     }
 ]
@@ -101,6 +102,11 @@ export const Rewards = () => {
     const [rewardStatus, setRewardStatus] = useState<prizeProps[]>(prizes);
     const prevTeamsGroupSelected = usePrevious(teamsNameList.findIndex(({ name }) => name === teamsGroupSelected));
     const { user } = useAuth();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [addressData, setAddressData] = useState<dataCEP>({} as dataCEP);
+    const [isLoading, setIsLoading] = useToggle(false);
+
+    useScrollToElement('#selected-group', teamsGroupSelected);
 
     const teamsIconList = teamsList.map((team) => {
         team.teams.sort((a, b) => {
@@ -139,21 +145,6 @@ export const Rewards = () => {
         }
     }
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    useScrollToElement('#selected-group', teamsGroupSelected);
-
-    const showModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleOk = () => {
-        setIsModalOpen(false);
-    };
-
-    const handleCancel = () => {
-        setIsModalOpen(false);
-    };
-
     const currentPrize = useMemo(() => {
         const prize = rewardStatus.find(({ teamGroup }) => teamGroup === teamsGroupSelected)
         return prize
@@ -180,18 +171,41 @@ export const Rewards = () => {
 
     useEffect(() => {
         getTotalCompletedByTeam();
-    }, [teamsGroupSelected])
+    }, [teamsGroupSelected]);
 
+    useEffect(() => {
+        if (user?.address_zip_code) {
+            axios.get<dataCEP>(`https://viacep.com.br/ws/${user?.address_zip_code}/json`)
+                .then(response => {
+                    setAddressData(response.data)
+                })
+        }
+    }, [])
 
-    // useEffect(() => {
-    //     (async () => {
-    //         const opa = await get_owned_teams([384])
+    const handleRedeem = async () => {
+        const { 0: wallet } = await connect();
 
-    //         console.log('opa', opa)
+        if (!wallet) {
+            return toast.error('Você precisa estar conectado a uma carteira para resgatar este prêmio', { toastId: 'not-connected' })
+        }
 
-    //     }
-    //     )();
-    // }, [])
+        if (Object.keys(addressData).length === 0 || !user?.address_zip_code || !user?.address_number) {
+            toast.error('Preencha todos os dados do endereço para resgatar o prêmio', { toastId: 'error' })
+            return;
+        }
+
+        setIsLoading(true);
+
+        await api.post('/redeem', {
+            ...(currentPrize?.size ? { size: currentPrize?.size } : {}),
+            type: currentPrize?.type,
+            wallet,
+        })
+            .then(res => {
+                console.log('res', res)
+            })
+            .finally(() => setIsLoading(false))
+    }
 
     return (
         <S.RewardsContainer>
@@ -315,13 +329,13 @@ export const Rewards = () => {
                                 <p>{currentPrize?.description}</p>
                             </div>
 
-                            <footer className='d-flex align-items-center gap-3'>
+                            <footer>
                                 <h3>{ownedTeams.length}<strong>/{currentPrize?.totalTeams}</strong></h3>
 
                                 <button
-                                    onClick={() => setIsModalOpen(true)}
+                                    onClick={ownedTeams.length === currentPrize?.totalTeams ? () => setIsModalOpen(true) : () => { }}
                                     disabled={ownedTeams.length !== currentPrize?.totalTeams}
-                                    >
+                                >
                                     <span>
                                         Resgate
                                     </span>
@@ -339,6 +353,9 @@ export const Rewards = () => {
                 onCancel={() => setIsModalOpen(false)}
             >
                 <S.RewardModalContainer>
+
+                    {currentPrize?.hasRedeem}
+
                     <section className="gift">
                         <h3>Resgate {'\n'}de Prêmios
                             <img className='gift-icon' src="/assets/img/icons/gifts-icon.svg" alt="" />
@@ -361,51 +378,51 @@ export const Rewards = () => {
                             <div className="second-row form">
                                 <div>
                                     <label>Telefone:</label>
-                                    <span>{user?.full_number}</span>
+                                    <span>{phoneFormatter(user?.full_number || "") || ""}</span>
                                 </div>
 
                                 <div>
                                     <label>CPF:</label>
-                                    <span>{user?.cpf}</span>
+                                    <span>{cpfFormatter(user?.cpf || "") || ""}</span>
                                 </div>
                             </div>
 
                             <div className="third-row form mt-3">
                                 <div>
                                     <label>CEP:</label>
-                                    <span>{user?.full_number}</span>
+                                    <span>{cepFormatter(user?.address_zip_code || '') || ""}</span>
 
-                                    <label className='ms-2'>UF:</label>
-                                    <span>{user?.full_number}</span>
+                                    <label className='ms-5'>UF:</label>
+                                    <span>{addressData?.uf || ""}</span>
                                 </div>
 
                                 <div>
                                     <label>Cidade:</label>
-                                    <span>{user?.cpf}</span>
+                                    <span>{addressData?.localidade || ''}</span>
                                 </div>
                             </div>
 
                             <div className="fourth-row form">
                                 <div>
                                     <label>Endereço:</label>
-                                    <span>{user?.full_number}</span>
+                                    <span>{addressData?.logradouro || ''}</span>
                                 </div>
 
                                 <div>
                                     <label>Nº:</label>
-                                    <span>{user?.cpf}</span>
+                                    <span>{user?.address_number || ''}</span>
                                 </div>
                             </div>
 
                             <div className="fifth-row form mt-3">
                                 <div>
                                     <label>Bairro:</label>
-                                    <span>{user?.full_number}</span>
+                                    <span>{addressData?.bairro || ''}</span>
                                 </div>
 
                                 <div>
                                     <label>Complemento:</label>
-                                    <span>{user?.full_number}</span>
+                                    <span>{user?.address_complement || ''}</span>
                                 </div>
                             </div>
                         </div>
@@ -414,8 +431,14 @@ export const Rewards = () => {
                             <span>Tudo certo quero resgatar</span>
 
                             <div className="footer-buttons">
-                                <button onClick={() => setIsModalOpen(false)}>
-                                    Confirmar
+                                <button onClick={handleRedeem}>
+                                    {isLoading ?
+                                        (
+                                            <div className="spinner-border text-dark" role="status">
+                                            </div>
+                                        )
+                                        : 'Confirmar'
+                                    }
                                 </button>
 
                                 <button onClick={() => setIsModalOpen(false)}>

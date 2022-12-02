@@ -304,12 +304,13 @@ export const RewardsContainer = styled.div`
                 }
 
                 button {
-                    flex: 1;
-                    padding: 18px 6px;
+                    padding: 14px 18px;
                     background: ${({ theme }) => theme.colors.greenNeon};
                     border-radius: 12px;
                     font-weight: 900;
                     font-size: ${({ theme }) => theme.fontSizes.lg};
+                    margin-left: auto;
+                    min-width: 132px;
 
                     &:disabled {
                         opacity: 0.8;
@@ -402,6 +403,7 @@ export const RewardsContainer = styled.div`
                     button {
                         background: ${({ theme }) => theme.colors.middle};
                         padding: 12px;
+                        width: fit-content;
 
                         span {
                             color: ${({ theme }) => theme.colors.white};
@@ -525,16 +527,11 @@ export const RewardModalContainer = styled.div`
                 gap: 12px;
                 justify-content: space-between;
 
-                div {
-                    display: flex;
-                    align-items: center;
-                    gap: 12px;
-                }
-
                 span {
                     line-height: 150%;
                     font-size: ${({ theme }) => theme.fontSizes.md};
                     font-family: 'Nunito', sans-serif;
+                    margin-left: 10px;
                 }
             }
         }
@@ -565,6 +562,8 @@ export const RewardModalContainer = styled.div`
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                min-height: 44px;
+                max-height: 44px;
 
                 a {
                     text-decoration: none;
