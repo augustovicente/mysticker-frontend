@@ -28,7 +28,7 @@
     },
     "scripts": {
         "start": "vite --host --open",
-        "build": "vite build",
+        "build": "vite build --mode production",
         "preview": "vite preview",
         "zip": "cd build; zip -r ../build.zip *; cd ../",
         "all": "yarn build; yarn export -o build; yarn zip; yarn scp",
