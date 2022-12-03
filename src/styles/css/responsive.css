@@ -836,6 +836,10 @@
         max-width: 120px;
     }
 
+    section#partners .dev {
+        max-width: 120px;
+    }
+
     .header-form {
         display: none;
     }

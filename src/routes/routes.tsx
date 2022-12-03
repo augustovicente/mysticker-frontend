@@ -33,7 +33,7 @@ export const Router = () => {
                 <Route path="/marketplace" element={<BaseTemplate footer={false}><Marketplace /></BaseTemplate>} />
                 <Route path="/album" element={<BaseTemplate footer={false}><Album /></BaseTemplate>} />
                 <Route path="/prizes" element={<BaseTemplate footer={false}><Prizes /></BaseTemplate>} />
-
+                <Route path="/rewards" element={<BaseTemplate footer={false}><Prizes /></BaseTemplate>} />
 
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>

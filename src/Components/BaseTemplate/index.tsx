@@ -1,10 +1,9 @@
 import React, { ReactNode, useContext } from 'react'
-import Footer from 'Components/BaseTemplate/components/Footer/Footer'
 import Header from 'Components/BaseTemplate/components/Header/Header'
 import styled from 'styled-components'
 import SideBar from './components/SideBar'
 import { useAuth } from 'contexts/auth.context'
-import { SideBarContainer } from './components/SideBar/styles'
+import Footer from 'Components/BaseTemplate/components/Footer/Footer'
 
 type BaseTemplateProps = {
     sidebar?: boolean;

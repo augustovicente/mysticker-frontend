@@ -1,5 +1,3 @@
-import React from "react"
-
 const Footer = () => {
     return (
         <footer className="main-footer">
@@ -9,17 +7,22 @@ const Footer = () => {
                         <div className="col-xl-3 col-lg-4 col-md-5 col-sm-9">
                             <div className="footer-widget">
                                 <div className="footer-logo mb-25">
-                                    <a href="/index"><img src="assets/img/logo/logo.png" alt="" /></a>
+                                    <a href="/index"><img src="assets/img/favicon.png" alt="Logo MySticker" /></a>
                                 </div>
-                                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus veritatis sequi doloribus fuga.</p>
+                                <p>My Sticker, a primeira plataforma de criação de álbum de figurinhas.</p>
                                 <ul className="footer-social">
-                                    <li><a href="/#"><i className="fab fa-facebook-f" /></a></li>
-                                    <li><a href="/#"><i className="fab fa-twitter" /></a></li>
-                                    <li><a href="/#"><i className="fab fa-linkedin-in" /></a></li>
-                                    <li><a href="/#"><i className="fab fa-pinterest-p" /></a></li>
+                                    <li><a href="https://twitter.com/pruu_oficial" target="_blank"><i className="fab fa-twitter" /></a></li>
+                                    <li><a href="https://www.instagram.com/pruu_oficial" target="_blank"><i className="fab fa-instagram" /></a></li>
+                                    <li><a href="https://www.tiktok.com/@pruu_oficial" target="_blank"><i className="fab fa-tiktok" /></a></li>
+                                    <li>
+                                        <a href="mailto:copapruu@gmail.com" target="_blank">
+                                            <i className="fab fa-google" />
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
+
                         <div className="col-lg-2 col-md-3 col-sm-6">
                             <div className="footer-widget">
                                 <h4 className="fw-title">Useful Links</h4>
@@ -44,7 +47,7 @@ const Footer = () => {
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-xl-3 col-lg-4 col-md-6">
+                        {/* <div className="col-xl-3 col-lg-4 col-md-6">
                             <div className="footer-widget">
                                 <h4 className="fw-title">Subscribe Us</h4>
                                 <form action="#" className="newsletter-form">
@@ -52,7 +55,7 @@ const Footer = () => {
                                     <button type="submit"><i className="flaticon-small-rocket-ship-silhouette" /></button>
                                 </form>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

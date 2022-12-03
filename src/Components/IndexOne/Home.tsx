@@ -12,6 +12,7 @@ import Benefit_3Img from 'assets/imgs/3-benefits.png';
 import Benefit_4Img from 'assets/imgs/4-benefits.png';
 import Benefit_5Img from 'assets/imgs/5-benefits.png';
 import { ReactComponent as WhitepaperIcon } from 'assets/imgs/whitepaper-icon.svg';
+import { ReactComponent as LockIcon } from 'assets/imgs/lock.svg';
 import Slider from 'react-slick';
 import { CardBenefit, CardBenefitProps } from 'Components/CardBenefit';
 import { useTranslation } from 'react-i18next';
@@ -20,73 +21,73 @@ import { Link } from 'react-router-dom';
 const developers = [
     {
         name: 'Capitel',
-        logo: '/public/devs/capitel.png',
+        logo: '/devs/capitel.png',
     },
     {
         name: 'Caramelo Club',
-        logo: '/public/devs/carameloclub.png',
+        logo: '/devs/carameloclub.png',
         url: 'https://www.carameloclub.io/alley',
     },
     {
         name: 'Meta Zero',
-        logo: '/public/devs/metazero.png',
+        logo: '/devs/metazero.png',
     },
 ];
 
 const partners = [
     {
         name: 'NFTfy',
-        logo: '/public/partners/nftfy.png',
+        logo: '/partners/nftfy.png',
         url: 'https://twitter.com/nftfyofficial',
     },
     {
         name: 'METAGOONS™',
-        logo: '/public/partners/metagoons.png',
+        logo: '/partners/metagoons.png',
         url: 'https://twitter.com/MetaGoons',
     },
     {
         name: 'Rough Diamonds',
-        logo: '/public/partners/roughdiamonds.png',
+        logo: '/partners/roughdiamonds.png',
         url: 'https://www.instagram.com/11roughdiamonds/',
     },
     {
         name: 'wallbee',
-        logo: '/public/partners/wallbee.png',
+        logo: '/partners/wallbee.png',
         url: 'https://wallbee.io/pt/',
     },
     {
         name: 'Recycle the Land',
-        logo: '/public/partners/recycletheland.png',
+        logo: '/partners/recycletheland.png',
         url: 'https://twitter.com/recycletheland',
     },
     {
         name: 'ghost',
-        logo: '/public/partners/ghost.svg',
+        logo: '/partners/ghost.svg',
         url: 'https://ghost.art.br/',
     },
     {
         name: 'pet4',
-        logo: '/public/partners/pet4.png',
+        logo: '/partners/pet4.png',
         url: 'https://www.instagram.com/pet4agency/',
     },
     {
         name: 'Nave podcast',
-        logo: '/public/partners/navepodcast.png',
+        logo: '/partners/navepodcast.png',
         url: 'https://www.instagram.com/navepodcast/',
     },
     {
         name: 'thelazyfrogs',
-        logo: '/public/partners/thelazyfrogs.png',
+        logo: '/partners/thelazyfrogs.png',
         url: 'https://www.instagram.com/thelazyfrogs/',
     },
     {
         name: 'org_community',
-        logo: '/public/partners/org_community.png',
+        logo: '/partners/org_community.png',
         url: 'https://www.instagram.com/org_community/',
     },
     {
         name: 'agenciakavana',
-        logo: '/public/partners/agenciakavana.png',
+        logo: '/partners/agenciakavana.png',
         url: 'https://www.instagram.com/agenciakavana/',
     },
 ]
@@ -288,10 +289,9 @@ const Home = () => {
                             </h3>
                             <img src={BusterImg} loading="lazy" alt="Pacote de figurinha" />
 
-                            <button className='pick-sticker'>
-                                <Link to="/marketplace">
-                                    {t('home.section_4.button')}
-                                </Link>
+                            <button disabled className='pick-sticker'>
+                                {t('home.section_4.button')}
+                                <LockIcon  />
                             </button>
 
                             <img src={BootImg} loading="lazy" className="boot" alt="Pacote de figurinha" />
@@ -430,10 +430,9 @@ const Home = () => {
                 <div className='col-12 d-block d-md-flex d-lg-flex justify-content-center align-items-center container'>
                     <img className='me-5' src={GolImg} alt="Imagem de um gol de futebol" />
 
-                    <button className='pick-sticker'>
-                        <Link to="/marketplace">
-                            {t('home.section_7.button')}
-                        </Link>
+                    <button disabled className='pick-sticker'>
+                        {t('home.section_7.button')}
+                        <LockIcon  />
                     </button>
                 </div>
             </section>

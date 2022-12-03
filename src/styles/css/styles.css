@@ -4569,7 +4569,7 @@ div.section1-buttons {
 
 .footer-top-wrap {
     background: linear-gradient(179.69deg, rgba(29, 25, 51, 0.46) 14.17%, rgba(29, 25, 51, 0.27) 99.73%);
-    padding: 80px 0 40px;
+    padding: 44px 0 12px;
 }
 
 .footer-widget {
@@ -4591,23 +4591,24 @@ div.section1-buttons {
 }
 
 .footer-social li:not(:last-child) {
-    margin-right: 8px;
+    margin-right: 12px;
 }
 
 .footer-social li a {
     display: flex;
-    width: 40px;
-    height: 40px;
+    /* width: 40px; */
+    /* height: 40px; */
     background: #28243F;
-    border-radius: 2px;
+    border-radius: 6px;
     align-items: center;
     justify-content: center;
     color: #E5E5E5;
-    font-size: 14px;
+    font-size: 1.3rem;
+    padding: 10px;
 }
 
 .footer-social li a:hover {
-    background: var(--purple-color);
+    background: var(--color-middle);
     color: var(--white);
 }
 
@@ -5000,18 +5001,32 @@ section#buster h3.title {
 button.pick-sticker {
     margin-top: 18px;
     border: 0;
-    padding: 15px 44px;
+    padding: 15px 32px;
     background-color: var(--color-middle);
     border-radius: 8px;
 }
 
-button.pick-sticker:hover {
+button.pick-sticker:hover:not(:disabled) {
     filter: brightness(0.8);
 }
 
-button.pick-sticker a {
+button.pick-sticker {
     color: var(--white);
     font-weight: bold;
+    display: flex;
+    gap: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button.pick-sticker svg {
+    width: 22px;
+    height: 22px;
+}
+
+button.pick-sticker svg path{
+    fill: var(--white);
 }
 
 section#buster img.boot {

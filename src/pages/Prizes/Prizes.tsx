@@ -140,8 +140,6 @@ export const Prizes = () => {
         return team;
     });
 
-    console.log('rewardStatus', rewardStatus)
-
     const groupOfTeams = useMemo(() => {
         const group = teamsIconList.filter(({ teams, teamsGroupName }) => teamsGroupName === teamsGroupSelected)
         return group[0]?.teams
