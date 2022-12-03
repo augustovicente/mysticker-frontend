@@ -832,6 +832,10 @@
 
 @media (max-width: 460px) {
 
+    section#partners .partner {
+        max-width: 120px;
+    }
+
     .header-form {
         display: none;
     }

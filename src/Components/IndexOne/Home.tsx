@@ -11,7 +11,7 @@ import Benefit_2Img from 'assets/imgs/2-benefits.png';
 import Benefit_3Img from 'assets/imgs/3-benefits.png';
 import Benefit_4Img from 'assets/imgs/4-benefits.png';
 import Benefit_5Img from 'assets/imgs/5-benefits.png';
-import { ReactComponent as WhitepaperIcon} from 'assets/imgs/whitepaper-icon.svg';
+import { ReactComponent as WhitepaperIcon } from 'assets/imgs/whitepaper-icon.svg';
 import Slider from 'react-slick';
 import { CardBenefit, CardBenefitProps } from 'Components/CardBenefit';
 import { useTranslation } from 'react-i18next';
@@ -19,26 +19,77 @@ import { Link } from 'react-router-dom';
 
 const developers = [
     {
-        name: 'Buster',
-        avatar: 'https://www.blexar.com/avatar.png',
+        name: 'Capitel',
+        logo: '/public/devs/capitel.png',
     },
     {
-        name: 'Boot',
-        avatar: 'https://www.blexar.com/avatar.png',
+        name: 'Caramelo Club',
+        logo: '/public/devs/carameloclub.png',
+        url: 'https://www.carameloclub.io/alley',
     },
     {
-        name: 'Buster',
-        avatar: 'https://www.blexar.com/avatar.png',
-    },
-    {
-        name: 'Boot',
-        avatar: 'https://www.blexar.com/avatar.png',
-    },
-    {
-        name: 'Buster',
-        avatar: 'https://www.blexar.com/avatar.png',
+        name: 'Meta Zero',
+        logo: '/public/devs/metazero.png',
     },
 ];
+
+const partners = [
+    {
+        name: 'NFTfy',
+        logo: '/public/partners/nftfy.png',
+        url: 'https://twitter.com/nftfyofficial',
+    },
+    {
+        name: 'METAGOONS™',
+        logo: '/public/partners/metagoons.png',
+        url: 'https://twitter.com/MetaGoons',
+    },
+    {
+        name: 'Rough Diamonds',
+        logo: '/public/partners/roughdiamonds.png',
+        url: 'https://www.instagram.com/11roughdiamonds/',
+    },
+    {
+        name: 'wallbee',
+        logo: '/public/partners/wallbee.png',
+        url: 'https://wallbee.io/pt/',
+    },
+    {
+        name: 'Recycle the Land',
+        logo: '/public/partners/recycletheland.png',
+        url: 'https://twitter.com/recycletheland',
+    },
+    {
+        name: 'ghost',
+        logo: '/public/partners/ghost.svg',
+        url: 'https://ghost.art.br/',
+    },
+    {
+        name: 'pet4',
+        logo: '/public/partners/pet4.png',
+        url: 'https://www.instagram.com/pet4agency/',
+    },
+    {
+        name: 'Nave podcast',
+        logo: '/public/partners/navepodcast.png',
+        url: 'https://www.instagram.com/navepodcast/',
+    },
+    {
+        name: 'thelazyfrogs',
+        logo: '/public/partners/thelazyfrogs.png',
+        url: 'https://www.instagram.com/thelazyfrogs/',
+    },
+    {
+        name: 'org_community',
+        logo: '/public/partners/org_community.png',
+        url: 'https://www.instagram.com/org_community/',
+    },
+    {
+        name: 'agenciakavana',
+        logo: '/public/partners/agenciakavana.png',
+        url: 'https://www.instagram.com/agenciakavana/',
+    },
+]
 
 const benefits: CardBenefitProps[] = [
     {
@@ -260,8 +311,13 @@ const Home = () => {
                         <div className='grid'>
                             {developers.map((developer, index) => (
                                 <div className='dev' key={index}>
-                                    <img src={developer.avatar} loading="lazy" alt="Avatar" />
-                                    <p>{developer.name}</p>
+                                    {developer?.url ? (
+                                        <a href={developer.url} target="_blank">
+                                            <img src={developer.logo} loading="lazy" alt={`Logo ${developer?.name}`} />
+                                        </a>
+                                    ) : (
+                                        <img src={developer.logo} loading="lazy" alt={`Logo ${developer?.name}`} />
+                                    )}
                                 </div>
                             ))}
                         </div>
@@ -274,10 +330,11 @@ const Home = () => {
                         </h3>
 
                         <div className='grid'>
-                            {developers.map((developer, index) => (
+                            {partners.map((partner, index) => (
                                 <div key={index} className="partner">
-                                    <img src={developer.avatar} loading="lazy" alt="Avatar" />
-                                    <p>{developer.name}</p>
+                                    <a href={partner.url} target="_blank">
+                                        <img src={partner.logo} loading="lazy" alt={`Logo ${partner.name}`} />
+                                    </a>
                                 </div>
                             ))}
                         </div>

@@ -5033,45 +5033,52 @@ section#partners .container>div {
     margin-top: 94px;
 }
 
+section#partners .container>div:nth-child(2) {
+    margin-top: 124px;
+}
+
 section#partners div.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    place-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
     margin-top: 64px;
     gap: 44px;
+    row-gap: 64px;
 }
 
 section#partners .dev {
+    max-width: 180px;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    gap: 12px;
-    color: var(--white);
-    padding: 12px 0;
 }
 
-section#partners p {
-    margin: 0;
+section#partners .dev a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 section#partners .partner {
+    max-width: 180px;
     width: 100%;
+    margin: 0 auto;
+}
+
+section#partners .partner a {
     display: flex;
-    justify-self: center;
-    align-items: center;
     flex-direction: column;
-    gap: 12px;
-    color: var(--white);
+    align-items: center;
 }
 
 section#partners .grid img {
-    min-width: 94px;
-    min-height: 94px;
-    width: 94px;
-    height: 94px;
+    max-width: 100%;
+    width: 134px;
+    max-height: 94px;
     display: block;
+    object-fit: contain;
 }
 
 section#partners .title {
