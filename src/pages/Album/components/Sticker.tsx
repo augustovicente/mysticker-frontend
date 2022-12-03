@@ -2,6 +2,7 @@ import { Col, Row } from "antd"
 import { useCallback, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { AlbumModal, StikerContainer } from "../styles"
+import LockIcon from "assets/imgs/lock.svg"
 
 type StickerProps = {
     stickerId: number
@@ -176,7 +177,7 @@ export const Sticker = ({ stickerId, name, rarity, ownedStickers, index }: Stick
                         <p>vender</p>
 
                         <span>
-                            <img src="/src/assets/imgs/lock.svg" />
+                            <img src={LockIcon}/>
                         </span>
                     </button>
                     <Link className="paste-sell-buy-btn" to="/marketplace">
