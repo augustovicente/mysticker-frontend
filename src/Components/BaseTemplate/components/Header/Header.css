@@ -79,6 +79,7 @@
 
     #sticky-header {
         background: transparent;
+        z-index: 1;
     }
 
     .sticky-menu {

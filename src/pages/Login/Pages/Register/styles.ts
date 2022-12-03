@@ -8,7 +8,7 @@ export const Container = styled.div`
     height: fit-content;
     overflow: hidden;
     position: relative;
-    z-index: -1;
+    z-index: 0;
 
     &.sended {
         height: 100vh;
