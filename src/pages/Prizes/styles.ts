@@ -195,28 +195,17 @@ export const RewardsContainer = styled.div`
                         flex-direction: column;
                         align-items: center;
                         gap: 18px;
-                        cursor: pointer;
                         opacity: 0.5;
 
                         img {
                             display: block;
                             max-width: 100%;
                             height: 94px;
+                            width: 94px;
                             border-radius: 50%;
                             object-fit: contain;
                             position: relative;
                             border: ${({ theme }) => theme.colors.middleL} 11px solid;
-
-                            &::after {
-                                position: absolute;
-                                content: '';
-                                width: 100%;
-                                height: 100%;
-                                border-radius: 50%;
-                                background: ${({ theme }) => theme.gradients.blueGreen};
-                                opacity: 0.5;
-                                z-index: 3;
-                            }
                         }
 
                         span {
@@ -253,10 +242,11 @@ export const RewardsContainer = styled.div`
                 top: 0;
                 left: 0;
                 pointer-events: none;
+                user-select: none;
             }
 
             div.reward {
-                user-select: none;
+                /* user-select: none; */
                 img {
                     cursor: grab;
                     width: 100%;
@@ -267,14 +257,11 @@ export const RewardsContainer = styled.div`
                 }
 
                 &.tracking {
-                    user-select: none;
-                    pointer-events: none;
                     position: relative;
 
                     img {
                         margin-bottom: 0;
                         opacity: 0.5;
-                        user-select: none;
                         pointer-events: none;
                     }
 
@@ -439,6 +426,18 @@ export const RewardsContainer = styled.div`
                             }
                         }
                     }
+
+                    &.tracking {
+                        .redeem-info {
+                            span {
+                                color: ${({ theme }) => theme.colors.dark} !important;
+
+                                &::before {
+                                    background: ${({ theme }) => theme.colors.dark} !important;
+                                }
+                            }
+                        }
+                    }
                 }
 
                 div.description {
@@ -460,6 +459,16 @@ export const RewardsContainer = styled.div`
                         background: ${({ theme }) => theme.colors.middle};
                         padding: 12px;
                         width: fit-content;
+
+                        &.tracking {
+                            background: ${({ theme }) => theme.colors.dark};
+
+                            span {
+                                background: unset;
+                                -webkit-background-clip: unset;
+                                -webkit-text-fill-color: unset;
+                            }
+                        }
 
                         span {
                             color: ${({ theme }) => theme.colors.white};
@@ -537,7 +546,8 @@ export const RewardModalContainer = styled.div`
             position: absolute;
             height: 54px;
             top: 0;
-            right: -54px;
+            width: fit-content;
+            right: 24px;
         }
 
         h3 {
@@ -552,6 +562,11 @@ export const RewardModalContainer = styled.div`
             object-fit: contain;
             height: 290px;
             width: 100%;
+        }
+
+        div.select-size {
+            display: flex;
+
         }
 
     }

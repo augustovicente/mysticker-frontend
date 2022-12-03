@@ -5,24 +5,20 @@ import { createContext, Dispatch, ReactNode, SetStateAction, useCallback, useCon
 import { teamsIconList as teamsList } from 'pages/Album/mocks/teamsIconList';
 import { GradientOverlay } from 'Components/GradientOverlay';
 import { ReactComponent as ArrowIcon } from 'assets/imgs/arrow-left-white.svg';
-import tShirt from 'assets/imgs/shirt-reward.png';
 import { AnimatePresence } from 'framer-motion';
 import { motion } from 'framer-motion'
 import { usePrevious } from 'hooks/usePrevious';
-import { Button, Carousel } from 'antd';
+import { Carousel } from 'antd';
 import { useAuth, User } from 'contexts/auth.context';
-import { Link } from 'react-router-dom';
-import { connect_wallet, get_owned_teams, get_owned_tokens } from 'models/User';
+import { get_owned_teams } from 'models/User';
 import { stickers } from 'assets/stickers';
 import { useScrollToElement } from 'hooks/useScrollToElement';
 import axios from 'axios';
 import { dataCEP } from 'pages/Profile/Profile';
-import { cepFormatter, cpfFormatter, phoneFormatter } from 'utils/helpers'
 import { toast } from 'react-toastify';
 import { useToggle } from 'hooks/useToggle';
 import { api } from 'services/api';
 import { connect } from 'services/web3';
-import useModal from 'antd/es/modal/useModal';
 import { ModalContentHasRedeem } from 'pages/Prizes/Modals/HasRedeem';
 
 type HasRedeemResponse = {
@@ -38,12 +34,15 @@ type ContextModalProps = {
     addressData: dataCEP;
     isLoading: boolean;
     setIsModalOpen: Dispatch<SetStateAction<boolean>>;
+    setRewardStatus: Dispatch<SetStateAction<prizeProps[]>>;
     handleRedeem: () => void;
+    redeemSuccess: boolean;
 }
 
 type prizeProps = {
     type: 1 | 2 | 3 | 4 | 5 | 6;
-    size?: number;
+    sizes?: string[];
+    selectedSize?: string;
     images?: string[];
     title?: string;
     description?: string;
@@ -56,7 +55,7 @@ type prizeProps = {
 const prizes: prizeProps[] = [
     {
         type: 1,
-        size: 1,
+        sizes: ['P', 'M', 'G', 'GG'],
         images: ['/prizes/america-norte.png'],
         title: 'Boné 5pruu',
         description: 'Ao completar todas as figuras desse continente você pode resgatar este boné',
@@ -66,7 +65,6 @@ const prizes: prizeProps[] = [
     },
     {
         type: 2,
-        size: 1,
         images: ['/prizes/america-norte.png'],
         title: 'Boné 5pruu',
         description: 'Ao completar todas as figuras desse continente você pode resgatar este boné',
@@ -76,7 +74,7 @@ const prizes: prizeProps[] = [
     },
     {
         type: 3,
-        size: 1,
+        sizes: ['P', 'M', 'G', 'GG'],
         images: ['/prizes/america-sul1.png', '/prizes/america-sul2.png'],
         title: 'Camiseta Preta Copacapruu',
         description: 'Ao completar todas as figuras desse continente você pode resgatar esta camiseta',
@@ -86,7 +84,6 @@ const prizes: prizeProps[] = [
     },
     {
         type: 4,
-        size: 1,
         images: ['/prizes/africa.png'],
         title: 'Bucket Pruu',
         description: 'Ao completar todas as figuras desse continente você pode resgatar este bucket',
@@ -96,7 +93,7 @@ const prizes: prizeProps[] = [
     },
     {
         type: 5,
-        size: 1,
+        sizes: ['P', 'M', 'G', 'GG'],
         images: ['/prizes/asia1.png', '/prizes/asia2.png'],
         title: 'Camiseta Branca Off White',
         description: 'Ao completar todas as figuras desse continente você pode resgatar esta camiseta',
@@ -106,7 +103,7 @@ const prizes: prizeProps[] = [
     },
     {
         type: 6,
-        size: 1,
+        sizes: ['P', 'M', 'G', 'GG'],
         images: ['/prizes/europa1.png', '/prizes/europa2.png'],
         title: 'Moletom Segue o Baile',
         description: 'Ao completar todas as figuras desse continente você pode resgatar este moletom',
@@ -126,6 +123,7 @@ export const Prizes = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [addressData, setAddressData] = useState<dataCEP>({} as dataCEP);
     const [isLoading, setIsLoading] = useToggle(false);
+    const [redeemSuccess, setRedeemSuccess] = useState(false);
 
     useScrollToElement('#selected-group', teamsGroupSelected);
 
@@ -141,6 +139,8 @@ export const Prizes = () => {
         });
         return team;
     });
+
+    console.log('rewardStatus', rewardStatus)
 
     const groupOfTeams = useMemo(() => {
         const group = teamsIconList.filter(({ teams, teamsGroupName }) => teamsGroupName === teamsGroupSelected)
@@ -241,7 +241,7 @@ export const Prizes = () => {
 
 
         return () => controller.abort();
-    }, [teamsGroupSelected]);
+    }, [teamsGroupSelected, redeemSuccess]);
 
     const handleRedeem = useCallback(async () => {
         const { 0: wallet } = await connect();
@@ -258,13 +258,13 @@ export const Prizes = () => {
         setIsLoading(true);
 
         await api.post('/redeem', {
-            ...(currentPrize?.size ? { size: currentPrize?.size } : {}),
+            ...(currentPrize?.sizes ? { size: currentPrize?.sizes } : {}),
             type: currentPrize?.type,
             wallet,
         })
             .then(res => {
                 if (res.status === 200) {
-                    // toast.success('Prêmio resgatado com sucesso!', { toastId: 'success' })
+                    setRedeemSuccess(true);
                 }
             })
             .catch(err => {
@@ -436,7 +436,13 @@ export const Prizes = () => {
                         : 940
                 }
                 open={isModalOpen}
-                onCancel={() => setIsModalOpen(false)}
+                onCancel={() => {
+                    setIsModalOpen(false);
+
+                    if (redeemSuccess) {
+                        setRedeemSuccess(false);
+                    }
+                }}
             >
                 <S.RewardModalContainer>
                     <ContextModal.Provider
@@ -446,7 +452,9 @@ export const Prizes = () => {
                             handleRedeem,
                             isLoading,
                             setIsModalOpen,
-                            user
+                            user,
+                            redeemSuccess,
+                            setRewardStatus
                         }}
                     >
                         <ModalContentHasRedeem />

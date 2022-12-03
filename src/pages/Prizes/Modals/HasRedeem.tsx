@@ -1,9 +1,11 @@
 import { ContextModal } from "pages/Prizes/Prizes";
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { cepFormatter, cpfFormatter, phoneFormatter } from "utils/helpers";
 import { ReactComponent as CubeIcon } from "assets/imgs/cube.svg";
 import { ReactComponent as GiftIcon } from "/public/assets/img/icons/gift-icon.svg";
+import { ReactComponent as GiftsIcon } from "/public/assets/img/icons/gifts-icon.svg";
+import { Dropdown, MenuProps, Space, Typography } from "antd";
 
 export const ModalContentHasRedeem = () => {
     const {
@@ -12,11 +14,46 @@ export const ModalContentHasRedeem = () => {
         handleRedeem,
         isLoading,
         setIsModalOpen,
-        user
+        user,
+        redeemSuccess,
+        setRewardStatus
     } = useContext(ContextModal);
+
+    const sizes = useMemo(() => {
+        return currentPrize?.sizes?.map((size, index) => ({
+            key: String(index + 1),
+            label: size,
+        }))
+    }, [currentPrize?.sizes]) as MenuProps['items'];
+
+    console.log('sizes', sizes)
+
+    // Caso tenha sido feito o pedido de resgate
+    if (redeemSuccess) {
+        return (
+            <>
+                <section className="gift">
+                    <img src={currentPrize?.images![0]} alt={`Camiseta`} />
+                </section>
+
+                <section className='status-redeem'>
+                    <h3>Parabéns {"\n"}colecionador </h3>
+                    <p style={{ color: 'var(--color-middle)' }}>Só mais um pouquinho e você {"\n"} receberá sua recompensa.</p>
+
+                    <div className="d-flex gap-4">
+                        {/* create new array with 3 positions and add GiftsIcon */}
+                        {[...Array(3)].map((_, index) => (
+                            <GiftsIcon key={index} width={64} height={64} />
+                        ))}
+                    </div>
+                </section>
+            </>
+        )
+    }
 
     return (
         <>
+            {/* caso prêmio já foi resgatado */}
             {currentPrize?.redeemStatus > 0 && (
                 <>
                     <section className="gift-status">
@@ -68,6 +105,7 @@ export const ModalContentHasRedeem = () => {
                 </>
             )}
 
+            {/* caso prêmio ainda não foi resgatado */}
             {!currentPrize?.redeemStatus && (
                 <>
                     <section className="gift">
@@ -75,6 +113,32 @@ export const ModalContentHasRedeem = () => {
                             <img className='gift-icon' src="/assets/img/icons/gifts-icon.svg" alt="" />
                         </h3>
                         <img src={currentPrize?.images![0]} alt={`Camiseta`} />
+
+                        {currentPrize?.sizes && currentPrize?.sizes?.length > 0 && (
+                            <Dropdown
+                                trigger={['click']}
+                                menu={{
+                                    items: sizes,
+                                    selectable: true,
+                                    onSelect: (key) => {
+                                        const size = sizes?.[Number(key.key) - 1]?.label;
+
+                                        // search for current prize and update size
+                                        // const prize = currentPrize?.find((prize) => prize.id === currentPrize?.id);
+                                    }
+                                }}
+                            >
+                                <div className="select-size">
+                                    <div>
+
+                                    </div>
+
+                                    <span className="size-title">Defina o tamanho</span>
+                                </div>
+                            </Dropdown>
+                        )}
+
+
                     </section>
 
                     <section className='confirm-address'>
@@ -164,7 +228,8 @@ export const ModalContentHasRedeem = () => {
                         </footer>
                     </section>
                 </>
-            )}
+    )
+}
         </>
     )
 }
