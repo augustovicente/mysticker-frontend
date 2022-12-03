@@ -58,7 +58,7 @@ export const Sticker = ({ stickerId, name, rarity, ownedStickers, index }: Stick
                             {/* <img className={`player-img`} src={`/copa_pruu/${stickerId}.png`} alt={name} /> */}
                             <img
                                 className={`player-img`}
-                                src={`https://mysticker.s3.amazonaws.com/${stickerId}.png`}
+                                src={`https://dffla95hrvs5u.cloudfront.net/${stickerId}.png`}
                                 alt={name}
                                 onError={(e) => {
                                     e.currentTarget.src = `/copa_pruu/${stickerId}.png`
@@ -106,7 +106,7 @@ export const Sticker = ({ stickerId, name, rarity, ownedStickers, index }: Stick
                             {/* <img className="player-img" src={`/copa_pruu/${playerSelected}.png`} alt={name} /> */}
                             <img
                                 className={`player-img`}
-                                src={`https://mysticker.s3.amazonaws.com/${playerSelected}.png`}
+                                src={`https://dffla95hrvs5u.cloudfront.net/${playerSelected}.png`}
                                 alt={name}
                                 onError={(e) => {
                                     e.currentTarget.src = `/copa_pruu/${playerSelected}.png`
