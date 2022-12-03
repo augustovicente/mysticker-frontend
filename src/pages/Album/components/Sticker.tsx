@@ -55,7 +55,16 @@ export const Sticker = ({ stickerId, name, rarity, ownedStickers, index }: Stick
                 >
                     {parseInt(ownedStickers[index]) >= 1 ? (
                         <>
-                            <img className={`player-img`} src={`/copa_pruu/${stickerId}.png`} alt={name} />
+                            {/* <img className={`player-img`} src={`/copa_pruu/${stickerId}.png`} alt={name} /> */}
+                            <img
+                                className={`player-img`}
+                                src={`https://mysticker.s3.amazonaws.com/${stickerId}.png`}
+                                alt={name}
+                                onError={(e) => {
+                                    e.currentTarget.src = `/copa_pruu/${stickerId}.png`
+                                }}
+                            />
+
                             <img className="player-tier" src={`/assets/img/icons/tier-${rarity}-icon.svg`} />
                             <img className="player-base-tier" src={`/assets/img/icons/tier-base-${rarity}-icon.svg`} />
                             {parseInt(ownedStickers[index]) >= 2 && (
@@ -64,10 +73,8 @@ export const Sticker = ({ stickerId, name, rarity, ownedStickers, index }: Stick
                                     <img src={`/assets/img/icons/extra-stickers-icon.svg`} />
                                 </div>
                             )}
-
                         </>
                     ) : (
-
                         <>
                             <span>{`#0${stickerId}`}</span>
                             <img className="add-icon" src="/assets/img/icons/add-icon.svg" />
@@ -96,7 +103,16 @@ export const Sticker = ({ stickerId, name, rarity, ownedStickers, index }: Stick
                 >
                     {parseInt(ownedStickers[currentIndex]) >= 1 ? (
                         <>
-                            <img className="player-img" src={`/copa_pruu/${playerSelected}.png`} alt={name} />
+                            {/* <img className="player-img" src={`/copa_pruu/${playerSelected}.png`} alt={name} /> */}
+                            <img
+                                className={`player-img`}
+                                src={`https://mysticker.s3.amazonaws.com/${playerSelected}.png`}
+                                alt={name}
+                                onError={(e) => {
+                                    e.currentTarget.src = `/copa_pruu/${playerSelected}.png`
+                                }}
+                            />
+
                             <img className="player-tier" src={`/assets/img/icons/tier-${rarity}-icon.svg`} />
                             <img className="player-base-tier" src={`/assets/img/icons/tier-base-${rarity}-icon.svg`} />
                             {parseInt(ownedStickers[index]) >= 2 && (
