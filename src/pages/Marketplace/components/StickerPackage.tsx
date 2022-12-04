@@ -4,6 +4,7 @@ import { StickersPackageContainer, StickersSeparator } from "../styles"
 import LockIcon from "assets/imgs/lock.svg"
 import { useAuth } from "contexts/auth.context";
 import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 
 type StickerPackageProps = {
     stars: string;
@@ -38,9 +39,13 @@ export const StickerPackage = ({
 {
     const [count, setCount] = useState(0)
     const { user } = useAuth()
+    const navigate = useNavigate();
+
     // example buy
     const handleBuy = async (package_type:number) =>
     {
+        if (!user) navigate('/login');
+
         if(count > 0)
         {
             if(user)
@@ -83,7 +88,7 @@ export const StickerPackage = ({
                 return toast.error("Necessário estar logado para comprar um pacote.");
             }
         }
-    }    
+    }
 
     const handleDecrement = useCallback(() => {
         if (count > 0) {

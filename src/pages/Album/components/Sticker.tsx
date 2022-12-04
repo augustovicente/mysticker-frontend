@@ -1,8 +1,9 @@
 import { Col, Row } from "antd"
 import { useCallback, useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { AlbumModal, StikerContainer } from "../styles"
 import LockIcon from "assets/imgs/lock.svg"
+import { useAuth } from "contexts/auth.context"
 
 type StickerProps = {
     stickerId: number
@@ -18,8 +19,14 @@ export const Sticker = ({ stickerId, name, rarity, ownedStickers, index }: Stick
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [playerSelected, setPlayerSelected] = useState(stickerId)
     const [currentIndex, setCurrentIndex] = useState(index)
+    const navigate = useNavigate();
+    const { user } = useAuth();
 
     const showModal = () => {
+        if (!user) {
+            return navigate('/login');
+        }
+
         setIsModalOpen(true)
     }
 

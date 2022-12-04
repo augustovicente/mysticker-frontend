@@ -1,81 +1,95 @@
-import { Col, Row } from "antd"
+import { Button, Col, Row } from "antd"
 import { useCallback, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { AlbumModal, PasteStickerModal, StikerContainer } from "../styles"
 import { ReactComponent as LockIcon } from "assets/imgs/lock.svg"
 import { ReactComponent as BurnIcon } from "/public/assets/img/icons/paste-burn-green-icon.svg"
 import Logo from 'assets/imgs/card-paste.png';
+import { useTheme } from "styled-components"
+import { useToggle } from "hooks/useToggle"
+import { paste_stickers } from "models/User"
 
 type StickerProps = {
-    stickerId: number
-    rarity: number
-    name: string
-    ownedStickers: string[];
-    index: number;
+    status: 'can' | 'cant' | 'pasted' | 'loading';
+    handlePasteStickers: () => void;
+    isLoading: boolean;
+    teamId: number;
 }
 
-const pastedStickers: number[] = []
-
-export const PasteSticker = ({ stickerId, name, rarity, ownedStickers, index }: StickerProps) => {
-    const [isModalOpen, setIsModalOpen] = useState(false)
-    const [playerSelected, setPlayerSelected] = useState(stickerId)
-    const [currentIndex, setCurrentIndex] = useState(index)
-
-    const showModal = () => {
-        setIsModalOpen(true)
-    }
-
-    const handleOk = () => {
-        setIsModalOpen(false)
-    }
-
-    const handleCancel = () => {
-        setIsModalOpen(false)
-    }
-
-    // const handleNextPlayer = useCallback(() => {
-    //     if (playerSelected > 1) {
-    //         setPlayerSelected(playerSelected - 1)
-    //         setCurrentIndex(currentIndex + 1)
-    //     }
-    // }, [playerSelected])
-
-    // const handlePreviewPlayer = useCallback(() => {
-    //     setPlayerSelected(playerSelected + 1)
-    //     setCurrentIndex(currentIndex - 1)
-    // }, [playerSelected])
+export const PasteSticker = ({ status, handlePasteStickers, isLoading, teamId }: StickerProps) => {
+    const [isModalOpen, setIsModalOpen] = useToggle(false)
+    const theme = useTheme();
 
     return (
         <>
             <Col xxl={6} xl={5} md={4} sm={5}>
                 <StikerContainer
-                    // transition={{ duration: 0.3, ease: "easeInOut" }}
-                    // whileHover={{ scale: 1.1 }}
-                    // whileTap={{ scale: 1 }}
                     className="sticker"
-                    onClick={showModal}
+                    onClick={() => setIsModalOpen(true)}
                     isLatest={true}
                 >
-                    <>
-                        <img className="background-paste" src={Logo} alt="" />
-                        <LockIcon className="lock-icon" />
+                    {status !== 'pasted' ? (
+                        <>
+                            <img className="background-paste" src={Logo} alt="" />
 
-                        <footer>
-                            <button>
-                                <BurnIcon width={18} height={18} />
-                                Colar figurinhas
-                            </button>
+                            {status === 'cant' && (
+                                <LockIcon className="lock-icon" />
+                            )}
 
-                            <h6 className="close-team">FECHE O TIME AQUI</h6>
-                        </footer>
-                    </>
+                            <footer>
+                                <button>
+                                    <BurnIcon width={18} height={18} />
+                                    Colar figurinhas
+                                </button>
 
+                                <h6 className="close-team">FECHE O TIME AQUI</h6>
+                            </footer>
+                        </>
+                    ) : status === 'pasted' ? (
+                        <>
+                            <img
+                                className={`player-pasted`}
+                                src={`https://dffla95hrvs5u.cloudfront.net/${teamId}.png`}
+                                alt=""
+                                onError={(e) => {
+                                    e.currentTarget.src = `/copa_pruu/${teamId}.png`
+                                }}
+                            />
+                        </>
+                    ) : null}
                 </StikerContainer>
             </Col>
 
-            {/* <PasteStickerModal centered open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                <h1>opa</h1>
-            </PasteStickerModal> */}
+            <PasteStickerModal
+                maskStyle={{ background: theme.colors.dark, opacity: 0.9 }}
+                centered
+                open={status === 'can' && isModalOpen}
+                onCancel={() => !isLoading && setIsModalOpen(false)}
+            >
+                <main>
+                    <h3>Deseja fechar o time?</h3>
+
+                    <p>
+                        <strong>OBS</strong>: Ao fechar o time você <strong>irá colar todas as figurinhas</strong> no album e resgatara a da bandeira do respectiva nação.
+                        <br /><br />
+                        Só poderam <strong>resgatar os prêmios</strong> aqueles que colarem todas as figurinhas do continente.
+                    </p>
+                </main>
+
+                <footer>
+                    <button disabled={isLoading} onClick={() => handlePasteStickers()}>
+                        {isLoading ? (
+                            <div className="spinner-border spinner-border-md" role="status">
+                            </div>
+                        ) : 'Sim'}
+                    </button>
+
+                    <button disabled={isLoading} onClick={() => setIsModalOpen(false)}>
+                        Não
+                    </button>
+                </footer>
+
+            </PasteStickerModal>
         </>
 
     )

@@ -654,6 +654,15 @@ export const StikerContainer = styled(motion.div)<StickerProps>`
     ${({ isLatest, theme }) => isLatest && css`
         background: ${({ theme }) => theme.gradients.blueGreen};
 
+        &:has(.player-pasted) {
+            background: ${props => props.theme.colors.dark};
+            img {
+                height: 100%;
+                width: 100%;
+                object-fit: contain;
+            }
+        }
+
         img.background-paste {
             height: 94% !important;
             width: 94% !important;
@@ -708,7 +717,7 @@ export const StikerContainer = styled(motion.div)<StickerProps>`
                     content: "";
                     position: absolute;
                     inset: 0;
-                    border-radius: 8px;
+                    border-radius: 25px;
                     padding: 2px;
                     background: ${({ theme }) => theme.gradients.blueGreen};
                     -webkit-mask:
@@ -723,10 +732,10 @@ export const StikerContainer = styled(motion.div)<StickerProps>`
                 position: absolute;
                 left: 50%;
                 transform: translateX(-50%);
-                bottom: 12px;
+                bottom: 14px;
                 margin: 0;
                 text-align-last: center;
-                font-size: 11px;
+                font-size: 10px;
                 color: ${({ theme }) => theme.colors.white};
                 width: 100%;
             }
@@ -862,231 +871,60 @@ export const StikerContainer = styled(motion.div)<StickerProps>`
 `
 
 export const PasteStickerModal = styled(Modal)`
-    top: 20vh;
-    width: 296px !important;
+    width: fit-content;
+    width: 620px !important;
     border: 2px rgba(255, 255, 255, .3) solid;
     padding: 22px 20px;
-    background: ${props => props.theme.colors.geenDark};
     border-radius: 10px;
+    border: 5px solid ${({ theme }) => theme.colors.greenNeon};
 
     .ant-modal-content {
         height: 100%;
-        border: 2px rgba(255, 255, 255, .3) solid;
-        background: ${props => props.theme.colors.geenDark};
+        background: transparent;
 
         .ant-modal-body {
-            position: relative;
+            padding: 0 24px 24px 24px;
 
-            .sticker {
-                transition: none !important;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                position: relative;
-                width: 100%;
-                height: 259.3px;
-                border: white 3px solid;
-                border-radius: 8px;
-                cursor: pointer;
-                background: ${props => props.theme.colors.dark};
-
-                span {
-                    font-size: 1.25rem;
-                    font-weight: bold;
-                    position: absolute;
-                    top: 3px;
-                    right: 12px;
-                    background-image: linear-gradient(to right, rgba(70, 148, 255, 1), rgba(48, 229, 132, 1));
-                    background-clip: text;
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
+            main {
+                h3 {
+                    color: ${({ theme }) => theme.colors.greenNeon};
+                    font-size: ${({ theme }) => theme.fontSizes.heading3};
+                    margin-bottom: 18px;
                 }
 
-                img {
-                    width: 132px;
-                    height: 144px;
-                }
-
-                .add-icon {
-                    position: absolute;
-                    height: 68px;
-                    width: 68px;
-                }
-
-                .player-img {
-                    display: flex;
-                    position: absolute;
-                    top: 9.5px;
-                    height: 88%;
-                    width: 93%;
-
-                    &.loading {
-                        background: red;
-                        width: 30vw;
-                        height: 30vw;
-                    }
-                }
-
-                .player-tier {
-                    display: flex;
-                    position: absolute;
-                    height: 78.21px;
-                    width: 50.4px;
-                    bottom: -28px;
-                    right: 8px;
-                    z-index: 2;
-                }
-
-                .player-base-tier {
-                    display: flex;
-                    position: absolute;
-                    width: 94%;
-                    height: 20px;
-                    bottom: 6.5px;
-                }
-
-                .extra-stickers {
-                    display: flex;
-                    position: absolute;
-                    object-fit: contain;
-                    width: 55px;
-                    left: -12%;
-                    top: -25%;
-
-                    h1 {
-                        position: absolute;
-                        bottom: 37%;
-                        left: 31%;
-                        color: white;
-                        font-weight: bold;
-                        font-size: 1.25rem;
-                        height: 20px;
-                        width: 20px;
-                    }
-
-                    &.two {
-                        h1 {
-                            font-size: .975rem;
-                            bottom: 39%;
-                            left: 27%;
-                        }
-                    }
+                p, strong {
+                    line-height: 130%;
+                    ${({ theme }) => theme.colors.white}
                 }
             }
 
-            .rarity-number {
+            footer {
                 display: flex;
-                align-items: center;
                 justify-content: space-between;
-                margin-top: .5rem;
-
-                .rarity {
-                    display: flex;
-                    flex-direction: column;
-                    font-size: 15px;
-                    color: white;
-
-                    span {
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        border-radius: 4px;
-                        font-size: 15px;
-                        font-weight: bold;
-                        text-transform: uppercase;
-                        color: ${props => props.theme.colors.middle};
-                        background: ${props => props.theme.colors.yellow};
-                        letter-spacing: 0px;
-                    }
-                }
-
-                span {
-                    font-size: 2.813rem;
-                    color: white;
-                    font-weight: bold;
-                    letter-spacing: -2px;
-                }
-            }
-
-            .next-preview-sticker {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 100%;
-                position: relative;
-                margin-top: 0.5rem;
-
-                .next-preview {
-                    display: flex;
-                    justify-content: space-between;
-                    width: 70%;
-                    padding: 8px 28px;
-                    background: ${props => props.theme.colors.colorMiddle};
-                    border-radius: 30px;
-                    z-index: 2;
-
-                    button {
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        background: transparent;
-                    }
-                }
-
-                .next-preview-line {
-                    position: absolute;
-                    display: flex;
-                    width: 100%;
-                    height: 2px;
-                    content: "";
-                    background: ${props => props.theme.colors.lightGrey};
-                }
-            }
-
-            .paste-sell-buy-container {
-                display: flex;
-                flex-direction: column;
-                gap: 13px;
-                margin-top: 22px;
-
-                .paste-sell-buy-btn {
+                gap: 64px;
+                margin-top: 48px;
+                button {
+                    padding: 8px 44px;
                     display: flex;
                     justify-content: center;
-                    align-content: center;
+                    align-items: center;
+                    font-weight: bold;
                     width: 100%;
-                    color: white;
-                    background: transparent;
-                    border: 2px ${props => props.theme.colors.lightGrey} solid;
-                    height: 43px;
-                    border-radius: 8px;
+                    border-radius: 10px;
+                    font-size: ${({ theme }) => theme.fontSizes.lg};
+                    max-height: 47px;
 
-                    img {
-                        flex: 1;
-                        align-self: center;
-                        max-height: 24px;
+                    &:hover:not(:disabled) {
+                        filter: brightness(0.8);
                     }
 
-                    p {
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        height: 100%;
-                        text-align: center;
-                        flex: 1;
-                        font-weight: bold;
-                        font-size: 0.75rem;
-                        margin: 0;
-                        text-transform: uppercase;
+                    &:nth-child(1) {
+                        background: ${({ theme }) => theme.colors.greenNeon};
                     }
 
-                    span {
-                        display: flex;
-                        align-self: center;
-                        flex: 1;
-                    }
-
-                    &[disabled] {
-                        cursor: not-allowed;
+                    &:nth-child(2) {
+                        background: ${({ theme }) => theme.colors.red};
+                        color: ${({ theme }) => theme.colors.white};
                     }
                 }
             }
@@ -1102,6 +940,7 @@ export const PasteStickerModal = styled(Modal)`
                 left: -25%;
                 border-radius: 8px;
                 padding: 2px;
+                background: red;
 
                 p, span {
                     margin: 0;
@@ -1136,5 +975,15 @@ export const PasteStickerModal = styled(Modal)`
         }
 
 
+    }
+
+    @media (max-width: 768px) {
+        .ant-modal-content {
+            padding: 0 !important;
+
+            .ant-modal-body {
+                padding: 0 0 18px 0 !important;
+            }
+        }
     }
 `
