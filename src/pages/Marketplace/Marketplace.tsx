@@ -10,6 +10,11 @@ import { MarketplaceContainer } from "./styles"
 import { ReactComponent as HomeIcon } from '../../assets/imgs/home.svg';
 import { useAuth } from "contexts/auth.context";
 import axios from "axios";
+import { WalletErrorModal } from "pages/Album/components/Skeletons/styles";
+import { ReactComponent as LoginIcon } from 'assets/imgs/user.svg';
+import { getPackages } from "models/User";
+import { ReactComponent as WalletIcon } from 'assets/imgs/wallet-white.svg';
+import { checkWallet } from "services/web3";
 
 export const Marketplace = () => {
     const { user } = useAuth()
@@ -17,6 +22,7 @@ export const Marketplace = () => {
     const [exchangeRate, setExchangeRate] = useState<number>(0)
     const [stickerStatsModalIsOpen, setStickerStatsModalIsOpen] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useToggle()
+    const [isModalErrorOpen, setIsModalErrorOpen] = useState(false);
 
     const handleActionStickerModal = (id: string) => {
         if (!stickerStatsModalIsOpen.includes(id)) {
@@ -30,8 +36,32 @@ export const Marketplace = () => {
         axios.get('https://min-api.cryptocompare.com/data/price?fsym=MATIC&tsyms=BRL')
             .then(({ data }) => {
                 setExchangeRate(data.BRL);
-            })
+            });
+
+        if (!user) {
+            setIsModalErrorOpen(true);
+        }
     }, []);
+
+    useEffect(() => {
+        setIsLoading(true);
+
+        (async () => {
+            if (!user) {
+                return setIsModalErrorOpen(true)
+            }
+
+            checkWallet()
+                .then(res => {
+                    if (res === 'connected') {
+                        setIsModalErrorOpen(false);
+                    } else {
+                        return setIsModalErrorOpen(true);
+                    }
+                })
+                .finally(() => setIsLoading(false))
+        })();
+    }, [])
 
     return (
         <MarketplaceContainer>
@@ -60,7 +90,7 @@ export const Marketplace = () => {
                             <StickerPackage
                                 exchangeRate={exchangeRate}
                                 probabilities={props.probabilities}
-                                key={"StickerPackage"+index}
+                                key={"StickerPackage" + index}
                                 id={props.id}
                                 stars={props.stars}
                                 title={props.title}
@@ -79,7 +109,7 @@ export const Marketplace = () => {
                             <StickerPackage
                                 exchangeRate={exchangeRate}
                                 probabilities={props.probabilities}
-                                key={"StickerPackage"+index}
+                                key={"StickerPackage" + index}
                                 id={props.id}
                                 stars={props.stars}
                                 title={props.title}
@@ -92,6 +122,31 @@ export const Marketplace = () => {
                     </Carousel>
                 </>
             )}
+
+            <WalletErrorModal open={isModalErrorOpen}>
+                {!user ? (
+                    <>
+                        <h1 className="mb-4">Conecte para acessar o álbum!</h1>
+                        <Link to="/login">
+                            <LoginIcon className="login" width={26} height={26} />
+                            Ir para o login
+                        </Link>
+                    </>
+                ) : (
+                    <>
+                        <h1 className="mb-4">Carteira desconectada!</h1>
+                        <p>Conecte a carteira para continuar visualizar e comprar as figurinhas!</p>
+                        <Link onClick={() => {
+                            getPackages()
+                                .then(res => setIsModalErrorOpen(false))
+                        }}>
+                            <WalletIcon className="wallet" width={26} height={26} />
+                            Acessar carteira
+                        </Link>
+                    </>
+                )}
+            </WalletErrorModal>
+
         </MarketplaceContainer>
     )
 }

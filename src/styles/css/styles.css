@@ -4990,6 +4990,13 @@ section#buster {
     position: relative;
 }
 
+section#buster img {
+    height: 340px;
+    margin-top: 84px;
+    display: block;
+    object-fit: contain;
+}
+
 section#buster h3.title {
     color: var(--white);
     text-align: center;
@@ -5080,7 +5087,7 @@ section#partners .dev a {
 section#partners .partner {
     max-width: 180px;
     width: 100%;
-    margin: 0 auto;
+    /* margin: 0 auto; */
 }
 
 section#partners .partner a {

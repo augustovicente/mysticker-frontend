@@ -131,7 +131,9 @@ const Header = (props) => {
                                     {t('header.connect_wallet_description')}
                                 </span>
 
-                                <button onClick={() => { }} className='create-wallet'>
+                                <button onClick={() => {
+                                    window.open('https://metamask.io/', '_blank')
+                                }} className='create-wallet'>
                                     {t('header.create_wallet')}
                                 </button>
                             </>
@@ -297,7 +299,9 @@ const Header = (props) => {
                                                                                 {t('header.connect_wallet_description')}
                                                                             </span>
 
-                                                                            <button onClick={() => { }} className='create-wallet'>
+                                                                            <button onClick={() => {
+                                                                                window.open('https://metamask.io/', '_blank')
+                                                                            }} className='create-wallet'>
                                                                                 {t('header.create_wallet')}
                                                                             </button>
                                                                         </>

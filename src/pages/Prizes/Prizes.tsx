@@ -10,7 +10,7 @@ import { motion } from 'framer-motion'
 import { usePrevious } from 'hooks/usePrevious';
 import { Carousel } from 'antd';
 import { useAuth, User } from 'contexts/auth.context';
-import { get_owned_teams } from 'models/User';
+import { getPackages, get_owned_teams } from 'models/User';
 import { stickers } from 'assets/stickers';
 import { useScrollToElement } from 'hooks/useScrollToElement';
 import axios from 'axios';
@@ -18,8 +18,12 @@ import { dataCEP } from 'pages/Profile/Profile';
 import { toast } from 'react-toastify';
 import { useToggle } from 'hooks/useToggle';
 import { api } from 'services/api';
-import { connect } from 'services/web3';
+import { checkWallet, connect } from 'services/web3';
 import { ModalContentHasRedeem } from 'pages/Prizes/Modals/HasRedeem';
+import { WalletErrorModal } from 'pages/Album/components/Skeletons/styles';
+import { Link } from 'react-router-dom';
+import { ReactComponent as LoginIcon } from 'assets/imgs/user.svg';
+import { ReactComponent as WalletIcon } from 'assets/imgs/wallet-white.svg';
 
 type HasRedeemResponse = {
     has_redeem: boolean;
@@ -125,6 +129,7 @@ export const Prizes = () => {
     const [addressData, setAddressData] = useState<dataCEP>({} as dataCEP);
     const [isLoading, setIsLoading] = useToggle(false);
     const [redeemSuccess, setRedeemSuccess] = useState(false);
+    const [isModalErrorOpen, setIsModalErrorOpen] = useState(false);
 
     useScrollToElement('#selected-group', teamsGroupSelected);
 
@@ -190,7 +195,25 @@ export const Prizes = () => {
     }, [teamsGroupSelected])
 
     useEffect(() => {
-        getTotalCompletedByTeam();
+        setIsLoading(true);
+
+        (async () => {
+            if (!user) {
+                return setIsModalErrorOpen(true);
+            }
+
+            checkWallet()
+                .then(res => {
+                    if (res === 'connected') {
+                        setIsModalErrorOpen(false);
+                    } else {
+                        return setIsModalErrorOpen(true);
+                    }
+                })
+                .finally(() => setIsLoading(false))
+
+            getTotalCompletedByTeam();
+        })();
     }, [teamsGroupSelected]);
 
     useEffect(() => {
@@ -245,7 +268,7 @@ export const Prizes = () => {
     const handleRedeem = useCallback(async () => {
         const { 0: wallet } = await connect();
 
-        if (!wallet) {
+        if (!wallet || !user) {
             return toast.error('Você precisa estar conectado a uma carteira para resgatar este prêmio', { toastId: 'not-connected' })
         }
 
@@ -427,10 +450,34 @@ export const Prizes = () => {
                 </main>
             </>
 
+            <WalletErrorModal open={isModalErrorOpen}>
+                {!user ? (
+                    <>
+                        <h1 className="mb-4">Conecte para acessar o álbum!</h1>
+                        <Link to="/login">
+                            <LoginIcon className="login" width={26} height={26} />
+                            Ir para o login
+                        </Link>
+                    </>
+                ) : (
+                    <>
+                        <h1 className="mb-4">Carteira desconectada!</h1>
+                        <p>Conecte a carteira para continuar visualizar e comprar as figurinhas!</p>
+                        <Link onClick={() => {
+                            getPackages()
+                                .then(res => setIsModalErrorOpen(false))
+                        }}>
+                            <WalletIcon className="wallet" width={26} height={26} />
+                            Acessar carteira
+                        </Link>
+                    </>
+                )}
+            </WalletErrorModal>
+
             <S.RewardModal
                 centered
                 width={
-                    [1,2].includes(currentPrize?.redeemStatus)
+                    [1, 2].includes(currentPrize?.redeemStatus)
                         ? 760
                         : 940
                 }

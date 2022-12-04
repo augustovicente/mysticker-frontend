@@ -10,8 +10,7 @@ export const AlbumStickersContainer = styled.div`
 `
 
 export const WalletErrorModal = styled(Modal)`
-    top: 40vh;
-    width: 30% !important;
+    top: 25vh;
     border: 2px rgba(255, 255, 255, .3) solid;
     padding: 22px 20px;
     background: ${props => props.theme.colors.geenDark};
@@ -31,7 +30,8 @@ export const WalletErrorModal = styled(Modal)`
             align-items: center;
 
             h1 {
-                color: white;
+                color: ${({ theme }) => theme.colors.white};
+                font-size: ${({ theme }) => theme.fontSizes.heading4};
             }
 
             p {
@@ -54,8 +54,22 @@ export const WalletErrorModal = styled(Modal)`
                 font-size: 1rem;
                 font-weight: bold;
 
+                &:has(svg.login, svg.wallet) {
+                    padding: 16px;
+                }
+
                 &:hover {
                     color: ${({ theme }) => theme.colors.dark};
+                }
+
+                &:has(svg.wallet) {
+                    &:hover {
+                        color: ${({ theme }) => theme.colors.white};
+                    }
+
+                    &::after {
+                        background: ${({ theme }) => theme.colors.colorMiddle};
+                    }
                 }
 
                 &::after {
@@ -65,7 +79,7 @@ export const WalletErrorModal = styled(Modal)`
                     top: 0;
                     width: 58px;
                     height: 58px;
-                    background: linear-gradient(to left, rgba(255, 83, 83, 1), rgba(254, 69, 126, 1));
+                    background: linear-gradient(270deg, #30E584 0%, #97FF57 100%);
                     z-index: -1;
                     border-radius: 30px;
                     transition: .3s linear;
@@ -77,7 +91,20 @@ export const WalletErrorModal = styled(Modal)`
                 }
 
                 svg {
-                    margin-left: -2px;
+                    &.login {
+                        /* margin-right: 44px; */
+                        path {
+                            fill: ${({ theme }) => theme.colors.dark};
+                        }
+                    }
+
+                    &.wallet {
+                        path {
+                            fill: ${({ theme }) => theme.colors.white};
+                        }
+                    }
+
+                    /* margin-left: -2px; */
                 }
             }
         }

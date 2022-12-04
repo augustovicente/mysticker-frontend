@@ -1,7 +1,7 @@
 import { useWindowSize } from 'hooks/useWindowSize';
 import StickersImg from 'assets/imgs/home-stickers.png';
 import StickerCupImg from 'assets/imgs/sticker-cup.png';
-import BusterImg from 'assets/imgs/buster.png';
+import BusterImg from 'assets/imgs/buster-stickers.png';
 import BootImg from 'assets/imgs/boot.png';
 import TrophyImg from 'assets/imgs/trophy.png';
 import BallImg from 'assets/imgs/ball.png';
@@ -45,6 +45,11 @@ const partners = [
         name: 'METAGOONS™',
         logo: '/partners/metagoons.png',
         url: 'https://twitter.com/MetaGoons',
+    },
+    {
+        name: 'CreepyWorld',
+        logo: '/partners/creepyworld.png',
+        url: 'https://twitter.com/CreepyWorldNFTs',
     },
     {
         name: 'Rough Diamonds',
@@ -114,7 +119,7 @@ const Home = () => {
             description:
                 <>
                     <p> {t('home.section_3.cards.card_1.text_1')}
-                    <b> {t('home.section_3.cards.card_1.text_2')}</b>, 
+                    <b> {t('home.section_3.cards.card_1.text_2')}</b>,
                     <b> {t('home.section_3.cards.card_1.text_3')}</b>
                     {t('home.section_3.cards.card_1.text_4')} <b>{t('home.section_3.cards.card_1.text_5')}</b></p>
                 </>
@@ -127,14 +132,14 @@ const Home = () => {
             description:
                 <>
                     <p>
-                        {t('home.section_3.cards.card_2.text_1')} 
+                        {t('home.section_3.cards.card_2.text_1')}
                         <b>{t('home.section_3.cards.card_2.text_2')}</b>
-                        {t('home.section_3.cards.card_2.text_3')} 
+                        {t('home.section_3.cards.card_2.text_3')}
                         <b>{t('home.section_3.cards.card_2.text_4')}</b>
                         {t('home.section_3.cards.card_2.text_5')}
                         <b>{t('home.section_3.cards.card_2.text_6')}</b> <br /><br />
-                        <b>{t('home.section_3.cards.card_2.text_7')}</b> 
-                        {t('home.section_3.cards.card_2.text_8')} 
+                        <b>{t('home.section_3.cards.card_2.text_7')}</b>
+                        {t('home.section_3.cards.card_2.text_8')}
                     </p>
                 </>
             ,

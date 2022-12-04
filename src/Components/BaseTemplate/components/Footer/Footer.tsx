@@ -15,6 +15,7 @@ const Footer = () => {
                                 </div>
                                 <p>{t('footer.info')}</p>
                                 <ul className="footer-social">
+                                    <li><a href="https://discord.gg/M4qgReSw" target="_blank"><i className="fab fa-discord" /></a></li>
                                     <li><a href="https://twitter.com/pruu_oficial" target="_blank"><i className="fab fa-twitter" /></a></li>
                                     <li><a href="https://www.instagram.com/pruu_oficial" target="_blank"><i className="fab fa-instagram" /></a></li>
                                     <li><a href="https://www.tiktok.com/@pruu_oficial" target="_blank"><i className="fab fa-tiktok" /></a></li>
@@ -45,9 +46,9 @@ const Footer = () => {
                             <div className="footer-widget">
                                 <h4 className="fw-title">{t('footer.community')}</h4>
                                 <ul className="fw-links">
-                                    <li><Link to="/">{t('footer.contact')}</Link></li>
-                                    <li><Link to="/">{t('footer.help')}</Link></li>
-                                    <li><Link to="/">{t('footer.be_partner')}</Link></li>
+                                    <li><a href="https://my.forms.app/copapruu/contato" target="_blank">{t('footer.contact')}</a></li>
+                                    <li><a href="https://wa.me/message/OPXDI6DGNIJXO1" target="_blank">{t('footer.help')}</a></li>
+                                    <li><a href="https://my.forms.app/copapruu/collab" target="_blank">{t('footer.be_partner')}</a></li>
                                 </ul>
                             </div>
                         </div>

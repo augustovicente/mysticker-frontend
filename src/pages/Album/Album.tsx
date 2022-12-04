@@ -13,10 +13,13 @@ import { AlbumSkeletons } from "./components/Skeletons/Skeletons"
 import { useAuth } from "contexts/auth.context"
 import { WalletErrorModal } from "./components/Skeletons/styles"
 import { ReactComponent as HomeIcon } from "../../assets/imgs/home.svg"
-import { orderBy } from "lodash"
+import { orderBy, update } from "lodash"
 import { useScrollToElement } from "hooks/useScrollToElement"
 import { PasteSticker } from "pages/Album/components/PasteSticker"
 import { useToggle } from "hooks/useToggle"
+import { ReactComponent as LoginIcon } from 'assets/imgs/user.svg';
+import { ReactComponent as WalletIcon } from 'assets/imgs/wallet-white.svg';
+import { checkWallet } from "services/web3"
 
 export const Album = () => {
     const [teamsGroupSelected, setTeamsGroupSelected] = useState("todos")
@@ -94,9 +97,6 @@ export const Album = () => {
                         }
 
                         return toast.error("Erro inesperado.")
-                    } else {
-                        console.log('unexpected error: ', error)
-                        return toast.error("Conecte-se a rede Polygon")
                     }
                 }
             }
@@ -139,7 +139,25 @@ export const Album = () => {
     }
 
     useEffect(() => {
-        update_packages()
+        setIsLoading(true);
+
+        (async () => {
+            if (!user) {
+                return setIsModalOpen(true)
+            }
+
+            checkWallet()
+                .then(res => {
+                    if (res === 'connected') {
+                        setIsModalOpen(false);
+                    } else {
+                        return setIsModalOpen(true);
+                    }
+                })
+                .finally(() => setIsLoading(false))
+
+            update_packages()
+        })();
     }, [])
 
     return (
@@ -302,14 +320,28 @@ export const Album = () => {
                 </div>
             </main>
 
-            <WalletErrorModal title="" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                <h1><span style={{ color: "#6345EE", fontWeight: "bold" }}>Rede</span> incorreta!</h1>
-                <p>Conecte sua carteira digital a rede <span style={{ color: "#6345EE", fontWeight: "bold" }}>Goerli.</span></p>
-                <a href="/album">
-                    <HomeIcon />
-
-                    Recarregar a página
-                </a>
+            <WalletErrorModal open={isModalOpen} onOk={handleOk}>
+                {!user ? (
+                    <>
+                        <h1 className="mb-4">Conecte para acessar o álbum!</h1>
+                        <Link to="/login">
+                            <LoginIcon className="login" width={26} height={26} />
+                            Ir para o login
+                        </Link>
+                    </>
+                ) : (
+                    <>
+                        <h1 className="mb-4">Carteira desconectada!</h1>
+                        <p>Conecte a carteira para continuar visualizar e comprar as figurinhas!</p>
+                        <Link onClick={() => {
+                            getPackages()
+                                .then(res => setIsModalOpen(false))
+                        }}>
+                            <WalletIcon className="wallet" width={26} height={26} />
+                            Acessar carteira
+                        </Link>
+                    </>
+                )}
             </WalletErrorModal>
         </AlbumContainer>
     )
