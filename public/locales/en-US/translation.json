@@ -120,6 +120,20 @@
         "wallet": "Your Waller",
         "connect_wallet": "Connect"
     },
+    "footer":{
+        "info": "My Sticker, the first sticker album creating platform",
+        "usefull_links": "Usefull Links",
+        "album": "Album",
+        "login": "Signup",
+        "register": "Register",
+        "store": "Store",
+        "rewards": "Rewards",
+        "whitepaper": "Whitepaper",
+        "community": "Community",
+        "contact": "Contact",
+        "help": "Help",
+        "be_partner": "Be Partner"
+    },
     "login": {
         "title": "Login",
         "input_email": "Email",

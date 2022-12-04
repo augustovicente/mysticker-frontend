@@ -120,6 +120,20 @@
         "wallet": "Sua Carteira",
         "connect_wallet": "Conectar"
     },
+    "footer":{
+        "info": "My Sticker, a primeira plataforma de criação de álbum de figurinhas.",
+        "usefull_links": "Links Úteis",
+        "album": "Álbum",
+        "login": "Login",
+        "register": "Cadastrar",
+        "store": "Loja",
+        "rewards": "Prêmios",
+        "whitepaper": "Whitepaper",
+        "community": "Comunidade",
+        "contact": "Contato",
+        "help": "Ajuda",
+        "be_partner": "Propor Parcerias"
+    },
     "login": {
         "title": "Login",
         "input_email": "Email",
