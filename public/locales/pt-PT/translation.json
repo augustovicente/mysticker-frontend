@@ -15,7 +15,6 @@
         "section_3": {
             "title": "Benefícioss",
             "cards": {
-                "test": "teste",
                 "card_1": {
                     "title": "Desafios",
                     "text_1": "Acompanhando de perto a Copa Pruu, você fica por dentro de tudo e pode participar de desafios ",
@@ -37,9 +36,7 @@
                 },
                 "card_3": {
                     "title": "Aceita PIXs?",
-                    "text_1": "Para a alegria geral da nação: vai ter pagamento por pix sim! É bem tranquilo e rápido de fazer.",
-                    "text_2": "Mas, se preferir, você também pode fazer pagamentos via ",
-                    "text_3": "cartão de crédito"
+                    "text_1": "Para a alegria geral da nação: vai ter pagamento por pix sim! É bem tranquilo e rápido de fazer."
                 },
                 "card_4": {
                     "title": "Mercadão",
@@ -69,7 +66,7 @@
         },
         "section_4": {
             "title": "O 1º Buster é \n por nossa conta",
-            "button": "Resgate seu Pacotinho"
+            "button": "Resgate sua figurinha"
         },
         "section_5": {
             "developers": {
@@ -109,13 +106,14 @@
             }
         },
         "section_7": {
-            "button": "Resgate seu Pacotinho"
+            "button": "Resgate sua figurinha"
         }
     },
     "sidebar":{
         "album": "Álbum",
         "store": "Loja",
         "prizes": "Prêmios",
+        "rewards": "Prêmios",
         "events": "Eventos",
         "chalenges": "Desafios",
         "profile": "Meus Dados",

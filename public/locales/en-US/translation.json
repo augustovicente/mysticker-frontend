@@ -1,115 +1,112 @@
 {
     "home": {
         "section_1": {
-            "title": "A comunidade dos álbuns de figurinha",
-            "subtitle": "A MySticker te faz reviver a nostalgia dos álbuns e te ajuda a acabar com a curiosidade de ter a sua primeira NFT",
-            "action_1": "Abrir o Albúm de Figurinhas",
+            "title": "The sticker album community",
+            "subtitle": "MySticker makes you remember the albums good old times and help you end the curiosity of having your fisrt NFT",
+            "action_1": "Open sticker album",
             "action_2": "Whitepaper",
-            "img_alt": "3 figurinhas da copa pru"
+            "img_alt": "3 Copa Pruu stickers"
         },
         "section_2": {
-            "subtitle": "Para estrear essa plataforma com o pé direito - especialmente para você que já está no hype da Copa - temos uma ótima notícia: Vem aí a CopaPruu 2022. \n\n A Copa do Mundo dos Pombos. Você pode completar seu álbum e ainda ganhar os bônus mais maneiros.",
-            "button": "Comprar pacotinho",
-            "img_alt_1": "Pacote de figurinha"
+            "subtitle": "In order to start this platform with the right foot - especially for who is in World Cup's hype - we have a great new: Here's comming the CopaPruu 2022. \n\n The Pigeon World Cup. You can complete your album and also get the most cool bonuses.",
+            "button": "Buy Package",
+            "img_alt_1": "Sticker Package"
         },
         "section_3": {
-            "title": "Benefícioss",
+            "title": "Benefits",
             "cards": {
-                "test": "teste",
                 "card_1": {
-                    "title": "Desafios",
-                    "text_1": "Acompanhando de perto a Copa Pruu, você fica por dentro de tudo e pode participar de desafios ",
-                    "text_2": "valendo boosters",
-                    "text_3": "produtos ",
-                    "text_4": "ou até",
-                    "text_5": "PIX"
+                    "title": "Challenges",
+                    "text_1": "Be connected to Copa Pruu medias and then stay in the known of everything, besides join challenges",
+                    "text_2": "for boosters",
+                    "text_3": "products ",
+                    "text_4": "or even ",
+                    "text_5": "money (R$)"
                 },
                 "card_2": {
-                    "title": "Lançamento PRUU",
-                    "text_1": "Ao colecionar você podera ",
-                    "text_2": "resgatar itens ",
-                    "text_3": "do ",
-                    "text_4": "Drop Exclusivo ",
-                    "text_5": "da ",
-                    "text_6": "marca Pruu ",
-                    "text_7": "Camisetas, moletom, boné five penal, caneca com tirante e ",
-                    "text_8": "outras novidades que virão pra compor seu outfit na revoada"
+                    "title": "PRUU Launch",
+                    "text_1": "By collecting stickers, you may ",
+                    "text_2": "redeem items ",
+                    "text_3": "from the ",
+                    "text_4": "Exclusive Drop ",
+                    "text_5": "from ",
+                    "text_6": "Pruu.",
+                    "text_7": "T-Shirts, sweatshirts, caps, mugs and ",
+                    "text_8": "other items which will come to compound your outfit on parties out there"
                 },
                 "card_3": {
-                    "title": "Aceita PIXs?",
-                    "text_1": "Para a alegria geral da nação: vai ter pagamento por pix sim! É bem tranquilo e rápido de fazer.",
-                    "text_2": "Mas, se preferir, você também pode fazer pagamentos via ",
-                    "text_3": "cartão de crédito"
+                    "title": "The platform receive by PIXs?",
+                    "text_1": "For the Brazilian happiness: yes, we do! It's easy and fast."
                 },
                 "card_4": {
-                    "title": "Mercadão",
-                    "text_1": "Fique a vontade para ",
-                    "text_2": "revender",
-                    "text_3": " as ",
-                    "text_4": "figurinhas repetidas!",
-                    "text_5": "A ideia é que você possa comprar ou vender para outros participantes e, quem sabe, ganhar uma graninha extra com isso"
+                    "title": "Marketplace",
+                    "text_1": "Feel free to  ",
+                    "text_2": "resell",
+                    "text_3": " your ",
+                    "text_4": "repeated stickers!",
+                    "text_5": "The ideia is that you may buy or sell to other players and, maybe, win some extra monney"
                 },
                 "card_5": {
                     "title": "Boteco Verso",
-                    "text_1": "Você vai poder ",
-                    "text_2": "assistir",
-                    "text_3": " os principais ",
-                    "text_4": "jogos",
-                    "text_5": " e vibrar junto com a galera ",
-                    "text_6": "no",
-                    "text_7": " nosso ",
+                    "text_1": "You may ",
+                    "text_2": "watch",
+                    "text_3": " the main ",
+                    "text_4": "games",
+                    "text_5": " and cheer with the crowd ",
+                    "text_6": "in",
+                    "text_7": " our ",
                     "text_8": "Boteco Verso",
-                    "text_9": ", o ",
-                    "text_10": "primeiro boteco do Metaverso",
-                    "text_11": ". Podendo ainda ",
-                    "text_12": "concorrer booster",
-                    "text_13": " durante as partidas."
+                    "text_9": ", the ",
+                    "text_10": "first Brazilian bar inside Metaverse",
+                    "text_11": ". You will also ",
+                    "text_12": "compete for booster",
+                    "text_13": " during the games."
                 }
             }
         },
         "section_4": {
-            "title": "O 1º Buster é \n por nossa conta",
-            "button": "Resgate seu Pacotinho"
+            "title": "The 1º booster is on us",
+            "button": "Redeem your sticker"
         },
         "section_5": {
             "developers": {
-                "title": "Desenvolvedores"
+                "title": "Developers"
             },
             "partners": {
-                "title": "Parceiros"
+                "title": "Partners"
             }
         },
         "section_6": {
             "phase1": {
-                "title": "Fase 1",
-                "subtitle": "Desafios",
+                "title": "Phase 1",
+                "subtitle": "Challenges",
                 "list": {
-                    "item1": "Recompensas para os vencedores",
-                    "item2": "Prêmios em itens físicos da PRUU",
-                    "item3": "Prêmios em figurinhas"
+                    "item1": "Rewards for winners",
+                    "item2": "Prizes in phisycal items from Pruu",
+                    "item3": "Prizes in stickers"
                 }
             },
             "phase2": {
                 "title": "Fase 2",
-                "subtitle": "Desafios",
+                "subtitle": "Challenges",
                 "list": {
-                    "item1": "Recompensas para os vencedores",
-                    "item2": "Prêmios em itens físicos da PRUU",
-                    "item3": "Prêmios em figurinhas"
+                    "item1": "Rewards for winners",
+                    "item2": "Prizes in phisycal items from Pruu",
+                    "item3": "Prizes in stickers"
                 }
             },
             "phase3": {
                 "title": "Fase 3",
-                "subtitle": "Desafios",
+                "subtitle": "Challenges",
                 "list": {
-                    "item1": "Recompensas para os vencedores",
-                    "item2": "Prêmios em itens físicos da PRUU",
-                    "item3": "Prêmios em figurinhas"
+                    "item1": "Rewards for winners",
+                    "item2": "Prizes in phisycal items from Pruu",
+                    "item3": "Prizes in stickers"
                 }
             }
         },
         "section_7": {
-            "button": "Resgate seu Pacotinho"
+            "button": "Redeem your sticker"
         }
     },
     "sidebar":{

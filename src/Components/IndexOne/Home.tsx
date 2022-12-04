@@ -146,10 +146,7 @@ const Home = () => {
             description:
                 <>
                     <p>
-                        {t('home.section_3.cards.card_3.text_1')} 
-                        <br /><br />
-                        {t('home.section_3.cards.card_3.text_2')} 
-                        <b>{t('home.section_3.cards.card_3.text_3')}</b>
+                        {t('home.section_3.cards.card_3.text_1')}
                     </p>
                 </>
             ,
