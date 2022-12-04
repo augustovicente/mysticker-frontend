@@ -145,9 +145,11 @@ export const Sticker = ({ stickerId, name, rarity, ownedStickers, index }: Stick
                         Raridade
                         <span>
                             {
-                                rarity === 3 && "BRONZE" ||
-                                rarity === 2 && "PRATA" ||
-                                rarity === 1 && "OURO"
+                                (rarity === 3)
+                                    ? "BRONZE"
+                                    : (rarity === 2)
+                                        ? "PRATA"
+                                        : "OURO"
                             }
                         </span>
                     </div>
