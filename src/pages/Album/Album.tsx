@@ -17,6 +17,7 @@ import { orderBy } from "lodash"
 import { useScrollToElement } from "hooks/useScrollToElement"
 import { PasteSticker } from "pages/Album/components/PasteSticker"
 import { useToggle } from "hooks/useToggle"
+import { useTranslation } from "react-i18next"
 
 export const Album = () => {
     const [teamsGroupSelected, setTeamsGroupSelected] = useState("todos")
@@ -29,6 +30,7 @@ export const Album = () => {
     const [statusPaste, setStatusPaste] = useState<'can' | 'cant' | 'pasted'>('cant')
     const [pasteLoading, setPasteLoading] = useToggle(false);
     const { user } = useAuth()
+    const { t } = useTranslation()
 
     const groupOfTeams = useMemo(() => {
         const group = teamsIconList.filter(({ teams, teamsGroupName }) => teamsGroupName === teamsGroupSelected)
@@ -147,7 +149,7 @@ export const Album = () => {
             <header className="album-header-container">
                 <h1 className="title">
                     <img src="/assets/img/icons/album-icon.svg" alt="" />
-                    Álbum
+                    {t('album.title')}
                 </h1>
 
                 <ul className="teams-name-list">
@@ -157,7 +159,7 @@ export const Album = () => {
                             onClick={() => handleSelectNewTeamGroup(name)}
                             className={name === teamsGroupSelected ? `selected` : ""}
                         >
-                            {title}
+                            {t('album.teams-list.' + name)}
                         </li>
                     ))}
                 </ul>
