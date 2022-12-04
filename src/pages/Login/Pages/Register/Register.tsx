@@ -101,13 +101,6 @@ export const Register = () =>
             setIsLoading(false);
 
             if (axios.isAxiosError(error)) {
-                console.log('error?.response?.message', error?.response?.data)
-                if (error?.response?.data?.message === 'Affiliated code not found') {
-                    return toast.error(`
-                        Código de afiliado inválido.
-                    `);
-                }
-
                 if (error?.response?.status === 422) {
                     return toast.error(t('signup.errors.email_used') || '');
                 } else {
