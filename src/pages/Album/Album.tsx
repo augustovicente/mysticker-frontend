@@ -12,8 +12,7 @@ import { toast } from "react-toastify"
 import { AlbumSkeletons } from "./components/Skeletons/Skeletons"
 import { useAuth } from "contexts/auth.context"
 import { WalletErrorModal } from "./components/Skeletons/styles"
-import { ReactComponent as HomeIcon } from "../../assets/imgs/home.svg"
-import { orderBy, update } from "lodash"
+import orderBy from "lodash/orderBy"
 import { useScrollToElement } from "hooks/useScrollToElement"
 import { PasteSticker } from "pages/Album/components/PasteSticker"
 import { useToggle } from "hooks/useToggle"
@@ -89,7 +88,7 @@ export const Album = () => {
             } else {
                 try {
                     const response = await get_owned_tokens(players.map(player => player.id))
-                    
+
                     setOwnedStickers(response)
                     setIsLoading(false)
                 } catch (error) {
