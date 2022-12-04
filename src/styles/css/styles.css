@@ -4630,7 +4630,7 @@ div.section1-buttons {
 }
 
 .fw-links li a:hover {
-    color: var(--purple-color);
+    color: var(--color-middle);
     padding-left: 5px;
 }
 

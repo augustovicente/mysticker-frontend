@@ -1,9 +1,10 @@
-import styled from "styled-components"
+import styled, { css } from "styled-components"
 import { Col, Modal } from 'antd'
 import { motion } from "framer-motion";
 
 type StickerProps = {
-    pasted: boolean;
+    pasted?: boolean;
+    isLatest?: boolean;
 }
 
 export const AlbumContainer = styled.div`
@@ -650,6 +651,89 @@ export const StikerContainer = styled(motion.div)<StickerProps>`
     cursor: pointer;
     background: ${props => props.theme.colors.dark};
 
+    ${({ isLatest, theme }) => isLatest && css`
+        background: ${({ theme }) => theme.gradients.blueGreen};
+
+        img.background-paste {
+            height: 94% !important;
+            width: 94% !important;
+            object-fit: contain;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        svg.lock-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 38px;
+            width: 38px;
+            z-index: 2;
+
+            path {
+                fill: ${theme.colors.white};
+            }
+        }
+
+        footer {
+            z-index: 2;
+            align-self: flex-end;
+
+            button {
+                background: transparent;
+                font-size: 10px;
+                display: flex;
+                gap: 4px;
+                justify-content: center;
+                align-items: center;
+                color: ${({ theme }) => theme.colors.white};
+                width: fit-content;
+                padding: 6px;
+                position: relative;
+                margin-bottom: 32px;
+                font-weight: bold;
+                font-size: 10px;
+
+                svg {
+                    path {
+                        fill: ${({ theme }) => theme.colors.yellow};
+                    }
+                }
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    inset: 0;
+                    border-radius: 8px;
+                    padding: 2px;
+                    background: ${({ theme }) => theme.gradients.blueGreen};
+                    -webkit-mask:
+                        linear-gradient(#fff 0 0) content-box,
+                        linear-gradient(#fff 0 0);
+                    -webkit-mask-composite: xor;
+                    mask-composite: exclude;
+                }
+            }
+
+            h6.close-team {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 12px;
+                margin: 0;
+                text-align-last: center;
+                font-size: 11px;
+                color: ${({ theme }) => theme.colors.white};
+                width: 100%;
+            }
+        }
+
+    `};
+
     span {
         font-size: 10px;
         font-weight: bold;
@@ -774,5 +858,283 @@ export const StikerContainer = styled(motion.div)<StickerProps>`
                 bottom: 28%;
             }
         }
+    }
+`
+
+export const PasteStickerModal = styled(Modal)`
+    top: 20vh;
+    width: 296px !important;
+    border: 2px rgba(255, 255, 255, .3) solid;
+    padding: 22px 20px;
+    background: ${props => props.theme.colors.geenDark};
+    border-radius: 10px;
+
+    .ant-modal-content {
+        height: 100%;
+        border: 2px rgba(255, 255, 255, .3) solid;
+        background: ${props => props.theme.colors.geenDark};
+
+        .ant-modal-body {
+            position: relative;
+
+            .sticker {
+                transition: none !important;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                width: 100%;
+                height: 259.3px;
+                border: white 3px solid;
+                border-radius: 8px;
+                cursor: pointer;
+                background: ${props => props.theme.colors.dark};
+
+                span {
+                    font-size: 1.25rem;
+                    font-weight: bold;
+                    position: absolute;
+                    top: 3px;
+                    right: 12px;
+                    background-image: linear-gradient(to right, rgba(70, 148, 255, 1), rgba(48, 229, 132, 1));
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+
+                img {
+                    width: 132px;
+                    height: 144px;
+                }
+
+                .add-icon {
+                    position: absolute;
+                    height: 68px;
+                    width: 68px;
+                }
+
+                .player-img {
+                    display: flex;
+                    position: absolute;
+                    top: 9.5px;
+                    height: 88%;
+                    width: 93%;
+
+                    &.loading {
+                        background: red;
+                        width: 30vw;
+                        height: 30vw;
+                    }
+                }
+
+                .player-tier {
+                    display: flex;
+                    position: absolute;
+                    height: 78.21px;
+                    width: 50.4px;
+                    bottom: -28px;
+                    right: 8px;
+                    z-index: 2;
+                }
+
+                .player-base-tier {
+                    display: flex;
+                    position: absolute;
+                    width: 94%;
+                    height: 20px;
+                    bottom: 6.5px;
+                }
+
+                .extra-stickers {
+                    display: flex;
+                    position: absolute;
+                    object-fit: contain;
+                    width: 55px;
+                    left: -12%;
+                    top: -25%;
+
+                    h1 {
+                        position: absolute;
+                        bottom: 37%;
+                        left: 31%;
+                        color: white;
+                        font-weight: bold;
+                        font-size: 1.25rem;
+                        height: 20px;
+                        width: 20px;
+                    }
+
+                    &.two {
+                        h1 {
+                            font-size: .975rem;
+                            bottom: 39%;
+                            left: 27%;
+                        }
+                    }
+                }
+            }
+
+            .rarity-number {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-top: .5rem;
+
+                .rarity {
+                    display: flex;
+                    flex-direction: column;
+                    font-size: 15px;
+                    color: white;
+
+                    span {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: 4px;
+                        font-size: 15px;
+                        font-weight: bold;
+                        text-transform: uppercase;
+                        color: ${props => props.theme.colors.middle};
+                        background: ${props => props.theme.colors.yellow};
+                        letter-spacing: 0px;
+                    }
+                }
+
+                span {
+                    font-size: 2.813rem;
+                    color: white;
+                    font-weight: bold;
+                    letter-spacing: -2px;
+                }
+            }
+
+            .next-preview-sticker {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                position: relative;
+                margin-top: 0.5rem;
+
+                .next-preview {
+                    display: flex;
+                    justify-content: space-between;
+                    width: 70%;
+                    padding: 8px 28px;
+                    background: ${props => props.theme.colors.colorMiddle};
+                    border-radius: 30px;
+                    z-index: 2;
+
+                    button {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        background: transparent;
+                    }
+                }
+
+                .next-preview-line {
+                    position: absolute;
+                    display: flex;
+                    width: 100%;
+                    height: 2px;
+                    content: "";
+                    background: ${props => props.theme.colors.lightGrey};
+                }
+            }
+
+            .paste-sell-buy-container {
+                display: flex;
+                flex-direction: column;
+                gap: 13px;
+                margin-top: 22px;
+
+                .paste-sell-buy-btn {
+                    display: flex;
+                    justify-content: center;
+                    align-content: center;
+                    width: 100%;
+                    color: white;
+                    background: transparent;
+                    border: 2px ${props => props.theme.colors.lightGrey} solid;
+                    height: 43px;
+                    border-radius: 8px;
+
+                    img {
+                        flex: 1;
+                        align-self: center;
+                        max-height: 24px;
+                    }
+
+                    p {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100%;
+                        text-align: center;
+                        flex: 1;
+                        font-weight: bold;
+                        font-size: 0.75rem;
+                        margin: 0;
+                        text-transform: uppercase;
+                    }
+
+                    span {
+                        display: flex;
+                        align-self: center;
+                        flex: 1;
+                    }
+
+                    &[disabled] {
+                        cursor: not-allowed;
+                    }
+                }
+            }
+
+            .modal-close {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                position: absolute;
+                width: 88px;
+                height: 30.32px;
+                top: -20%;
+                left: -25%;
+                border-radius: 8px;
+                padding: 2px;
+
+                p, span {
+                    margin: 0;
+                }
+
+                span {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100%;
+                    width: 30%;
+                    border-radius: 8px;
+
+                    background: ${props => props.theme.colors.middle};
+                    margin-right: 5px;
+                }
+
+                p {
+                    color: ${props => props.theme.colors.middle};
+                    font-weight: bold;
+                    font-size: 15px;
+                }
+            }
+        }
+
+        .ant-modal-footer {
+            display: none;
+        }
+
+        .ant-modal-close-x {
+            display: none;
+        }
+
+
     }
 `

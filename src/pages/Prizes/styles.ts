@@ -227,7 +227,7 @@ export const RewardsContainer = styled.div`
 
         aside.right {
             border-radius: 20px;
-            background: ${({ theme }) => theme.colors.dark};
+            background: linear-gradient(80deg, #30E584 0%, #93FE58 96.88%, #97FF57 100%);
             position: relative;
             padding: 32px 24px;
             overflow: hidden;
@@ -245,6 +245,28 @@ export const RewardsContainer = styled.div`
                 user-select: none;
             }
 
+            .slick-dots-bottom {
+                gap: 8px !important;
+                li {
+                    button {
+                        background-color: ${({ theme }) => theme.colors.dark} !important;
+                        min-width: 24px;
+                    }
+                }
+            }
+
+            &.tracking {
+                .redeem-info {
+                    span {
+                        color: ${({ theme }) => theme.colors.dark} !important;
+
+                        &::before {
+                            background: ${({ theme }) => theme.colors.dark} !important;
+                        }
+                    }
+                }
+            }
+
             div.reward {
                 /* user-select: none; */
                 img {
@@ -254,6 +276,7 @@ export const RewardsContainer = styled.div`
                     display: block;
                     object-fit: contain;
                     margin-bottom: 32px;
+                    max-height: 300px;
                 }
 
                 &.tracking {
@@ -314,16 +337,47 @@ export const RewardsContainer = styled.div`
                 }
             }
 
+            /* div.description {
+                footer {
+                    h3 {
+                        color: ${({ theme }) => theme.colors.dark};
+                    }
+
+                    button {
+                        background: ${({ theme }) => theme.colors.middle};
+                        padding: 12px;
+                        width: fit-content;
+
+                        &.tracking {
+                            background: ${({ theme }) => theme.colors.dark};
+
+                            span {
+                                background: unset;
+                                -webkit-background-clip: unset;
+                                -webkit-text-fill-color: unset;
+                            }
+                        }
+
+                        span {
+                            color: ${({ theme }) => theme.colors.white};
+                            background: linear-gradient(80deg, #30E584 0%, #93FE58 96.88%, #97FF57 100%);
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                        }
+                    }
+                } */
+
             div.description {
                 margin: 24px 0;
                 border-bottom: 2px solid #40386E;
                 p {
                     line-height: 140%;
+                    color: ${({ theme }) => theme.colors.light};
                 }
 
                 h3 {
-                    color: ${({ theme }) => theme.colors.white};
                     font-size: ${({ theme }) => theme.fontSizes.heading3};
+                    color: ${({ theme }) => theme.colors.middle};
                 }
             }
 
@@ -334,7 +388,7 @@ export const RewardsContainer = styled.div`
                     font-size: ${({ theme }) => theme.fontSizes.heading1};
                     color: ${({ theme }) => theme.colors.white};
                     text-align: left;
-                    color: ${({ theme }) => theme.colors.greenNeon};
+                    color: ${({ theme }) => theme.colors.dark};
 
                     strong {
                         font-size: ${({ theme }) => theme.fontSizes.heading4};
@@ -343,12 +397,19 @@ export const RewardsContainer = styled.div`
 
                 button {
                     padding: 14px 18px;
-                    background: ${({ theme }) => theme.colors.greenNeon};
                     border-radius: 12px;
                     font-weight: 900;
                     font-size: ${({ theme }) => theme.fontSizes.lg};
                     margin-left: auto;
                     min-width: 132px;
+                    background: ${({ theme }) => theme.colors.middle};
+
+                    span {
+                        color: ${({ theme }) => theme.colors.white};
+                        background: linear-gradient(80deg, #30E584 0%, #93FE58 96.88%, #97FF57 100%);
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                    }
 
                     &.tracking {
                         background: ${({ theme }) => theme.colors.green};
@@ -357,6 +418,7 @@ export const RewardsContainer = styled.div`
 
                     &:disabled {
                         opacity: 0.8;
+                        cursor: not-allowed;
                     }
 
                     &:hover:not(:disabled) {
@@ -409,9 +471,6 @@ export const RewardsContainer = styled.div`
             }
 
             aside.right {
-                background: linear-gradient(80deg, #30E584 0%, #93FE58 96.88%, #97FF57 100%);
-                box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
-                border-radius: 30px;
                 img {
                     height: 144px;
                 }

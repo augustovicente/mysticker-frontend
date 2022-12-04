@@ -12,8 +12,8 @@ export const menuItems = [
         isAuthenticatedRoute: false,
     },
     {
-        title: "prizes",
-        link: "/prizes",
+        title: "rewards",
+        link: "/rewards",
         icon: "/assets/img/icons/gifts-icon.svg",
         isAuthenticatedRoute: false,
     },

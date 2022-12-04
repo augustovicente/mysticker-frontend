@@ -56,15 +56,16 @@ const prizes: prizeProps[] = [
     {
         type: 1,
         sizes: ['P', 'M', 'G', 'GG'],
-        images: ['/prizes/america-norte.png'],
-        title: 'Boné 5pruu',
-        description: 'Ao completar todas as figuras desse continente você pode resgatar este boné',
+        images: ['/prizes/todos.png'],
+        title: 'PlayStation 5',
+        description: 'Ao completar todas as figuras desse continente você pode resgatar este playstation 5',
         redeemStatus: 0,
-        totalTeams: teamsList.find(team => team.teamsGroupName === 'america-norte')?.teams.length ?? 0,
+        totalTeams: teamsList.find(team => team.teamsGroupName === 'todos')?.teams.length ?? 0,
         teamGroup: 'todos',
     },
     {
         type: 2,
+        sizes: ['P', 'M', 'G', 'GG'],
         images: ['/prizes/america-norte.png'],
         title: 'Boné 5pruu',
         description: 'Ao completar todas as figuras desse continente você pode resgatar este boné',
@@ -375,7 +376,7 @@ export const Prizes = () => {
                         </div>
                     </aside>
 
-                    {teamsGroupSelected !== 'todos' && currentPrize?.title && (
+                    {currentPrize?.title && (
                         <aside
                             key={currentPrize?.type}
                             className="right"

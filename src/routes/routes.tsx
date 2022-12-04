@@ -32,8 +32,8 @@ export const Router = () => {
                 <Route path="r/:affiliate_code" element={<BaseTemplate footer={false}><Register /></BaseTemplate>} />
                 <Route path="/marketplace" element={<BaseTemplate footer={false}><Marketplace /></BaseTemplate>} />
                 <Route path="/album" element={<BaseTemplate footer={false}><Album /></BaseTemplate>} />
-                <Route path="/prizes" element={<BaseTemplate footer={false}><Prizes /></BaseTemplate>} />
                 <Route path="/rewards" element={<BaseTemplate footer={false}><Prizes /></BaseTemplate>} />
+                <Route path="/prizes" element={<BaseTemplate footer={false}><Prizes /></BaseTemplate>} />
 
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
@@ -47,9 +47,12 @@ export const Router = () => {
                 <Route path='/' element={<Outlet />} >
                     <Route index element={<Home />} />
                     <Route path="/prizes" element={<Prizes />} />
+                    <Route path="/rewards" element={<Prizes />} />
                     <Route path="marketplace" element={<Marketplace />} />
                     <Route path="/my-packages" element={<MyPackages />} />
                     <Route path="/album" element={<Album />} />
+
+                    <Route path="register" element={<Register />} />
                     {/* <Route path="events" element={<><h2>Eventos</h2></>} /> */}
                     {/* <Route path='challenges' element={<Challenge />} /> */}
 

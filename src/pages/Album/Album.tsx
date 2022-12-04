@@ -15,6 +15,7 @@ import { WalletErrorModal } from "./components/Skeletons/styles"
 import { ReactComponent as HomeIcon } from "../../assets/imgs/home.svg"
 import { orderBy } from "lodash"
 import { useScrollToElement } from "hooks/useScrollToElement"
+import { PasteSticker } from "pages/Album/components/PasteSticker"
 
 export const Album = () => {
     const [teamsGroupSelected, setTeamsGroupSelected] = useState("todos")
@@ -80,20 +81,6 @@ export const Album = () => {
         setIsModalOpen(false)
     }
 
-    const scrollToActiveLink = useCallback(() => {
-        const activeLink = document.querySelector(".selected-team")
-        if (activeLink) {
-            activeLink.scrollIntoView({
-                behavior: "smooth",
-                block: "nearest",
-                inline: "center",
-            })
-        }
-    }, [teamIndexSelected])
-
-    useEffect(() => {
-        scrollToActiveLink()
-    }, [teamIndexSelected])
     useScrollToElement(".selected-team", teamIndexSelected)
 
     const handleSelectNewTeamGroup = (name: string) => {
@@ -244,7 +231,21 @@ export const Album = () => {
                                         )}
                                     </>
                                 ))}
+
+                                {isLoading ? (
+                                    <AlbumSkeletons />
+                                ) : (
+                                    <PasteSticker
+                                        key={players[0].id}
+                                        index={90}
+                                        ownedStickers={ownedStickers}
+                                        stickerId={players[0].id}
+                                        rarity={players[0].rarity}
+                                        name={players[0].name}
+                                    />
+                                )}
                             </Row>
+
                         </div>
                         <div className="sticker-content-mobile">
                             <Row className="sticker-row">
