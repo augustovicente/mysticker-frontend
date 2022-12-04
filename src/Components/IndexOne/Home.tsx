@@ -92,74 +92,6 @@ const partners = [
     },
 ]
 
-const benefits: CardBenefitProps[] = [
-    {
-        title: 'Desafios',
-        description:
-            <>
-                <p>Acompanhando de perto a Copa Pruu, você fica por dentro de tudo e pode participar de desafios <b>valendo boosters</b>, <b>produtos</b> ou até <b>pix</b></p>
-            </>
-        ,
-        image: Benefit_1Img,
-        order: 1,
-    },
-    {
-        title: 'Lançamento PRUU',
-        description:
-            <>
-                <p>Ao colecionar você podera <b>resgatar itens</b> do <b>Drop Exclusivo</b> da <b>marca Pruu</b>
-                    <br /><br />
-                    <b>Camisetas, moletom, boné five penal, caneca com tirante e</b> outras novidades que virão pra compor seu outfit na revoada
-                </p>
-            </>
-        ,
-        image: Benefit_2Img,
-        order: 2,
-    },
-    {
-        title: 'Aceita PIXs?',
-        description:
-            <>
-                <p>
-                    Para a alegria geral da nação: vai ter pagamento por pix sim! É bem tranquilo e rápido de fazer.
-                    <br /><br />
-
-                    Mas, se preferir, você também pode fazer pagamentos
-                    via <b>cartão de crédito</b>
-                </p>
-            </>
-        ,
-        image: Benefit_3Img,
-        order: 3,
-    },
-    {
-        title: 'Mercadão',
-        description:
-            <>
-                <p>Fique a vontade para <b>revender</b> as <b>figurinhas repetidas!</b>
-                    <br /><br />
-
-                    A ideia é que você possa comprar ou vender para outros participantes e, quem sabe, ganhar uma graninha extra com isso
-                </p>
-            </>
-        ,
-        image: Benefit_4Img,
-        order: 4,
-    },
-    {
-        title: 'Boteco Verso',
-        description:
-            <>
-                <p>
-                    Você vai poder <b>assistir</b> os principais <b>jogos</b> e vibrar junto com a galera <b>no</b> nosso <b>Boteco Verso</b>, o <b>primeiro boteco do Metaverso</b>. Podendo ainda <b>concorrer booster</b> durante a partidas.
-                </p>
-            </>
-        ,
-        image: Benefit_5Img,
-        order: 5,
-    },
-]
-
 const settings = {
     dots: false,
     infinite: true,
@@ -175,7 +107,97 @@ const Home = () => {
     const { width } = useWindowSize();
     const classNameSectionCup = width! < 576 ? '' : 'container';
     const { t } = useTranslation();
-
+    
+    const benefits: CardBenefitProps[] = [
+        {
+            title: t('home.section_3.cards.card_1.title'),
+            description:
+                <>
+                    <p> {t('home.section_3.cards.card_1.text_1')}
+                    <b> {t('home.section_3.cards.card_1.text_2')}</b>, 
+                    <b> {t('home.section_3.cards.card_1.text_3')}</b>
+                    {t('home.section_3.cards.card_1.text_4')} <b>{t('home.section_3.cards.card_1.text_5')}</b></p>
+                </>
+            ,
+            image: Benefit_1Img,
+            order: 1,
+        },
+        {
+            title: t('home.section_3.cards.card_2.title'),
+            description:
+                <>
+                    <p>
+                        {t('home.section_3.cards.card_2.text_1')} 
+                        <b>{t('home.section_3.cards.card_2.text_2')}</b>
+                        {t('home.section_3.cards.card_2.text_3')} 
+                        <b>{t('home.section_3.cards.card_2.text_4')}</b>
+                        {t('home.section_3.cards.card_2.text_5')}
+                        <b>{t('home.section_3.cards.card_2.text_6')}</b> <br /><br />
+                        <b>{t('home.section_3.cards.card_2.text_7')}</b> 
+                        {t('home.section_3.cards.card_2.text_8')} 
+                    </p>
+                </>
+            ,
+            image: Benefit_2Img,
+            order: 2,
+        },
+        {
+            title: t('home.section_3.cards.card_3.title'),
+            description:
+                <>
+                    <p>
+                        {t('home.section_3.cards.card_3.text_1')} 
+                        <br /><br />
+                        {t('home.section_3.cards.card_3.text_2')} 
+                        <b>{t('home.section_3.cards.card_3.text_3')}</b>
+                    </p>
+                </>
+            ,
+            image: Benefit_3Img,
+            order: 3,
+        },
+        {
+            title: t('home.section_3.cards.card_4.title'),
+            description:
+                <>
+                    <p>
+                        {t('home.section_3.cards.card_4.text_1')}
+                        <b>{t('home.section_3.cards.card_4.text_2')}</b>
+                        {t('home.section_3.cards.card_4.text_3')}
+                        <b>{t('home.section_3.cards.card_4.text_4')}</b>
+                        <br /><br />
+                        {t('home.section_3.cards.card_4.text_5')}
+                    </p>
+                </>
+            ,
+            image: Benefit_4Img,
+            order: 4,
+        },
+        {
+            title: t('home.section_3.cards.card_5.title'),
+            description:
+                <>
+                    <p>
+                        {t('home.section_3.cards.card_5.text_1')}
+                        <b>{t('home.section_3.cards.card_5.text_2')}</b>
+                        {t('home.section_3.cards.card_5.text_3')}
+                        <b>{t('home.section_3.cards.card_5.text_4')}</b>
+                        {t('home.section_3.cards.card_5.text_5')}
+                        <b>{t('home.section_3.cards.card_5.text_6')}</b>
+                        {t('home.section_3.cards.card_5.text_7')}
+                        <b>{t('home.section_3.cards.card_5.text_8')}</b>
+                        {t('home.section_3.cards.card_5.text_9')}
+                        <b>{t('home.section_3.cards.card_5.text_10')}</b>
+                        {t('home.section_3.cards.card_5.text_11')}
+                        <b>{t('home.section_3.cards.card_5.text_12')}</b>
+                        {t('home.section_3.cards.card_5.text_13')}
+                    </p>
+                </>
+            ,
+            image: Benefit_5Img,
+            order: 5,
+        },
+    ]
     return (
         <main id='home-mysticker'>
             <section className="banner-bg">
@@ -191,17 +213,23 @@ const Home = () => {
                                     <p>{t('home.section_1.subtitle')}</p>
 
                                     <div className='section1-buttons'>
-                                        <Link to="/" className="banner-btn">Abrir o Albúm de Figurinhas</Link>
+                                        <Link to="/" className="banner-btn">
+                                            {t('home.section_1.action_1')}
+                                        </Link>
                                         <a href="https://mysticker.gitbook.io/whitepaper-mysticker/" target="_blank" className="banner-btn whitepaper">
                                             <WhitepaperIcon />
-                                            Whitepaper
+                                            {t('home.section_1.action_2')}
                                         </a>
                                     </div>
                                 </div>
                             </div>
 
                             <div className="col-lg-6 col-md-8">
-                                <img className='banner-stickers' loading="lazy" src={StickersImg} alt="3 figurinhas da copa pru" />
+                                <img className='banner-stickers'
+                                    loading="lazy"
+                                    src={StickersImg}
+                                    alt={t('home.section_1.img_alt') || ''}
+                                />
                             </div>
                         </div>
                     </div>
@@ -213,7 +241,12 @@ const Home = () => {
                     <div className="row flex-column flex-lg-row justify-content-center flex-column">
                         <div className="d-sm-none d-none d-lg-flex col-lg-6 col-md-8 align-items-center">
                             <div className="container-img">
-                                <img className='stickers' src={StickerCupImg} loading="lazy" alt="Pacote de figurinha" />
+                                <img
+                                    className='stickers'
+                                    src={StickerCupImg}
+                                    loading="lazy"
+                                    alt={t('home.section_2.img_alt_1') || ''}
+                                />
                             </div>
                         </div>
 
@@ -226,7 +259,12 @@ const Home = () => {
 
                             <div className="d-lg-none d-sm-flex d-flex col-lg-6 col-md-8 align-items-center">
                                 <div className="container-img">
-                                    <img className='stickers' src={StickerCupImg} loading="lazy" alt="Pacote de figurinha" />
+                                    <img
+                                        className='stickers'
+                                        src={StickerCupImg}
+                                        loading="lazy"
+                                        alt={t('home.section_2.img_alt_1') || ''}
+                                    />
                                 </div>
                             </div>
 
@@ -241,7 +279,7 @@ const Home = () => {
                             </div>
                         </div>
 
-                        <img src={BallImg} className="ball" loading="lazy" alt="Pacote de figurinha" />
+                        <img src={BallImg} className="ball" loading="lazy" alt={t('home.section_2.img_alt_1') || ''} />
                     </div>
                 </div>
             </section>
@@ -287,14 +325,14 @@ const Home = () => {
                             <h3 className="title">
                                 {t('home.section_4.title')}
                             </h3>
-                            <img src={BusterImg} loading="lazy" alt="Pacote de figurinha" />
+                            <img src={BusterImg} loading="lazy" alt={t('home.section_2.img_alt_1') || ''} />
 
                             <button disabled className='pick-sticker'>
                                 {t('home.section_4.button')}
                                 <LockIcon  />
                             </button>
 
-                            <img src={BootImg} loading="lazy" className="boot" alt="Pacote de figurinha" />
+                            <img src={BootImg} loading="lazy" className="boot" alt={t('home.section_2.img_alt_1') || ''} />
                         </div>
                     </div>
                 </div>

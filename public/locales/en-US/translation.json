@@ -2,14 +2,70 @@
     "home": {
         "section_1": {
             "title": "A comunidade dos álbuns de figurinha",
-            "subtitle": "A MySticker te faz reviver a nostalgia dos álbuns e te ajuda a acabar com a curiosidade de ter a sua primeira NFT"
+            "subtitle": "A MySticker te faz reviver a nostalgia dos álbuns e te ajuda a acabar com a curiosidade de ter a sua primeira NFT",
+            "action_1": "Abrir o Albúm de Figurinhas",
+            "action_2": "Whitepaper",
+            "img_alt": "3 figurinhas da copa pru"
         },
         "section_2": {
             "subtitle": "Para estrear essa plataforma com o pé direito - especialmente para você que já está no hype da Copa - temos uma ótima notícia: Vem aí a CopaPruu 2022. \n\n A Copa do Mundo dos Pombos. Você pode completar seu álbum e ainda ganhar os bônus mais maneiros.",
-            "button": "Comprar pacotinho"
+            "button": "Comprar pacotinho",
+            "img_alt_1": "Pacote de figurinha"
         },
         "section_3": {
-            "title": "Benefícios"
+            "title": "Benefícioss",
+            "cards": {
+                "test": "teste",
+                "card_1": {
+                    "title": "Desafios",
+                    "text_1": "Acompanhando de perto a Copa Pruu, você fica por dentro de tudo e pode participar de desafios ",
+                    "text_2": "valendo boosters",
+                    "text_3": "produtos ",
+                    "text_4": "ou até",
+                    "text_5": "PIX"
+                },
+                "card_2": {
+                    "title": "Lançamento PRUU",
+                    "text_1": "Ao colecionar você podera ",
+                    "text_2": "resgatar itens ",
+                    "text_3": "do ",
+                    "text_4": "Drop Exclusivo ",
+                    "text_5": "da ",
+                    "text_6": "marca Pruu ",
+                    "text_7": "Camisetas, moletom, boné five penal, caneca com tirante e ",
+                    "text_8": "outras novidades que virão pra compor seu outfit na revoada"
+                },
+                "card_3": {
+                    "title": "Aceita PIXs?",
+                    "text_1": "Para a alegria geral da nação: vai ter pagamento por pix sim! É bem tranquilo e rápido de fazer.",
+                    "text_2": "Mas, se preferir, você também pode fazer pagamentos via ",
+                    "text_3": "cartão de crédito"
+                },
+                "card_4": {
+                    "title": "Mercadão",
+                    "text_1": "Fique a vontade para ",
+                    "text_2": "revender",
+                    "text_3": " as ",
+                    "text_4": "figurinhas repetidas!",
+                    "text_5": "A ideia é que você possa comprar ou vender para outros participantes e, quem sabe, ganhar uma graninha extra com isso"
+                },
+                "card_5": {
+                    "title": "Boteco Verso",
+                    "text_1": "Você vai poder ",
+                    "text_2": "assistir",
+                    "text_3": " os principais ",
+                    "text_4": "jogos",
+                    "text_5": " e vibrar junto com a galera ",
+                    "text_6": "no",
+                    "text_7": " nosso ",
+                    "text_8": "Boteco Verso",
+                    "text_9": ", o ",
+                    "text_10": "primeiro boteco do Metaverso",
+                    "text_11": ". Podendo ainda ",
+                    "text_12": "concorrer booster",
+                    "text_13": " durante as partidas."
+                }
+            }
         },
         "section_4": {
             "title": "O 1º Buster é \n por nossa conta",
