@@ -134,6 +134,22 @@
         "help": "Help",
         "be_partner": "Be Partner"
     },
+    "header":{
+        "disconnect_wallet": "Disconnect Wallet",
+        "connect_wallet": "Connect Wallet",
+        "create_wallet": "Create Wallet",
+        "connect_wallet_description": "Connect your wallet to buy and see your stickers",
+        "do_login": "SignUp",
+        "my_data": "My Data",
+        "my_wallet": "My Wallet",
+        "logout": "Logout",
+        "profile": "Profile",
+        "language": "Language",
+        "whitepaper": "WhitePaper",
+        "wallet": "Wallet",
+        "rewards": "Rewards",
+        "notification": "Notifications"
+    },
     "login": {
         "title": "Login",
         "input_email": "Email",

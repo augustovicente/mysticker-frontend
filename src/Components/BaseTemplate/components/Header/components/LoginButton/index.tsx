@@ -7,6 +7,7 @@ import { ReactComponent as SettingsIcon } from "assets/imgs/settings.svg";
 import { ReactComponent as WalletIcon } from "assets/imgs/wallet.svg";
 import { ReactComponent as SignoutIcon } from "assets/imgs/sign-out.svg";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export const LoginButton = () => {
     const { user, signOut } = useAuth();
@@ -14,6 +15,7 @@ export const LoginButton = () => {
     const navigate = useNavigate();
     const [showTooltip, setShowTooltip] = useState(false);
     const [popoverIsVisible, setPopoverIsVisible] = useState(false);
+    const { t } = useTranslation();
 
     const handleOnClick = () => {
         if (!user) {
@@ -37,13 +39,13 @@ export const LoginButton = () => {
                 <Link onClick={() => setPopoverIsVisible(false)} to="/profile" className="">
                     <SettingsIcon width={28} height={28} />
 
-                    <span>Meus Dados</span>
+                    <span>{t('header.my_data')}</span>
                 </Link>
 
                 <Link to="/profile" className="">
                     <WalletIcon width={28} height={28} />
 
-                    <span>Minha carteira</span>
+                    <span>{t('header.my_data')}</span>
                 </Link>
             </section>
 
@@ -53,7 +55,7 @@ export const LoginButton = () => {
                 <Link onClick={signOut} to="/login">
                     <SignoutIcon width={28} height={28} />
 
-                    <span>Sair</span>
+                    <span>{t('header.logout')}</span>
                 </Link>
             </section>
 
@@ -64,7 +66,7 @@ export const LoginButton = () => {
         <Tooltip
             placement="bottom"
             color={theme.colors.middleL}
-            title={user && "Perfil"}
+            title={user && t('header.profile')}
             open={showTooltip}
             onOpenChange={setShowTooltip}
         >
