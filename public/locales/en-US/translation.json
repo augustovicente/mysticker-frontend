@@ -194,5 +194,16 @@
             "title": "Confirm your email",
             "subtitle": "We sent an email to you, please check your inbox and click on the link to confirm your email."
         }
+    },
+    "album": {
+        "title": "Album",
+        "teams-list": {
+            "todos": "All",
+            "america-norte": "North America",
+            "america-sul": "South America",
+            "europa": "Europe",
+            "asia": "Asia",
+            "africa": "Africa"
+        }
     }
 }

@@ -194,5 +194,16 @@
             "title": "Confirme seu email",
             "subtitle": "Verifique a caixa de entrada do seu e-mail para ativar a sua conta!"
         }
+    },
+    "album": {
+        "title": "Álbum",
+        "teams-list": {
+            "todos": "Todos",
+            "america-norte": "América do Norte",
+            "america-sul": "América do Sul",
+            "europa": "Europa",
+            "asia": "Ásia",
+            "africa": "África"
+        }
     }
 }
