@@ -88,7 +88,8 @@ export const Album = () => {
                 setIsLoading(false)
             } else {
                 try {
-                    const response = await get_owned_tokens(currentTeamSelected.players.map(player => player.id))
+                    const response = await get_owned_tokens(players.map(player => player.id))
+                    
                     setOwnedStickers(response)
                     setIsLoading(false)
                 } catch (error) {
