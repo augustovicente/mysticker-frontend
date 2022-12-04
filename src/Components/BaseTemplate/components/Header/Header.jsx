@@ -208,25 +208,6 @@ const Header = (props) => {
     }, []);
 
     useEffect(() => {
-        // $("#sticky-header")
-        // if path is / and don't have user set max-width to 1290px else max-width: calc(100vw - 260px);
-        if (location.pathname === '/') {
-            // $("#sticky-header").css('max-width', '1290px');
-
-            // if window width is less than 991px set max-width to 70vw
-
-            // $("#sticky-header").css('width', '100%');
-            // add class .container
-            // $("#sticky-header").addClass('container');
-        } else {
-            // $("#sticky-header").css('max-width', 'calc(100vw - 260px)');
-        }
-
-
-    }, [location?.pathname])
-
-
-    useEffect(() => {
         $(".menu-tigger").on("click", function () {
             $(".extra-info,.offcanvas-overly").addClass("active");
             return false;

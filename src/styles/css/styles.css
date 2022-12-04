@@ -410,6 +410,7 @@ label {
     display: flex;
     width: 100%;
     justify-content: center;
+    z-index: 2;
 }
 
 .transparent-header {

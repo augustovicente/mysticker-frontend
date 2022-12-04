@@ -17,6 +17,7 @@ import Slider from 'react-slick';
 import { CardBenefit, CardBenefitProps } from 'Components/CardBenefit';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { useAuth } from 'contexts/auth.context';
 
 const developers = [
     {
@@ -107,7 +108,6 @@ const Home = () => {
     const { width } = useWindowSize();
     const classNameSectionCup = width! < 576 ? '' : 'container';
     const { t } = useTranslation();
-    
     const benefits: CardBenefitProps[] = [
         {
             title: t('home.section_3.cards.card_1.title'),
@@ -198,6 +198,8 @@ const Home = () => {
             order: 5,
         },
     ]
+    const { user } = useAuth();
+
     return (
         <main id='home-mysticker'>
             <section className="banner-bg">
@@ -213,7 +215,7 @@ const Home = () => {
                                     <p>{t('home.section_1.subtitle')}</p>
 
                                     <div className='section1-buttons'>
-                                        <Link to="/" className="banner-btn">
+                                        <Link to={user ? '/album' : '/login'} className="banner-btn">
                                             {t('home.section_1.action_1')}
                                         </Link>
                                         <a href="https://mysticker.gitbook.io/whitepaper-mysticker/" target="_blank" className="banner-btn whitepaper">

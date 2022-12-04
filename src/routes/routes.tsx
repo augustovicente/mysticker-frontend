@@ -25,9 +25,9 @@ export const Router = () => {
             <Routes location={location} key={location.pathname}>
                 <Route path="/" element={<Home />} />
                 <Route path="login" element={<BaseTemplate footer={false}><Login /></BaseTemplate>} />
-                <Route path="forgot-password" element={<ForgotPassword />} />
-                <Route path="reset-pwd/:code" element={<NewPassword />} />
-                <Route path="validation/:code" element={<ConfirmEmail />} />
+                <Route path="forgot-password" element={<BaseTemplate footer={false}><ForgotPassword /></BaseTemplate>} />
+                <Route path="reset-pwd/:code" element={<BaseTemplate footer={false}><NewPassword /></BaseTemplate>} />
+                <Route path="validation/:code" element={<BaseTemplate footer={false}><ConfirmEmail /></BaseTemplate>} />
                 <Route path="register" element={<BaseTemplate footer={false}><Register /></BaseTemplate>} />
                 <Route path="r/:affiliate_code" element={<BaseTemplate footer={false}><Register /></BaseTemplate>} />
                 <Route path="/marketplace" element={<BaseTemplate footer={false}><Marketplace /></BaseTemplate>} />
@@ -35,42 +35,41 @@ export const Router = () => {
                 <Route path="/rewards" element={<BaseTemplate footer={false}><Prizes /></BaseTemplate>} />
                 <Route path="/prizes" element={<BaseTemplate footer={false}><Prizes /></BaseTemplate>} />
 
-                <Route path="*" element={<NotFoundPage />} />
+                <Route path="*" element={<BaseTemplate footer><NotFoundPage /></BaseTemplate>} />
             </Routes>
         )
     }
 
     return (
-        <BaseTemplate footer={false} >
-            <Routes>
-                {/* <Route> */}
-                <Route path='/' element={<Outlet />} >
-                    <Route index element={<Home />} />
-                    <Route path="/prizes" element={<Prizes />} />
-                    <Route path="/rewards" element={<Prizes />} />
-                    <Route path="marketplace" element={<Marketplace />} />
-                    <Route path="/my-packages" element={<MyPackages />} />
-                    <Route path="/album" element={<Album />} />
+        <Routes>
+            {/* <Route> */}
+            <Route path='/' element={<Outlet />} >
+                <Route index element={<BaseTemplate><Home /></BaseTemplate>} />
+                <Route path="/prizes" element={<BaseTemplate footer={false}><Prizes /></BaseTemplate>} />
+                <Route path="/rewards" element={<BaseTemplate footer={false}><Prizes /></BaseTemplate>} />
+                <Route path="marketplace" element={<BaseTemplate footer={false}><Marketplace /></BaseTemplate>} />
+                <Route path="/my-packages" element={<BaseTemplate footer={false}><MyPackages /></BaseTemplate>} />
+                <Route path="/album" element={<BaseTemplate footer={false}><Album /></BaseTemplate>} />
 
-                    <Route path="register" element={<Register />} />
-                    {/* <Route path="events" element={<><h2>Eventos</h2></>} /> */}
-                    {/* <Route path='challenges' element={<Challenge />} /> */}
+                <Route path="register" element={<BaseTemplate><Register /></BaseTemplate>} />
+                {/* <Route path="events" element={<></<h2>EventoBaseTemplate><></h2}></>} /> */}
+                {/* <Route path='challenges' element={<BaseTemplate><Challenge /></BaseTemplate>} /> */}
 
-                    <Route path="profile" element={(
-                        <Outlet />
-                    )}>
-                        <Route index element={<Profile />} />
-                        <Route path="reset-password" element={<ResetPassword />} />
-                    </Route>
+                <Route path="profile" element={(
+                    <Outlet />
+                )}>
+                    <Route index element={<BaseTemplate footer={false}><Profile /></BaseTemplate>} />
+                    <Route path="reset-password" element={<BaseTemplate footer={false}><ResetPassword /></BaseTemplate>} />
                 </Route>
+            </Route>
 
 
-                {/* </Route> */}
+            {/* </Route> */}
 
-                <Route path="*" element={<NotFoundPage />} />
+            <Route path="*" element={<NotFoundPage />} />
 
 
-                {/* <Route path="/nft-marketplace" element={<Explore />} />
+            {/* <Route path="/nft-marketplace" element={<Explore />} />
             <Route path="/collections" element={<Collections />} />
             <Route path="/blog" element={<Blog />} />
 
@@ -84,8 +83,7 @@ export const Router = () => {
             <Route path="/creators" element={<Creators />} />
             <Route path="/market-single" element={<MarketSingle />} />
             <Route path="/nft-live-bidding" element={<NftLiveBidding />} /> */}
-            </Routes>
-        </BaseTemplate>
+        </Routes>
 
     )
 }

@@ -6,7 +6,7 @@ import { teamsNameList } from "./mocks/teamsNameList"
 import { AlbumContainer } from "./styles"
 import { stickers } from "./mocks/stickers"
 import { Row } from "antd"
-import { getPackages, get_owned_tokens } from "models/User"
+import { getPackages, get_owned_teams, get_owned_tokens, paste_stickers } from "models/User"
 import axios from "axios"
 import { toast } from "react-toastify"
 import { AlbumSkeletons } from "./components/Skeletons/Skeletons"
@@ -16,15 +16,18 @@ import { ReactComponent as HomeIcon } from "../../assets/imgs/home.svg"
 import { orderBy } from "lodash"
 import { useScrollToElement } from "hooks/useScrollToElement"
 import { PasteSticker } from "pages/Album/components/PasteSticker"
+import { useToggle } from "hooks/useToggle"
 
 export const Album = () => {
     const [teamsGroupSelected, setTeamsGroupSelected] = useState("todos")
     const [teamIndexSelected, setTeamSelected] = useState(0)
-    const [ownedStickers, setOwnedStickers] = useState<string[]>(['1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'])
+    const [ownedStickers, setOwnedStickers] = useState<string[]>(['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'])
     const [isLoading, setIsLoading] = useState(true)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [availablePackages, setAvailablePackages] = useState<number>(0)
     const [players, setPlayers] = useState<{ id: number; name: string; rarity: number; }[]>([])
+    const [statusPaste, setStatusPaste] = useState<'can' | 'cant' | 'pasted'>('cant')
+    const [pasteLoading, setPasteLoading] = useToggle(false);
     const { user } = useAuth()
 
     const groupOfTeams = useMemo(() => {
@@ -37,11 +40,40 @@ export const Album = () => {
         setPlayers(orderBy(team[0].players, "rarity", "asc"))
         return team[0]
     }, [groupOfTeams, teamIndexSelected, teamsGroupSelected])
-    console.log(currentTeamSelected)
 
     const ownedStikersAmount = useMemo(() => {
         return ownedStickers.reduce((counter, owned) => parseInt(owned) > 0 ? counter + 1 : counter, 0)
     }, [ownedStickers])
+
+    const handlePasteStickers = async () => {
+        setPasteLoading(true)
+
+        const res: any = await paste_stickers(currentTeamSelected?.id)
+            .finally(() => setPasteLoading(false))
+
+        if (res.status === 200) {
+            setStatusPaste('pasted');
+            toast.success('Time fechado com sucesso!', { toastId: 'success' });
+            update_packages();
+        }
+    }
+
+    // Caso possua o time inteiro e ainda não tenha colado as figurinhas
+    useEffect(() => {
+        if (ownedStikersAmount === 11) {
+            setIsLoading(true)
+
+            get_owned_teams([currentTeamSelected?.id])
+                .then(res => {
+                    if (res[0] === '0') {
+                        setStatusPaste('can')
+                    } else if (res[0] === '1') {
+                        setStatusPaste('pasted')
+                    }
+                })
+                .finally(() => setIsLoading(false))
+        }
+    }, [teamIndexSelected, ownedStikersAmount, availablePackages])
 
     useEffect(() => {
         const response = async () => {
@@ -142,7 +174,7 @@ export const Album = () => {
                     )}
                     {groupOfTeams.map(({ name }, index) => (
                         <li
-                            key={index}
+                            key={name}
                             className={teamIndexSelected === index ? `selected-team` : ""}
                             onClick={() => setTeamSelected(index)}
                         >
@@ -199,7 +231,7 @@ export const Album = () => {
                                 {players.map((sticker, index) => index < 6 && (
                                     <>
                                         {isLoading ? (
-                                            <AlbumSkeletons />
+                                            <AlbumSkeletons key={sticker.id} />
                                         ) : (
                                             <Sticker
                                                 key={sticker.id}
@@ -218,7 +250,7 @@ export const Album = () => {
                                 {players.map((sticker, index) => index >= 6 && (
                                     <>
                                         {isLoading ? (
-                                            <AlbumSkeletons />
+                                            <AlbumSkeletons key={sticker.id} />
                                         ) : (
                                             <Sticker
                                                 key={sticker.id}
@@ -232,16 +264,15 @@ export const Album = () => {
                                     </>
                                 ))}
 
+                                {/* figurinha do time */}
                                 {isLoading ? (
                                     <AlbumSkeletons />
                                 ) : (
                                     <PasteSticker
-                                        key={players[0].id}
-                                        index={90}
-                                        ownedStickers={ownedStickers}
-                                        stickerId={players[0].id}
-                                        rarity={players[0].rarity}
-                                        name={players[0].name}
+                                        status={statusPaste}
+                                        isLoading={pasteLoading}
+                                        handlePasteStickers={handlePasteStickers}
+                                        teamId={currentTeamSelected.id}
                                     />
                                 )}
                             </Row>
@@ -252,7 +283,7 @@ export const Album = () => {
                                 {players.map((sticker, index) => (
                                     <>
                                         {isLoading ? (
-                                            <AlbumSkeletons />
+                                            <AlbumSkeletons key={sticker.id} />
                                         ) : (
                                             <Sticker
                                                 key={sticker.id}
