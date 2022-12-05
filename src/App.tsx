@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useTransition } from "react"
 import { ThemeProvider } from 'styled-components'
 import $ from "jquery"
 import { I18nextProvider } from "react-i18next";
@@ -6,23 +6,9 @@ import i18n from "./i18n";
 
 import { theme } from "styles/themes/theme";
 import GlobalTheme from "styles/themes/global";
-import { AuthProvider, useAuth } from "contexts/auth.context";
-import { ToastContainer, toast } from 'react-toastify';
+import { AuthProvider } from "contexts/auth.context";
+import { ToastContainer } from 'react-toastify';
 import { Router } from "routes/routes";
-
-// import Activity from './pages/Activity'
-// import AuthorProfile from './pages/AuthorProfile'
-// import Blog from './pages/Blog'
-// import BlogDetails from './pages/BlogDetails'
-// import Category from './pages/Category'
-// import Collections from './pages/Collections'
-// import CreateItem from './pages/CreateItem'
-// import Creators from './pages/Creators'
-// import Explore from './pages/Explore'
-// import LoginRegister from './pages/LoginRegister'
-// import MarketSingle from './pages/MarketSingle'
-// import NftLiveBidding from './pages/NftLiveBidding'
-// import Ranking from './pages/Ranking'
 
 function App() {
     useEffect(() => {
@@ -34,6 +20,7 @@ function App() {
             $(".offcanvas-wrapper, .offcanvas-overly").removeClass("active");
         });
     }, []);
+
 
     return (
         <ThemeProvider theme={theme}>
