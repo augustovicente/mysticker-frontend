@@ -8,7 +8,7 @@ import { ReactComponent as ArrowIcon } from 'assets/imgs/arrow-left-white.svg';
 import { AnimatePresence } from 'framer-motion';
 import { motion } from 'framer-motion'
 import { usePrevious } from 'hooks/usePrevious';
-import { Carousel } from 'antd';
+import Carousel from 'antd/es/carousel';
 import { useAuth, User } from 'contexts/auth.context';
 import { connect_wallet, getPackages, get_owned_teams } from 'models/User';
 import { stickers } from 'assets/stickers';

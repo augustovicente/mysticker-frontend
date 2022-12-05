@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components"
-import { Col, Modal } from 'antd'
+import Modal from 'antd/es/modal'
 import { motion } from "framer-motion";
 
 type StickerProps = {

@@ -1,12 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import $ from 'jquery';
 
 import "./Header.css";
 import { LoginButton } from './components/LoginButton';
 import { DefaultButton } from './components/DefaultButton';
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from 'contexts/auth.context';
-import { Radio, Space } from 'antd';
+import Radio from 'antd/es/radio';
+import Space from 'antd/es/space';
 import i18n from 'i18n';
 import * as S from './styles';
 import { MobileNav } from './components/MobileNav/MobileNav';

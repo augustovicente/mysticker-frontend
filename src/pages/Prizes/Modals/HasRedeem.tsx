@@ -5,7 +5,10 @@ import { cepFormatter, cpfFormatter, phoneFormatter } from "utils/helpers";
 import { ReactComponent as CubeIcon } from "assets/imgs/cube.svg";
 import { ReactComponent as GiftIcon } from "/public/assets/img/icons/gift-icon.svg";
 import { ReactComponent as GiftsIcon } from "/public/assets/img/icons/gifts-icon.svg";
-import { Dropdown, MenuProps, Space, Typography } from "antd";
+
+import { MenuProps } from "antd/es";
+import Dropdown from "antd/es/dropdown";
+
 
 export const ModalContentHasRedeem = () => {
     const {

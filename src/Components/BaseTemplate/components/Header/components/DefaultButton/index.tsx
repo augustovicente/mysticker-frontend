@@ -1,10 +1,10 @@
-import { Popover, Tooltip } from "antd";
+import Popover from "antd/es/popover";
+import Tooltip from "antd/es/tooltip";
 import { useAuth } from "contexts/auth.context";
 import { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode, useState } from "react";
 import { useTheme } from "styled-components";
 import { DefaultButtonContainer } from "./styles"
 import * as S from './styles';
-import i18n from "i18n";
 
 type DefaultButtonProps = AnchorHTMLAttributes<HTMLAnchorElement> & ButtonHTMLAttributes<HTMLButtonElement> & {
     icon: string;
@@ -15,7 +15,7 @@ type DefaultButtonProps = AnchorHTMLAttributes<HTMLAnchorElement> & ButtonHTMLAt
 }
 
 export const DefaultButton = ({ icon, onlyLink, title, children, needsAuth, ...rest }: DefaultButtonProps) => {
-    const { user, signOut } = useAuth();
+    const { user } = useAuth();
     const theme = useTheme();
     const [showTooltip, setShowTooltip] = useState(false);
 

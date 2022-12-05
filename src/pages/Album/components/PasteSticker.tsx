@@ -1,7 +1,5 @@
-import { Button, Col, Row } from "antd"
-import { useCallback, useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-import { AlbumModal, PasteStickerModal, StikerContainer } from "../styles"
+import Col from "antd/es/col"
+import { PasteStickerModal, StikerContainer } from "../styles"
 import { ReactComponent as LockIcon } from "assets/imgs/lock.svg"
 import { ReactComponent as BurnIcon } from "/public/assets/img/icons/paste-burn-green-icon.svg"
 import Logo from 'assets/imgs/card-paste.png';

@@ -1,6 +1,7 @@
 import { useAuth } from "contexts/auth.context"
 import * as S from "./styles"
-import { Button, Divider, Popover, Tooltip } from 'antd';
+import Popover from "antd/es/popover";
+import Tooltip from "antd/es/tooltip";
 import { useTheme } from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as SettingsIcon } from "assets/imgs/settings.svg";

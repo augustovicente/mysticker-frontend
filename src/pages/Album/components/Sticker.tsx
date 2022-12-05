@@ -1,4 +1,4 @@
-import { Col, Row } from "antd"
+import Col from "antd/es/col"
 import { useCallback, useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { AlbumModal, StikerContainer } from "../styles"
