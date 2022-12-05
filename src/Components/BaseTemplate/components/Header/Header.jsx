@@ -127,10 +127,6 @@ const Header = (props) => {
                                     )}
                                 </button>
 
-                                <span className='description'>
-                                    {t('header.connect_wallet_description')}
-                                </span>
-
                                 <button onClick={() => {
                                     window.open('https://metamask.io/', '_blank')
                                 }} className='create-wallet'>
@@ -294,10 +290,6 @@ const Header = (props) => {
                                                                                     </>
                                                                                 )}
                                                                             </button>
-
-                                                                            <span className='description'>
-                                                                                {t('header.connect_wallet_description')}
-                                                                            </span>
 
                                                                             <button onClick={() => {
                                                                                 window.open('https://metamask.io/', '_blank')

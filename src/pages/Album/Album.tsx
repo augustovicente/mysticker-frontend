@@ -1,12 +1,12 @@
 import { useCallback, useState, useMemo, useEffect } from "react"
-import { Link } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 import { Sticker } from "./components/Sticker"
 import { teamsIconList } from "./mocks/teamsIconList"
 import { teamsNameList } from "./mocks/teamsNameList"
 import { AlbumContainer } from "./styles"
 import { stickers } from "./mocks/stickers"
 import { Row } from "antd"
-import { getPackages, get_owned_teams, get_owned_tokens, paste_stickers } from "models/User"
+import { connect_wallet, getPackages, get_owned_teams, get_owned_tokens, paste_stickers } from "models/User"
 import axios from "axios"
 import { toast } from "react-toastify"
 import { AlbumSkeletons } from "./components/Skeletons/Skeletons"
@@ -31,7 +31,7 @@ export const Album = () => {
     const [players, setPlayers] = useState<{ id: number; name: string; rarity: number; }[]>([])
     const [statusPaste, setStatusPaste] = useState<'can' | 'cant' | 'pasted'>('cant')
     const [pasteLoading, setPasteLoading] = useToggle(false);
-    const { user } = useAuth()
+    const { user, getUser } = useAuth()
     const { t } = useTranslation()
 
     const groupOfTeams = useMemo(() => {
@@ -325,23 +325,34 @@ export const Album = () => {
             <WalletErrorModal open={isModalOpen} onOk={handleOk}>
                 {!user ? (
                     <>
-                        <h1 className="mb-4">Conecte para acessar o álbum!</h1>
+                        <h1 className="mb-4">Faça login para acessar o álbum!</h1>
                         <Link to="/login">
-                            <LoginIcon className="login" width={26} height={26} />
                             Ir para o login
+                            <LoginIcon className="login" width={26} height={26} />
                         </Link>
                     </>
                 ) : (
                     <>
                         <h1 className="mb-4">Carteira desconectada!</h1>
-                        <p>Conecte a carteira para continuar visualizar e comprar as figurinhas!</p>
-                        <Link onClick={() => {
-                            getPackages()
-                                .then(res => setIsModalOpen(false))
-                        }}>
+                        <button
+                            className="wallet"
+                            onClick={() => {
+                                connect_wallet()
+                                    .then(() => {
+                                        setIsModalOpen(false);
+                                        getUser()
+                                    })
+                            }}
+                        >
+                            Conectar carteira
                             <WalletIcon className="wallet" width={26} height={26} />
-                            Acessar carteira
-                        </Link>
+                        </button>
+
+                        <span onClick={() => {
+                            window.open("https://metamask.io", "_blank")
+                        }} className="create-wallet">
+                            Criar carteira
+                        </span>
                     </>
                 )}
             </WalletErrorModal>

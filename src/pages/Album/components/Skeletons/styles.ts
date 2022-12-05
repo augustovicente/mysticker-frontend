@@ -29,37 +29,63 @@ export const WalletErrorModal = styled(Modal)`
             justify-content: center;
             align-items: center;
 
+            button.wallet {
+                display: flex;
+                justify-content: space-between;
+                justify-content: center;
+                align-items: center;
+                padding: 8px 16px;
+                border-radius: 25px;
+                outline: 2px solid ${({ theme }) => theme.colors.colorMiddle};
+                background: ${({ theme }) => theme.colors.colorMiddle};
+                cursor: pointer;
+                color: ${({ theme }) => theme.colors.white};
+                font-size: ${({ theme }) => theme.fontSizes.md};
+                font-weight: 700;
+                gap: 12px;
+                margin-top: 12px;
+
+                &:hover {
+                    filter: brightness(0.8);
+                }
+            }
+
+            span.create-wallet {
+                margin-top: 18px;
+                font-size: ${({ theme }) => theme.fontSizes.md};
+                color: ${({ theme }) => theme.colors.white};
+                text-decoration: underline;
+            }
+
+
             h1 {
                 color: ${({ theme }) => theme.colors.white};
                 font-size: ${({ theme }) => theme.fontSizes.heading4};
             }
 
             p {
-                font-size: 1.25rem;
+                font-size: ${({ theme }) => theme.fontSizes.lg};
             }
 
             a {
-                width: 300px;
-                display: inline-flex;
-                gap: 32px;
+                gap: 12px;
                 align-items: center;
-                position: relative;
-                z-index: 1;
-                background: ${({ theme }) => theme.colors.middleL};
+                background: ${({ theme }) => theme.gradients.blueGreen};
                 color: ${({ theme }) => theme.colors.white};
                 border-radius: 25px;
-                padding: 18px 21px;
-                transition: all .3s ease-in-out;
-                line-height: 1;
-                font-size: 1rem;
                 font-weight: bold;
+                padding: 10px 24px !important;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: ${({ theme }) => theme.colors.dark};
 
                 &:has(svg.login, svg.wallet) {
                     padding: 16px;
                 }
 
                 &:hover {
-                    color: ${({ theme }) => theme.colors.dark};
+                    filter: brightness(0.8);
                 }
 
                 &:has(svg.wallet) {
@@ -70,24 +96,6 @@ export const WalletErrorModal = styled(Modal)`
                     &::after {
                         background: ${({ theme }) => theme.colors.colorMiddle};
                     }
-                }
-
-                &::after {
-                    content: "";
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    width: 58px;
-                    height: 58px;
-                    background: linear-gradient(270deg, #30E584 0%, #97FF57 100%);
-                    z-index: -1;
-                    border-radius: 30px;
-                    transition: .3s linear;
-                    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-                }
-
-                &:hover::after {
-                    width: 100%;
                 }
 
                 svg {
@@ -115,6 +123,15 @@ export const WalletErrorModal = styled(Modal)`
 
         .ant-modal-close-x {
             display: none;
+        }
+    }
+
+    @media (max-width: 768px) {
+        top: 20vh;
+        .ant-modal-content .ant-modal-body {
+            p {
+                font-size: 1rem;
+            }
         }
     }
 `

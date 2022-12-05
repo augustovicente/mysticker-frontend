@@ -10,7 +10,7 @@ import { motion } from 'framer-motion'
 import { usePrevious } from 'hooks/usePrevious';
 import { Carousel } from 'antd';
 import { useAuth, User } from 'contexts/auth.context';
-import { getPackages, get_owned_teams } from 'models/User';
+import { connect_wallet, getPackages, get_owned_teams } from 'models/User';
 import { stickers } from 'assets/stickers';
 import { useScrollToElement } from 'hooks/useScrollToElement';
 import axios from 'axios';
@@ -124,7 +124,7 @@ export const Prizes = () => {
     const [teamsGroupSelected, setTeamsGroupSelected] = useState("todos");
     const [rewardStatus, setRewardStatus] = useState<prizeProps[]>(prizes);
     const prevTeamsGroupSelected = usePrevious(teamsNameList.findIndex(({ name }) => name === teamsGroupSelected));
-    const { user } = useAuth();
+    const { user, getUser } = useAuth();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [addressData, setAddressData] = useState<dataCEP>({} as dataCEP);
     const [isLoading, setIsLoading] = useToggle(false);
@@ -453,7 +453,7 @@ export const Prizes = () => {
             <WalletErrorModal open={isModalErrorOpen}>
                 {!user ? (
                     <>
-                        <h1 className="mb-4">Conecte para acessar o álbum!</h1>
+                        <h1 className="mb-4">Faça Login para acessar os prêmios!</h1>
                         <Link to="/login">
                             <LoginIcon className="login" width={26} height={26} />
                             Ir para o login
@@ -462,14 +462,25 @@ export const Prizes = () => {
                 ) : (
                     <>
                         <h1 className="mb-4">Carteira desconectada!</h1>
-                        <p>Conecte a carteira para continuar visualizar e comprar as figurinhas!</p>
-                        <Link onClick={() => {
-                            getPackages()
-                                .then(res => setIsModalErrorOpen(false))
-                        }}>
+                        <button
+                            className="wallet"
+                            onClick={() => {
+                                connect_wallet()
+                                    .then(() => {
+                                        setIsModalErrorOpen(false);
+                                        getUser()
+                                    })
+                            }}
+                        >
+                            Conectar carteira
                             <WalletIcon className="wallet" width={26} height={26} />
-                            Acessar carteira
-                        </Link>
+                        </button>
+
+                        <span onClick={() => {
+                            window.open("https://metamask.io", "_blank")
+                        }} className="create-wallet">
+                            Criar carteira
+                        </span>
                     </>
                 )}
             </WalletErrorModal>

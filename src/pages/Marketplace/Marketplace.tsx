@@ -12,12 +12,12 @@ import { useAuth } from "contexts/auth.context";
 import axios from "axios";
 import { WalletErrorModal } from "pages/Album/components/Skeletons/styles";
 import { ReactComponent as LoginIcon } from 'assets/imgs/user.svg';
-import { getPackages } from "models/User";
+import { connect_wallet, getPackages } from "models/User";
 import { ReactComponent as WalletIcon } from 'assets/imgs/wallet-white.svg';
 import { checkWallet } from "services/web3";
 
 export const Marketplace = () => {
-    const { user } = useAuth()
+    const { user, getUser } = useAuth()
 
     const [exchangeRate, setExchangeRate] = useState<number>(0)
     const [stickerStatsModalIsOpen, setStickerStatsModalIsOpen] = useState<string[]>([]);
@@ -126,7 +126,7 @@ export const Marketplace = () => {
             <WalletErrorModal open={isModalErrorOpen}>
                 {!user ? (
                     <>
-                        <h1 className="mb-4">Conecte para acessar o álbum!</h1>
+                        <h1 className="mb-4">Faça Login para acessar a loja!</h1>
                         <Link to="/login">
                             <LoginIcon className="login" width={26} height={26} />
                             Ir para o login
@@ -135,14 +135,25 @@ export const Marketplace = () => {
                 ) : (
                     <>
                         <h1 className="mb-4">Carteira desconectada!</h1>
-                        <p>Conecte a carteira para continuar visualizar e comprar as figurinhas!</p>
-                        <Link onClick={() => {
-                            getPackages()
-                                .then(res => setIsModalErrorOpen(false))
-                        }}>
+                        <button
+                            className="wallet"
+                            onClick={() => {
+                                connect_wallet()
+                                    .then(() => {
+                                        setIsModalErrorOpen(false);
+                                        getUser()
+                                    })
+                            }}
+                        >
+                            Conectar carteira
                             <WalletIcon className="wallet" width={26} height={26} />
-                            Acessar carteira
-                        </Link>
+                        </button>
+
+                        <span onClick={() => {
+                            window.open("https://metamask.io", "_blank")
+                        }} className="create-wallet">
+                            Criar carteira
+                        </span>
                     </>
                 )}
             </WalletErrorModal>
