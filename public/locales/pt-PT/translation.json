@@ -78,31 +78,16 @@
         },
         "section_6": {
             "phase1": {
-                "title": "Fase 1",
-                "subtitle": "Desafios",
-                "list": {
-                    "item1": "Recompensas para os vencedores",
-                    "item2": "Prêmios em itens físicos da PRUU",
-                    "item3": "Prêmios em figurinhas"
-                }
+                "title": "Convide os\n Amigos",
+                "description": "Para os 10 primeiros amigo que for convidado e que comprarem um pacotinho você automaticamete recebe outro em forma de recompensa."
             },
             "phase2": {
-                "title": "Fase 2",
-                "subtitle": "Desafios",
-                "list": {
-                    "item1": "Recompensas para os vencedores",
-                    "item2": "Prêmios em itens físicos da PRUU",
-                    "item3": "Prêmios em figurinhas"
-                }
+                "title": "Para todos os\n sortudos",
+                "description": "A cada 10 pacotinhos adquiridos, você é presenteado com um novo pacote. Mais chances para você completar o seu álbum."
             },
             "phase3": {
-                "title": "Fase 3",
-                "subtitle": "Desafios",
-                "list": {
-                    "item1": "Recompensas para os vencedores",
-                    "item2": "Prêmios em itens físicos da PRUU",
-                    "item3": "Prêmios em figurinhas"
-                }
+                "title": "Revoada dos\n Campeões",
+                "description": "Os primeiros a completar o album alem de ganhar todos os lançamento da Pruu poderão ganhar itens exclusivos como uma playstation 5, para o primeiro lugar, e R$2500,00 para o segundo. Porem, não termina ai..."
             }
         },
         "section_7": {

@@ -5141,12 +5141,12 @@ section#roadmap {
 section#roadmap img.trophy {
     position: absolute;
     top: 0;
-    left: -194px;
-    width: 320px;
+    left: -154px;
+    width: 240px;
 }
 
 section#roadmap h3.title {
-    font-size: var(--heading-2);
+    font-size: var(--heading-3);
     color: var(--white);
     margin-bottom: 18px;
     line-height: 140%;
@@ -5162,16 +5162,18 @@ section#roadmap h3.title span {
 }
 
 section#roadmap .roadmap-item {
-    display: grid;
-    gap: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
     color: var(--white);
     padding: 18px;
     background: var(--middle);
     border-radius: 5px;
     position: relative;
+    height: 100%;
 }
 
-section#roadmap .roadmap-item .icon {
+section#roadmap .roadmap-item div.icon {
     position: absolute;
     top: -26px;
     right: 12%;
@@ -5180,22 +5182,30 @@ section#roadmap .roadmap-item .icon {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 5px;
-    background: #665C5C;
+    border-radius: 50%;
 }
 
-section#roadmap .roadmap-item span.phase {
-    font-weight: bold;
+section#roadmap .roadmap-item div.icon.share {
+    background: linear-gradient(270deg, #30E584 0%, #97FF57 100%);
+}
+
+section#roadmap .roadmap-item div.icon.lucky {
+    background: linear-gradient(270deg, #4694FF 0%, #B53BFE 100%);
+}
+
+section#roadmap .roadmap-item div.icon.beer {
+    background: linear-gradient(90deg, #FF5353 0%, #FE457E 100%);
 }
 
 section#roadmap .roadmap-item h5 {
     font-size: var(--heading-4);
     font-weight: bold;
+    max-width: 75%;
 }
 
 section#roadmap .roadmap-item p {
     color: var(--white);
-    font-size: var(--paragraph-md)
+    font-size: var(--paragraph-md);
 }
 
 section#gol {

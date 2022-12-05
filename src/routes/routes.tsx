@@ -14,8 +14,7 @@ import { ConfirmEmail } from 'pages/Login/Pages/ConfirmEmail/ConfirmEmail';
 import { Album } from 'pages/Album/Album';
 import BaseTemplate from 'Components/BaseTemplate';
 import { Prizes } from 'pages/Prizes/Prizes';
-
-const Home = lazy(() => import('pages/Home'));
+import Home from 'pages/Home';
 
 export const Router = () => {
     const { user } = useAuth();

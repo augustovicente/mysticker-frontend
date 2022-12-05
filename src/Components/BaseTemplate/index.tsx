@@ -14,6 +14,7 @@ type BaseTemplateProps = {
 
 const BaseTemplateContainer = styled.div`
     display: flex;
+    height: fit-content;
 `
 
 const BaseTemplateMainContent = styled.div`

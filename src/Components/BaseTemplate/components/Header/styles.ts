@@ -4,8 +4,8 @@ export const MobileNav = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 85vh;
     overflow-y: auto;
+    margin-bottom: 54px;
     main {
         header {
             display: flex;
@@ -15,10 +15,10 @@ export const MobileNav = styled.div`
         }
 
         .avatar {
-            min-width: 74px;
-            min-height: 74px;
-            width: 74px;
-            height: 74px;
+            min-width: 54px;
+            min-height: 54px;
+            width: 54px;
+            height: 54px;
             border-radius: 50%;
             background: red;
             display: flex;
@@ -29,14 +29,15 @@ export const MobileNav = styled.div`
             img {
                 display: block;
                 max-width: 100%;
-                width: 100%;
+                height: 44px;
                 object-fit: contain;
             }
         }
 
         h5 {
             color: #9DD2F1;
-            font-size: ${({ theme }) => theme.fontSizes.heading4};
+            font-size: ${({ theme }) => theme.fontSizes.lg};
+            line-height: 140%;
             max-width: 70%;
             margin: 0;
         }

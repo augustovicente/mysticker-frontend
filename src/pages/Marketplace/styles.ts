@@ -200,9 +200,6 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
     .stikers-package-main {
         display: flex;
         flex-direction: column;
-        background-image: url("/assets/img/others/sticker-mask.png");
-        background-position: center;
-        background-repeat: no-repeat;
         padding: 22px 22px 0px 22px;
 
         .sticker-star-container {

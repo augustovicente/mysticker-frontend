@@ -78,31 +78,16 @@
         },
         "section_6": {
             "phase1": {
-                "title": "Phase 1",
-                "subtitle": "Challenges",
-                "list": {
-                    "item1": "Rewards for winners",
-                    "item2": "Prizes in phisycal items from Pruu",
-                    "item3": "Prizes in stickers"
-                }
+                "title": "Invite your friends",
+                "description": "For the first 10 friends who are invited and who buy a package you automatically receive another one as a reward."
             },
             "phase2": {
-                "title": "Fase 2",
-                "subtitle": "Challenges",
-                "list": {
-                    "item1": "Rewards for winners",
-                    "item2": "Prizes in phisycal items from Pruu",
-                    "item3": "Prizes in stickers"
-                }
+                "title": "For all the lucky ones",
+                "description": "For every 10 packages purchased, you are presented with a new package. More chances for you to complete your album."
             },
             "phase3": {
-                "title": "Fase 3",
-                "subtitle": "Challenges",
-                "list": {
-                    "item1": "Rewards for winners",
-                    "item2": "Prizes in phisycal items from Pruu",
-                    "item3": "Prizes in stickers"
-                }
+                "title": "Champions Flock",
+                "description": "The first ones to complete the album will win all the Pruu releases and exclusive items like a Playstation 5, for the first place, and R$2500,00 for the second place. However, it does not end there..."
             }
         },
         "section_7": {

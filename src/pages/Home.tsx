@@ -13,6 +13,9 @@ import Benefit_4Img from 'assets/imgs/4-benefits.png';
 import Benefit_5Img from 'assets/imgs/5-benefits.png';
 import { ReactComponent as WhitepaperIcon } from 'assets/imgs/whitepaper-icon.svg';
 import { ReactComponent as LockIcon } from 'assets/imgs/lock.svg';
+import { ReactComponent as BeerIcon } from 'assets/imgs/beer.svg';
+import { ReactComponent as LuckyIcon } from 'assets/imgs/lucky.svg';
+import { ReactComponent as ShareIcon } from 'assets/imgs/share.svg';
 import Slider from 'react-slick';
 import { CardBenefit, CardBenefitProps } from 'Components/CardBenefit';
 import { useTranslation } from 'react-i18next';
@@ -119,9 +122,9 @@ const Home = () => {
             description:
                 <>
                     <p> {t('home.section_3.cards.card_1.text_1')}
-                    <b> {t('home.section_3.cards.card_1.text_2')}</b>,
-                    <b> {t('home.section_3.cards.card_1.text_3')}</b>
-                    {t('home.section_3.cards.card_1.text_4')} <b>{t('home.section_3.cards.card_1.text_5')}</b></p>
+                        <b> {t('home.section_3.cards.card_1.text_2')}</b>,
+                        <b> {t('home.section_3.cards.card_1.text_3')}</b>
+                        {t('home.section_3.cards.card_1.text_4')} <b>{t('home.section_3.cards.card_1.text_5')}</b></p>
                 </>
             ,
             image: Benefit_1Img,
@@ -230,7 +233,6 @@ const Home = () => {
 
                             <div className="col-lg-6 col-md-8">
                                 <img className='banner-stickers'
-                                    loading="lazy"
                                     src={StickersImg}
                                     alt={t('home.section_1.img_alt') || ''}
                                 />
@@ -333,7 +335,7 @@ const Home = () => {
 
                             <button disabled className='pick-sticker'>
                                 {t('home.section_4.button')}
-                                <LockIcon  />
+                                <LockIcon />
                             </button>
 
                             <img src={BootImg} loading="lazy" className="boot" alt={t('home.section_2.img_alt_1') || ''} />
@@ -389,79 +391,52 @@ const Home = () => {
 
                 <div className="container">
                     <h3 className='title'>
-                        Roadmaps {"\n"} Copa <span>PRUU!</span>
+                        Desafios {"\n"} Copa <span>PRUU!</span>
                     </h3>
 
                     <div className="row mt-5 d-flex justify-content-between">
                         <div className="col-lg-4  mt-4">
                             <div className="roadmap-item">
-                                <span className='phase'>
-                                    {t('home.section_6.phase1.title')}
-                                </span>
-                                <div className="icon"></div>
+                                <div className="icon share">
+                                    <ShareIcon />
+                                </div>
                                 <h5>
-                                    {t('home.section_6.phase1.subtitle')}
+                                    {t('home.section_6.phase1.title')}
                                 </h5>
 
-                                <li>
-                                    {t('home.section_6.phase1.list.item1')}
-                                </li>
-
-                                <li>
-                                    {t('home.section_6.phase1.list.item2')}
-                                </li>
-
-                                <li>
-                                    {t('home.section_6.phase1.list.item3')}
-                                </li>
+                                <p>
+                                    {t('home.section_6.phase1.description')}
+                                </p>
                             </div>
                         </div>
 
                         <div className="col-lg-4 mt-4">
                             <div className="roadmap-item">
-                                <span className='phase'>
-                                    {t('home.section_6.phase2.title')}
-                                </span>
-                                <div className="icon"></div>
+                                <div className="icon lucky">
+                                    <LuckyIcon />
+                                </div>
                                 <h5>
-                                    {t('home.section_6.phase2.subtitle')}
+                                    {t('home.section_6.phase2.title')}
                                 </h5>
 
-                                <li>
-                                    {t('home.section_6.phase2.list.item1')}
-                                </li>
-
-                                <li>
-                                    {t('home.section_6.phase2.list.item2')}
-                                </li>
-
-                                <li>
-                                    {t('home.section_6.phase2.list.item3')}
-                                </li>
+                                <p>
+                                    {t('home.section_6.phase2.description')}
+                                </p>
                             </div>
                         </div>
 
                         <div className="col-lg-4  mt-4">
                             <div className="roadmap-item">
-                                <span className='phase'>
-                                    {t('home.section_6.phase3.title')}
-                                </span>
-                                <div className="icon"></div>
+                                <div className="icon beer">
+                                    <BeerIcon />
+                                </div>
                                 <h5>
-                                    {t('home.section_6.phase3.subtitle')}
+                                    {t('home.section_6.phase3.title')}
                                 </h5>
 
-                                <li>
-                                    {t('home.section_6.phase3.list.item1')}
-                                </li>
-
-                                <li>
-                                    {t('home.section_6.phase3.list.item2')}
-                                </li>
-
-                                <li>
-                                    {t('home.section_6.phase3.list.item3')}
-                                </li>
+                                <p>
+                                    {t('home.section_6.phase3.description')}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -474,7 +449,7 @@ const Home = () => {
 
                     <button disabled className='pick-sticker'>
                         {t('home.section_7.button')}
-                        <LockIcon  />
+                        <LockIcon />
                     </button>
                 </div>
             </section>
