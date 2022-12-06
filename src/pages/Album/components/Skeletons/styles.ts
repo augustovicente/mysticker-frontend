@@ -55,6 +55,7 @@ export const WalletErrorModal = styled(Modal)`
                 font-size: ${({ theme }) => theme.fontSizes.md};
                 color: ${({ theme }) => theme.colors.white};
                 text-decoration: underline;
+                cursor: pointer;
             }
 
 

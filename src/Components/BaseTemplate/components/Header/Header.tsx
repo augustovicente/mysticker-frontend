@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import $ from 'jquery';
 
 import "./Header.css";
@@ -6,7 +6,7 @@ import { LoginButton } from './components/LoginButton';
 import { DefaultButton } from './components/DefaultButton';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from 'contexts/auth.context';
-import Radio from 'antd/es/radio';
+import Radio, { RadioChangeEvent } from 'antd/es/radio';
 import Space from 'antd/es/space';
 import i18n from 'i18n';
 import * as S from './styles';
@@ -20,21 +20,48 @@ import { connect_wallet } from 'models/User';
 import { useToggle } from 'hooks/useToggle';
 import { toast } from 'react-toastify';
 import { t } from 'i18next';
+import { checkWallet, connect } from 'services/web3';
+import { useMetamaskChanged } from 'hooks/useMetamaskChanged';
 
-const Header = (props) => {
-    const { user, signOut } = useAuth();
-    const { hasContainer = true } = props;
-    const location = useLocation();
+type HeaderProps = {
+    hasContainer?: boolean;
+}
+
+const Header = ({ hasContainer = true }: HeaderProps) => {
+    const { user, signOut, getUser } = useAuth();
     const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
     const [selectedMenu, setSelectedMenu] = useState(null);
     const navigate = useNavigate();
-    const [isLoading, setIsLoading] = useToggle();
-    const [wallet, setWallet] = useState(localStorage.getItem('wallet') || '');
+    const [isLoading, setIsLoading] = useToggle(false);
+    const [isConnected, setIsConnected] = useState(false);
+    const [currentWallet, setCurrentWallet] = useState<string | null>(null);
 
-    const handleChangeLanguage = (e) => {
+    const handleChangeLanguage = (e: RadioChangeEvent) => {
         setSelectedLanguage(e.target.value);
         i18n.changeLanguage(e.target.value)
     };
+
+    const checkStatusWallet = useCallback(async () => {
+        setIsLoading(true);
+
+        const status = await checkWallet();
+        setIsConnected(status === 'connected');
+
+        if (status === 'connected') {
+            const wallet = await connect();
+
+            setCurrentWallet(wallet[0]);
+            setIsLoading(false)
+        } else {
+            setCurrentWallet(null);
+            setIsLoading(false)
+        }
+    }, [])
+
+    useEffect(() => {
+        checkStatusWallet();
+    }, [])
+
 
     const handleLogin = () => {
         $('body').removeClass('mobile-menu-visible');
@@ -42,14 +69,8 @@ const Header = (props) => {
     }
 
     const handleConnectWallet = async () => {
-        setIsLoading(true);
         await connect_wallet()
-            .then(res => {
-                setWallet(res);
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
+        getUser();
     }
 
     const handleCopyWallet = () => {
@@ -57,11 +78,12 @@ const Header = (props) => {
         toast.success('Carteira copiada com sucesso!', { toastId: 'copyWallet' });
     }
 
-    const handleDisconnectWallet = () => {
-        setWallet('');
-        localStorage.removeItem('wallet');
-        toast.success('Carteira desconectada com sucesso!', { toastId: 'disconnectWallet' });
-    }
+    useMetamaskChanged(checkStatusWallet);
+
+    const formattedWallet = isConnected
+        ? currentWallet?.slice(0, 6) + '...' + currentWallet?.slice(-4)
+        : null;
+
 
     const menuItems = [
         {
@@ -101,16 +123,12 @@ const Header = (props) => {
             children: (
                 <>
                     <S.Wallets>
-                        {wallet ? (
+                        {isConnected && user && user?.wallets?.length > 0 ? (
                             <>
-                                <button title={wallet} onClick={handleCopyWallet} className="wallet">
+                                <button title={user?.wallets?.[0]?.address} onClick={handleCopyWallet} className="wallet">
                                     <span className='wallet-address'>
-                                        {wallet.slice(0, 6) + '...' + wallet.slice(-4)}
+                                        {formattedWallet}
                                     </span>
-                                </button>
-
-                                <button onClick={handleDisconnectWallet} className='disconnect'>
-                                    {t('header.disconnect_wallet')}
                                 </button>
                             </>
 
@@ -265,16 +283,12 @@ const Header = (props) => {
                                                                 icon="/assets/img/icons/wallet-icon.svg"
                                                             >
                                                                 <S.Wallets>
-                                                                    {wallet ? (
+                                                                    {isConnected && user?.wallets?.length > 0 ? (
                                                                         <>
-                                                                            <button title={wallet} onClick={handleCopyWallet} className="wallet">
+                                                                            <button title={user?.wallets?.[0]?.address} onClick={handleCopyWallet} className="wallet">
                                                                                 <span className='wallet-address'>
-                                                                                    {wallet.slice(0, 6) + '...' + wallet.slice(-4)}
+                                                                                    {formattedWallet}
                                                                                 </span>
-                                                                            </button>
-
-                                                                            <button onClick={handleDisconnectWallet} className='disconnect'>
-                                                                                {t('header.disconnect_wallet')}
                                                                             </button>
                                                                         </>
 

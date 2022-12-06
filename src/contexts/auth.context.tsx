@@ -20,6 +20,11 @@ export type User = {
     token: string;
 }
 
+export type Wallet = {
+    address: string;
+    user_id: number;
+}
+
 export interface UserModel {
     id:                 number;
     name:               string;
@@ -32,6 +37,7 @@ export interface UserModel {
     email_verified:     boolean;
     created_at:         string;
     updated_at:         string;
+    wallets?:           Wallet[];
 }
 
 export type AuthContextData = {

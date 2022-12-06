@@ -20,6 +20,7 @@ import { ReactComponent as LoginIcon } from 'assets/imgs/user.svg';
 import { ReactComponent as WalletIcon } from 'assets/imgs/wallet-white.svg';
 import { checkWallet } from "services/web3"
 import { useTranslation } from "react-i18next"
+import { useMetamaskChanged } from "hooks/useMetamaskChanged"
 
 export const Album = () => {
     const [teamsGroupSelected, setTeamsGroupSelected] = useState("todos")
@@ -111,10 +112,6 @@ export const Album = () => {
         setIsModalOpen(false)
     }
 
-    const handleCancel = () => {
-        setIsModalOpen(false)
-    }
-
     useScrollToElement(".selected-team", teamIndexSelected)
 
     const handleSelectNewTeamGroup = (name: string) => {
@@ -140,6 +137,20 @@ export const Album = () => {
         })
     }
 
+    const checkStatusWallet = useCallback(async () => {
+        const status = await checkWallet();
+
+        if (status === 'connected') {
+            update_packages();
+            setIsModalOpen(false);
+        } else {
+            setOwnedStickers(['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'])
+            setIsModalOpen(true);
+        }
+    }, [])
+
+    useMetamaskChanged(checkStatusWallet);
+
     useEffect(() => {
         setIsLoading(true);
 
@@ -148,16 +159,7 @@ export const Album = () => {
                 return setIsModalOpen(true)
             }
 
-            checkWallet()
-                .then(res => {
-                    if (res === 'connected') {
-                        setIsModalOpen(false);
-                    } else {
-                        return setIsModalOpen(true);
-                    }
-                })
-                .finally(() => setIsLoading(false))
-
+            await checkStatusWallet()
             update_packages()
         })();
     }, [])
@@ -316,6 +318,18 @@ export const Album = () => {
                                         )}
                                     </>
                                 ))}
+
+                                {/* figurinha do time */}
+                                {isLoading ? (
+                                    <AlbumSkeletons />
+                                ) : (
+                                    <PasteSticker
+                                        status={statusPaste}
+                                        isLoading={pasteLoading}
+                                        handlePasteStickers={handlePasteStickers}
+                                        teamId={currentTeamSelected.id}
+                                    />
+                                )}
                             </Row>
                         </div>
                     </div>

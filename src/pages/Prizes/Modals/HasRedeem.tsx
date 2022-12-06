@@ -29,8 +29,6 @@ export const ModalContentHasRedeem = () => {
         }))
     }, [currentPrize?.sizes]) as MenuProps['items'];
 
-    console.log('sizes', sizes)
-
     // Caso tenha sido feito o pedido de resgate
     if (redeemSuccess) {
         return (
@@ -115,33 +113,34 @@ export const ModalContentHasRedeem = () => {
                         <h3>Resgate {'\n'}de Prêmios
                             <img className='gift-icon' src="/assets/img/icons/gifts-icon.svg" alt="" />
                         </h3>
-                        <img src={currentPrize?.images![0]} alt={`Camiseta`} />
 
-                        {currentPrize?.sizes && currentPrize?.sizes?.length > 0 && (
-                            <Dropdown
-                                trigger={['click']}
-                                menu={{
-                                    items: sizes,
-                                    selectable: true,
-                                    onSelect: (key) => {
-                                        const size = sizes?.[Number(key.key) - 1]?.label;
+                        <div className="img-prize">
+                            <img src={currentPrize?.images![0]} alt={`Camiseta`} />
 
-                                        // search for current prize and update size
-                                        // const prize = currentPrize?.find((prize) => prize.id === currentPrize?.id);
-                                    }
-                                }}
-                            >
-                                <div className="select-size">
-                                    <div>
+                            {currentPrize?.sizes && currentPrize?.sizes?.length > 0 && (
+                                <Dropdown
+                                    className="drop-sizes"
+                                    trigger={['click']}
+                                    menu={{
+                                        items: sizes,
+                                        selectable: true,
+                                        onSelect: (key) => {
+                                            const size = sizes?.[Number(key.key) - 1]?.label;
 
+                                            console.log(size);
+
+
+                                            // search for current prize and update size
+                                            // const prize = currentPrize?.find((prize) => prize.id === currentPrize?.id);
+                                        }
+                                    }}
+                                >
+                                    <div className="select-size">
+                                        <strong className="size-title">Defina o tamanho</strong>
                                     </div>
-
-                                    <span className="size-title">Defina o tamanho</span>
-                                </div>
-                            </Dropdown>
-                        )}
-
-
+                                </Dropdown>
+                            )}
+                        </div>
                     </section>
 
                     <section className='confirm-address'>
@@ -231,8 +230,8 @@ export const ModalContentHasRedeem = () => {
                         </footer>
                     </section>
                 </>
-    )
-}
+            )
+            }
         </>
     )
 }

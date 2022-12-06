@@ -705,7 +705,7 @@ export const StikerContainer = styled(motion.div)<StickerProps>`
                 position: relative;
                 margin-bottom: 32px;
                 font-weight: bold;
-                font-size: 10px;
+                font-size: 9px;
 
                 svg {
                     path {
@@ -735,12 +735,23 @@ export const StikerContainer = styled(motion.div)<StickerProps>`
                 bottom: 14px;
                 margin: 0;
                 text-align-last: center;
-                font-size: 10px;
+                font-size: 9px;
                 color: ${({ theme }) => theme.colors.white};
                 width: 100%;
             }
         }
 
+        @media (max-width: 768px) {
+            footer {
+                button {
+                    align-self: flex-end;
+                    margin: 6px;
+                }
+                h6.close-team {
+                    display: none;
+                }
+            }
+        }
     `};
 
     span {
