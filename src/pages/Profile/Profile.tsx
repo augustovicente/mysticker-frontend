@@ -26,7 +26,7 @@ type ProfileDataProps = UserModel & {
     neighborhood: string | null;
 }
 
-type dataCEP = {
+export type dataCEP = {
     bairro: string;
     cep: string;
     complemento: string;

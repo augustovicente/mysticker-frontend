@@ -61,7 +61,7 @@ export const Container = styled.li<{isSelected?: boolean}>`
 export const AnimatedChildren = styled(motion.div)`
 
     div {
-        padding: 32px 25px;
+        padding: 18px 25px;
         background: ${({ theme }) => theme.colors.middle};
     }
 `;

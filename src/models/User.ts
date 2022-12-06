@@ -14,9 +14,11 @@ const buy_package = async (package_type: number, amount: number, price: number) 
     const nftContract = await get_contract();
     let count_feedback = 0;
     const accounts = await connect();
+    const gasPrice = await web3.eth.getGasPrice()
     const tx = await nftContract.methods
         .buyPackage(package_type, amount)
         .send({
+            gasPrice: gasPrice,
             from: accounts[0],
             value: web3.utils.toWei(price.toString(), 'ether')
         })
@@ -90,11 +92,29 @@ const get_owned_tokens = async (players: number[]) =>
     }
 }
 
+const get_owned_teams = async (sticker_ids: number[]) =>
+{
+    const { 0: address } = await connect();
+    const nftContract = await get_contract();
+
+    if(address && nftContract && sticker_ids.length)
+    {
+        const tx = await nftContract.methods
+            .balanceOfBatch(
+                sticker_ids.map(() => address),
+                sticker_ids
+            )
+            .call();
+        return tx
+    }
+}
+
 export {
     getPackages,
     buy_package,
     open_package,
     paste_stickers,
     connect_wallet,
-    get_owned_tokens
+    get_owned_tokens,
+    get_owned_teams
 }

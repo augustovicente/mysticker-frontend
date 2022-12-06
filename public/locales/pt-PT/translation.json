@@ -2,18 +2,71 @@
     "home": {
         "section_1": {
             "title": "A comunidade dos álbuns de figurinha",
-            "subtitle": "A MySticker te faz reviver a nostalgia dos álbuns e te ajuda a acabar com a curiosidade de ter a sua primeira NFT"
+            "subtitle": "A MySticker te faz reviver a nostalgia dos álbuns e te ajuda a acabar com a curiosidade de ter a sua primeira NFT",
+            "action_1": "Abrir o Albúm de Figurinhas",
+            "action_2": "Whitepaper",
+            "img_alt": "3 figurinhas da copa pru"
         },
         "section_2": {
             "subtitle": "Para estrear essa plataforma com o pé direito - especialmente para você que já está no hype da Copa - temos uma ótima notícia: Vem aí a CopaPruu 2022. \n\n A Copa do Mundo dos Pombos. Você pode completar seu álbum e ainda ganhar os bônus mais maneiros.",
-            "button": "Abrir o Albúm de Figurinhas"
+            "button": "Comprar pacotinho",
+            "img_alt_1": "Pacote de figurinha"
         },
         "section_3": {
-            "title": "Benefícios"
+            "title": "Benefícioss",
+            "cards": {
+                "card_1": {
+                    "title": "Desafios",
+                    "text_1": "Acompanhando de perto a Copa Pruu, você fica por dentro de tudo e pode participar de desafios ",
+                    "text_2": "valendo boosters",
+                    "text_3": "produtos ",
+                    "text_4": "ou até",
+                    "text_5": "PIX"
+                },
+                "card_2": {
+                    "title": "Lançamento PRUU",
+                    "text_1": "Ao colecionar você podera ",
+                    "text_2": "resgatar itens ",
+                    "text_3": "do ",
+                    "text_4": "Drop Exclusivo ",
+                    "text_5": "da ",
+                    "text_6": "marca Pruu ",
+                    "text_7": "Camisetas, moletom, boné five penal, caneca com tirante e ",
+                    "text_8": "outras novidades que virão pra compor seu outfit na revoada"
+                },
+                "card_3": {
+                    "title": "Aceita PIXs?",
+                    "text_1": "Para a alegria geral da nação: vai ter pagamento por pix sim! É bem tranquilo e rápido de fazer."
+                },
+                "card_4": {
+                    "title": "Mercadão",
+                    "text_1": "Fique a vontade para ",
+                    "text_2": "revender",
+                    "text_3": " as ",
+                    "text_4": "figurinhas repetidas!",
+                    "text_5": "A ideia é que você possa comprar ou vender para outros participantes e, quem sabe, ganhar uma graninha extra com isso"
+                },
+                "card_5": {
+                    "title": "Boteco Verso",
+                    "text_1": "Você vai poder ",
+                    "text_2": "assistir",
+                    "text_3": " os principais ",
+                    "text_4": "jogos",
+                    "text_5": " e vibrar junto com a galera ",
+                    "text_6": "no",
+                    "text_7": " nosso ",
+                    "text_8": "Boteco Verso",
+                    "text_9": ", o ",
+                    "text_10": "primeiro boteco do Metaverso",
+                    "text_11": ". Podendo ainda ",
+                    "text_12": "concorrer booster",
+                    "text_13": " durante as partidas."
+                }
+            }
         },
         "section_4": {
-            "title": "O 1º Buster é \n por nossa conta",
-            "button": "Resgate seu Pacotinho"
+            "title": "As primeiras figurinhas\n é por nossa conta",
+            "button": "Resgate suas figurinhas"
         },
         "section_5": {
             "developers": {
@@ -25,46 +78,61 @@
         },
         "section_6": {
             "phase1": {
-                "title": "Fase 1",
-                "subtitle": "Desafios",
-                "list": {
-                    "item1": "Recompensas para os vencedores",
-                    "item2": "Prêmios em itens físicos da PRUU",
-                    "item3": "Prêmios em figurinhas"
-                }
+                "title": "Convide os\n Amigos",
+                "description": "Para os 10 primeiros amigo que for convidado e que comprarem um pacotinho você automaticamete recebe outro em forma de recompensa."
             },
             "phase2": {
-                "title": "Fase 2",
-                "subtitle": "Desafios",
-                "list": {
-                    "item1": "Recompensas para os vencedores",
-                    "item2": "Prêmios em itens físicos da PRUU",
-                    "item3": "Prêmios em figurinhas"
-                }
+                "title": "Para todos os\n sortudos",
+                "description": "A cada 10 pacotinhos adquiridos, você é presenteado com um novo pacote. Mais chances para você completar o seu álbum."
             },
             "phase3": {
-                "title": "Fase 3",
-                "subtitle": "Desafios",
-                "list": {
-                    "item1": "Recompensas para os vencedores",
-                    "item2": "Prêmios em itens físicos da PRUU",
-                    "item3": "Prêmios em figurinhas"
-                }
+                "title": "Revoada dos\n Campeões",
+                "description": "Os primeiros a completar o album alem de ganhar todos os lançamento da Pruu poderão ganhar itens exclusivos como uma playstation 5, para o primeiro lugar, e R$2500,00 para o segundo. Porem, não termina ai..."
             }
         },
         "section_7": {
-            "button": "Resgate seu Pacotinho"
+            "button": "Resgate sua figurinha"
         }
     },
     "sidebar":{
         "album": "Álbum",
         "store": "Loja",
         "prizes": "Prêmios",
+        "rewards": "Prêmios",
         "events": "Eventos",
         "chalenges": "Desafios",
         "profile": "Meus Dados",
         "wallet": "Sua Carteira",
         "connect_wallet": "Conectar"
+    },
+    "footer":{
+        "info": "My Sticker, a primeira plataforma de criação de álbum de figurinhas.",
+        "usefull_links": "Links Úteis",
+        "album": "Álbum",
+        "login": "Login",
+        "register": "Cadastrar",
+        "store": "Loja",
+        "rewards": "Prêmios",
+        "whitepaper": "Whitepaper",
+        "community": "Comunidade",
+        "contact": "Contato",
+        "help": "Ajuda",
+        "be_partner": "Propor Parcerias"
+    },
+    "header":{
+        "disconnect_wallet": "Desconectar Carteira",
+        "connect_wallet": "Conectar Carteira",
+        "create_wallet": "Criar Carteira",
+        "do_login": "Faça login",
+        "my_data": "Meus Dados",
+        "my_wallet": "Minha Carteira",
+        "logout": "Sair",
+        "profile": "Perfil",
+        "language": "Idioma",
+        "whitepaper": "Whitepaper",
+        "wallet": "Carteira",
+        "rewards": "Prêmios",
+        "notification": "Notificações"
     },
     "login": {
         "title": "Login",
@@ -109,6 +177,17 @@
         "email_validation":{
             "title": "Confirme seu email",
             "subtitle": "Verifique a caixa de entrada do seu e-mail para ativar a sua conta!"
+        }
+    },
+    "album": {
+        "title": "Álbum",
+        "teams-list": {
+            "todos": "Todos",
+            "america-norte": "América do Norte",
+            "america-sul": "América do Sul",
+            "europa": "Europa",
+            "asia": "Ásia",
+            "africa": "África"
         }
     }
 }

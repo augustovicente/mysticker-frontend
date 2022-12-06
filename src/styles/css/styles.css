@@ -399,7 +399,7 @@ label {
 
 #sticky-header {
     display: flex;
-    max-width: calc(100vw - 260px);
+    max-width: calc(100vw - 12.6%);
     width: 100%;
     justify-content: center;
     padding: 0 12px;
@@ -410,6 +410,7 @@ label {
     display: flex;
     width: 100%;
     justify-content: center;
+    z-index: 2;
 }
 
 .transparent-header {
@@ -610,6 +611,7 @@ label {
     -webkit-animation: 0.3s ease-in-out 0s normal none 1 running fadeInDown;
     animation: 0.3s ease-in-out 0s normal none 1 running fadeInDown;
     border-radius: 0;
+    max-width: 1290px;
 }
 
 .sticky-menu .container {
@@ -1513,6 +1515,7 @@ div.section1-buttons {
     transition: .2s ease-in-out;
     color: var(--white);
     line-height: 1;
+    width: 270px;
 }
 
 
@@ -1536,6 +1539,7 @@ div.section1-buttons {
 
 .banner-btn.whitepaper {
     padding-left: 64px;
+    /* flex: 1; */
 }
 
 .banner-btn.whitepaper:hover {
@@ -4566,7 +4570,7 @@ div.section1-buttons {
 
 .footer-top-wrap {
     background: linear-gradient(179.69deg, rgba(29, 25, 51, 0.46) 14.17%, rgba(29, 25, 51, 0.27) 99.73%);
-    padding: 80px 0 40px;
+    padding: 44px 0 12px;
 }
 
 .footer-widget {
@@ -4588,23 +4592,24 @@ div.section1-buttons {
 }
 
 .footer-social li:not(:last-child) {
-    margin-right: 8px;
+    margin-right: 12px;
 }
 
 .footer-social li a {
     display: flex;
-    width: 40px;
-    height: 40px;
+    /* width: 40px; */
+    /* height: 40px; */
     background: #28243F;
-    border-radius: 2px;
+    border-radius: 6px;
     align-items: center;
     justify-content: center;
     color: #E5E5E5;
-    font-size: 14px;
+    font-size: 1.3rem;
+    padding: 10px;
 }
 
 .footer-social li a:hover {
-    background: var(--purple-color);
+    background: var(--color-middle);
     color: var(--white);
 }
 
@@ -4626,7 +4631,7 @@ div.section1-buttons {
 }
 
 .fw-links li a:hover {
-    color: var(--purple-color);
+    color: var(--color-middle);
     padding-left: 5px;
 }
 
@@ -4850,20 +4855,23 @@ section#copa_pru img.ball {
 }
 
 section#benefits {
-    padding: 64px 0;
+    padding: 124px 0;
     background: url('../../assets/imgs/background-benefits.png') no-repeat center center/contain;
 }
 
 section#benefits div.grid {
     display: grid;
     gap: 64px;
-    margin-top: 194px;
+    row-gap: 44px;
+    margin-top: 264px;
     grid-template-columns: repeat(6, 1fr);
 }
 
 section#benefits div.benefit {
     display: grid;
     gap: 20px;
+    max-width: 270px;
+    width: 100%;
 }
 
 section#benefits div.benefit:nth-child(1) {
@@ -4884,29 +4892,28 @@ section#benefits div.benefit:nth-child(3) {
 section#benefits div.benefit:nth-child(4) {
     transform: translateY(-56px);
     grid-column: span 3;
-    max-width: 387.33px;
+    max-width: 271.13px;
     width: 100%;
     margin-left: auto;
-    margin-top: 64px;
+    margin-top: 124px;
 }
 
 section#benefits div.benefit:nth-child(5) {
     transform: translateY(0px);
     grid-column: span 3;
-    max-width: 387.33px;
+    max-width: 271.13px;
     width: 100%;
     margin-right: auto;
-    margin-top: 64px;
+    margin-top: 124px;
 }
 
 section#benefits div.grid div.container-img {
-    background: var(--middle);
-    height: 124px;
     border-radius: 20px;
     position: relative;
     display: flex;
     width: 100%;
     padding: 12px 24px;
+    background: rgba(43, 38, 72, 0.3);
 }
 
 section#benefits div.grid div.container-img img {
@@ -4920,7 +4927,6 @@ section#benefits div.grid div.container-img img {
 }
 
 section#benefits div.grid div.container-img span {
-    /* background: var(--middle); */
     color: var(--white);
     display: block;
     align-self: flex-end;
@@ -4935,7 +4941,7 @@ section#benefits div.grid h6.title {
     font-weight: bold;
     display: block;
     text-align: center;
-    background: var(--middle);
+    background: rgba(43, 38, 72, 0.3);
     padding: 17px;
     height: fit-content;
     border-radius: 20px;
@@ -4955,6 +4961,11 @@ section#benefits div.grid b  {
     section#benefits {
         background-size: cover;
         margin-top: 44px;
+        padding: 24px 0;
+    }
+
+    section#benefits div.benefit {
+        max-width: 100%;
     }
 
     section#benefits h2.title {
@@ -4979,6 +4990,13 @@ section#buster {
     position: relative;
 }
 
+section#buster img {
+    height: 340px;
+    margin-top: 84px;
+    display: block;
+    object-fit: contain;
+}
+
 section#buster h3.title {
     color: var(--white);
     text-align: center;
@@ -4991,18 +5009,32 @@ section#buster h3.title {
 button.pick-sticker {
     margin-top: 18px;
     border: 0;
-    padding: 15px 44px;
+    padding: 15px 32px;
     background-color: var(--color-middle);
     border-radius: 8px;
 }
 
-button.pick-sticker:hover {
+button.pick-sticker:hover:not(:disabled) {
     filter: brightness(0.8);
 }
 
-button.pick-sticker a {
+button.pick-sticker {
     color: var(--white);
     font-weight: bold;
+    display: flex;
+    gap: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button.pick-sticker svg {
+    width: 22px;
+    height: 22px;
+}
+
+button.pick-sticker svg path{
+    fill: var(--white);
 }
 
 section#buster img.boot {
@@ -5024,45 +5056,52 @@ section#partners .container>div {
     margin-top: 94px;
 }
 
+section#partners .container>div:nth-child(2) {
+    margin-top: 124px;
+}
+
 section#partners div.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    place-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
     margin-top: 64px;
     gap: 44px;
+    row-gap: 64px;
 }
 
 section#partners .dev {
+    max-width: 180px;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    gap: 12px;
-    color: var(--white);
-    padding: 12px 0;
 }
 
-section#partners p {
-    margin: 0;
+section#partners .dev a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 section#partners .partner {
+    max-width: 180px;
     width: 100%;
+    /* margin: 0 auto; */
+}
+
+section#partners .partner a {
     display: flex;
-    justify-self: center;
-    align-items: center;
     flex-direction: column;
-    gap: 12px;
-    color: var(--white);
+    align-items: center;
 }
 
 section#partners .grid img {
-    min-width: 94px;
-    min-height: 94px;
-    width: 94px;
-    height: 94px;
+    max-width: 100%;
+    width: 134px;
+    max-height: 94px;
     display: block;
+    object-fit: contain;
 }
 
 section#partners .title {
@@ -5102,12 +5141,12 @@ section#roadmap {
 section#roadmap img.trophy {
     position: absolute;
     top: 0;
-    left: -194px;
-    width: 320px;
+    left: -154px;
+    width: 240px;
 }
 
 section#roadmap h3.title {
-    font-size: var(--heading-2);
+    font-size: var(--heading-3);
     color: var(--white);
     margin-bottom: 18px;
     line-height: 140%;
@@ -5123,16 +5162,18 @@ section#roadmap h3.title span {
 }
 
 section#roadmap .roadmap-item {
-    display: grid;
-    gap: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
     color: var(--white);
     padding: 18px;
     background: var(--middle);
     border-radius: 5px;
     position: relative;
+    height: 100%;
 }
 
-section#roadmap .roadmap-item .icon {
+section#roadmap .roadmap-item div.icon {
     position: absolute;
     top: -26px;
     right: 12%;
@@ -5141,22 +5182,30 @@ section#roadmap .roadmap-item .icon {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 5px;
-    background: #665C5C;
+    border-radius: 50%;
 }
 
-section#roadmap .roadmap-item span.phase {
-    font-weight: bold;
+section#roadmap .roadmap-item div.icon.share {
+    background: linear-gradient(270deg, #30E584 0%, #97FF57 100%);
+}
+
+section#roadmap .roadmap-item div.icon.lucky {
+    background: linear-gradient(270deg, #4694FF 0%, #B53BFE 100%);
+}
+
+section#roadmap .roadmap-item div.icon.beer {
+    background: linear-gradient(90deg, #FF5353 0%, #FE457E 100%);
 }
 
 section#roadmap .roadmap-item h5 {
     font-size: var(--heading-4);
     font-weight: bold;
+    max-width: 75%;
 }
 
 section#roadmap .roadmap-item p {
     color: var(--white);
-    font-size: var(--paragraph-md)
+    font-size: var(--paragraph-md);
 }
 
 section#gol {

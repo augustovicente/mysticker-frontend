@@ -1,9 +1,10 @@
-import styled from "styled-components"
-import { Col, Modal } from 'antd'
+import styled, { css } from "styled-components"
+import Modal from 'antd/es/modal'
 import { motion } from "framer-motion";
 
 type StickerProps = {
-    pasted: boolean;
+    pasted?: boolean;
+    isLatest?: boolean;
 }
 
 export const AlbumContainer = styled.div`
@@ -650,6 +651,98 @@ export const StikerContainer = styled(motion.div)<StickerProps>`
     cursor: pointer;
     background: ${props => props.theme.colors.dark};
 
+    ${({ isLatest, theme }) => isLatest && css`
+        background: ${({ theme }) => theme.gradients.blueGreen};
+
+        &:has(.player-pasted) {
+            background: ${props => props.theme.colors.dark};
+            img {
+                height: 100%;
+                width: 100%;
+                object-fit: contain;
+            }
+        }
+
+        img.background-paste {
+            height: 94% !important;
+            width: 94% !important;
+            object-fit: contain;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        svg.lock-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 38px;
+            width: 38px;
+            z-index: 2;
+
+            path {
+                fill: ${theme.colors.white};
+            }
+        }
+
+        footer {
+            z-index: 2;
+            align-self: flex-end;
+
+            button {
+                background: transparent;
+                font-size: 10px;
+                display: flex;
+                gap: 4px;
+                justify-content: center;
+                align-items: center;
+                color: ${({ theme }) => theme.colors.white};
+                width: fit-content;
+                padding: 6px;
+                position: relative;
+                margin-bottom: 32px;
+                font-weight: bold;
+                font-size: 10px;
+
+                svg {
+                    path {
+                        fill: ${({ theme }) => theme.colors.yellow};
+                    }
+                }
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    inset: 0;
+                    border-radius: 25px;
+                    padding: 2px;
+                    background: ${({ theme }) => theme.gradients.blueGreen};
+                    -webkit-mask:
+                        linear-gradient(#fff 0 0) content-box,
+                        linear-gradient(#fff 0 0);
+                    -webkit-mask-composite: xor;
+                    mask-composite: exclude;
+                }
+            }
+
+            h6.close-team {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 14px;
+                margin: 0;
+                text-align-last: center;
+                font-size: 10px;
+                color: ${({ theme }) => theme.colors.white};
+                width: 100%;
+            }
+        }
+
+    `};
+
     span {
         font-size: 10px;
         font-weight: bold;
@@ -772,6 +865,124 @@ export const StikerContainer = styled(motion.div)<StickerProps>`
 
             h1 {
                 bottom: 28%;
+            }
+        }
+    }
+`
+
+export const PasteStickerModal = styled(Modal)`
+    width: fit-content;
+    width: 620px !important;
+    border: 2px rgba(255, 255, 255, .3) solid;
+    padding: 22px 20px;
+    border-radius: 10px;
+    border: 5px solid ${({ theme }) => theme.colors.greenNeon};
+
+    .ant-modal-content {
+        height: 100%;
+        background: transparent;
+
+        .ant-modal-body {
+            padding: 0 24px 24px 24px;
+
+            main {
+                h3 {
+                    color: ${({ theme }) => theme.colors.greenNeon};
+                    font-size: ${({ theme }) => theme.fontSizes.heading3};
+                    margin-bottom: 18px;
+                }
+
+                p, strong {
+                    line-height: 130%;
+                    ${({ theme }) => theme.colors.white}
+                }
+            }
+
+            footer {
+                display: flex;
+                justify-content: space-between;
+                gap: 64px;
+                margin-top: 48px;
+                button {
+                    padding: 8px 44px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-weight: bold;
+                    width: 100%;
+                    border-radius: 10px;
+                    font-size: ${({ theme }) => theme.fontSizes.lg};
+                    max-height: 47px;
+
+                    &:hover:not(:disabled) {
+                        filter: brightness(0.8);
+                    }
+
+                    &:nth-child(1) {
+                        background: ${({ theme }) => theme.colors.greenNeon};
+                    }
+
+                    &:nth-child(2) {
+                        background: ${({ theme }) => theme.colors.red};
+                        color: ${({ theme }) => theme.colors.white};
+                    }
+                }
+            }
+
+            .modal-close {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                position: absolute;
+                width: 88px;
+                height: 30.32px;
+                top: -20%;
+                left: -25%;
+                border-radius: 8px;
+                padding: 2px;
+                background: red;
+
+                p, span {
+                    margin: 0;
+                }
+
+                span {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100%;
+                    width: 30%;
+                    border-radius: 8px;
+
+                    background: ${props => props.theme.colors.middle};
+                    margin-right: 5px;
+                }
+
+                p {
+                    color: ${props => props.theme.colors.middle};
+                    font-weight: bold;
+                    font-size: 15px;
+                }
+            }
+        }
+
+        .ant-modal-footer {
+            display: none;
+        }
+
+        .ant-modal-close-x {
+            display: none;
+        }
+
+
+    }
+
+    @media (max-width: 768px) {
+        .ant-modal-content {
+            padding: 0 !important;
+
+            .ant-modal-body {
+                padding: 0 0 18px 0 !important;
             }
         }
     }

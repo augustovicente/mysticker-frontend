@@ -1,12 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import $ from 'jquery';
 
 import "./Header.css";
 import { LoginButton } from './components/LoginButton';
 import { DefaultButton } from './components/DefaultButton';
-import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from 'contexts/auth.context';
-import { Radio, Space } from 'antd';
+import Radio from 'antd/es/radio';
+import Space from 'antd/es/space';
 import i18n from 'i18n';
 import * as S from './styles';
 import { MobileNav } from './components/MobileNav/MobileNav';
@@ -18,6 +19,7 @@ import { ReactComponent as LinkIcon } from 'assets/imgs/link.svg';
 import { connect_wallet } from 'models/User';
 import { useToggle } from 'hooks/useToggle';
 import { toast } from 'react-toastify';
+import { t } from 'i18next';
 
 const Header = (props) => {
     const { user, signOut } = useAuth();
@@ -65,7 +67,7 @@ const Header = (props) => {
         {
             id: 'language',
             icon: '/assets/img/icons/browser-icon.svg',
-            title: 'Linguagem',
+            title: t('header.language'),
             selectedMenu: selectedMenu,
             setSelectedMenu: setSelectedMenu,
             children: (
@@ -82,7 +84,7 @@ const Header = (props) => {
         {
             id: 'whitepaper',
             icon: '/assets/img/icons/open-link-icon.svg',
-            title: 'Whitepaper',
+            title: t('header.whitepaper'),
             selectedMenu,
             onClick: () => {
                 $('body').removeClass('mobile-menu-visible');
@@ -92,7 +94,7 @@ const Header = (props) => {
         {
             id: 'wallet',
             icon: '/assets/img/icons/wallet-icon.svg',
-            title: 'Carteira',
+            title: t('header.wallet'),
             selectedMenu: selectedMenu,
             setSelectedMenu: setSelectedMenu,
             needsAuth: true,
@@ -108,7 +110,7 @@ const Header = (props) => {
                                 </button>
 
                                 <button onClick={handleDisconnectWallet} className='disconnect'>
-                                    Desconectar carteira
+                                    {t('header.disconnect_wallet')}
                                 </button>
                             </>
 
@@ -120,18 +122,16 @@ const Header = (props) => {
                                         </div>
                                     ) : (
                                         <>
-                                            Conectar Carteira
+                                            {t('header.connect_wallet')}
                                             <LinkIcon height={26} width={26} />
                                         </>
                                     )}
                                 </button>
 
-                                <span className='description'>
-                                    Conecte sua carteira para poder comprar e ver suas figurinhas
-                                </span>
-
-                                <button onClick={() => { }} className='create-wallet'>
-                                    Criar carteira
+                                <button onClick={() => {
+                                    window.open('https://metamask.io/', '_blank')
+                                }} className='create-wallet'>
+                                    {t('header.create_wallet')}
                                 </button>
                             </>
                         )}
@@ -143,7 +143,7 @@ const Header = (props) => {
         {
             id: 'rewards',
             icon: '/assets/img/icons/gift-icon.svg',
-            title: 'Prêmios',
+            title: t('header.rewards'),
             // selectedMenu,
             // setSelectedMenu,
             needsAuth: true,
@@ -151,7 +151,7 @@ const Header = (props) => {
         {
             id: 'notifications',
             icon: '/assets/img/icons/notification-icon.svg',
-            title: 'Notificações',
+            title: t('header.notification'),
             // selectedMenu,
             // setSelectedMenu,
             needsAuth: true,
@@ -159,7 +159,7 @@ const Header = (props) => {
         {
             id: 'logout',
             icon: '/assets/img/icons/sign-out.svg',
-            title: 'Sair',
+            title: t('header.logout'),
             selectedMenu,
             setSelectedMenu,
             needsAuth: true,
@@ -176,12 +176,6 @@ const Header = (props) => {
 
             var mobileMenuContent = $('.menu-area .push-menu').html();
             $('.mobile-menu .menu-box .menu-outer').append(mobileMenuContent);
-
-            //Dropdown Button
-            $('.mobile-menu li.menu-item-has-children .dropdown-btn').on('click', function () {
-                $(this).toggleClass('open');
-                $(this).prev('ul').slideToggle(500);
-            });
 
             $('.menu-backdrop, .mobile-menu .close-btn').click(() => {
                 $('body').removeClass('mobile-menu-visible');
@@ -211,7 +205,7 @@ const Header = (props) => {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         }
-    }, [])
+    }, []);
 
     useEffect(() => {
         $(".menu-tigger").on("click", function () {
@@ -221,20 +215,19 @@ const Header = (props) => {
 
         $(".menu-close,.offcanvas-overly").on("click", function () {
             $(".extra-info,.offcanvas-overly").removeClass("active");
-
         });
     }, []);
 
     return (
         <header className='main-header'>
-            <div id='sticky-header' className="menu-area ">
-                <div className={location.pathname === '/' ? 'container' : 'container-fluid'}>
+            <div id='sticky-header' className="menu-area">
+                <div className='container-fluid'>
                     <div className="row">
                         <div className="col-12 p-0">
                             <div className="mobile-nav-toggler"><i className="fas fa-bars" /></div>
                             <div className="menu-wrap main-menu">
                                 <nav className="menu-nav py-lg-3 py-md-2">
-                                    <div className="logo d-block d-lg-none">
+                                    <div className="logo d-block">
                                         <Link to="/">
                                             <img
                                                 src="/assets/img/logo/logo-header.svg"
@@ -251,7 +244,7 @@ const Header = (props) => {
                                                     <>
                                                         <li>
                                                             <DefaultButton
-                                                                title='Prêmios'
+                                                                title={t('header.rewards')}
                                                                 icon="/assets/img/icons/gift-icon.svg"
                                                                 disabled
                                                                 onlyLink='/'
@@ -262,13 +255,13 @@ const Header = (props) => {
                                                             <DefaultButton
                                                                 disabled
                                                                 onlyLink='/'
-                                                                title='Notificações'
+                                                                title={t('header.notification')}
                                                                 icon="/assets/img/icons/notification-icon.svg"
                                                             />
                                                         </li>
                                                         <li>
                                                             <DefaultButton
-                                                                title='Carteiras'
+                                                                title={t('header.wallet')}
                                                                 icon="/assets/img/icons/wallet-icon.svg"
                                                             >
                                                                 <S.Wallets>
@@ -281,7 +274,7 @@ const Header = (props) => {
                                                                             </button>
 
                                                                             <button onClick={handleDisconnectWallet} className='disconnect'>
-                                                                                Desconectar carteira
+                                                                                {t('header.disconnect_wallet')}
                                                                             </button>
                                                                         </>
 
@@ -293,18 +286,16 @@ const Header = (props) => {
                                                                                     </div>
                                                                                 ) : (
                                                                                     <>
-                                                                                        Conectar Carteira
+                                                                                        {t('header.connect_wallet')}
                                                                                         <LinkIcon height={26} width={26} />
                                                                                     </>
                                                                                 )}
                                                                             </button>
 
-                                                                            <span className='description'>
-                                                                                Conecte sua carteira para poder comprar e ver suas figurinhas
-                                                                            </span>
-
-                                                                            <button onClick={() => { }} className='create-wallet'>
-                                                                                Criar carteira
+                                                                            <button onClick={() => {
+                                                                                window.open('https://metamask.io/', '_blank')
+                                                                            }} className='create-wallet'>
+                                                                                {t('header.create_wallet')}
                                                                             </button>
                                                                         </>
                                                                     )}
@@ -317,12 +308,12 @@ const Header = (props) => {
                                             <li>
                                                 <DefaultButton
                                                     onlyLink='https://mysticker.gitbook.io/whitepaper-mysticker/'
-                                                    title='Whitepaper'
+                                                    title={t('header.whitepaper')}
                                                     icon="/assets/img/icons/open-link-icon.svg"
                                                 />
                                             </li>
                                             <li>
-                                                <DefaultButton title='Idioma' icon="/assets/img/icons/browser-icon.svg">
+                                                <DefaultButton title={t('header.language')} icon="/assets/img/icons/browser-icon.svg">
                                                     <Radio.Group onChange={handleChangeLanguage} value={selectedLanguage}>
                                                         <Space className='container-languages' direction="vertical">
                                                             <Radio value='pt-BR'>PT - BR</Radio>
@@ -365,7 +356,7 @@ const Header = (props) => {
                                                                 <img src="/assets/img/use-avatar.svg" alt="" />
                                                             </div>
                                                         </>
-                                                        <h5>Faça login</h5>
+                                                        <h5>{t('header.do_login')}</h5>
                                                     </button>
                                                 )}
                                             </header>

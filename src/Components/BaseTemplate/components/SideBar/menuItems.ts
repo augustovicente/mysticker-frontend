@@ -10,14 +10,12 @@ export const menuItems = [
         link: "/marketplace",
         icon: "/assets/img/icons/market-icon.svg",
         isAuthenticatedRoute: false,
-
     },
     {
-        title: "prizes",
+        title: "rewards",
         link: "/rewards",
         icon: "/assets/img/icons/gifts-icon.svg",
         isAuthenticatedRoute: false,
-
     },
     {
         title: "events",

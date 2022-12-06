@@ -351,7 +351,7 @@
 
     #sticky-header div.col-12 {
         background: var(--middle);
-        padding: 0 !important;
+        /* padding: 0 !important; */
     }
 
     .custom-container,
@@ -511,6 +511,10 @@
 
 /* Medium devices (tablets, 768px and up) */
 @media (max-width: 767.98px) {
+    .footer-top-wrap {
+        padding-bottom: 94px;
+    }
+
     #sticky-header {
         max-width: 100%;
         padding: 18px 26px !important;
@@ -831,6 +835,14 @@
 
 
 @media (max-width: 460px) {
+
+    section#partners .partner {
+        max-width: 120px;
+    }
+
+    section#partners .dev {
+        max-width: 120px;
+    }
 
     .header-form {
         display: none;

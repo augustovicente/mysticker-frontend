@@ -1,7 +1,9 @@
-import { Col, Row } from "antd"
+import Col from "antd/es/col"
 import { useCallback, useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { AlbumModal, StikerContainer } from "../styles"
+import LockIcon from "assets/imgs/lock.svg"
+import { useAuth } from "contexts/auth.context"
 
 type StickerProps = {
     stickerId: number
@@ -17,8 +19,14 @@ export const Sticker = ({ stickerId, name, rarity, ownedStickers, index }: Stick
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [playerSelected, setPlayerSelected] = useState(stickerId)
     const [currentIndex, setCurrentIndex] = useState(index)
+    const navigate = useNavigate();
+    const { user } = useAuth();
 
     const showModal = () => {
+        if (!user) {
+            return navigate('/login');
+        }
+
         setIsModalOpen(true)
     }
 
@@ -55,7 +63,16 @@ export const Sticker = ({ stickerId, name, rarity, ownedStickers, index }: Stick
                 >
                     {parseInt(ownedStickers[index]) >= 1 ? (
                         <>
-                            <img className={`player-img`} src={`/copa_pruu/${stickerId}.png`} alt={name} />
+                            {/* <img className={`player-img`} src={`/copa_pruu/${stickerId}.png`} alt={name} /> */}
+                            <img
+                                className={`player-img`}
+                                src={`https://dffla95hrvs5u.cloudfront.net/${stickerId}.png`}
+                                alt={name}
+                                onError={(e) => {
+                                    e.currentTarget.src = `/copa_pruu/${stickerId}.png`
+                                }}
+                            />
+
                             <img className="player-tier" src={`/assets/img/icons/tier-${rarity}-icon.svg`} />
                             <img className="player-base-tier" src={`/assets/img/icons/tier-base-${rarity}-icon.svg`} />
                             {parseInt(ownedStickers[index]) >= 2 && (
@@ -64,10 +81,8 @@ export const Sticker = ({ stickerId, name, rarity, ownedStickers, index }: Stick
                                     <img src={`/assets/img/icons/extra-stickers-icon.svg`} />
                                 </div>
                             )}
-
                         </>
                     ) : (
-
                         <>
                             <span>{`#0${stickerId}`}</span>
                             <img className="add-icon" src="/assets/img/icons/add-icon.svg" />
@@ -96,7 +111,16 @@ export const Sticker = ({ stickerId, name, rarity, ownedStickers, index }: Stick
                 >
                     {parseInt(ownedStickers[currentIndex]) >= 1 ? (
                         <>
-                            <img className="player-img" src={`/copa_pruu/${playerSelected}.png`} alt={name} />
+                            {/* <img className="player-img" src={`/copa_pruu/${playerSelected}.png`} alt={name} /> */}
+                            <img
+                                className={`player-img`}
+                                src={`https://dffla95hrvs5u.cloudfront.net/${playerSelected}.png`}
+                                alt={name}
+                                onError={(e) => {
+                                    e.currentTarget.src = `/copa_pruu/${playerSelected}.png`
+                                }}
+                            />
+
                             <img className="player-tier" src={`/assets/img/icons/tier-${rarity}-icon.svg`} />
                             <img className="player-base-tier" src={`/assets/img/icons/tier-base-${rarity}-icon.svg`} />
                             {parseInt(ownedStickers[index]) >= 2 && (
@@ -121,9 +145,11 @@ export const Sticker = ({ stickerId, name, rarity, ownedStickers, index }: Stick
                         Raridade
                         <span>
                             {
-                                rarity === 3 && "BRONZE" ||
-                                rarity === 2 && "PRATA" ||
-                                rarity === 1 && "OURO"
+                                (rarity === 3)
+                                    ? "BRONZE"
+                                    : (rarity === 2)
+                                        ? "PRATA"
+                                        : "OURO"
                             }
                         </span>
                     </div>
@@ -160,7 +186,7 @@ export const Sticker = ({ stickerId, name, rarity, ownedStickers, index }: Stick
                         <p>vender</p>
 
                         <span>
-                            <img src="/src/assets/imgs/lock.svg" />
+                            <img src={LockIcon}/>
                         </span>
                     </button>
                     <Link className="paste-sell-buy-btn" to="/marketplace">

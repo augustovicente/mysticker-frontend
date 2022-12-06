@@ -37,7 +37,7 @@ export default createGlobalStyle`
         height: 100%;
     }
 
-    button, textarea, a, span {
+    button, textarea, a, span, p, strong {
         font-family: 'Inter', sans-serif;
     }
 

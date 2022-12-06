@@ -5,14 +5,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as S from './styles';
 import { useToggle } from 'hooks/useToggle';
 import { GradientOverlay } from 'Components/GradientOverlay';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import LogoPru from 'assets/imgs/logo.svg';
-import WorldBackground from '../../../../../public/assets/img/others/world.png'
 import { FormBase } from 'pages/Login/components/FormBase.styles';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { api } from 'services/api';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SendImg from 'assets/imgs/logo-send.svg'
 import { useTranslation } from 'react-i18next';
 
@@ -57,6 +56,26 @@ export const Register = () =>
     const [isLoading, setIsLoading] = useToggle(false);
     const [isEmailSended, setIsEmailSended] = useState(false);
 
+    const params = useParams();
+    const location = useLocation();
+
+    const [affiliate_code, setAffiliate_code] = useState(params.affiliate_code || null);
+
+    useEffect(() => {
+        if (!affiliate_code && localStorage.getItem('affiliate_code')) {
+            setAffiliate_code(localStorage.getItem('affiliate_code'));
+        }
+
+        if (affiliate_code) {
+            localStorage.setItem('affiliate_code', affiliate_code);
+        }
+
+        if (location.pathname.split('/')[1] !== 'r') {
+            setAffiliate_code('')
+        }
+    }, [location?.pathname])
+
+
     const onSubmit: SubmitHandler<formType> = async (formValues) => {
         if (!formValues.therms) {
             return toast.info(t('signup.errors.terms_of_use') || '');
@@ -69,10 +88,15 @@ export const Register = () =>
                 name: formValues.name,
                 email: formValues.email,
                 password: formValues.password,
+                ...(affiliate_code && { affiliate_code })
             });
 
             setIsLoading(false);
             setIsEmailSended(true);
+
+            if (location.pathname.split('/')[1] === 'r') {
+                localStorage.removeItem('affiliate_code');
+            }
         } catch (error) {
             setIsLoading(false);
 
@@ -87,6 +111,7 @@ export const Register = () =>
             }
         }
     };
+
 
     return (
         <S.Container className={isEmailSended ? 'sended' : 'test'}>

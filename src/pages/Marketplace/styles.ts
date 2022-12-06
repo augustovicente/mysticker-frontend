@@ -130,6 +130,7 @@ export const MarketplaceContainer = styled.div`
 
             .carousel .control-arrow, .carousel.carousel-slider .control-arrow{
                 opacity: 1;
+                z-index: 1;
             }
 
             .carousel .control-next.control-arrow:before {
@@ -200,9 +201,6 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
     .stikers-package-main {
         display: flex;
         flex-direction: column;
-        background-image: url("/assets/img/others/sticker-mask.png");
-        background-position: center;
-        background-repeat: no-repeat;
         padding: 22px 22px 0px 22px;
 
         .sticker-star-container {
@@ -374,7 +372,7 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
             border-radius: 30px;
             width: 100%;
             padding: 1.313rem 1.063rem;
-            z-index: 2;
+            z-index: 1;
             margin-bottom: -2.25rem;
 
             .payment {

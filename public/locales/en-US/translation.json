@@ -1,70 +1,138 @@
 {
     "home": {
         "section_1": {
-            "title": "A comunidade dos álbuns de figurinha",
-            "subtitle": "A MySticker te faz reviver a nostalgia dos álbuns e te ajuda a acabar com a curiosidade de ter a sua primeira NFT"
+            "title": "The sticker album community",
+            "subtitle": "MySticker makes you remember the albums good old times and help you end the curiosity of having your fisrt NFT",
+            "action_1": "Open sticker album",
+            "action_2": "Whitepaper",
+            "img_alt": "3 Copa Pruu stickers"
         },
         "section_2": {
-            "subtitle": "Para estrear essa plataforma com o pé direito - especialmente para você que já está no hype da Copa - temos uma ótima notícia: Vem aí a CopaPruu 2022. \n\n A Copa do Mundo dos Pombos. Você pode completar seu álbum e ainda ganhar os bônus mais maneiros.",
-            "button": "Abrir o Albúm de Figurinhas"
+            "subtitle": "In order to start this platform with the right foot - especially for who is in World Cup's hype - we have a great new: Here's comming the CopaPruu 2022. \n\n The Pigeon World Cup. You can complete your album and also get the most cool bonuses.",
+            "button": "Buy Package",
+            "img_alt_1": "Sticker Package"
         },
         "section_3": {
-            "title": "Benefícios"
+            "title": "Benefits",
+            "cards": {
+                "card_1": {
+                    "title": "Challenges",
+                    "text_1": "Be connected to Copa Pruu medias and then stay in the known of everything, besides join challenges",
+                    "text_2": "for boosters",
+                    "text_3": "products ",
+                    "text_4": "or even ",
+                    "text_5": "money (R$)"
+                },
+                "card_2": {
+                    "title": "PRUU Launch",
+                    "text_1": "By collecting stickers, you may ",
+                    "text_2": "redeem items ",
+                    "text_3": "from the ",
+                    "text_4": "Exclusive Drop ",
+                    "text_5": "from ",
+                    "text_6": "Pruu.",
+                    "text_7": "T-Shirts, sweatshirts, caps, mugs and ",
+                    "text_8": "other items which will come to compound your outfit on parties out there"
+                },
+                "card_3": {
+                    "title": "The platform receive by PIXs?",
+                    "text_1": "For the Brazilian happiness: yes, we do! It's easy and fast."
+                },
+                "card_4": {
+                    "title": "Marketplace",
+                    "text_1": "Feel free to  ",
+                    "text_2": "resell",
+                    "text_3": " your ",
+                    "text_4": "repeated stickers!",
+                    "text_5": "The ideia is that you may buy or sell to other players and, maybe, win some extra monney"
+                },
+                "card_5": {
+                    "title": "Boteco Verso",
+                    "text_1": "You may ",
+                    "text_2": "watch",
+                    "text_3": " the main ",
+                    "text_4": "games",
+                    "text_5": " and cheer with the crowd ",
+                    "text_6": "in",
+                    "text_7": " our ",
+                    "text_8": "Boteco Verso",
+                    "text_9": ", the ",
+                    "text_10": "first Brazilian bar inside Metaverse",
+                    "text_11": ". You will also ",
+                    "text_12": "compete for booster",
+                    "text_13": " during the games."
+                }
+            }
         },
         "section_4": {
-            "title": "O 1º Buster é \n por nossa conta",
-            "button": "Resgate seu Pacotinho"
+            "title": "The first figures\n is on us",
+            "button": "Redeem your stickers"
         },
         "section_5": {
             "developers": {
-                "title": "Desenvolvedores"
+                "title": "Developers"
             },
             "partners": {
-                "title": "Parceiros"
+                "title": "Partners"
             }
         },
         "section_6": {
             "phase1": {
-                "title": "Fase 1",
-                "subtitle": "Desafios",
-                "list": {
-                    "item1": "Recompensas para os vencedores",
-                    "item2": "Prêmios em itens físicos da PRUU",
-                    "item3": "Prêmios em figurinhas"
-                }
+                "title": "Invite your friends",
+                "description": "For the first 10 friends who are invited and who buy a package you automatically receive another one as a reward."
             },
             "phase2": {
-                "title": "Fase 2",
-                "subtitle": "Desafios",
-                "list": {
-                    "item1": "Recompensas para os vencedores",
-                    "item2": "Prêmios em itens físicos da PRUU",
-                    "item3": "Prêmios em figurinhas"
-                }
+                "title": "For all the lucky ones",
+                "description": "For every 10 packages purchased, you are presented with a new package. More chances for you to complete your album."
             },
             "phase3": {
-                "title": "Fase 3",
-                "subtitle": "Desafios",
-                "list": {
-                    "item1": "Recompensas para os vencedores",
-                    "item2": "Prêmios em itens físicos da PRUU",
-                    "item3": "Prêmios em figurinhas"
-                }
+                "title": "Champions Flock",
+                "description": "The first ones to complete the album will win all the Pruu releases and exclusive items like a Playstation 5, for the first place, and R$2500,00 for the second place. However, it does not end there..."
             }
         },
         "section_7": {
-            "button": "Resgate seu Pacotinho"
+            "button": "Redeem your sticker"
         }
     },
     "sidebar":{
         "album": "Album",
         "store": "Store",
         "prizes": "Prizes",
+        "rewards": "Prizes",
         "events": "Events",
         "chalenges": "Chalenges",
         "profile": "My Data",
         "wallet": "Your Waller",
         "connect_wallet": "Connect"
+    },
+    "footer":{
+        "info": "My Sticker, the first sticker album creating platform",
+        "usefull_links": "Usefull Links",
+        "album": "Album",
+        "login": "Signup",
+        "register": "Register",
+        "store": "Store",
+        "rewards": "Rewards",
+        "whitepaper": "Whitepaper",
+        "community": "Community",
+        "contact": "Contact",
+        "help": "Help",
+        "be_partner": "Be Partner"
+    },
+    "header":{
+        "disconnect_wallet": "Disconnect Wallet",
+        "connect_wallet": "Connect Wallet",
+        "create_wallet": "Create Wallet",
+        "do_login": "SignUp",
+        "my_data": "My Data",
+        "my_wallet": "My Wallet",
+        "logout": "Logout",
+        "profile": "Profile",
+        "language": "Language",
+        "whitepaper": "WhitePaper",
+        "wallet": "Wallet",
+        "rewards": "Rewards",
+        "notification": "Notifications"
     },
     "login": {
         "title": "Login",
@@ -109,6 +177,17 @@
         "email_validation":{
             "title": "Confirm your email",
             "subtitle": "We sent an email to you, please check your inbox and click on the link to confirm your email."
+        }
+    },
+    "album": {
+        "title": "Album",
+        "teams-list": {
+            "todos": "All",
+            "america-norte": "North America",
+            "america-sul": "South America",
+            "europa": "Europe",
+            "asia": "Asia",
+            "africa": "Africa"
         }
     }
 }
