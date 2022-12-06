@@ -17,12 +17,16 @@ const NotFoundPage = lazy(() => import('pages/404/404').then((module) => ({ defa
 const MyPackages = lazy(() => import('pages/MyPackages/MyPackages').then((module) => ({ default: module.MyPackages })));
 const Profile = lazy(() => import('pages/Profile/Profile').then((module) => ({ default: module.Profile })));
 const ResetPassword = lazy(() => import('pages/Profile/pages/ResetPassword/ResetPassword').then((module) => ({ default: module.ResetPassword })));
+const Events = lazy(() => import('pages/Events/index').then((module) => ({ default: module.Events })));
+const Challenge = lazy(() => import('pages/Challenge/Challenge').then((module) => ({ default: module.Challenge })));
+
 
 export const Router = () => {
     const { user } = useAuth();
 
     if (!user) {
         return (
+
             <Suspense fallback={<Loading />}>
                 <Routes>
                     <Route path="/" element={<BaseTemplate><Home /></BaseTemplate>} />
@@ -48,6 +52,7 @@ export const Router = () => {
             <Routes>
                 {/* <Route> */}
                 <Route path='/' element={<Outlet />} >
+
                     <Route index element={<BaseTemplate><Home /></BaseTemplate>} />
                     <Route path="/prizes" element={<BaseTemplate footer={false}><Prizes /></BaseTemplate>} />
                     <Route path="/rewards" element={<BaseTemplate footer={false}><Prizes /></BaseTemplate>} />
@@ -56,8 +61,8 @@ export const Router = () => {
                     <Route path="/album" element={<BaseTemplate footer={false}><Album /></BaseTemplate>} />
 
                     <Route path="register" element={<BaseTemplate><Register /></BaseTemplate>} />
-                    {/* <Route path="events" element={<></<h2>EventoBaseTemplate><></h2}></>} /> */}
-                    {/* <Route path='challenges' element={<BaseTemplate><Challenge /></BaseTemplate>} /> */}
+                    <Route path="events" element={<BaseTemplate footer={false}><Events /></BaseTemplate>} />
+                    <Route path='challenges' element={<BaseTemplate footer={false}><Challenge /></BaseTemplate>} />
 
                     <Route path="profile" element={(
                         <Outlet />
