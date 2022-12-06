@@ -24,7 +24,7 @@ export const menuItems = [
         link: "/events",
         icon: "/assets/img/icons/events-icon.svg",
         isAuthenticatedRoute: false,
-        blocked: true
+        blocked: false
     },
     {
         title: "chalenges",
