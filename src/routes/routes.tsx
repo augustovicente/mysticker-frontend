@@ -61,8 +61,8 @@ export const Router = () => {
                     <Route path="/album" element={<BaseTemplate footer={false}><Album /></BaseTemplate>} />
 
                     <Route path="register" element={<BaseTemplate><Register /></BaseTemplate>} />
-                    <Route path="events" element={<BaseTemplate footer={false}><Events /></BaseTemplate>} />
-                    <Route path='challenges' element={<BaseTemplate footer={false}><Challenge /></BaseTemplate>} />
+                    {/* <Route path="events" element={<BaseTemplate footer={false}><Events /></BaseTemplate>} /> */}
+                    {/* <Route path='challenges' element={<BaseTemplate footer={false}><Challenge /></BaseTemplate>} /> */}
 
                     <Route path="profile" element={(
                         <Outlet />

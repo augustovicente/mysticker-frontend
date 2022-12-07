@@ -49,8 +49,10 @@ export const Marketplace = () => {
 
         if (status === 'connected') {
             setIsModalErrorOpen(false);
+            setIsLoading(false)
         } else {
             setIsModalErrorOpen(true);
+            setIsLoading(false)
         }
     }, [])
 
@@ -64,8 +66,11 @@ export const Marketplace = () => {
                 return setIsModalErrorOpen(true)
             }
 
-            checkStatusWallet();
+            checkStatusWallet()
+                .finally(() => setIsLoading(false))
         })();
+
+        setIsLoading(false)
     }, [])
 
     return (
