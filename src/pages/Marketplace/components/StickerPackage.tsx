@@ -97,7 +97,7 @@ export const StickerPackage = ({
     }, [count]);
 
     const handleIncrement = useCallback(() => {
-        if (count < 5) {
+        if (count < 99) {
             setCount(count + 1);
         }
     }, [count]);
