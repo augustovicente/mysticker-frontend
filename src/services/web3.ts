@@ -28,7 +28,7 @@ export const checkWallet = (): Promise<string> => {
 
 export const connect: () => Promise<string[]> = () => {
     return new Promise((resolve, reject) => {
-        if (_window.ethereum) {
+        if (_window.ethereum && _window.ethereum.isMetaMask) {
             // check if user has polygon network added to metamask
             const polygonNetworkId = '137'
 
@@ -88,6 +88,11 @@ export const connect: () => Promise<string[]> = () => {
                 });
         }
         else {
+            if (/Android|iPhone/i.test(navigator.userAgent)) {
+                window.location.href = 'https://metamask.app.link/dapp/mysticker.io/'
+                return reject('No ethereum provider found');
+            }
+
             toast.error(i18n.t('metamask.not-found'), { toastId: 'metamaskNotFound' });
             reject('No ethereum provider found');
         }
