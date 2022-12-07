@@ -4,7 +4,7 @@ import $ from 'jquery';
 import "./Header.css";
 import { LoginButton } from './components/LoginButton';
 import { DefaultButton } from './components/DefaultButton';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from 'contexts/auth.context';
 import Radio, { RadioChangeEvent } from 'antd/es/radio';
 import Space from 'antd/es/space';
