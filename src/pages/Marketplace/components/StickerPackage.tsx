@@ -37,7 +37,7 @@ export const StickerPackage = ({
     stickerStatsModalIsOpen
 }: StickerPackageProps) =>
 {
-    const [count, setCount] = useState(0)
+    const [count, setCount] = useState(1)
     const { user } = useAuth()
     const navigate = useNavigate();
 
@@ -97,7 +97,7 @@ export const StickerPackage = ({
     }, [count]);
 
     const handleIncrement = useCallback(() => {
-        if (count < 5) {
+        if (count < 99) {
             setCount(count + 1);
         }
     }, [count]);
@@ -179,7 +179,7 @@ export const StickerPackage = ({
                     <div className="quantity">
                         <h4>{price.toString().replace('.',',')} MATIC</h4>
                         <p>
-                            {((+exchangeRate) * (+price)).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+                            {((+exchangeRate) * (+price) * count).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                         </p>
 
                         <div className="quantity-counter">

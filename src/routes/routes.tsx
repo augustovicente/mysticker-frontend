@@ -1,10 +1,10 @@
+import BaseTemplate from 'Components/BaseTemplate';
 import { Loading } from 'Components/Loading/Loading';
 import { useAuth } from 'contexts/auth.context';
 import { lazy, Suspense } from 'react';
 import { Outlet, Route, Routes } from 'react-router-dom';
 
 const Home = lazy(() => import('pages/Home'));
-const BaseTemplate = lazy(() => import('Components/BaseTemplate'));
 const Login = lazy(() => import('pages/Login/Login').then((module) => ({ default: module.Login })));
 const ForgotPassword = lazy(() => import('pages/Login/Pages/ForgotPassword/ForgotPassword').then((module) => ({ default: module.ForgotPassword })));
 const NewPassword = lazy(() => import('pages/Login/Pages/NewPassword/NewPassword').then((module) => ({ default: module.NewPassword })));
@@ -61,8 +61,8 @@ export const Router = () => {
                     <Route path="/album" element={<BaseTemplate footer={false}><Album /></BaseTemplate>} />
 
                     <Route path="register" element={<BaseTemplate><Register /></BaseTemplate>} />
-                    <Route path="events" element={<BaseTemplate footer={false}><Events /></BaseTemplate>} />
-                    <Route path='challenges' element={<BaseTemplate footer={false}><Challenge /></BaseTemplate>} />
+                    {/* <Route path="events" element={<BaseTemplate footer={false}><Events /></BaseTemplate>} /> */}
+                    {/* <Route path='challenges' element={<BaseTemplate footer={false}><Challenge /></BaseTemplate>} /> */}
 
                     <Route path="profile" element={(
                         <Outlet />

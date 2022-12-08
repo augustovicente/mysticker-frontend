@@ -189,5 +189,8 @@
             "asia": "Asia",
             "africa": "Africa"
         }
+    },
+    "metamask": {
+        "not-found": "Metamask not found, please install it"
     }
 }

@@ -601,6 +601,8 @@ export const RewardModalContainer = styled.div`
         gap: 24px;
         border-radius: 8px 0 0 8px;
 
+
+
         img.gift-icon {
             position: absolute;
             height: 54px;
@@ -616,13 +618,26 @@ export const RewardModalContainer = styled.div`
             position: relative;
         }
 
-        img {
-            display: block;
-            object-fit: contain;
-            height: 290px;
-            width: 100%;
-        }
+        div.img-prize {
+            position: relative;
 
+            img {
+                display: block;
+                object-fit: contain;
+                height: 290px;
+                width: 100%;
+            }
+
+            .drop-sizes {
+                position: absolute;
+                right: 0;
+                bottom: -18px;
+            }
+
+            div.select-size {
+                display: flex;
+            }
+        }
         div.select-size-container {
             display: flex;
             flex-direction: column;

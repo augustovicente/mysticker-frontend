@@ -1,12 +1,13 @@
+import { toast } from "react-toastify";
 import Web3 from "web3";
 import { abi, contract_address } from "./contract";
+import i18n from 'i18next';
 
 const _window: any = window as any;
 const provider: any = _window.ethereum;
 export const web3 = new Web3(provider);
 
-
-export const checkWallet = () => {
+export const checkWallet = (): Promise<string> => {
     return new Promise((resolve, reject) => {
         if (_window.ethereum) {
             const polygonNetworkId = '137'
@@ -25,10 +26,9 @@ export const checkWallet = () => {
     })
 }
 
-
 export const connect: () => Promise<string[]> = () => {
     return new Promise((resolve, reject) => {
-        if (_window.ethereum) {
+        if (_window.ethereum && _window.ethereum.isMetaMask) {
             // check if user has polygon network added to metamask
             const polygonNetworkId = '137'
 
@@ -41,12 +41,9 @@ export const connect: () => Promise<string[]> = () => {
                                 // request to user connect wallet
                                 _window.ethereum.request({ method: 'eth_requestAccounts' })
                                     .then((accounts: string[]) => {
-                                        console.log('accounts', accounts)
                                         return resolve(accounts);
                                     })
                                     .catch((error: any) => {
-
-
                                         reject(error);
                                     });
                             })
@@ -87,10 +84,16 @@ export const connect: () => Promise<string[]> = () => {
                     }
                 })
                 .catch((err) => {
-                    // unable to retrieve network id
+                    reject(err);
                 });
         }
         else {
+            if (/Android|iPhone/i.test(navigator.userAgent)) {
+                window.location.href = 'https://metamask.app.link/dapp/mysticker.io/'
+                return reject('No ethereum provider found');
+            }
+
+            toast.error(i18n.t('metamask.not-found'), { toastId: 'metamaskNotFound' });
             reject('No ethereum provider found');
         }
     })

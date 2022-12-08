@@ -17,10 +17,11 @@ export default defineConfig((config) => ({
     build: {
         outDir: 'build',
         minify: 'esbuild',
+        sourcemap: true,
     },
     esbuild: {
         minifyIdentifiers: true,
         minifySyntax: true,
-        minifyWhitespace: true
+        minifyWhitespace: true,
     }
 }));

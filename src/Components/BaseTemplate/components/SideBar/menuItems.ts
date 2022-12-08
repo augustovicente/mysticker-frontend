@@ -22,14 +22,14 @@ export const menuItems = [
         link: "/events",
         icon: "/assets/img/icons/events-icon.svg",
         isAuthenticatedRoute: false,
-        blocked: false
+        blocked: true
     },
     {
         title: "chalenges",
         link: "/challenges",
         icon: "/assets/img/icons/challenge-icon.svg",
         isAuthenticatedRoute: false,
-        blocked: false
+        blocked: true
     },
     {
         title: "profile",

@@ -189,5 +189,8 @@
             "asia": "Ásia",
             "africa": "África"
         }
+    },
+    "metamask": {
+        "not-found": "Metamask não tá instalada ai paizão!"
     }
 }

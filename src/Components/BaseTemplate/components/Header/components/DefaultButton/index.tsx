@@ -26,6 +26,7 @@ export const DefaultButton = ({ icon, onlyLink, title, children, needsAuth, ...r
             title={title}
             open={showTooltip}
             onOpenChange={setShowTooltip}
+            overlayStyle={{ position: 'fixed' }}
         >
             {onlyLink ? (
                 <DefaultButtonContainer
@@ -39,6 +40,7 @@ export const DefaultButton = ({ icon, onlyLink, title, children, needsAuth, ...r
             ) : (
                 <Popover
                     placement="bottom"
+                    overlayStyle={{ position: 'fixed' }}
                     onOpenChange={(visible) => {
                         setShowTooltip(false);
                     }}

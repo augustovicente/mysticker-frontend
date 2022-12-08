@@ -70,8 +70,10 @@ export const LoginButton = () => {
             title={user && t('header.profile')}
             open={showTooltip}
             onOpenChange={setShowTooltip}
+            overlayStyle={{ position: 'fixed' }}
         >
             <Popover
+                overlayStyle={{ position: 'fixed' }}
                 placement="bottomRight"
                 content={content}
                 trigger={user ? "click" : "none"}

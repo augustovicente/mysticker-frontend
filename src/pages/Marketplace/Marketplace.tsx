@@ -1,5 +1,5 @@
 import { useToggle } from "hooks/useToggle";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import { Link } from "react-router-dom";
 import { Skeletons } from "./components/Skeletons";
@@ -12,9 +12,10 @@ import { useAuth } from "contexts/auth.context";
 import axios from "axios";
 import { WalletErrorModal } from "pages/Album/components/Skeletons/styles";
 import { ReactComponent as LoginIcon } from 'assets/imgs/user.svg';
-import { connect_wallet, getPackages } from "models/User";
+import { connect_wallet } from "models/User";
 import { ReactComponent as WalletIcon } from 'assets/imgs/wallet-white.svg';
 import { checkWallet } from "services/web3";
+import { useMetamaskChanged } from "hooks/useMetamaskChanged";
 
 export const Marketplace = () => {
     const { user, getUser } = useAuth()
@@ -43,6 +44,20 @@ export const Marketplace = () => {
         }
     }, []);
 
+    const checkStatusWallet = useCallback(async () => {
+        const status = await checkWallet();
+
+        if (status === 'connected') {
+            setIsModalErrorOpen(false);
+            setIsLoading(false)
+        } else {
+            setIsModalErrorOpen(true);
+            setIsLoading(false)
+        }
+    }, [])
+
+    useMetamaskChanged(checkStatusWallet);
+
     useEffect(() => {
         setIsLoading(true);
 
@@ -51,16 +66,11 @@ export const Marketplace = () => {
                 return setIsModalErrorOpen(true)
             }
 
-            checkWallet()
-                .then(res => {
-                    if (res === 'connected') {
-                        setIsModalErrorOpen(false);
-                    } else {
-                        return setIsModalErrorOpen(true);
-                    }
-                })
+            checkStatusWallet()
                 .finally(() => setIsLoading(false))
         })();
+
+        setIsLoading(false)
     }, [])
 
     return (

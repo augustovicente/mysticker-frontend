@@ -29,14 +29,12 @@ export const ModalContentHasRedeem = ({ selectedSize, setSelectedSize }: { selec
             label: size,
         }))
 
-        if(currentSizes) {
+        if (currentSizes) {
             setSelectedSize(currentSizes[0].label)
         }
 
         return currentSizes
     }, [currentPrize?.sizes]) as MenuProps['items'];
-
-    // console.log('sizes', sizes)
 
     // Caso tenha sido feito o pedido de resgate
     if (redeemSuccess) {
@@ -122,40 +120,41 @@ export const ModalContentHasRedeem = ({ selectedSize, setSelectedSize }: { selec
                         <h3>Resgate {'\n'}de Prêmios
                             <img className='gift-icon' src="/assets/img/icons/gifts-icon.svg" alt="" />
                         </h3>
-                        <img src={currentPrize?.images![0]} alt={`Camiseta`} />
 
-                        {currentPrize?.sizes && currentPrize?.sizes?.length > 0 && (
-                            <div className="select-size-container">
-                                <Dropdown
-                                    trigger={['click']}
-                                    open={isOpen}
-                                    menu={{
-                                        items: sizes,
-                                        selectable: true,
-                                        onSelect: (key) => setSelectedSize(sizes?.[Number(key.key) - 1]?.label)
-                                    }}
-                                >
-                                    <div className="select-size" onClick={() => setIsOpen(!isOpen)}>
-                                        <div className="size-box">
-                                            <div className="selected-size">
-                                                <span>
-                                                    {selectedSize}
-                                                </span>
+                        <div className="img-prize">
+                            <img src={currentPrize?.images![0]} alt={`Camiseta`} />
+
+                            {currentPrize?.sizes && currentPrize?.sizes?.length > 0 && (
+                                <div className="select-size-container">
+                                    <Dropdown
+                                        trigger={['click']}
+                                        open={isOpen}
+                                        menu={{
+                                            items: sizes,
+                                            selectable: true,
+                                            onSelect: (key) => setSelectedSize(sizes?.[Number(key.key) - 1]?.label)
+                                        }}
+                                    >
+                                        <div className="select-size" onClick={() => setIsOpen(!isOpen)}>
+                                            <div className="size-box">
+                                                <div className="selected-size">
+                                                    <span>
+                                                        {selectedSize}
+                                                    </span>
+                                                </div>
+
+                                                <svg className={isOpen ? "open" : ""} width="17" height="8" viewBox="0 0 17 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M8.48667 7.9973C8.20344 7.99782 7.92896 7.90487 7.71088 7.73458L0.437897 2.02324C0.190353 1.82936 0.0346815 1.55074 0.00512927 1.2487C-0.024423 0.946653 0.0745647 0.645916 0.280316 0.412646C0.486067 0.179376 0.781727 0.0326817 1.10226 0.00483352C1.42278 -0.0230146 1.74192 0.0702645 1.98947 0.264151L8.48667 5.38151L14.9839 0.446915C15.1079 0.352031 15.2505 0.281175 15.4037 0.238417C15.5568 0.19566 15.7174 0.181846 15.8762 0.197768C16.0351 0.213691 16.189 0.259035 16.3292 0.331196C16.4693 0.403358 16.593 0.500913 16.693 0.618254C16.804 0.735704 16.8881 0.873491 16.94 1.02298C16.9918 1.17248 17.0104 1.33045 16.9945 1.48702C16.9785 1.64358 16.9285 1.79535 16.8474 1.93283C16.7663 2.07031 16.656 2.19053 16.5233 2.28596L9.25033 7.80311C9.02598 7.94649 8.7571 8.01486 8.48667 7.9973Z" fill="#767EA8" />
+                                                </svg>
                                             </div>
-
-                                            <svg className={isOpen ? "open" : ""} width="17" height="8" viewBox="0 0 17 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M8.48667 7.9973C8.20344 7.99782 7.92896 7.90487 7.71088 7.73458L0.437897 2.02324C0.190353 1.82936 0.0346815 1.55074 0.00512927 1.2487C-0.024423 0.946653 0.0745647 0.645916 0.280316 0.412646C0.486067 0.179376 0.781727 0.0326817 1.10226 0.00483352C1.42278 -0.0230146 1.74192 0.0702645 1.98947 0.264151L8.48667 5.38151L14.9839 0.446915C15.1079 0.352031 15.2505 0.281175 15.4037 0.238417C15.5568 0.19566 15.7174 0.181846 15.8762 0.197768C16.0351 0.213691 16.189 0.259035 16.3292 0.331196C16.4693 0.403358 16.593 0.500913 16.693 0.618254C16.804 0.735704 16.8881 0.873491 16.94 1.02298C16.9918 1.17248 17.0104 1.33045 16.9945 1.48702C16.9785 1.64358 16.9285 1.79535 16.8474 1.93283C16.7663 2.07031 16.656 2.19053 16.5233 2.28596L9.25033 7.80311C9.02598 7.94649 8.7571 8.01486 8.48667 7.9973Z" fill="#767EA8" />
-                                            </svg>
                                         </div>
-                                    </div>
-                                </Dropdown>
+                                    </Dropdown>
 
-                                <span className="size-title" onClick={() => setIsOpen(true)}>Defina o tamanho</span>
-                            </div>
-                        )}
-
-
-                    </section>
+                                    <span className="size-title" onClick={() => setIsOpen(true)}>Defina o tamanho</span>
+                                </div>
+                            )}
+                        </div>
+                    </section >
 
                     <section className='confirm-address'>
                         <h3>Confirme os seus dados</h3>

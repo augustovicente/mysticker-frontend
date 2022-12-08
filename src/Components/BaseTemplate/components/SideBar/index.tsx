@@ -47,7 +47,7 @@ const SideBar = () => {
                                 {menu.blocked ? (
                                     <img src={LockIcon} alt="" />
                                 ) : (
-                                    <img src={menu.icon} />
+                                    <img src={menu.icon} alt="" />
                                 )}
 
                                 <h3>{t("sidebar." + menu.title)}</h3>

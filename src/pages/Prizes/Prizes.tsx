@@ -24,6 +24,7 @@ import { WalletErrorModal } from 'pages/Album/components/Skeletons/styles';
 import { Link } from 'react-router-dom';
 import { ReactComponent as LoginIcon } from 'assets/imgs/user.svg';
 import { ReactComponent as WalletIcon } from 'assets/imgs/wallet-white.svg';
+import { useMetamaskChanged } from 'hooks/useMetamaskChanged';
 
 type HasRedeemResponse = {
     has_redeem: boolean;
@@ -59,7 +60,6 @@ type prizeProps = {
 const prizes: prizeProps[] = [
     {
         type: 1,
-        sizes: ['P', 'M', 'G', 'GG'],
         images: ['/prizes/todos.png'],
         title: 'PlayStation 5',
         description: 'Ao completar todas as figuras desse continente você pode resgatar este playstation 5',
@@ -69,7 +69,6 @@ const prizes: prizeProps[] = [
     },
     {
         type: 2,
-        sizes: ['P', 'M', 'G', 'GG'],
         images: ['/prizes/america-norte.png'],
         title: 'Boné 5pruu',
         description: 'Ao completar todas as figuras desse continente você pode resgatar este boné',
@@ -127,7 +126,7 @@ export const Prizes = () => {
     const { user, getUser } = useAuth();
     const [isModalOpen, setIsModalOpen] = useState(true);
     const [addressData, setAddressData] = useState<dataCEP>({} as dataCEP);
-    const [isLoading, setIsLoading] = useToggle(false);
+    const [isLoading, setIsLoading] = useToggle(true);
     const [redeemSuccess, setRedeemSuccess] = useState(false);
     const [isModalErrorOpen, setIsModalErrorOpen] = useState(false);
     const [selectedSize, setSelectedSize] = useState("")
@@ -192,7 +191,21 @@ export const Prizes = () => {
         });
 
         setOwnedTeams(ownedTeamsBoolean.filter(({ owned }) => owned === true).map(({ team }) => team!))
-    }, [teamsGroupSelected])
+    }, [teamsGroupSelected]);
+
+    const checkStatusWallet = useCallback(async () => {
+        const status = await checkWallet();
+
+        if (status === 'connected') {
+            getTotalCompletedByTeam();
+            setIsModalErrorOpen(false);
+        } else {
+            setOwnedTeams([])
+            setIsModalErrorOpen(true);
+        }
+    }, [])
+
+    useMetamaskChanged(checkStatusWallet);
 
     useEffect(() => {
         setIsLoading(true);
@@ -202,16 +215,7 @@ export const Prizes = () => {
                 return setIsModalErrorOpen(true);
             }
 
-            checkWallet()
-                .then(res => {
-                    if (res === 'connected') {
-                        setIsModalErrorOpen(false);
-                    } else {
-                        return setIsModalErrorOpen(true);
-                    }
-                })
-                .finally(() => setIsLoading(false))
-
+            await checkStatusWallet()
             getTotalCompletedByTeam();
         })();
     }, [teamsGroupSelected]);
@@ -257,11 +261,7 @@ export const Prizes = () => {
                         return newState;
                     })
                 }
-
             })
-            .catch(err => console.log(err));
-
-
         return () => controller.abort();
     }, [teamsGroupSelected, redeemSuccess]);
 
@@ -302,6 +302,8 @@ export const Prizes = () => {
             .finally(() => setIsLoading(false));
     }, [addressData, currentPrize, user, selectedSize]);
 
+    const currentGroup = teamsNameList.find(({ name }) => name === teamsGroupSelected)?.title
+
     return (
         <S.RewardsContainer>
             <>
@@ -330,9 +332,7 @@ export const Prizes = () => {
                     <aside className='left'>
                         <header>
                             <div className="group">
-                                <h3>{
-                                    teamsNameList.find(({ name }) => name === teamsGroupSelected)?.title
-                                }</h3>
+                                <h3>{currentGroup}</h3>
                             </div>
 
                             <div className="selector">
@@ -363,9 +363,7 @@ export const Prizes = () => {
                                     <ArrowIcon width={20} height={20} />
                                 </button>
 
-                                <h3>{
-                                    teamsNameList.find(({ name }) => name === teamsGroupSelected)?.title
-                                }</h3>
+                                <h3>{currentGroup}</h3>
 
                                 <button
                                     onClick={() => handlePreviousOrNextTeam('next')}
@@ -493,6 +491,7 @@ export const Prizes = () => {
                         : 940
                 }
                 open={isModalOpen}
+                // open={true}
                 onCancel={() => {
                     setIsModalOpen(false);
 

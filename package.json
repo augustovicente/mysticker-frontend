@@ -31,12 +31,18 @@
     },
     "scripts": {
         "start": "vite --host --open",
-        "build": "vite build --mode production",
+        "build:production": "vite build --mode production",
+        "build:dev": "vite build --mode dev",
         "preview": "vite preview",
+
         "zip": "cd build; zip -r ../build.zip *; cd ../",
-        "all": "yarn build; yarn export -o build; yarn zip; yarn scp",
+        "all": "yarn build:production; yarn zip; yarn scp",
         "scp": "scp build.zip root@161.35.109.81:/var/www/html/mysticker",
-        "unzip": "ssh root@161.35.109.81 \"cd /var/www/html/mysticker && find . \\! -name 'build.zip' -delete && unzip build.zip\""
+        "unzip": "ssh root@161.35.109.81 \"cd /var/www/html/mysticker && find . \\! -name 'build.zip' -delete && unzip build.zip && rm build.zip\"",
+
+        "all-dev": "yarn build:dev; yarn zip; yarn scp-dev",
+        "scp-dev": "scp build.zip root@161.35.109.81:/var/www/html/mysticker-dev",
+        "unzip-dev": "ssh root@161.35.109.81 \"cd /var/www/html/mysticker-dev && find . \\! -name 'build.zip' -delete && unzip build.zip && rm build.zip\""
     },
     "eslintConfig": {
         "extends": [
