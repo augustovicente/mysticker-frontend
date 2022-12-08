@@ -124,9 +124,9 @@ export const Prizes = () => {
     const [rewardStatus, setRewardStatus] = useState<prizeProps[]>(prizes);
     const prevTeamsGroupSelected = usePrevious(teamsNameList.findIndex(({ name }) => name === teamsGroupSelected));
     const { user, getUser } = useAuth();
-    const [isModalOpen, setIsModalOpen] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [addressData, setAddressData] = useState<dataCEP>({} as dataCEP);
-    const [isLoading, setIsLoading] = useToggle(true);
+    const [isLoading, setIsLoading] = useToggle(false);
     const [redeemSuccess, setRedeemSuccess] = useState(false);
     const [isModalErrorOpen, setIsModalErrorOpen] = useState(false);
     const [selectedSize, setSelectedSize] = useState("")
