@@ -21,6 +21,7 @@ import { ReactComponent as WalletIcon } from 'assets/imgs/wallet-white.svg';
 import { checkWallet } from "services/web3"
 import { useTranslation } from "react-i18next"
 import { useMetamaskChanged } from "hooks/useMetamaskChanged"
+import { GradientOverlay } from "Components/GradientOverlay"
 
 export const Album = () => {
     const [teamsGroupSelected, setTeamsGroupSelected] = useState("todos")
@@ -370,6 +371,8 @@ export const Album = () => {
                     </>
                 )}
             </WalletErrorModal>
+
+            <GradientOverlay />
         </AlbumContainer>
     )
 }

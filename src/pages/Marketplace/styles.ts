@@ -274,14 +274,15 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
             align-items: center;
             flex-direction: column;
             align-self: center;
-            width: 163px;
+            width: 80%;
             background-color: ${props => props.theme.colors.middle};
             border: ${props => props.theme.colors.light} solid 1.5px;
             border-radius: 10px;
             padding: 8px;
+            margin-left: -40px;
 
             position: absolute;
-            top: -75%;
+            top: -102%;
             z-index: 99;
 
             .sticker-stats-close-modal-btn {
@@ -295,8 +296,8 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
                 top: 0.5rem;
 
                 img {
-                    height: 0.75rem;
-                    width: 0.75rem;
+                    height: 1.25rem;
+                    width: 1.25rem;
                 }
             }
 
@@ -316,8 +317,14 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
                     flex-direction: column;
                     flex-wrap: wrap;
                     margin: 0;
-                    font-size: 0.563rem;
+                    font-size: 0.75rem;
                     font-weight: bold;
+
+                    span {
+                        &:nth-child(2) {
+                            font-size: 0.675rem;
+                        }
+                    }
                 }
             }
 
@@ -332,19 +339,19 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
                     p {
                         margin: 0;
                         color: ${props => props.theme.colors.colorLight};
-                        font-size: 0.5rem;
+                        font-size: 0.875rem;
                     }
 
                     img {
                         margin-right: 3px;
-                        height: 1rem;
-                        width: 1rem;
+                        height: 1.875rem;
+                        width: 1.875rem;
                     }
 
                     span {
                         color: white;
-                        font-size: 0.625rem;
-                        margin-left: 0.875rem;
+                        font-size: 0.875rem;
+                        margin-left: 0.5rem;
                     }
                 }
             }

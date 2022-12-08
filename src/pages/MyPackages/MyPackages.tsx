@@ -8,6 +8,7 @@ import { getPackages, open_package } from "models/User"
 import { Skeletons } from "./components/Skeletons"
 import { toast } from "react-toastify"
 import { RevealedCards } from "./components/RevealedCards"
+import { GradientOverlay } from "Components/GradientOverlay"
 
 type MyPackagesProps = {
     esmerald: number;
@@ -290,6 +291,9 @@ export const MyPackages = () => {
                     }
                 </>
             )}
+
+            <GradientOverlay />
+
         </MyPackagesContainer>
     )
 }

@@ -4,6 +4,7 @@ import { ChallengeCard } from 'pages/Challenge/Components/ChallengeCard/Challeng
 
 import { challengeMock } from './mock/challenge';
 import { Row } from 'antd';
+import { GradientOverlay } from 'Components/GradientOverlay';
 
 export const Challenge = () => {
     return (
@@ -42,6 +43,9 @@ export const Challenge = () => {
                     </Row>
                 </main>
             </section>
+
+            <GradientOverlay />
+
         </S.Container>
     )
 }

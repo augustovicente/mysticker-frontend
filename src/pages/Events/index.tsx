@@ -1,3 +1,4 @@
+import { GradientOverlay } from "Components/GradientOverlay"
 import { Timer } from "./components/Timer/Timer"
 import { EventsContainer } from "./styles"
 
@@ -136,6 +137,9 @@ export const Events = () => {
                     </ul>
                 </div>
             </main>
+
+            <GradientOverlay />
+
         </EventsContainer>
     )
 }

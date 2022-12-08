@@ -16,6 +16,7 @@ import { connect_wallet } from "models/User";
 import { ReactComponent as WalletIcon } from 'assets/imgs/wallet-white.svg';
 import { checkWallet } from "services/web3";
 import { useMetamaskChanged } from "hooks/useMetamaskChanged";
+import { GradientOverlay } from "Components/GradientOverlay";
 
 export const Marketplace = () => {
     const { user, getUser } = useAuth()
@@ -167,7 +168,7 @@ export const Marketplace = () => {
                     </>
                 )}
             </WalletErrorModal>
-
+            <GradientOverlay />
         </MarketplaceContainer>
     )
 }
