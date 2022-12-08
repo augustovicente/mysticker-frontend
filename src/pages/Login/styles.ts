@@ -56,4 +56,15 @@ export const Container = styled.div`
             margin: 10px auto;
         }
     }
+
+    @media (max-width: 768px) {
+        padding: 0;
+        form {
+            margin-top: 64px;
+
+            a {
+                margin-left: 0;
+            }
+        }
+    }
 `;

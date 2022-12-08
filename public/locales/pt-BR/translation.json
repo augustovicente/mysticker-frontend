@@ -191,6 +191,7 @@
         }
     },
     "metamask": {
-        "not-found": "Metamask não tá instalada ai paizão!"
+        "not-found": "Metamask não tá instalada ai paizão!",
+        "pending": "Verifique sua carteira e tente novamente"
     }
 }

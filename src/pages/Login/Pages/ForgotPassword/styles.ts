@@ -89,4 +89,9 @@ export const Container = styled.div`
             }
         }
     }
+
+    @media (max-width: 768px) {
+        height: 85vh;
+        padding: 0;
+    }
 `;

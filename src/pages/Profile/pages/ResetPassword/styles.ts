@@ -156,7 +156,6 @@ export const Container = styled.section`
     }
 
     @media (max-width: 768px) {
-        padding: unset;
         div {
             width: 100%;
         }

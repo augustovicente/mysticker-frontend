@@ -119,6 +119,7 @@ export const Container = styled.section`
 
     @media (max-width: 768px) {
         background-size: cover;
+        padding: 0;
 
         div {
             width: 100%;

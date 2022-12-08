@@ -4,7 +4,7 @@ import $ from 'jquery';
 import "./Header.css";
 import { LoginButton } from './components/LoginButton';
 import { DefaultButton } from './components/DefaultButton';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from 'contexts/auth.context';
 import Radio, { RadioChangeEvent } from 'antd/es/radio';
 import Space from 'antd/es/space';
@@ -36,12 +36,16 @@ const Header = ({ hasContainer = true }: HeaderProps) => {
     const [isConnected, setIsConnected] = useState(false);
     const [currentWallet, setCurrentWallet] = useState<string | null>(null);
 
+    const location = useLocation();
+
     const handleChangeLanguage = (e: RadioChangeEvent) => {
         setSelectedLanguage(e.target.value);
         i18n.changeLanguage(e.target.value)
     };
 
     const checkStatusWallet = useCallback(async () => {
+        if (!user || !['/album', '/prizes', '/marketplace'].includes(location.pathname)) return
+
         setIsLoading(true);
 
         const status = await checkWallet();
@@ -81,8 +85,8 @@ const Header = ({ hasContainer = true }: HeaderProps) => {
     useMetamaskChanged(checkStatusWallet);
 
     const formattedWallet = isConnected
-        ? currentWallet?.slice(0, 6) + '...' + currentWallet?.slice(-4)
-        : null;
+        ? currentWallet?.length && currentWallet?.slice(0, 6) + '...' + currentWallet?.slice(-4)
+        : '';
 
 
     const menuItems = [
@@ -127,7 +131,7 @@ const Header = ({ hasContainer = true }: HeaderProps) => {
                             <>
                                 <button title={user?.wallets?.[0]?.address} onClick={handleCopyWallet} className="wallet">
                                     <span className='wallet-address'>
-                                        {formattedWallet}
+                                        {formattedWallet || ''}
                                     </span>
                                 </button>
                             </>
