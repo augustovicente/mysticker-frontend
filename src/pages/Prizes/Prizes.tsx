@@ -120,7 +120,7 @@ const prizes: prizeProps[] = [
 export const ContextModal = createContext<ContextModalProps>({} as ContextModalProps);
 
 export const Prizes = () => {
-    const [teamsGroupSelected, setTeamsGroupSelected] = useState("asia");
+    const [teamsGroupSelected, setTeamsGroupSelected] = useState("todos");
     const [rewardStatus, setRewardStatus] = useState<prizeProps[]>(prizes);
     const prevTeamsGroupSelected = usePrevious(teamsNameList.findIndex(({ name }) => name === teamsGroupSelected));
     const { user, getUser } = useAuth();
