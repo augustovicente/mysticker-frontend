@@ -121,15 +121,16 @@ const prizes: prizeProps[] = [
 export const ContextModal = createContext<ContextModalProps>({} as ContextModalProps);
 
 export const Prizes = () => {
-    const [teamsGroupSelected, setTeamsGroupSelected] = useState("todos");
+    const [teamsGroupSelected, setTeamsGroupSelected] = useState("asia");
     const [rewardStatus, setRewardStatus] = useState<prizeProps[]>(prizes);
     const prevTeamsGroupSelected = usePrevious(teamsNameList.findIndex(({ name }) => name === teamsGroupSelected));
     const { user, getUser } = useAuth();
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(true);
     const [addressData, setAddressData] = useState<dataCEP>({} as dataCEP);
     const [isLoading, setIsLoading] = useToggle(false);
     const [redeemSuccess, setRedeemSuccess] = useState(false);
     const [isModalErrorOpen, setIsModalErrorOpen] = useState(false);
+    const [selectedSize, setSelectedSize] = useState("")
 
     useScrollToElement('#selected-group', teamsGroupSelected);
 
@@ -171,8 +172,7 @@ export const Prizes = () => {
     }
 
     const currentPrize = useMemo(() => {
-        const prize = rewardStatus.find(({ teamGroup }) => teamGroup === teamsGroupSelected)
-        return prize
+        return rewardStatus.find(({ teamGroup }) => teamGroup === teamsGroupSelected)
     }, [teamsGroupSelected, rewardStatus]);
 
     const [ownedTeams, setOwnedTeams] = useState<string[]>([])
@@ -280,7 +280,7 @@ export const Prizes = () => {
         setIsLoading(true);
 
         await api.post('/redeem', {
-            ...(currentPrize?.sizes ? { size: currentPrize?.sizes } : {}),
+            ...(currentPrize?.sizes ? { size: selectedSize } : {}),
             type: currentPrize?.type,
             wallet,
         })
@@ -300,7 +300,7 @@ export const Prizes = () => {
                 return toast.error('Erro ao resgatar prêmio, tente novamente', { toastId: 'redeem-error' });
             })
             .finally(() => setIsLoading(false));
-    }, [addressData, currentPrize, user]);
+    }, [addressData, currentPrize, user, selectedSize]);
 
     return (
         <S.RewardsContainer>
@@ -514,7 +514,10 @@ export const Prizes = () => {
                             setRewardStatus
                         }}
                     >
-                        <ModalContentHasRedeem />
+                        <ModalContentHasRedeem
+                            selectedSize={selectedSize}
+                            setSelectedSize={setSelectedSize}
+                        />
                     </ContextModal.Provider>
                 </S.RewardModalContainer>
             </S.RewardModal>
