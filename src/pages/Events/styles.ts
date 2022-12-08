@@ -353,7 +353,7 @@ export const EventsContainer = styled.div`
                             width: calc(100%);
                             height: 282px;
                             top: 0%;
-                            left: 0%;
+                            left: -2%;
                             z-index: 1;
                         }
                     }

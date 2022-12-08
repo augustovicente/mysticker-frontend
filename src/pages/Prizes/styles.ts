@@ -636,8 +636,71 @@ export const RewardModalContainer = styled.div`
 
             div.select-size {
                 display: flex;
-                border: 1px solid red;
-                padding: 12px;
+            }
+        }
+        div.select-size-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: center;
+            width: 100%;
+
+            div.select-size {
+                display: flex;
+                flex-direction: column;
+                cursor: pointer;
+
+                .size-box {
+                    display: flex;
+                    align-items: center;
+                    width: 90px;
+                    height: 42px;
+                    border-radius: 10px;
+                    padding: 8px;
+                    background-color: ${({ theme }) => theme.colors.dark};
+
+                    .selected-size {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100%;
+                        width: 60%;
+                        font-size: 1rem;
+                        color: white;
+
+                        span {
+                            display: flex;
+                            width: 100%;
+                            justify-content: center;
+                        }
+
+                        &::after {
+                            display: flex;
+                            content: "";
+                            width: 3px;
+                            height: 80%;
+                            background: ${({ theme }) => theme.colors.light};
+                            border-radius: 10px;
+                        }
+                    }
+
+                    svg {
+                        width: 40%;
+                        transition: all .4s;
+
+                        &.open {
+                            transform: rotate(180deg);
+                        }
+                    }
+                }
+            }
+
+            span.size-title {
+                font-size: 12px;
+                cursor: pointer;
+                font-weight: bold;
+                color: ${({ theme }) => theme.colors.dark};
+                margin-top: 4px;
             }
         }
     }

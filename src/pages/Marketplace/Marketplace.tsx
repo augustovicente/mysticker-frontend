@@ -18,6 +18,7 @@ import { checkWallet } from "services/web3";
 import { useMetamaskChanged } from "hooks/useMetamaskChanged";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import { GradientOverlay } from "Components/GradientOverlay";
 
 export const Marketplace = () => {
     const { user, getUser } = useAuth()
@@ -171,7 +172,7 @@ export const Marketplace = () => {
                     </>
                 )}
             </WalletErrorModal>
-
+            <GradientOverlay />
         </MarketplaceContainer>
     )
 }

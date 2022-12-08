@@ -127,10 +127,12 @@ export const Prizes = () => {
     const { user, getUser } = useAuth();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [addressData, setAddressData] = useState<dataCEP>({} as dataCEP);
-    const [isLoading, setIsLoading] = useToggle(true);
+    const [isLoading, setIsLoading] = useToggle(false);
     const [redeemSuccess, setRedeemSuccess] = useState(false);
     const [isModalErrorOpen, setIsModalErrorOpen] = useState(false);
     const { t } = useTranslation();
+    const [selectedSize, setSelectedSize] = useState("")
+
     useScrollToElement('#selected-group', teamsGroupSelected);
 
     const teamsIconList = teamsList.map((team) => {
@@ -171,8 +173,7 @@ export const Prizes = () => {
     }
 
     const currentPrize = useMemo(() => {
-        const prize = rewardStatus.find(({ teamGroup }) => teamGroup === teamsGroupSelected)
-        return prize
+        return rewardStatus.find(({ teamGroup }) => teamGroup === teamsGroupSelected)
     }, [teamsGroupSelected, rewardStatus]);
 
     const [ownedTeams, setOwnedTeams] = useState<string[]>([])
@@ -282,7 +283,7 @@ export const Prizes = () => {
         setIsLoading(true);
 
         await api.post('/redeem', {
-            ...(currentPrize?.sizes ? { size: currentPrize?.sizes } : {}),
+            ...(currentPrize?.sizes ? { size: selectedSize } : {}),
             type: currentPrize?.type,
             wallet,
         })
@@ -302,7 +303,7 @@ export const Prizes = () => {
                 return toast.error('Erro ao resgatar prêmio, tente novamente', { toastId: 'redeem-error' });
             })
             .finally(() => setIsLoading(false));
-    }, [addressData, currentPrize, user]);
+    }, [addressData, currentPrize, user, selectedSize]);
 
     const currentGroup = teamsNameList.find(({ name }) => name === teamsGroupSelected)?.title
 
@@ -520,7 +521,10 @@ export const Prizes = () => {
                             setRewardStatus
                         }}
                     >
-                        <ModalContentHasRedeem />
+                        <ModalContentHasRedeem
+                            selectedSize={selectedSize}
+                            setSelectedSize={setSelectedSize}
+                        />
                     </ContextModal.Provider>
                 </S.RewardModalContainer>
             </S.RewardModal>
