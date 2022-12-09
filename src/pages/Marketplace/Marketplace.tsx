@@ -16,6 +16,8 @@ import { connect_wallet } from "models/User";
 import { ReactComponent as WalletIcon } from 'assets/imgs/wallet-white.svg';
 import { checkWallet } from "services/web3";
 import { useMetamaskChanged } from "hooks/useMetamaskChanged";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 import { GradientOverlay } from "Components/GradientOverlay";
 
 export const Marketplace = () => {
@@ -23,8 +25,9 @@ export const Marketplace = () => {
 
     const [exchangeRate, setExchangeRate] = useState<number>(0)
     const [stickerStatsModalIsOpen, setStickerStatsModalIsOpen] = useState<string[]>([]);
-    const [isLoading, setIsLoading] = useToggle()
+    const [isLoading, setIsLoading] = useState(false)
     const [isModalErrorOpen, setIsModalErrorOpen] = useState(false);
+    const { t } = useTranslation();
 
     const handleActionStickerModal = (id: string) => {
         if (!stickerStatsModalIsOpen.includes(id)) {
@@ -45,33 +48,29 @@ export const Marketplace = () => {
         }
     }, []);
 
-    const checkStatusWallet = useCallback(async () => {
-        const status = await checkWallet();
+    const checkStatusWallet = async () => {
+        setIsLoading(true);
+        const status = await checkWallet()
 
         if (status === 'connected') {
             setIsModalErrorOpen(false);
             setIsLoading(false)
         } else {
             setIsModalErrorOpen(true);
-            setIsLoading(false)
+            setIsLoading(true)
         }
-    }, [])
+    }
 
     useMetamaskChanged(checkStatusWallet);
 
     useEffect(() => {
-        setIsLoading(true);
-
         (async () => {
             if (!user) {
                 return setIsModalErrorOpen(true)
             }
 
-            checkStatusWallet()
-                .finally(() => setIsLoading(false))
+            await checkStatusWallet()
         })();
-
-        setIsLoading(false)
     }, [])
 
     return (
@@ -153,6 +152,11 @@ export const Marketplace = () => {
                                     .then(() => {
                                         setIsModalErrorOpen(false);
                                         getUser()
+                                    })
+                                    .catch((err) => {
+                                        if (err?.code === -32002) {
+                                            toast.error(t("metamask.pending"))
+                                        }
                                     })
                             }}
                         >

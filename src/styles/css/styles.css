@@ -5028,6 +5028,10 @@ button.pick-sticker {
     justify-content: center;
 }
 
+.col-12.p-0 {
+    border-radius: 5px;
+}
+
 button.pick-sticker svg {
     width: 22px;
     height: 22px;
@@ -5043,7 +5047,7 @@ section#buster img.boot {
     right: -64px;
     max-width: 364px;
     width: 100%;
-    z-index: 2;
+    z-index: 1;
     transform: scaleX(-1);
 }
 

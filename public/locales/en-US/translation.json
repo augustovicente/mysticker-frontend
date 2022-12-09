@@ -168,7 +168,8 @@
             "email_confirmation": "Email confirmation *",
             "password": "Create a password *",
             "confirm_password": "Confirm password *",
-            "terms_of_use": "I accept the terms of use"
+            "terms_of_use": "I accept the ",
+            "link_terms_of_use": "terms of use"
         },
         "actions": {
             "submit": "Sign Up",
@@ -191,6 +192,7 @@
         }
     },
     "metamask": {
-        "not-found": "Metamask not found, please install it"
+        "not-found": "Metamask not found, please install it",
+        "pending": "Check your wallet and try again"
     }
 }

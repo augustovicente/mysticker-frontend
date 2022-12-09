@@ -25,6 +25,7 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as LoginIcon } from 'assets/imgs/user.svg';
 import { ReactComponent as WalletIcon } from 'assets/imgs/wallet-white.svg';
 import { useMetamaskChanged } from 'hooks/useMetamaskChanged';
+import { useTranslation } from 'react-i18next';
 
 type HasRedeemResponse = {
     has_redeem: boolean;
@@ -129,6 +130,7 @@ export const Prizes = () => {
     const [isLoading, setIsLoading] = useToggle(false);
     const [redeemSuccess, setRedeemSuccess] = useState(false);
     const [isModalErrorOpen, setIsModalErrorOpen] = useState(false);
+    const { t } = useTranslation();
     const [selectedSize, setSelectedSize] = useState("")
 
     useScrollToElement('#selected-group', teamsGroupSelected);
@@ -199,6 +201,8 @@ export const Prizes = () => {
         if (status === 'connected') {
             getTotalCompletedByTeam();
             setIsModalErrorOpen(false);
+
+            getTotalCompletedByTeam();
         } else {
             setOwnedTeams([])
             setIsModalErrorOpen(true);
@@ -216,7 +220,6 @@ export const Prizes = () => {
             }
 
             await checkStatusWallet()
-            getTotalCompletedByTeam();
         })();
     }, [teamsGroupSelected]);
 
@@ -237,7 +240,7 @@ export const Prizes = () => {
 
     // Verificando se prêmio já foi resgatado
     useEffect(() => {
-        if (currentPrize?.type === 1) return;
+        if (isModalErrorOpen) return;
 
         const controller = new AbortController();
 
@@ -467,6 +470,11 @@ export const Prizes = () => {
                                     .then(() => {
                                         setIsModalErrorOpen(false);
                                         getUser()
+                                    })
+                                    .catch((err) => {
+                                        if (err?.code === -32002) {
+                                            toast.error(t("metamask.pending"))
+                                        }
                                     })
                             }}
                         >

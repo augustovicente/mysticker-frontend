@@ -1,5 +1,5 @@
 import { useCallback, useState, useMemo, useEffect } from "react"
-import { Link, NavLink } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { Sticker } from "./components/Sticker"
 import { teamsIconList } from "./mocks/teamsIconList"
 import { teamsNameList } from "./mocks/teamsNameList"
@@ -81,34 +81,6 @@ export const Album = () => {
         }
     }, [teamIndexSelected, ownedStikersAmount, availablePackages])
 
-    useEffect(() => {
-        const response = async () => {
-            setIsLoading(true)
-
-            if (!user) {
-                setIsLoading(false)
-            } else {
-                try {
-                    const response = await get_owned_tokens(players.map(player => player.id))
-
-                    setOwnedStickers(response)
-                    setIsLoading(false)
-                } catch (error) {
-                    setIsModalOpen(true)
-                    if (axios.isAxiosError(error)) {
-                        if (error.response?.status === 405) {
-                            return toast.error(error?.response?.data?.message)
-                        }
-
-                        return toast.error("Erro inesperado.")
-                    }
-                }
-            }
-        }
-
-        response()
-    }, [currentTeamSelected])
-
     const handleOk = () => {
         setIsModalOpen(false)
     }
@@ -138,17 +110,36 @@ export const Album = () => {
         })
     }
 
-    const checkStatusWallet = useCallback(async () => {
+    const checkStatusWallet = async () => {
         const status = await checkWallet();
 
         if (status === 'connected') {
-            update_packages();
+            await update_packages();
+            await getOwnedStickers();
             setIsModalOpen(false);
         } else {
             setOwnedStickers(['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'])
             setIsModalOpen(true);
         }
-    }, [])
+    }
+
+    const getOwnedStickers = async () => {
+        try {
+            const response = await get_owned_tokens(players.map(player => player.id))
+
+            setOwnedStickers(response)
+            setIsLoading(false)
+        } catch (error) {
+            setIsModalOpen(true)
+            if (axios.isAxiosError(error)) {
+                if (error.response?.status === 405) {
+                    return toast.error(error?.response?.data?.message)
+                }
+
+                return toast.error("Erro inesperado.")
+            }
+        }
+    }
 
     useMetamaskChanged(checkStatusWallet);
 
@@ -161,9 +152,9 @@ export const Album = () => {
             }
 
             await checkStatusWallet()
-            update_packages()
         })();
-    }, [])
+    }, [currentTeamSelected, isModalOpen]);
+
 
     return (
         <AlbumContainer>
@@ -356,6 +347,11 @@ export const Album = () => {
                                     .then(() => {
                                         setIsModalOpen(false);
                                         getUser()
+                                    })
+                                    .catch((err) => {
+                                        if (err?.code === -32002) {
+                                            toast.error(t("metamask.pending"))
+                                        }
                                     })
                             }}
                         >

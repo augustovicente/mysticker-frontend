@@ -1,6 +1,10 @@
 import { toast } from "react-toastify";
 import { api } from "services/api";
 import { connect, get_contract, web3 } from "services/web3";
+import i18n from 'i18next';
+
+const _window: any = window as any;
+const provider: any = _window.ethereum;
 
 const getPackages = async () =>
 {
@@ -57,24 +61,22 @@ const paste_stickers = async (country_id: number) =>
 
 const connect_wallet = async () =>
 {
-    const { 0: address } = await connect();
+    const address = await connect();
 
-    if (address)
-    {
-        api.post('vinculate-wallet', {
-            wallet: address
-         })
-            .then((res) => {
-                toast.success('Carteira vinculada com sucesso!');
-                localStorage.setItem('wallet', address.toString());
-            })
-            .catch((err) => {
-                toast.error(`Erro ao vincular carteira`);
-                console.log(err);
-            })
+    if (!address) throw new Error('address not found')
 
-            return address
-    }
+    api.post('vinculate-wallet', {
+        wallet: address[0]
+        })
+        .then((res) => {
+            toast.success('Carteira vinculada com sucesso!');
+        })
+        .catch((err) => {
+            toast.error(`Erro ao vincular carteira`);
+            console.log(err);
+        })
+
+    return address[0]
 }
 
 const get_owned_tokens = async (players: number[]) =>

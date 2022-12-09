@@ -20,13 +20,14 @@ const ResetPassword = lazy(() => import('pages/Profile/pages/ResetPassword/Reset
 const Events = lazy(() => import('pages/Events/index').then((module) => ({ default: module.Events })));
 const Challenge = lazy(() => import('pages/Challenge/Challenge').then((module) => ({ default: module.Challenge })));
 
+const Privacy = lazy(() => import('pages/Privacy').then((module) => ({ default: module.Privacy })));
+
 
 export const Router = () => {
     const { user } = useAuth();
 
     if (!user) {
         return (
-
             <Suspense fallback={<Loading />}>
                 <Routes>
                     <Route path="/" element={<BaseTemplate><Home /></BaseTemplate>} />
@@ -41,6 +42,8 @@ export const Router = () => {
                     <Route path="/rewards" element={<BaseTemplate footer={false}><Prizes /></BaseTemplate>} />
                     <Route path="/prizes" element={<BaseTemplate footer={false}><Prizes /></BaseTemplate>} />
 
+                    <Route path="/privacy" element={<BaseTemplate><Privacy /></BaseTemplate>} />
+
                     <Route path="*" element={<BaseTemplate footer={false}><NotFoundPage /></BaseTemplate>} />
                 </Routes>
             </Suspense>
@@ -50,9 +53,7 @@ export const Router = () => {
     return (
         <Suspense fallback={<Loading />}>
             <Routes>
-                {/* <Route> */}
                 <Route path='/' element={<Outlet />} >
-
                     <Route index element={<BaseTemplate><Home /></BaseTemplate>} />
                     <Route path="/prizes" element={<BaseTemplate footer={false}><Prizes /></BaseTemplate>} />
                     <Route path="/rewards" element={<BaseTemplate footer={false}><Prizes /></BaseTemplate>} />
@@ -64,6 +65,8 @@ export const Router = () => {
                     {/* <Route path="events" element={<BaseTemplate footer={false}><Events /></BaseTemplate>} /> */}
                     {/* <Route path='challenges' element={<BaseTemplate footer={false}><Challenge /></BaseTemplate>} /> */}
 
+                    <Route path="/privacy" element={<BaseTemplate><Privacy /></BaseTemplate>} />
+
                     <Route path="profile" element={(
                         <Outlet />
                     )}>
@@ -71,6 +74,7 @@ export const Router = () => {
                         <Route path="reset-password" element={<BaseTemplate footer={false}><ResetPassword /></BaseTemplate>} />
                     </Route>
                 </Route>
+
                 <Route path="*" element={<BaseTemplate footer={false}><NotFoundPage /></BaseTemplate>} />
             </Routes>
         </Suspense>
