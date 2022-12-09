@@ -42,7 +42,7 @@ export const Router = () => {
                     <Route path="/rewards" element={<BaseTemplate footer={false}><Prizes /></BaseTemplate>} />
                     <Route path="/prizes" element={<BaseTemplate footer={false}><Prizes /></BaseTemplate>} />
 
-                    <Route path="privacy" element={<BaseTemplate><Privacy /></BaseTemplate>} />
+                    <Route path="/privacy" element={<BaseTemplate><Privacy /></BaseTemplate>} />
 
                     <Route path="*" element={<BaseTemplate footer={false}><NotFoundPage /></BaseTemplate>} />
                 </Routes>
@@ -65,7 +65,7 @@ export const Router = () => {
                     {/* <Route path="events" element={<BaseTemplate footer={false}><Events /></BaseTemplate>} /> */}
                     {/* <Route path='challenges' element={<BaseTemplate footer={false}><Challenge /></BaseTemplate>} /> */}
 
-                    <Route path="privacy" element={<BaseTemplate><Privacy /></BaseTemplate>} />
+                    <Route path="/privacy" element={<BaseTemplate><Privacy /></BaseTemplate>} />
 
                     <Route path="profile" element={(
                         <Outlet />
