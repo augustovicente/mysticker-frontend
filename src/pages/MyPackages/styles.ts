@@ -33,6 +33,45 @@ export const MyPackagesContainer = styled.div`
     div.revealed-container{
         width: 100%;
         display: flex;
+        align-items: center;
+        justify-content: start;
+        flex-direction: column;
+        position: relative;
+
+        .modal-close {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            position: absolute;
+            width: 88px;
+            height: 30.32px;
+            border-radius: 8px;
+            padding: 2px;
+            top: -10%;
+            margin-left: -14%;
+
+            p, span {
+                margin: 0;
+            }
+
+            span {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                width: 30%;
+                border-radius: 8px;
+
+                background: ${props => props.theme.colors.middle};
+                margin-right: 5px;
+            }
+
+            p {
+                color: ${props => props.theme.colors.middle};
+                font-weight: bold;
+                font-size: 15px;
+            }
+        }
     }
 
     @keyframes show {
@@ -70,9 +109,7 @@ export const MyPackagesContainer = styled.div`
         text-align: center;
         padding: 22px;
         border-radius: 14px;
-
         animation-name: show;
-        animation-duration: 4s;
 
         * {
             margin: 0;
@@ -130,6 +167,11 @@ export const StickersPackageContainer = styled.li`
     max-width: 282px;
     border-radius: 30px;
     background: ${props => props.theme.colors.purple};
+
+    &.empty {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
 
     .stars-package-container {
         display: flex;
@@ -321,6 +363,11 @@ export const PackageContainer = styled(motion.div)`
     cursor: pointer;
     margin-bottom: 30vh;
     scale: 0.8;
+
+    &.empty {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
 `
 
 export const CardsListSkeletonContainer = styled.div`

@@ -9,7 +9,7 @@ type RevealedCardsProps = {
 
 export const RevealedCards = ({revealedCards, openMoreCards}:RevealedCardsProps) =>
 {
-    const [focusedCard, setFocusedCard] = useState<number>(0);
+    const [focusedCard, setFocusedCard] = useState<number>(1);
 
     const prev = () =>
     {
@@ -36,7 +36,7 @@ export const RevealedCards = ({revealedCards, openMoreCards}:RevealedCardsProps)
                 }}
             >
                 {revealedCards.map((card, index) => (
-                    <div 
+                    <div
                         className={'revealed-card '+((index == focusedCard)?'focused':'')}
                         key={'revealed-card-'+index}
                         onClick={() => setFocusedCard(index)}

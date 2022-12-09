@@ -4,7 +4,7 @@ import {
     TitleSkeletonContainer
 } from "../styles"
 
-export const Skeletons = () => {
+export const Skeletons = ({ isLoadingReveal }: { isLoadingReveal: boolean; }) => {
     return (
         <>
             <TitleSkeletonContainer>
@@ -56,6 +56,17 @@ export const Skeletons = () => {
                     />
                 </div>
             </CardsListSkeletonContainer>
+
+            {isLoadingReveal && (
+                <div className="revealing-message-container">
+                    <div className="revealing-message">
+                        <h4>Revelando!</h4>
+                        <p>Aguarde um instante...</p>
+
+                        <img className="revealing-spin" src="/assets/img/favicon.png" alt="" />
+                    </div>
+                </div>
+            )}
         </>
     )
 }
