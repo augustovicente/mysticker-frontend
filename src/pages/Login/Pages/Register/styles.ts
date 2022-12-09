@@ -51,14 +51,14 @@ export const Container = styled.div`
                 background: ${({ theme }) => theme.colors.greenNeon};
                 color: ${({ theme }) => theme.colors.dark};
 
-                border: 1px solid ${({ theme }) => theme.colors.colorMiddle};
+                outline: 2px solid ${({ theme }) => theme.colors.colorMiddle};
                 width: 100%;
                 min-height: 46px;
                 margin: 32px auto 0;
 
                 a {
                     color: ${({ theme }) => theme.colors.white};
-                    font-size: ${({ theme }) => theme.fontSizes.lg};
+                    font-size: ${({ theme }) => theme.fontSizes.md};
                     width: 100%;
                     min-height: 46px;
                     display: flex;
@@ -112,7 +112,7 @@ export const Container = styled.div`
             padding: 8px 0;
             min-height: 46px;
             max-height: 46px;
-            font-size: ${({ theme }) => theme.fontSizes.lg};
+            font-size: ${({ theme }) => theme.fontSizes.md};
             background: ${({ theme }) => theme.colors.greenNeon};
             color: ${({ theme }) => theme.colors.dark};
             font-weight: bold;

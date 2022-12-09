@@ -30,8 +30,7 @@ type Register = {
     password: string;
 }
 
-export const Register = () =>
-{
+export const Register = () => {
     const { t } = useTranslation();
     const registerSchema = Yup.object().shape({
         name: Yup.string().required(t('signup.errors.required_name') || ''),
@@ -190,6 +189,7 @@ export const Register = () =>
                             <input {...register('therms')} id='therms' type="checkbox" />
                             <label htmlFor='therms'>
                                 {t('signup.fields.terms_of_use')}
+                                <Link to="/privacy" target="_blank">{t('signup.fields.link_terms_of_use')}</Link>
                             </label>
                         </div>
                     </div>

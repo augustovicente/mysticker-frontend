@@ -13,7 +13,7 @@
             "img_alt_1": "Pacote de figurinha"
         },
         "section_3": {
-            "title": "Benefícioss",
+            "title": "Benefícios",
             "cards": {
                 "card_1": {
                     "title": "Desafios",
@@ -168,7 +168,8 @@
             "email_confirmation": "Confirmação de e-mail *",
             "password": "Crie uma senha *",
             "confirm_password": "Confirmar senha *",
-            "terms_of_use": "Li e aceito os Termos e Compromissos"
+            "terms_of_use": "Li e aceito os ",
+            "link_terms_of_use": "Termos e Compromissos"
         },
         "actions": {
             "submit": "Cadastrar",
