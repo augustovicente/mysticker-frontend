@@ -1,14 +1,13 @@
 import { stickersMock } from "pages/Marketplace/stickersMock"
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { MyPackagesContainer, PackageContainer, StickersPackageContainer } from "./styles"
-import { CarouselRef } from "antd/es/carousel"
-import { useToggle } from "hooks/useToggle"
 import { Link } from "react-router-dom"
 import { getPackages, open_package } from "models/User"
 import { Skeletons } from "./components/Skeletons"
 import { toast } from "react-toastify"
 import { RevealedCards } from "./components/RevealedCards"
 import { GradientOverlay } from "Components/GradientOverlay"
+import { Carousel } from "react-responsive-carousel"
 
 type MyPackagesProps = {
     esmerald: number;
@@ -18,7 +17,6 @@ type MyPackagesProps = {
 
 export const MyPackages = () => {
     const [count, setCount] = useState(0)
-    const carousel = useRef<CarouselRef>(null)
     const [selectedIndex, setSelectedIndex] = useState<number>(0)
     const [availablePackages, setAvailablePackages] = useState<MyPackagesProps>({
         esmerald: 0,
@@ -126,15 +124,15 @@ export const MyPackages = () => {
 
     const update_packages = async () => {
         getPackages().then((response: any) => {
-            if(parseInt(response[0]) > 0) {
+            if (parseInt(response[0]) > 0) {
                 setSelectedIndex(0)
             }
 
-            if(parseInt(response[1]) > 0) {
+            if (parseInt(response[1]) > 0) {
                 setSelectedIndex(1)
             }
 
-            if(parseInt(response[2]) > 0) {
+            if (parseInt(response[2]) > 0) {
                 setSelectedIndex(2)
             }
 
@@ -150,6 +148,16 @@ export const MyPackages = () => {
         update_packages();
     }, [])
 
+    const translateCardsContainer = useMemo(() => {
+        if(selectedIndex === 0) {
+            return "translateX(157px)"
+        } else if (selectedIndex === 1) {
+            return ""
+        }else if (selectedIndex === 2) {
+            return "translateX(-157px)"
+        }
+    }, [selectedIndex])
+
     return (
         <MyPackagesContainer>
             {isLoading ? (
@@ -161,14 +169,19 @@ export const MyPackages = () => {
                         Álbum
                     </h1>
                     {!isRevealing && !isRevealed &&
-                        (<ul className="desktop-cards">
+                        (<ul
+                            style={{ transform: translateCardsContainer }}
+                        >
                             {stickersMock.map(({ stars, title, type, id, numberType }, index) => selectedIndex === (id - 1) ? (
                                 <>
-                                    <StickersPackageContainer key={id} className={(id == 3
-                                                        ? availablePackages?.diamond
-                                                        : id == 2
-                                                            ? availablePackages?.obsidian
-                                                            : availablePackages?.esmerald) > 0 ? "" : "empty"}>
+                                    <StickersPackageContainer
+                                        key={id}
+                                        className={(id == 3
+                                            ? availablePackages?.diamond
+                                            : id == 2
+                                                ? availablePackages?.obsidian
+                                                : availablePackages?.esmerald) > 0 ? "" : "empty"}
+                                    >
                                         <div className="stars-package-container">
                                             <div className="stars-container">
                                                 <img src={stars} alt="" />

@@ -28,6 +28,11 @@ export const MyPackagesContainer = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
+        width: 100%;
+
+        @media (max-width: 640px) {
+            transform: none !important;
+        }
     }
 
     div.revealed-container{
@@ -363,10 +368,17 @@ export const PackageContainer = styled(motion.div)`
     cursor: pointer;
     margin-bottom: 30vh;
     scale: 0.8;
+    min-width: 156px;
+    max-width: 156px;
+    width: 156px;
 
     &.empty {
         opacity: 0.4;
         cursor: not-allowed;
+    }
+
+    @media (max-width: 640px) {
+        display: none;
     }
 `
 
