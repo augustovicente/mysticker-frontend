@@ -1,10 +1,11 @@
 import { buy_package } from "models/User";
 import { useCallback, useState } from "react";
-import { StickersPackageContainer, StickersSeparator } from "../styles"
+import { PixModal, StickersPackageContainer, StickersSeparator } from "../styles"
 import LockIcon from "assets/imgs/lock.svg"
 import { useAuth } from "contexts/auth.context";
 import { toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
+import { connect } from "services/web3";
 
 type StickerPackageProps = {
     stars: string;
@@ -37,9 +38,11 @@ export const StickerPackage = ({
     stickerStatsModalIsOpen
 }: StickerPackageProps) =>
 {
-    const [count, setCount] = useState(1)
-    const { user } = useAuth()
+    const [count, setCount] = useState<number>(1);
+    const [isPixModalOpen, setIsPixModalOpen] = useState(false);
+    const { user } = useAuth();
     const navigate = useNavigate();
+    const [accounts, setAccounts] = useState<string>();
 
     // example buy
     const handleBuy = async (package_type:number) =>
@@ -100,6 +103,11 @@ export const StickerPackage = ({
         if (count < 99) {
             setCount(count + 1);
         }
+    }, [count]);
+
+    const open_modal = useCallback(async () => {
+        setIsPixModalOpen(true);
+        setAccounts((await connect())[0]);
     }, [count]);
 
     return (
@@ -206,12 +214,28 @@ export const StickerPackage = ({
                         </div>
                     </div>
                 </div>
-                <div className="description">
+                <div className="description" onClick={open_modal}>
                     <span>Compre por PIX</span>
-                    <img className="lock" src={LockIcon} alt="" />
                     <img src="/assets/img/icons/pix-icon.svg" alt="" />
                 </div>
             </div>
+            <PixModal
+                open={isPixModalOpen}
+                onCancel={() => setIsPixModalOpen(false)}
+                footer={null}
+                style={{ paddingBottom: 0 }}
+                bodyStyle={{ 
+                    width: '100%',
+                    height: '100%' 
+                }}
+            >
+                <iframe
+                    className="iframeGateway"
+                    id="iframeGateway"
+                    src={'https://dev.itspay.io/itspayment?token=ZDg3ZTBkNDY2ZjY2NTUwODU3NDhjNDkwNzUzMjEyZGM6ZTMwZjVhYzdmYTJiZDQ4M2RiNzczOWM3NDc4NTJjM2M=&wallet='+accounts}
+                    frameBorder={0}
+                />
+            </PixModal>
         </StickersPackageContainer>
     )
 }

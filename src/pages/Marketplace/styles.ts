@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import Skeleton from "react-loading-skeleton"
+import Modal from "antd/es/modal"
 
 export const MarketplaceContainer = styled.div`
     margin-top: 8rem;
@@ -483,7 +484,7 @@ export const StickersPackageContainer = styled.li<StickersPackageContainerProps>
             background: white;
             border-bottom-right-radius: 30px;
             border-bottom-left-radius: 30px;
-            opacity: .7;
+            cursor: pointer;
             span {
                 font-weight: bold;
                 font-size: .7rem;
@@ -553,3 +554,21 @@ export const StickersSeparator = styled.div<StickerSeparatorProps>`
     height: 3px;
     margin: ${props => props.margin};
 `
+
+export const PixModal = styled(Modal)`
+    border: 2px rgba(255, 255, 255, .3) solid;
+    border-radius: 10px;
+    height: 70vh;
+    width: 60vw;
+    display: flex;
+    div.ant-modal-content {
+        width: 100%;
+        height: 100%;
+        div.ant-modal-body {
+            iframe{
+                width: 100%;
+                height: 100%;   
+            }
+        }
+    }
+`;
