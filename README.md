@@ -1,4 +1,4 @@
-# Mysticker
+# Mysticker Frontend
 
 **Mysticker** is your online sticker album utilizing NFT technology. Collect and trade stickers to complete subcollections (such as pages or groups of pages) and earn real-world prizes.
 
